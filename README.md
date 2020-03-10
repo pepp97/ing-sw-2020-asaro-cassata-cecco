@@ -1,4 +1,4 @@
-Gruppo 06
+Gruppo 06 \n
 Scaglione Margara
 
 Componenti del Gruppo:
