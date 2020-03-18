@@ -36,7 +36,7 @@ public class Square implements Target {
     /**
      * an array containing each square adjacent to this; adjacentSquare [0] is the one on the top-left and so on
      */
-    private Square [] adjacentSquares= new Square[9];
+    private Square [] adjacentSquares= new Square[8];
 
     /**
      *
@@ -49,6 +49,8 @@ public class Square implements Target {
         this.coordinateY = coordinateY;
         this.level=0;
     }
+
+
 
     public int getLevel() {
         return level;
@@ -66,7 +68,7 @@ public class Square implements Target {
         this.start_level = start_level;
     }
 
-    public Worker getWorker() {
+    public Worker getWorker(){
         return worker;
     }
 
@@ -81,6 +83,10 @@ public class Square implements Target {
      */
     public void setAdjacentSquares (int index, Square square){
         adjacentSquares [index]=square;
+    }
+
+    public Square[] getAdjacentSquares() {
+        return adjacentSquares;
     }
 
     @Override
