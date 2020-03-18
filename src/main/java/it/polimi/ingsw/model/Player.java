@@ -12,8 +12,8 @@ public class Player {
     //manca god
 
     /**
-     * costruttore della classe
-     * @param username
+     * this metod is the builder of the class
+     * @param username to identify the player
      */
     public Player(String username) {
         this.username = username;
@@ -23,9 +23,11 @@ public class Player {
 
 
     /**
-     * questo metodo serve per assegnare un worker ad un player
-     * @param a
+     * this method is used to assign a worker to the respective player
+     * @param a worker to assing
      */
+
+    //questo metodo serve per assegnare un worker ad un player
     public void assegnaWorker(Worker a){
         if(workers[0]==null) {
             workers[0]=a;

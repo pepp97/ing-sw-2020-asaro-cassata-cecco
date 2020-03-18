@@ -17,7 +17,10 @@ public class Worker implements Target {
     private Square actualPos;
     private List<Square> historyPos;
 
-
+    /**
+     * this metod is the builder of the class
+     * @param c color of the worker
+     */
     public Worker(Color c) {
         this.c = c;
         this.canBeMoved = true;
@@ -34,24 +37,29 @@ public class Worker implements Target {
 
 
     /**
-     * questo metodo mi serve per aggiornare la posizione del worker ad ogni suo spostamento
+     * this method is used to update the position of the worker for every movement
+     * @param pos is the position where is the pawn
      */
 
+    //questo metodo mi serve per aggiornare la posizione del worker ad ogni suo spostamento
     public void setActualPos(Square pos){
         this.actualPos=pos;
         aggiornaPos(pos); //aggiungo alla lista della cronologia delle posizioni quella corrente
     }
 
     /**
-     * questo metodo mi serve per aggiornare  la lista delle cronologia delle posizioni del worker nel turno
+     * this method is used to update the list that records each movement in the round of the player
+     * @param pos new position of the worker
      */
-
+    //questo metodo mi serve per aggiornare  la lista delle cronologia delle posizioni del worker nel turno
     public void aggiornaPos(Square pos){ this.historyPos.add(pos); }
 
     /**
-     * questo metodo verrà chiamato dal controller ogni turno per resettare la cronologia delle posizioni del worker
-     * prima dell'inizio di un nuovo turno turno e terrà nella lista solo la posizione attuale del worket
+     * this method is used by controller to reset the history of the worker position of from the previous round
+     *
      */
+    //questo metodo verrà chiamato dal controller ogni turno per resettare la cronologia delle posizioni del worker
+    //prima dell'inizio di un nuovo turno turno e terrà nella lista solo la posizione attuale del worker
 
     public void resetHystoricPos(){
         this.historyPos.clear();
