@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * represents a cell of square's matrix contained in feld
  * @author Giuseppe Asaro
@@ -34,9 +37,9 @@ public class Square implements Target {
     private Worker worker;
 
     /**
-     * an array containing each square adjacent to this; adjacentSquare [0] is the one on the top-left and so on
+     * a list containing each square adjacent to this
      */
-    private Square [] adjacentSquares= new Square[8];
+    private List <Square> adjacentSquares= new ArrayList<>();
 
     /**
      *
@@ -78,14 +81,13 @@ public class Square implements Target {
 
     /**
      *
-     * @param index the index in array to order to estabilish the cardinal order
      * @param square the actual adjacent square
      */
-    public void setAdjacentSquares (int index, Square square){
-        adjacentSquares [index]=square;
+    public void setAdjacentSquares (Square square){
+        adjacentSquares.add(square);
     }
 
-    public Square[] getAdjacentSquares() {
+    public List<Square> getAdjacentSquares() {
         return adjacentSquares;
     }
 
