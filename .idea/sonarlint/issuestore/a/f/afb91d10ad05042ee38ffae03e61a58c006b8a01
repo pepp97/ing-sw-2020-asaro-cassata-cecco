@@ -1,0 +1,7 @@
+
+Ksquid:S1068"/Remove this unused "coordinateX" private field.(ŸÆ¼‰ýÿÿÿÿ
+Fsquid:S1068"/Remove this unused "coordinateY" private field.(¼ƒ‡°
+fsquid:S00100?"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÊÉøª
+ksquid:S00100C"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ð„ÓŠùÿÿÿÿ
+nsquid:S00116"VRename this field "start_level" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÞÈýƒ
+nsquid:S00117C"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ð„ÓŠùÿÿÿÿ
