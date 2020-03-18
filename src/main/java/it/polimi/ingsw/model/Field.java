@@ -7,7 +7,8 @@ public class Field {
 
     public static void main(String[] args) {
         Field field=new Field();
-        System.out.println(field.getAvailableSquares().size());
+        System.out.println("aaaaaaaaaaa");
+       // System.out.println(field.getAvailableSquares().size());
     }
 
     private Square[][] squares = new Square[5][5];
@@ -52,7 +53,7 @@ public class Field {
                         squares[i][j].setAdjacentSquares(7, squares[i + 1][j + 1]);
                 }
 
-            availableMovement(squares[0][0]);
+            //availableMovement(squares[0][0]);
         }
 
         public void availableMovement(Square square){
