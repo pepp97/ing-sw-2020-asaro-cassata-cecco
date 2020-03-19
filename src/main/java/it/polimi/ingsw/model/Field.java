@@ -94,5 +94,15 @@ public class Field {
                     availableSquares.add(s);
         }
 
+    /**
+     *
+     * to clean the list at the end of each action
+     */
+
+    public void cleanList(){
+            this.availableSquares= new ArrayList<>();
+            return;
+        }
+
     }
 
