@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,6 +17,7 @@ public class Worker implements Target {
     private boolean canBuild;
     private Square actualPos;
     private List<Square> historyPos;
+    private List<Square> targetNotValid;
 
     /**
      * this metod is the builder of the class
@@ -28,6 +30,7 @@ public class Worker implements Target {
         this.canBuild = true;
         this.actualPos = null;
         this.historyPos=null;
+        this.targetNotValid = new ArrayList<>();
     }
 
     /**
@@ -82,6 +85,10 @@ public class Worker implements Target {
 
     public void setCanBuild(boolean canBuild) { this.canBuild = canBuild; }
 
+    public void setTargetNotValid(List<Square> targetNotValid) {
+        this.targetNotValid = targetNotValid;
+    }
+
 
 
     //metodi Getter
@@ -94,6 +101,10 @@ public class Worker implements Target {
     public boolean isCanBuild() { return canBuild; }
 
     public List<Square> getHistoryPos() { return historyPos; }
+
+    public List<Square> getTargetNotValid() {
+        return targetNotValid;
+    }
 
 
 }
