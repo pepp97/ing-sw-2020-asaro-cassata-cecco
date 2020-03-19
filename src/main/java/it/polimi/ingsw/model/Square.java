@@ -59,6 +59,9 @@ public class Square implements Target {
         return level;
     }
 
+    /**
+     * this metod is called to build a new level on the field
+     */
     public void upgrade () {
         level++;
     }
