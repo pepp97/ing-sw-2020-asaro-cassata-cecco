@@ -9,7 +9,7 @@ public class Player {
 
     private String username;
     private Worker[] workers;
-    //manca god
+    private God god;
 
     /**
      * this metod is the builder of the class
@@ -42,8 +42,12 @@ public class Player {
 
     public void setWorkers(Worker[] workers) { this.workers = workers; }
 
+    public void setGod(God god) { this.god = god; }
+
     //Metodi Getter
     public String getUsername() { return username; }
 
     public Worker[] getWorkers() { return workers; }
+
+    public God getGod() { return god; }
 }

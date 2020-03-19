@@ -30,6 +30,11 @@ public class Worker implements Target {
         this.historyPos=null;
     }
 
+    /**
+     * this method is used to find the position of the worker
+     * @return the actual position of the worker
+     */
+
     @Override
     public Square getSquare() {
         return this.actualPos;
