@@ -87,10 +87,11 @@ public class Field {
      *
      * @param square is the square from which the user's worker executes is his build
      *               it fills the availableSquare list.
+     * @param filter is use to filter the list to build
      */
-        public void availableUpgrade(Square square){
+        public void availableUpgrade(Square square, List <Integer> filter){
             for(Square s: square.getAdjacentSquares())
-                if(s.getLevel()!=4)
+                if(s.getLevel()!=4 && !(filter.contains(s.getLevel())))
                     availableSquares.add(s);
         }
 
