@@ -59,8 +59,8 @@ public class Square implements Target {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void upgrade () {
+        level++;
     }
 
     public int getStart_level() {

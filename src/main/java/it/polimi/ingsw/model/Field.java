@@ -7,8 +7,6 @@ public class Field {
 
     public static void main(String[] args) {
         Field field=new Field();
-        System.out.println("aaaaaaaaaaa");
-        System.out.println(field.getAvailableSquares().size());
     }
 
     private Square[][] squares = new Square[5][5];
@@ -21,10 +19,6 @@ public class Field {
 
     public Square[][] getSquares() {
         return squares;
-    }
-
-    public List<Square> getAvailableSquares() {
-        return availableSquares;
     }
 
     private void initSquare () {
@@ -58,7 +52,13 @@ public class Field {
 
         public void availableMovement(Square square){
             for(Square s: square.getAdjacentSquares())
-                if(s.getWorker()==null)
+                if(s.getWorker()==null && (s.getLevel()-square.getLevel())==1 && s.getLevel()!=4)
+                    availableSquares.add(s);
+        }
+
+        public void availableUpgrade(Square square){
+            for(Square s: square.getAdjacentSquares())
+                if(s.getLevel()!=4)
                     availableSquares.add(s);
         }
 
