@@ -32,7 +32,7 @@ public class Worker implements Target {
 
     @Override
     public Square getSquare() {
-        return null;
+        return this.actualPos;
     }
 
 
@@ -87,8 +87,6 @@ public class Worker implements Target {
     public boolean isCanMoveUp() { return canMoveUp; }
 
     public boolean isCanBuild() { return canBuild; }
-
-    public Square getActualPos() { return actualPos; }
 
     public List<Square> getHistoryPos() { return historyPos; }
 
