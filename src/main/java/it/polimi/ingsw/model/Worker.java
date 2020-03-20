@@ -16,7 +16,7 @@ public class Worker implements Target {
     private boolean canMoveUp;
     private boolean canBuild;
     private Square actualPos;
-    private List<Square> historyPos;
+    private List<Square> historyPos=new ArrayList<>();
     private List<Square> targetNotValid;
 
     /**
@@ -28,8 +28,8 @@ public class Worker implements Target {
         this.canBeMoved = true;
         this.canMoveUp = true;
         this.canBuild = true;
-        this.actualPos = null;
-        this.historyPos=null;
+        //this.actualPos = null;
+        //this.historyPos=null;
         this.targetNotValid = new ArrayList<>();
     }
 
@@ -60,7 +60,7 @@ public class Worker implements Target {
      * @param pos new position of the worker
      */
     //questo metodo mi serve per aggiornare  la lista delle cronologia delle posizioni del worker nel turno
-    public void aggiornaPos(Square pos){ this.historyPos.add(pos); }
+    private void aggiornaPos(Square pos){ this.historyPos.add(pos); }
 
     /**
      * this method is used by controller to reset the history of the worker position of from the previous round
@@ -106,5 +106,13 @@ public class Worker implements Target {
         return targetNotValid;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Worker worker = (Worker) o;
+        return c == worker.c &&
+                actualPos.equals(worker.actualPos);
+    }
 
 }

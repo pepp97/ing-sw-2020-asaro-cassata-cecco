@@ -54,6 +54,9 @@ public class Square implements Target {
     }
 
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public int getLevel() {
         return level;
@@ -105,4 +108,14 @@ public class Square implements Target {
     public void removeWorker(){
         this.worker=null;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Square)) return false;
+        Square square = (Square) o;
+        return coordinateX == square.coordinateX &&
+                coordinateY == square.coordinateY;
+    }
+
 }

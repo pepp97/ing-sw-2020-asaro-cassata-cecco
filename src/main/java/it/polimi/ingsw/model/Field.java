@@ -69,41 +69,12 @@ public class Field {
                         squares[i][j].setAdjacentSquares( squares[i + 1][j + 1]);
                 }
 
-            availableMovement(squares[0][0]);
+
         }
 
+}
 
-    /**
-     *
-     * @param square is the square from which the user's worker executes is his movement
-     *               it fills the availableSquare list.
-     */
-    public void availableMovement(Square square){
-            for(Square s: square.getAdjacentSquares())
-                if(s.getWorker()==null && (s.getLevel()-square.getLevel())==1 && s.getLevel()!=4)
-                    availableSquares.add(s);
-        }
-    /**
-     *
-     * @param square is the square from which the user's worker executes is his build
-     *               it fills the availableSquare list.
-     * @param filter is use to filter the list to build
-     */
-        public void availableUpgrade(Square square, List <Integer> filter){
-            for(Square s: square.getAdjacentSquares())
-                if(s.getLevel()!=4 && !(filter.contains(s.getLevel())))
-                    availableSquares.add(s);
-        }
 
-    /**
-     *
-     * to clean the list at the end of each action
-     */
 
-    public void cleanList(){
-            this.availableSquares= new ArrayList<>();
-            return;
-        }
 
-    }
 
