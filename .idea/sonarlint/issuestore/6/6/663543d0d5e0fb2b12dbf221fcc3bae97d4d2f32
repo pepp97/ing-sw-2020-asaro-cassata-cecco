@@ -1,7 +1,4 @@
 
-[
-squid:S106
-"9Replace this use of System.out or System.err by a logger.(ëÓ‘ëøÿÿÿÿ8º¡ßô.
-nsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(ÇÍ‚Şşÿÿÿÿ
-V
-squid:S106"9Replace this use of System.out or System.err by a logger.(Ñ·‰†8åğüô.
+usquid:S3776."RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(ÇÍ‚Şşÿÿÿÿ8îÒ‡¡.
+Hsquid:S1481"*Remove this unused "field" local variable.(Ø®´Ö8±Şü™.
+9squid:S3626i"Remove this redundant jump.(ûÁİ…8åñÁ¡.

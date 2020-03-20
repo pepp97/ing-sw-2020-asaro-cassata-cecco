@@ -11,3 +11,13 @@ _
 /src/main/java/it/polimi/ingsw/model/Worker.java,5\0\50a23c66e9a52961e71e550bf8c35e74387f8988
 _
 /src/main/java/it/polimi/ingsw/model/Target.java,0\b\0b2ddff030a6e562220a467b09178e4d2d9527ae
+^
+.src/main/java/it/polimi/ingsw/model/Board.java,0\c\0c0ddcbc30eb93c911a76d5b6b26d25a56847cdf
+^
+.src/main/java/it/polimi/ingsw/model/Color.java,c\8\c8deae7267d8ec1d6130cfd8ce084c507c4991a7
+]
+-src/main/java/it/polimi/ingsw/model/Game.java,9\5\950971fa7f452620730613b808121bde81e86f84
+\
+,src/main/java/it/polimi/ingsw/model/God.java,c\6\c6d79bdd5f7b2ccc5591a2c1fad71d46ceb04b53
+_
+/src/main/java/it/polimi/ingsw/model/Player.java,e\1\e19d6cc5cab1487940cbd25652aa891efd59c5aa
