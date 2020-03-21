@@ -42,17 +42,17 @@ public class Build implements SubAction {
     @Override
     public Boolean isUsable(Worker worker, Game game) {
 
-      List<Square> adiacentSquare = worker.getSquare().getAdjacentSquares();
+
       Boolean result = false;
-      int j = 0;
       List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
 
         for(Square s: worker.getSquare().getAdjacentSquares())
             if(s.getLevel()!=4 && !(cantDo.contains(s.getLevel()))) {
                 availableSquare.add(s);
                 result = true;
-                worker.setCanBuild(result);
             }
+
+        worker.setCanBuild(result);
 
       return result;
     }

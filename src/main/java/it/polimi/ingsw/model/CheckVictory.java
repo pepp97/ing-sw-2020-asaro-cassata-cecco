@@ -1,11 +1,23 @@
 package it.polimi.ingsw.model;
 
 /**
- * It is the micro-effect that have the role to check if the player have win
+ * It is the micro-effect that have the role to check if the player have win if he is go down by levelToWin level
  *  @author  Salvatore Cassata
  */
 
+
 public class CheckVictory implements  SubAction{
+
+    private int levelToWin;
+
+    public int getLevelToWin() {
+        return levelToWin;
+    }
+
+    public void setLevelToWin(int levelToWin) {
+        this.levelToWin = levelToWin;
+    }
+
     /**
      * @param worker
      * @param target
@@ -36,4 +48,5 @@ public class CheckVictory implements  SubAction{
         return false;
     }
 }
+
 

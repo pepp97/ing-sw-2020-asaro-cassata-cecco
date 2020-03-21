@@ -18,4 +18,35 @@ public class God {
 
     private List<Integer> cantDo = new ArrayList<>();
 
+    public List<SubAction> getEffect() {
+        return effect;
+    }
+
+    public void setEffect(List<SubAction> effect) {
+        this.effect = effect;
+    }
+
+    private List<SubAction> effect = new ArrayList<>();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String name;
+
+    public String getTextEffect() {
+        return textEffect;
+    }
+
+    public void setTextEffect(String textEffect) {
+        this.textEffect = textEffect;
+    }
+
+    private String textEffect;
+
+
 }
