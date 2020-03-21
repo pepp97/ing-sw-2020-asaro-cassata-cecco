@@ -9,8 +9,18 @@ public class Game {
     private Player currentPlayer;
     private Target targetSelected;
     private Board board;
+    private Target targetInUse;
+
 
     public Game() {
+    }
+
+    public Target getTargetInUse() {
+        return targetInUse;
+    }
+
+    public void setTargetInUse(Target targetInUse) {
+        this.targetInUse = targetInUse;
     }
 
     public List<Player> getPlayerList() {
