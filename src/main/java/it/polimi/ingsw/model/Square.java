@@ -85,6 +85,8 @@ public class Square implements Target {
         this.worker = worker;
     }
 
+
+
     /**
      *
      * @param square the actual adjacent square

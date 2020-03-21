@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model;
-
+//DEVE AVERE ISTANZA CONTROLLER CHE HA ATTRIBUTO SKIP.
 import java.util.ArrayList;
 import java.util.List;
 
