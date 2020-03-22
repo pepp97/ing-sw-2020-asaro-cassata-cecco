@@ -13,8 +13,12 @@ public class Build implements SubAction {
     public List<Square> getAvailableSquare() {
         return availableSquare;
     }
-
+    private boolean skippable=true;
     private List<Square> availableSquare = new ArrayList<>();
+
+    public Build(boolean skippable) {
+        this.skippable = skippable;
+    }
 
     /**
      * This method is called when a player say to build
@@ -25,10 +29,10 @@ public class Build implements SubAction {
      */
     @Override
     public void use( Worker worker, Target target, Game game) {
-        if(worker.isCanBuild()){
+    //    if(worker.getCanBuild()){
             target.getSquare().upgrade();
             game.getCurrentPlayer().getGod().getCantDo().clear();
-        }
+      //  }
 
     }
 
@@ -47,7 +51,7 @@ public class Build implements SubAction {
       List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
 
         for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getLevel()!=4 && !(cantDo.contains(s.getLevel()))) {
+            if(s.getWorker()==null && s.getLevel()!=4 && !(cantDo.contains(s.getLevel()))) {
                 availableSquare.add(s);
                 result = true;
             }

@@ -20,7 +20,7 @@ public class ChangePosition implements SubAction {
     public void use(Worker worker, Target target, Game game) {
         worker.getSquare().removeWorker();
         target.getSquare().setWorker(worker);
-        worker.setActualPos(target.getSquare());
+      //  worker.setActualPos(target.getSquare());
         worker.getHistoryPos().add(target.getSquare());
     }
 

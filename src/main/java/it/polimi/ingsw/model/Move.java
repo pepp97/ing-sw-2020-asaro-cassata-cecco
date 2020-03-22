@@ -20,7 +20,7 @@ public class Move implements SubAction {
     @Override
     public void use(Worker worker, Target target, Game game) {
 
-        if (worker.isCanBeMoved()){
+        if (worker.getCanBeMoved()){
             worker.getSquare().removeWorker();
             worker.setActualPos(target.getSquare());
 
@@ -40,7 +40,7 @@ public class Move implements SubAction {
 
 
         for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getWorker() == null && (worker.isCanMoveUp())) {
+            if(s.getWorker() == null && (worker.getCanMoveUp())) {
                 availableSquare.add(s);
                 result = true;
             }
