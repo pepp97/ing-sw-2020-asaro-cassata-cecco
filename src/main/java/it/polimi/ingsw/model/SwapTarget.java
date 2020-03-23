@@ -1,6 +1,13 @@
 package it.polimi.ingsw.model;
 
 public class SwapTarget implements SubAction {
+
+    private boolean skippable=true;
+
+    public SwapTarget(boolean skippable) {
+        this.skippable = skippable;
+    }
+
     /**
      * @param worker
      * @param target

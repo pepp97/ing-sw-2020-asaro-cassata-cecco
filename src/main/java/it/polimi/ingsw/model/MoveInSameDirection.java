@@ -2,7 +2,12 @@ package it.polimi.ingsw.model;
 
 public class MoveInSameDirection implements SubAction {
 
+    private boolean skippable=true;
     private Square positionToGo;
+
+    public MoveInSameDirection(boolean skippable) {
+        this.skippable = skippable;
+    }
 
     /**
      * @param worker

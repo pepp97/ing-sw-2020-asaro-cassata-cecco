@@ -6,6 +6,13 @@ package it.polimi.ingsw.model;
  */
 
 public class TheyDontMoveUp implements SubAction {
+
+    private boolean skippable=true;
+
+    public TheyDontMoveUp(boolean skippable) {
+        this.skippable = skippable;
+    }
+
     /**
      * @param worker
      * @param target
