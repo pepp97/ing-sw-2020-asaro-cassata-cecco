@@ -8,18 +8,27 @@ import java.util.List;
  */
 
 public class God {
+
+    private String name;
+
+    private String textEffect;
+
+    private String surname;
+
+    private List<String> Routine= new ArrayList<>();
+
+    private List<Integer> cantDo = new ArrayList<>();
+
+    public List<SubAction> getEffect() {
+        return effect;
+    }
+
     public List<Integer> getCantDo() {
         return cantDo;
     }
 
     public void setCantDo(List<Integer> cantDo) {
         this.cantDo = cantDo;
-    }
-
-    private List<Integer> cantDo = new ArrayList<>();
-
-    public List<SubAction> getEffect() {
-        return effect;
     }
 
     public void setEffect(List<SubAction> effect) {
@@ -36,8 +45,6 @@ public class God {
         this.name = name;
     }
 
-    private String name;
-
     public String getTextEffect() {
         return textEffect;
     }
@@ -46,7 +53,7 @@ public class God {
         this.textEffect = textEffect;
     }
 
-    private String textEffect;
+
 
 
 }
