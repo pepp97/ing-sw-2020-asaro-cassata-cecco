@@ -11,11 +11,17 @@ import java.util.List;
 public class LevelFilter implements SubAction {
 
     private List<Integer> cantDo = new ArrayList<>();
+    private boolean skippable;
 
+    public LevelFilter(List<Integer> cantDo, boolean skippable) {
+        this.cantDo = cantDo;
+        this.skippable = skippable;
+    }
 
     public List<Integer> getCantDo() {
         return cantDo;
     }
+
 
     public void setCantDo(List<Integer> cantDo) {
         this.cantDo = cantDo;
@@ -39,9 +45,10 @@ public class LevelFilter implements SubAction {
      */
 
     // faccio il controllo se può costruire così setto il livello altrimenti non lo setto, chiedersi se serve fare ciò
+    //sostituire con return true?
     @Override
     public Boolean isUsable(Worker worker, Game game) {
-        List<Square> adiacentSquare = worker.getSquare().getAdjacentSquares();
+       /* List<Square> adiacentSquare = worker.getSquare().getAdjacentSquares();
         Boolean result = false;
         int j = 0;
         List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
@@ -52,6 +59,7 @@ public class LevelFilter implements SubAction {
                 worker.setCanBuild(result);
             }
 
-        return result;
+        return result;*/
+       return true;
     }
 }
