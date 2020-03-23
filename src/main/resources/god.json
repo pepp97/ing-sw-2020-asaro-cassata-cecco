@@ -4,11 +4,11 @@
     "surname": "Il dio della musica",
     "description": "Tuo spostamento: il tuo lavoratore può spostarsi nella casella di un lavoratore avversario (usando le normali regole di spostamento) e costringerlo a occupare la casella appena liberata.",
     "Routine": [
-      {"effect":"changePosition", "skippable": 0},
-      {"effect":"changeTarget", "skippable": 1},
-      {"effect":"changePosition", "skippable": 1},
-      {"effect": "changeTarget", "skippable" : 1},
-      {"effect": "build" ,"skippable": 0}
+      {"effect":"changePosition", "skippable": false},
+      {"effect":"swapTarget", "skippable": true},
+      {"effect":"changePosition", "skippable": true},
+      {"effect": "swapTarget", "skippable" : true},
+      {"effect": "build" ,"skippable": false}
     ]
   },
 
@@ -18,11 +18,11 @@
     "surname": "La dea dalla caccia",
     "description": "Tuo spostamento: il tuo lavoratore può spostarsi una volta in più, ma non può tornare alla casella da cui è partito",
     "Routine": [
-      {"effect": "move", "skippable" : 0},
-      {"effect": "askUser", "skippable": 0},
-      {"effect": "filterNotSame", "skippable": 1},
-      {"effect": "move","skippable": 1},
-      {"effect": "build", "skippable": 0}
+      {"effect": "move", "skippable" : false},
+      {"effect": "askUser", "skippable": false},
+      {"effect": "filterNotSame", "skippable": true},
+      {"effect": "move","skippable": true},
+      {"effect": "build", "skippable": false}
     ]
   },
 
@@ -32,9 +32,9 @@
     "surname": "La dea dalla saggezza",
     "description": "Turno dell'avversario: se nel tuo ultimo turno uno dei tuoi lavoratori è salito di livello, in questo turno i lavoratori avversari non possono salire di livello",
     "Routine": [
-      {"effect": "move", "skippable" : 0},
-      {"effect": "build","skippable" : 0},
-      {"effect": "theyDoNotMoveUp","skippable" : 0}
+      {"effect": "move", "skippable" : false},
+      {"effect": "build","skippable" : false},
+      {"effect": "theyDoNotMoveUp","skippable" : false}
     ]
   },
 
@@ -44,10 +44,10 @@
     "surname": "Il titano che regge sulle spalle la volta celeste",
     "description": "Tua costruzione: il tuo lavoratore può costruire una cupola su qualsiasi livello, compreso il terreno",
     "Routine": [
-      {"effect": "move", "skippable": 0},
-      {"effect": "askUser", "skippable": 0},
-      {"effect":"filterLevel", "skippable": 1, "levels":  [1,2,3]},
-      {"effect": "build", "skippable" : 0}
+      {"effect": "move", "skippable": false},
+      {"effect": "askUser", "skippable": false},
+      {"effect":"filterLevel", "skippable": true, "levels":  [1,2,3]},
+      {"effect": "build", "skippable" : false}
     ]
   },
 
@@ -57,11 +57,11 @@
     "surname": "La dea dal raccolto",
     "description": "Tua costruzione: il tuo lavoratore può costruire una volta in più, ma non nella stessa casella",
     "Routine": [
-      {"effect": "move", "skippable": 0},
-      {"effect": "build", "skippable": 0},
-      {"effect": "askUser", "skippable": 0},
-      {"effect": "filterNotSame", "skippable": 1},
-      {"effect": "build",  "skippable": 1}
+      {"effect": "move", "skippable": false},
+      {"effect": "build", "skippable": false},
+      {"effect": "askUser", "skippable": false},
+      {"effect": "filterNotSame", "skippable": true},
+      {"effect": "build",  "skippable": true}
     ]
   },
 
@@ -71,12 +71,12 @@
     "surname": "Il dio delle fucine",
     "description": "Tua costruzione: il tuo lavoratore può costruire un blocco aggiuntivo (non una cupola) al di sopra del primo blocco",
     "Routine": [
-      {"effect": "move", "skippable": 0},
-      {"effect": "build", "skippable": 0},
-      {"effect": "askUser", "skippable": 0},
-      {"effect": "filterLevel", "skippable": 1, "levels":  [4]},
-      {"effect": "filterSame", "skippable": 1},
-      {"effect": "build", "skippable": 1}
+      {"effect": "move", "skippable": false},
+      {"effect": "build", "skippable": false},
+      {"effect": "askUser", "skippable": false},
+      {"effect": "filterLevel", "skippable": true, "levels":  [4]},
+      {"effect": "filterSame", "skippable": true},
+      {"effect": "build", "skippable": true}
     ]
   },
 
@@ -86,9 +86,9 @@
     "surname": "Il mostro della testa di toro",
     "description": "Tuo spostamento: il tuo lavoratore può spostarsi nella casella di un lavoratore avversario( in base alle normali regole di spostamento) se la casella successiva nella stessa direzione è libera. Il lavoratore avversario è costretto a spostarsi in quella casella (indipendentemente dal livello)",
     "Routine": [
-      {"effect": "changePosition", "skippable": 0},
-      {"effect": "moveSameDirection ", "skippable": 1},
-      {"effect": "build", "skippable": 0}
+      {"effect": "changePosition", "skippable": false},
+      {"effect": "moveSameDirection ", "skippable": true},
+      {"effect": "build", "skippable": false}
     ]
   },
 
@@ -97,9 +97,9 @@
     "surname": "Il dio dalla natura selvaggia",
     "description": "Condizione di vittoria: vinci anche se il tuo lavoratore è sceso di due o più livelli",
     "Routine": [
-      {"effect": "move", "skippable": 0},
-      {"effect": "checkVictory", "skippable": 0, "levels": [2]},
-      {"effect":"build", "skippable": 0}
+      {"effect": "move", "skippable": false},
+      {"effect": "checkVictory", "skippable": false, "levels": [2]},
+      {"effect":"build", "skippable": false}
     ]
   },
 
@@ -108,11 +108,11 @@
     "surname": "Il titano beneffatore dell'umanità",
     "description": "Tuo turno: se il tuo lavoratore non sale di livello, può costruire sia prima, sia dopo essere stato mosso",
     "Routine": [
-      {"effect":"askUser", "skippable": 0},
-      {"effect":"build", "skippable": 1},
-      {"effect":"youDontMoveUp", "skippable": 1},
-      {"effect":"move", "skippable": 0},
-      {"effect": "build", "skippable": 0}
+      {"effect":"askUser", "skippable": false},
+      {"effect":"build", "skippable": true},
+      {"effect":"youDontMoveUp", "skippable": true},
+      {"effect":"move", "skippable": false},
+      {"effect": "build", "skippable": false}
     ]
   }
 }

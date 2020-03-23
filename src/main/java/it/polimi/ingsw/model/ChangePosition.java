@@ -10,6 +10,12 @@ import java.util.List;
 public class ChangePosition implements SubAction {
 
     private List<Square> availableSquare = new ArrayList<>();
+    private boolean skippable;
+
+    public ChangePosition(boolean skippable) {
+        this.skippable = skippable;
+    }
+
     /**
      * this use change the position of the player and save the new position in the HistoryPos of the worker
      * @param worker is the worker to move
@@ -20,8 +26,8 @@ public class ChangePosition implements SubAction {
     public void use(Worker worker, Target target, Game game) {
         worker.getSquare().removeWorker();
         target.getSquare().setWorker(worker);
-        worker.setActualPos(target.getSquare());
-        worker.getHistoryPos().add(target.getSquare());
+        //worker.setActualPos(target.getSquare());
+        // worker.getHistoryPos().add(target.getSquare());
     }
 
     /**
@@ -38,10 +44,10 @@ public class ChangePosition implements SubAction {
 
 
         for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getWorker() != null) {
+            if(s.getLevel() < 4 &&(s.getWorker()==null || s.getWorker().getC()!=worker.getC())&& s.getLevel()-1<=worker.getSquare().getLevel()) {
                 availableSquare.add(s);
                 result = true;
-                worker.setCanBuild(result);
+                worker.setCanBeMoved(result);
             }
 
         return result;

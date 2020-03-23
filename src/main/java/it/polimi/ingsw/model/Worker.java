@@ -94,11 +94,11 @@ public class Worker implements Target {
     //metodi Getter
     public Color getC() { return c; }
 
-    public boolean isCanBeMoved() { return canBeMoved; }
+    public boolean getCanBeMoved() { return canBeMoved; }
 
-    public boolean isCanMoveUp() { return canMoveUp; }
+    public boolean getCanMoveUp() { return canMoveUp; }
 
-    public boolean isCanBuild() { return canBuild; }
+    public boolean getCanBuild() { return canBuild; }
 
     public List<Square> getHistoryPos() { return historyPos; }
 

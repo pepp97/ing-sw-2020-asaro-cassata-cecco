@@ -10,9 +10,15 @@ public class Game {
     private Target targetSelected;
     private Board board;
     private Target targetInUse;
+    private Field field;
 
 
     public Game() {
+        field=new Field();
+    }
+
+    public Field getField() {
+        return field;
     }
 
     public Target getTargetInUse() {

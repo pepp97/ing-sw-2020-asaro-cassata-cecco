@@ -85,8 +85,6 @@ public class Square implements Target {
         this.worker = worker;
     }
 
-
-
     /**
      *
      * @param square the actual adjacent square
@@ -97,6 +95,14 @@ public class Square implements Target {
 
     public List<Square> getAdjacentSquares() {
         return adjacentSquares;
+    }
+
+    public int getCoordinateX() {
+        return coordinateX;
+    }
+
+    public int getCoordinateY() {
+        return coordinateY;
     }
 
     @Override
