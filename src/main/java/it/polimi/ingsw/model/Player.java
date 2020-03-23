@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * rapresent the players
  * @author Riccardo Cecco
@@ -8,7 +11,7 @@ package it.polimi.ingsw.model;
 public class Player {
 
     private String username;
-    private Worker[] workers;
+    private List<Worker> workers=new ArrayList<>(2);
     private God god;
 
 
@@ -18,37 +21,32 @@ public class Player {
      */
     public Player(String username) {
         this.username = username;
-        this.workers = new Worker[2];
 
     }
 
 
     /**
      * this method is used to assign a worker to the respective player
-     * @param a worker to assing
+     * @param worker worker to assing
      */
 
-    //questo metodo serve per assegnare un worker ad un player
-    public void assegnaWorker(Worker a){
-        if(workers[0]==null) {
-            workers[0]=a;
-        }else if(workers[1]==null){
-            workers[1]=a;
-        }
+   //questo metodo serve per assegnare un worker ad un player
+   public void add(Worker worker){
+        if(workers.size()<2)
+            workers.add(worker);
     }
-
 
     //Metodi Setter
     public void setUsername(String username) { this.username = username; }
 
-    public void setWorkers(Worker[] workers) { this.workers = workers; }
+    public void setWorkers(List <Worker> workers) { this.workers = workers; }
 
     public void setGod(God god) { this.god = god; }
 
     //Metodi Getter
     public String getUsername() { return username; }
 
-    public Worker[] getWorkers() { return workers; }
+    public List <Worker>  getWorkers() { return workers; }
 
     public God getGod() { return god; }
 }

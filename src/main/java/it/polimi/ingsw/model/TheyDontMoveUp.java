@@ -35,8 +35,8 @@ public class TheyDontMoveUp implements SubAction {
      */
     @Override
     public Boolean isUsable(Worker worker, Game game) {
-        Worker workerInUse = (Worker) game.getTargetInUse();
-            if (workerInUse.getHistoryPos().get(workerInUse.getHistoryPos().size() - 1).getLevel() - workerInUse.getHistoryPos().get(workerInUse.getHistoryPos().size() - 2).getLevel() == 1)
+       // Worker workerInUse = (Worker) game.getTargetInUse();
+            if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() - worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() == 1)
                 return true;
             return false;
 

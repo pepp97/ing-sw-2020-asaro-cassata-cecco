@@ -16,9 +16,9 @@ public class MoveInSameDirection implements SubAction {
      */
     @Override
     public void use(Worker worker, Target target, Game game) {
-
-        worker.getSquare().removeWorker();
-        worker.setActualPos(positionToGo);
+        Worker toMove=(Worker)target;
+        toMove.getSquare().removeWorker();
+        positionToGo.setWorker(toMove);
 
     }
 
@@ -34,16 +34,16 @@ public class MoveInSameDirection implements SubAction {
         int coordinateX = worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateX();
         int coordinateY = worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateY();
         Boolean result = false;
-        Square[][] squares = game.getBoard().getField().getSquares();
+        Square[][] squares = game.getField().getSquares();
 
         if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getCoordinateX() > worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateX())
-            coordinateX = coordinateX + 1;
-        else if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getCoordinateX() < worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateX())
             coordinateX = coordinateX - 1;
+        else if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getCoordinateX() < worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateX())
+            coordinateX = coordinateX + 1;
         if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getCoordinateY() > worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateY())
-            coordinateY = coordinateY + 1;
-        else if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getCoordinateY() < worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateY())
             coordinateY = coordinateY - 1;
+        else if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getCoordinateY() < worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateY())
+            coordinateY = coordinateY + 1;
         if (squares[coordinateX][coordinateY].getWorker() == null) {
             positionToGo = squares[coordinateX][coordinateY].getSquare();
             return true;
