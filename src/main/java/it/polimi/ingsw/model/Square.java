@@ -83,10 +83,7 @@ public class Square implements Target {
 
     public void setWorker(Worker worker) {
         this.worker = worker;
-        worker.setActualPos(this);
     }
-
-
 
     /**
      *
@@ -98,6 +95,14 @@ public class Square implements Target {
 
     public List<Square> getAdjacentSquares() {
         return adjacentSquares;
+    }
+
+    public int getCoordinateX() {
+        return coordinateX;
+    }
+
+    public int getCoordinateY() {
+        return coordinateY;
     }
 
     @Override

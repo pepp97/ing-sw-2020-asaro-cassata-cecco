@@ -40,10 +40,12 @@ public class Move implements SubAction {
 
 
         for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getWorker() == null && (worker.getCanMoveUp())) {
-                availableSquare.add(s);
-                result = true;
-            }
+            if(s.getWorker() == null )
+                if (worker.getCanMoveUp() || worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() >= s.getLevel()) {
+                    availableSquare.add(s);
+                    result = true;
+                }
+
 
         worker.setCanBeMoved(result);
 
