@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SquareTest {
 
-    private int level;
+    /*private int level;
     private Square square;
     private Worker worker;
 
@@ -29,6 +29,6 @@ public class SquareTest {
         assertFalse(square.getAdjacentSquares().contains(s));
         square.setAdjacentSquares(s);
         assertTrue(square.getAdjacentSquares().contains(s));
-    }
+    }*/
 
 }

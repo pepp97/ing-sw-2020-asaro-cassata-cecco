@@ -10,9 +10,7 @@ import java.util.List;
 
 public class Field {
 
-    public static void main(String[] args) {
-        Field field=new Field();
-    }
+    public static void main(String[] args) { Field field=new Field(); }
 
     /**
      * the matrix of the squares that are in the field

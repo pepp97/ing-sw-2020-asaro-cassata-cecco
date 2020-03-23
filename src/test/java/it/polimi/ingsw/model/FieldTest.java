@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FieldTest {
 
-    private Field field;
+    /*private Field field;
 
 
     @Test
@@ -18,6 +18,5 @@ public class FieldTest {
         Square [][]s=field.getSquares();
         assertTrue(s[1][1].getAdjacentSquares().contains(s[0][0]));
         assertFalse(s[1][1].getAdjacentSquares().contains(s[3][3]));
-    }
-
+    }*/
 }
