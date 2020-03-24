@@ -1,13 +1,13 @@
 package it.polimi.ingsw.model;
 
 
-
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class BuildTest {
 
@@ -24,7 +24,7 @@ public class BuildTest {
         game.setCurrentPlayer(p);
         God g=new God();
         p.setGod(g);
-        List<Integer>cantdo=new ArrayList<>();
+        List<Integer> cantdo=new ArrayList<>();
         cantdo.add(2);
         g.setCantDo(cantdo);
         field=game.getField();
@@ -46,7 +46,6 @@ public class BuildTest {
         build.use(w1, squares[1][1],game);
         assertEquals(2, squares[1][1].getLevel());
     }
-
 
 
 }
