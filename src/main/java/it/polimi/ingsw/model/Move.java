@@ -10,42 +10,38 @@ import java.util.List;
 
 public class Move implements SubAction {
 
-    private boolean skippable;
+
     private List<Square> availableSquare = new ArrayList<>();
 
-    public Move(boolean skippable) {
-        this.skippable = skippable;
-    }
 
     /**
-     * @param worker
-     * @param target
      * @param game
      */
     @Override
-    public void use(Worker worker, Target target, Game game) {
+    public void use(Game game) {
+        Worker worker = (Worker) game.getTargetInUse();
 
         if (worker.getCanBeMoved()){
             worker.getSquare().removeWorker();
             //worker.setActualPos(target.getSquare());
-            target.getSquare().setWorker(worker);
+            game.getTargetSelected().getSquare().setWorker(worker);
         }
 
     }
 
     /**
-     * @param worker
      * @param game
      * @return
      */
     @Override
-    public Boolean isUsable(Worker worker, Game game) {
+    public Boolean isUsable(Game game) {
 
         Boolean result = false;
+        Worker worker = (Worker) game.getTargetInUse();
 
 
         for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getWorker() == null && (worker.getCanMoveUp())&& worker.getSquare().getLevel()>=s.getLevel()-1) {
+            if(s.getWorker() == null && s.getLevel()<4 &&((worker.getCanMoveUp()&& worker.getSquare().getLevel()==s.getLevel()-1) || (worker.getSquare().getLevel()>s.getLevel()-1))) {
                 availableSquare.add(s);
                 result = true;
             }

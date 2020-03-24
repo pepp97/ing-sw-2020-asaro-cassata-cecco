@@ -7,31 +7,24 @@ package it.polimi.ingsw.model;
 
 public class YouDontMoveUp implements SubAction {
 
-    private boolean skippable=true;
 
-    public YouDontMoveUp(boolean skippable) {
-        this.skippable = skippable;
-    }
 
     /**
-     * @param worker
-     * @param target
      * @param game
      */
     @Override
-    public void use(Worker worker, Target target, Game game) {
+    public void use(Game game) {
 
         for(Worker w: game.getCurrentPlayer().getWorkers())
             w.setCanMoveUp(false);
     }
 
     /**
-     * @param worker
      * @param game
      * @return
      */
     @Override
-    public Boolean isUsable(Worker worker, Game game) {
+    public Boolean isUsable( Game game) {
         return true;
     }
 }

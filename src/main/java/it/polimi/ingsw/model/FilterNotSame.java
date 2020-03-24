@@ -7,26 +7,30 @@ package it.polimi.ingsw.model;
 
 public class FilterNotSame implements SubAction {
     /**
-     * @param worker
-     * @param target
      * @param game
      */
     @Override
-    public void use(Worker worker, Target target, Game game) {
+    public void use(Game game) {
 
-        
+        // controllare tutte per build o passare penultima posizione
 
+        Worker worker = (Worker) game.getTargetInUse();
 
+        for(Square s: worker.getSquare().getAdjacentSquares()){
+            if(s.getStart_level() != s.getLevel())
+                worker.setSquareNotAvailable(s);
+        }
+        if (worker.getSquareNotAvailable() == null)
+            worker.setSquareNotAvailable(worker.getHistoryPos().get(0)); // passo la penultima posizione, che coincide con la prima
 
     }
 
     /**
-     * @param worker
      * @param game
      * @return
      */
     @Override
-    public Boolean isUsable(Worker worker, Game game) {
+    public Boolean isUsable(Game game) {
 
         return true;
 

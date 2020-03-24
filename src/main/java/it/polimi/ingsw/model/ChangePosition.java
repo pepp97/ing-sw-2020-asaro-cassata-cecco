@@ -10,37 +10,31 @@ import java.util.List;
 public class ChangePosition implements SubAction {
 
     private List<Square> availableSquare = new ArrayList<>();
-    private boolean skippable;
 
-    public ChangePosition(boolean skippable) {
-        this.skippable = skippable;
-    }
 
     /**
      * this use change the position of the player and save the new position in the HistoryPos of the worker
-     * @param worker is the worker to move
-     * @param target is the Square where the worker will go
      * @param game
      */
     @Override
-    public void use(Worker worker, Target target, Game game) {
-        worker.getSquare().removeWorker();
-        target.getSquare().setWorker(worker);
+    public void use(Game game) {
+        game.getTargetInUse().getSquare().removeWorker();
+        game.getTargetSelected().getSquare().setWorker((Worker) game.getTargetInUse());
         //worker.setActualPos(target.getSquare());
         // worker.getHistoryPos().add(target.getSquare());
     }
 
     /**
      *
-     * @param worker
      * @param game
      * @return if true the worker can change position
      */
 
     @Override
-    public Boolean isUsable(Worker worker, Game game) {
+    public Boolean isUsable(Game game) {
 
         Boolean result = false;
+        Worker worker = (Worker) game.getTargetInUse();
 
 
         for(Square s: worker.getSquare().getAdjacentSquares())
