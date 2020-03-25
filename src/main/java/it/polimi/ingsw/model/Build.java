@@ -13,24 +13,19 @@ public class Build implements SubAction {
     public List<Square> getAvailableSquare() {
         return availableSquare;
     }
-    private boolean skippable=true;
+
     private List<Square> availableSquare = new ArrayList<>();
 
-    public Build(boolean skippable) {
-        this.skippable = skippable;
-    }
 
     /**
      * This method is called when a player say to build
-     * @param worker is the one choosed by the Player
-     * @param target
      * @param game
      *
      */
     @Override
-    public void use( Worker worker, Target target, Game game) {
+    public void use(Game game) {
     //    if(worker.getCanBuild()){
-            target.getSquare().upgrade();
+            game.getTargetSelected().getSquare().upgrade();
             game.getCurrentPlayer().getGod().getCantDo().clear();
       //  }
 
@@ -38,20 +33,20 @@ public class Build implements SubAction {
 
     /**
      * this method control if the workers choosed can build
-     * @param worker is the one choosed by the Player
      * @param game
      * @return if true the worker can build
      */
 
     @Override
-    public Boolean isUsable(Worker worker, Game game) {
+    public Boolean isUsable(Game game) {
 
 
       Boolean result = false;
       List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
+      Worker worker = (Worker) game.getTargetInUse();
 
         for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getWorker()==null && s.getLevel()!=4 && !(cantDo.contains(s.getLevel()))) {
+            if(s.getWorker()==null && s.getLevel()!=4 && !(cantDo.contains(s.getLevel())) && s != worker.getSquareNotAvailable()) {
                 availableSquare.add(s);
                 result = true;
             }

@@ -18,6 +18,7 @@ public class Worker implements Target {
     private Square actualPos;
     private List<Square> historyPos=new ArrayList<>();
     private List<Square> targetNotValid;
+    private Square squareNotAvailable;
 
     /**
      * this metod is the builder of the class
@@ -89,7 +90,9 @@ public class Worker implements Target {
         this.targetNotValid = targetNotValid;
     }
 
-
+    public void setSquareNotAvailable(Square squareNotAvailable) {
+        this.squareNotAvailable = squareNotAvailable;
+    }
 
     //metodi Getter
     public Color getC() { return c; }
@@ -104,6 +107,10 @@ public class Worker implements Target {
 
     public List<Square> getTargetNotValid() {
         return targetNotValid;
+    }
+
+    public Square getSquareNotAvailable() {
+        return squareNotAvailable;
     }
 
     @Override

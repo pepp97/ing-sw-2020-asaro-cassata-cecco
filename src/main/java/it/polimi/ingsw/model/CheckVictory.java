@@ -19,12 +19,10 @@ public class CheckVictory implements  SubAction{
     }
 
     /**
-     * @param worker
-     * @param target
      * @param game
      */
     @Override
-    public void use(Worker worker, Target target, Game game) {
+    public void use(Game game) {
 
         //se è salito da livello 3 a livello 4
 
@@ -33,12 +31,12 @@ public class CheckVictory implements  SubAction{
     }
 
     /**
-     * @param worker
      * @param game
      * @return
      */
     @Override
-    public Boolean isUsable(Worker worker, Game game) {
+    public Boolean isUsable(Game game) {
+        Worker worker = (Worker) game.getTargetInUse();
         // vedere come fare per Pan
         if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() == 4 && worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() == 3) {
             return true;

@@ -2,35 +2,29 @@ package it.polimi.ingsw.model;
 
 public class MoveInSameDirection implements SubAction {
 
-    private boolean skippable=true;
     private Square positionToGo;
 
-    public MoveInSameDirection(boolean skippable) {
-        this.skippable = skippable;
-    }
 
     /**
-     * @param worker
-     * @param target
      * @param game
      */
     @Override
-    public void use(Worker worker, Target target, Game game) {
-        Worker toMove=(Worker)target;
+    public void use(Game game) {
+        Worker toMove=(Worker)game.getTargetSelected();
         toMove.getSquare().removeWorker();
         positionToGo.setWorker(toMove);
 
     }
 
     /**
-     * @param worker
      * @param game
      * @return
      */
 
     // aumenta aumenta, diminuisce diminuisce per le diagonali,
     @Override
-    public Boolean isUsable(Worker worker, Game game) {
+    public Boolean isUsable(Game game) {
+        Worker worker = (Worker) game.getTargetInUse();
         int coordinateX = worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateX();
         int coordinateY = worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateY();
         Boolean result = false;
