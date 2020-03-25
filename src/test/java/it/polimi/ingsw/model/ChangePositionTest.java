@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ChangePositionTest {
 
-    private ChangePosition changePosition=new ChangePosition(true);
+    private ChangePosition changePosition=new ChangePosition();
     private Field field;
     private Game game=new Game();
     Worker w1=new Worker(Color.Black);
@@ -17,7 +18,7 @@ public class ChangePositionTest {
     Worker w3=new Worker(Color.Brown);
 
     @Test
-    public void changePositionTest(){
+    void changePositionTest(){
         game=new Game ();
         field=game.getField();
         Square [][] squares=field.getSquares();
@@ -36,11 +37,24 @@ public class ChangePositionTest {
         squares[0][3].setLevel(2);
         squares[1][3].setLevel(2);
         squares[1][4].setLevel(2);
-        assertFalse(changePosition.isUsable(w3,game));
-        assertTrue(changePosition.isUsable(w2,game));
+        game.setTargetInUse(w3);
+        assertFalse(changePosition.isUsable(game));
+        changePosition.getAvailableSquare().clear();
+        game.setTargetInUse(w2);
+        assertTrue(changePosition.isUsable(game));
+        changePosition.getAvailableSquare().clear();
         int test=w1.getHistoryPos().size();
         //System.out.println(test);
-        changePosition.use(w1, squares[2][2],game);
+        game.setTargetInUse(w1);
+        squares[2][2].removeWorker();
+        game.setTargetSelected(squares[2][2]);
+        changePosition.isUsable(game);
+       // System.out.println(changePosition.getAvailableSquare().contains(squares[2][2]));
+        try {
+            changePosition.use(game);
+        } catch (TargetNotAvailableException e) {
+            e.printStackTrace();
+        }
         //System.out.println(w1.getHistoryPos().size());
         assertEquals(test+1, w1.getHistoryPos().size());
         assertEquals(w1.getSquare(), squares[2][2]);

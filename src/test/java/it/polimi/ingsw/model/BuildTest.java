@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 
+import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,14 +12,14 @@ import java.util.List;
 
 public class BuildTest {
 
-    private Build build=new Build(false);
+    private Build build=new Build();
     private Field field;
     private Game game=new Game();
     Worker w1=new Worker(Color.Black);
     Worker w2=new Worker(Color.Brown);
 
     @Test
-    public void buildTest(){
+    void buildTest(){
         game=new Game ();
         Player p= new Player("john");
         game.setCurrentPlayer(p);
@@ -40,11 +41,24 @@ public class BuildTest {
         squares[3][2].setLevel(2);
         squares[3][3].setLevel(2);
         squares[2][2].setWorker(w2);
-        assertFalse(build.isUsable(w2, game));
-        assertTrue(build.isUsable(w1,game));
+        game.setTargetInUse(w2);
+        assertFalse(build.isUsable(game));
+        build.getAvailableSquare().clear();
+        System.out.println(build.getAvailableSquare().size());
+        squares[2][2].removeWorker();
+        game.setTargetInUse(w1);
+        assertTrue(build.isUsable(game));
         assertNotEquals(2, squares[1][1].getLevel());
-        build.use(w1, squares[1][1],game);
-        assertEquals(2, squares[1][1].getLevel());
+        game.setTargetSelected(squares[2][2]);
+        System.out.println(build.getAvailableSquare().toString());
+        System.out.println(game.getTargetSelected().toString());
+      //  assertTrue(build.getAvailableSquare().contains(game.getTargetSelected()));
+       try {
+            build.use(game);
+        } catch (TargetNotAvailableException e) {
+            e.printStackTrace();
+        }
+        assertEquals(4, squares[2][2].getLevel());
     }
 
 

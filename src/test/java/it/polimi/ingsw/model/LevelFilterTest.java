@@ -17,7 +17,7 @@ public class LevelFilterTest {
 
 
     @Test
-    public void levelFilterTest(){
+    void levelFilterTest(){
         list.add(1);
         list.add(2);
         game=new Game ();
@@ -25,8 +25,10 @@ public class LevelFilterTest {
         game.setCurrentPlayer(p);
         God g=new God();
         p.setGod(g);
-        levelFilter=new LevelFilter(list, true);
-        levelFilter.use(w1, w2, game);
+        levelFilter=new LevelFilter(list);
+        game.setTargetSelected(w1);
+        game.setTargetInUse(w2);
+        levelFilter.use(game);
         assertEquals(list, g.getCantDo());
 
     }

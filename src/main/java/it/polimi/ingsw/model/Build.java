@@ -29,6 +29,7 @@ public class Build implements SubAction {
         if(availableSquare.contains(game.getTargetSelected())){
             game.getTargetSelected().getSquare().upgrade();
             game.getCurrentPlayer().getGod().getCantDo().clear();
+            availableSquare.clear();
         }
         else
             throw new TargetNotAvailableException();
