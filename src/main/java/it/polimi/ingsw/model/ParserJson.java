@@ -62,7 +62,7 @@ public class ParserJson {
                     usableGod.add(newGod);
                 }
             }
-            printGod(usableGod);
+            //printGod(usableGod);
         }catch (IOException e) {
             e.printStackTrace();
         }
