@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.TargetNotAvailableException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +19,13 @@ public class ChangePosition implements SubAction {
      * @param game
      */
     @Override
-    public void use(Game game) {
-        game.getTargetInUse().getSquare().removeWorker();
-        game.getTargetSelected().getSquare().setWorker((Worker) game.getTargetInUse());
+    public void use(Game game) throws TargetNotAvailableException {
+        if(availableSquare.contains(game.getTargetSelected())) {
+            game.getTargetInUse().getSquare().removeWorker();
+            game.getTargetSelected().getSquare().setWorker((Worker) game.getTargetInUse());
+        }
+
+        else throw new TargetNotAvailableException();
         //worker.setActualPos(target.getSquare());
         // worker.getHistoryPos().add(target.getSquare());
     }

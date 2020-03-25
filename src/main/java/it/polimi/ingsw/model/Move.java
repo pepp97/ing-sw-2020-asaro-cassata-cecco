@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.TargetNotAvailableException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +20,18 @@ public class Move implements SubAction {
      * @param game
      */
     @Override
-    public void use(Game game) {
+    public void use(Game game) throws TargetNotAvailableException {
         Worker worker = (Worker) game.getTargetInUse();
+        if(availableSquare.contains(game.getTargetSelected())) {
 
-        if (worker.getCanBeMoved()){
-            worker.getSquare().removeWorker();
-            //worker.setActualPos(target.getSquare());
-            game.getTargetSelected().getSquare().setWorker(worker);
+            if (worker.getCanBeMoved()) {
+                worker.getSquare().removeWorker();
+                //worker.setActualPos(target.getSquare());
+                game.getTargetSelected().getSquare().setWorker(worker);
+            }
         }
+
+        else throw new TargetNotAvailableException();
 
     }
 
@@ -45,8 +51,13 @@ public class Move implements SubAction {
                 availableSquare.add(s);
                 result = true;
             }
+        if (worker.getSquareNotAvailable() != null)
+            availableSquare.remove(worker.getSquareNotAvailable());
+        if (availableSquare.size() == 0)
+            result = false;
 
         worker.setCanBeMoved(result);
+
 
         return result;
     }

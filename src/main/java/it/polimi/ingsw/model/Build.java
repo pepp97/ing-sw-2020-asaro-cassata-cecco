@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.TargetNotAvailableException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +25,13 @@ public class Build implements SubAction {
      *
      */
     @Override
-    public void use(Game game) {
-    //    if(worker.getCanBuild()){
+    public void use(Game game) throws TargetNotAvailableException {
+        if(availableSquare.contains(game.getTargetSelected())){
             game.getTargetSelected().getSquare().upgrade();
             game.getCurrentPlayer().getGod().getCantDo().clear();
-      //  }
+        }
+        else
+            throw new TargetNotAvailableException();
 
     }
 
@@ -45,11 +49,17 @@ public class Build implements SubAction {
       List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
       Worker worker = (Worker) game.getTargetInUse();
 
+
         for(Square s: worker.getSquare().getAdjacentSquares())
             if(s.getWorker()==null && s.getLevel()!=4 && !(cantDo.contains(s.getLevel())) && s != worker.getSquareNotAvailable()) {
                 availableSquare.add(s);
                 result = true;
             }
+
+        if (worker.getSquareNotAvailable() != null)
+            availableSquare.remove(worker.getSquareNotAvailable());
+        if (availableSquare.size() == 0)
+            result = false;
 
         worker.setCanBuild(result);
 
