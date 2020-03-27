@@ -8,6 +8,7 @@ public class Board {
     private Field field;
     private List<God> godCardSelected= new ArrayList<>();
 
+
     public Board() {
     }
 
@@ -26,4 +27,6 @@ public class Board {
     public void setGodCardSelected(List<God> godCardSelected) {
         this.godCardSelected = godCardSelected;
     }
+
+
 }

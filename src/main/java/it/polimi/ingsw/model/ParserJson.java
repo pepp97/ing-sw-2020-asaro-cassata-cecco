@@ -13,6 +13,15 @@ public class ParserJson {
 
     private ObjectMapper p;
     private final String path = "/god.json";
+    private ArrayList<God> usableGod=new ArrayList<>();
+
+    public ParserJson() {
+        apriFile();
+    }
+
+    public ArrayList<God> getUsableGod() {
+        return usableGod;
+    }
 
     public void apriFile(){
 
@@ -22,7 +31,7 @@ public class ParserJson {
         InputStream jsonFile=fileLoader.getResource(path);
         try{
 
-            ArrayList<God> usableGod=new ArrayList<>();
+
             JsonNode rootNode=mapper.readTree(jsonFile);
 
             JsonNode god=rootNode.path("God");
@@ -62,7 +71,7 @@ public class ParserJson {
                     usableGod.add(newGod);
                 }
             }
-            //printGod(usableGod);
+      //      printGod(usableGod);
         }catch (IOException e) {
             e.printStackTrace();
         }

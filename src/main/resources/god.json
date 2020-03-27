@@ -167,7 +167,7 @@
           "skippable": 0
         },
         {
-          "effect": "moveSameDirection ",
+          "effect": "moveSameDirection",
           "skippable": 1
         },
         {

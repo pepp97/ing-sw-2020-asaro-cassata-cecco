@@ -45,6 +45,9 @@ public class EffettoRoutine {
             case "changeTarget":
                 effect=new SwapTarget();
                 break;
+            case "filterSame":
+                effect=new FilterSame();
+                break;
             default:
                 System.out.println("Class not found");
         }

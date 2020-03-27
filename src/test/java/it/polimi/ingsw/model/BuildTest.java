@@ -14,7 +14,7 @@ public class BuildTest {
 
     private Build build=new Build();
     private Field field;
-    private Game game=new Game();
+    private Game game;
     Worker w1=new Worker(Color.Black);
     Worker w2=new Worker(Color.Brown);
 
