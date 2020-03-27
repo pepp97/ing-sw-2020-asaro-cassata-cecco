@@ -14,7 +14,7 @@ public class SquareTest {
 
 
     @Test
-    public void squareTest(){
+     void squareTest(){
         square=new Square(1, 1);
         square.setLevel(2);
         worker= new Worker(Color.White);

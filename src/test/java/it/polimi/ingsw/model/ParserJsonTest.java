@@ -11,7 +11,7 @@ public class ParserJsonTest {
 
 
         @Test
-        public void parser(){
+         void parser(){
             p=new ParserJson();
             p.apriFile();
         }

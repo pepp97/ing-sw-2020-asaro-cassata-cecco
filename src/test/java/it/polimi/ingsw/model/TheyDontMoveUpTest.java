@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,15 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TheyDontMoveUpTest {
 
     private Field field;
-    private Move move=new Move(true);
+    private Move move=new Move();
     private Game game=new Game();
-    private TheyDontMoveUp theyDontMoveUp=new TheyDontMoveUp(false);
+    private TheyDontMoveUp theyDontMoveUp=new TheyDontMoveUp();
     private Player p=new Player("nick");
     private Player p2=new Player("john");
 
 
     @Test
-    public void theyDontMoveUpTest(){
+    void theyDontMoveUpTest(){
         Worker w1=new Worker(Color.Black);
         Worker w2=new Worker(Color.Brown);
         game.getPlayerList().add(p);
@@ -40,12 +41,32 @@ public class TheyDontMoveUpTest {
         squares[3][2].setLevel(0);
         squares[3][3].setLevel(4);
         squares[2][2].setWorker(w2);
-        move.use(w1, squares[1][2],game);
-        move.use(w2, squares[3][2],game);
-        assertTrue(theyDontMoveUp.isUsable(w1, game));
-        assertFalse(theyDontMoveUp.isUsable(w2, game));
-        theyDontMoveUp.use(w1, w2, game);
-        theyDontMoveUp.use(w1, w2, game);
+        game.setTargetSelected(squares[1][2]);
+        game.setTargetInUse(w1);
+        move.isUsable(game);
+        try {
+            move.use(game);
+        } catch (TargetNotAvailableException e) {
+            e.printStackTrace();
+        }
+        game.setTargetSelected(squares[3][2]);
+        game.setTargetInUse(w2);
+        move.isUsable(game);
+        try {
+            move.use(game);
+        } catch (TargetNotAvailableException e) {
+            e.printStackTrace();
+        }
+        game.setTargetInUse(w1);
+        assertTrue(theyDontMoveUp.isUsable(game));
+        game.setTargetInUse(w2);
+        assertFalse(theyDontMoveUp.isUsable(game));
+        game.setTargetInUse(w1);
+        game.setTargetSelected(w2);
+        theyDontMoveUp.use(game);
+        game.setTargetInUse(w2);
+        game.setTargetSelected(w1);
+        theyDontMoveUp.use(game);
         assertEquals(false, w2.getCanMoveUp());
         assertEquals(true, w1.getCanMoveUp());
     }
