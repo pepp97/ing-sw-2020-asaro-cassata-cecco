@@ -23,11 +23,16 @@ public class ChangePosition implements SubAction {
         if(availableSquare.contains(game.getTargetSelected())) {
             game.getTargetInUse().getSquare().removeWorker();
             game.getTargetSelected().getSquare().setWorker((Worker) game.getTargetInUse());
+            availableSquare.clear();
         }
 
         else throw new TargetNotAvailableException();
         //worker.setActualPos(target.getSquare());
         // worker.getHistoryPos().add(target.getSquare());
+    }
+
+    public List<Square> getAvailableSquare() {
+        return availableSquare;
     }
 
     /**

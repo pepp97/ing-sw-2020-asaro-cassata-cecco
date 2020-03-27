@@ -13,7 +13,7 @@ public class FieldTest {
 
 
     @Test
-    public void correctSquareManagement(){
+    void correctSquareManagement(){
         field=new Field();
         Square [][]s=field.getSquares();
         assertTrue(s[1][1].getAdjacentSquares().contains(s[0][0]));

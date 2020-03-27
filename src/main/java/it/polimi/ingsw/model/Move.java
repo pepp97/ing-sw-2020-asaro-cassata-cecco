@@ -28,11 +28,16 @@ public class Move implements SubAction {
                 worker.getSquare().removeWorker();
                 //worker.setActualPos(target.getSquare());
                 game.getTargetSelected().getSquare().setWorker(worker);
+                availableSquare.clear();
             }
         }
 
         else throw new TargetNotAvailableException();
 
+    }
+
+    public List<Square> getAvailableSquare() {
+        return availableSquare;
     }
 
     /**
