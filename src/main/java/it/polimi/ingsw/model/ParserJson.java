@@ -71,11 +71,11 @@ public class ParserJson {
                     usableGod.add(newGod);
                 }
             }
-      //      printGod(usableGod);
         }catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void printGod( ArrayList<God> usableGod){
         for(int i=0;i<usableGod.size();i++){

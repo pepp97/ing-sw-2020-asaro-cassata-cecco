@@ -3,14 +3,20 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.model.Game;
 
+import it.polimi.ingsw.model.ParserJson;
 import it.polimi.ingsw.view.VirtualView;
 
 public class Controller {
 
     private Game game;
     private boolean skippable;
+    private ParserJson parser;
 
 
+    public Controller() {
+        this.game = new Game();
+        parser=new ParserJson();
+    }
 
     public void apply(LoginCommand command, VirtualView view) {
         game.login(command.getNickname(),command.getColor(),view);
@@ -22,7 +28,7 @@ public class Controller {
 
 
     public void apply(ChooseGods command){
-        game.setUsableGod(command.getNamesGod());
+        game.setUsableGod(command.getNamesGod(),parser.getUsableGod());
     }
 
     public void apply(ChooseYourGod command, VirtualView view) {

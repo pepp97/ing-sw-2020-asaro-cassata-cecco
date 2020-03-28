@@ -15,14 +15,12 @@ public class Game {
     private Field field;
     private int numplayer;
     private List<God> startGods;
-    private ParserJson parser;
 
 
     public Game() {
         field=new Field();
-        parser=new ParserJson();
-        this.startGods= parser.getUsableGod();
         board=new Board();
+        startGods=new ArrayList<>();
     }
 
     public void add(Player player){
@@ -83,18 +81,33 @@ public class Game {
         this.numplayer=nplayer;
     }
 
-    //IMPLEMENTARE
-    public void setUsableGod(List<String> god){
 
+    public void setUsableGod(List<String> god, List<God> totalGods){
+        for (String s : god) {
+            for (God totalGod : totalGods) {
+                if (s.equals(totalGod.getName())) {
+                    startGods.add(totalGod);
+                }
+            }
+        }
     }
 
-    //IMPLEMENTARE
     public void setPlayerGod(String name, VirtualView view) {
+        for (Player player : playerList) {
+            if (view.getOwner() == player) {
+                for(God start: startGods){
+                    if(name.equals(start.getName())){
+                        player.setGod(start);
+                    }
+                }
+            }
+        }
     }
 
     //IMPLEMENTARE
     public void setInitialPosition(int coordinateX, int coordinateY, VirtualView view) {
     }
+
 
 
 }
