@@ -9,7 +9,7 @@ import it.polimi.ingsw.view.VirtualView;
 public class Controller {
 
     private Game game;
-    private boolean skippable;
+    private boolean canSkip;
     private ParserJson parser;
 
 
@@ -51,6 +51,6 @@ public class Controller {
     }
 
     public void apply(UseEffect command) {
-        skippable=command.getReply();
+        canSkip=command.getReply();
     }
 }

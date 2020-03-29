@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 
 import java.util.ArrayList;
@@ -26,6 +27,15 @@ public class Build implements SubAction {
      */
     @Override
     public void use(Game game) throws TargetNotAvailableException {
+
+        ChooseTarget chooseTarget=new ChooseTarget("Select your square to upgrade",availableSquare);
+        game.notifyObservers(chooseTarget);
+
+        int i=0;
+
+        while(game.getTargetSelected()==null)
+            i++;
+
         if(availableSquare.contains(game.getTargetSelected())){
             game.getTargetSelected().getSquare().upgrade();
             game.getCurrentPlayer().getGod().getCantDo().clear();
@@ -33,6 +43,9 @@ public class Build implements SubAction {
         }
         else
             throw new TargetNotAvailableException();
+
+        //generazione pacchetto->creazione evento
+
 
     }
 

@@ -107,3 +107,7 @@ b
 2src/test/java/it/polimi/ingsw/model/BuildTest.java,c\8\c8bf669f2768474dc7f3b93556cc865792a77496
 y
 Isrc/main/java/it/polimi/ingsw/exceptions/TargetNotAvailableException.java,0\e\0e8d654745527f096ea6af62015b9430e06f9f21
+g
+7src/main/java/it/polimi/ingsw/model/EffettoRoutine.java,4\8\480bce8ccc80f2ecd464f3d8aa53dda0266ed2af
+c
+3src/main/java/it/polimi/ingsw/model/FilterSame.java,b\0\b0f6993390f71ff078f768e6a7feb8ae44228c9d

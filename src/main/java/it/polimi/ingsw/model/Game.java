@@ -1,14 +1,21 @@
 package it.polimi.ingsw.model;
 //DEVE AVERE ISTANZA CONTROLLER CHE HA ATTRIBUTO SKIP.
+import it.polimi.ingsw.Observable;
+import it.polimi.ingsw.Observer;
+import it.polimi.ingsw.events.Event;
+import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+
+public class Game implements Observable {
 
     private List <Player> playerList=new ArrayList<>();
+    private List <Observer> observers=new ArrayList<>();
     private Player currentPlayer;
+    private View currentView;
     private Target targetSelected;
     private Board board;
     private Target targetInUse;
@@ -26,6 +33,15 @@ public class Game {
     public void add(Player player){
         if (playerList.size()< numplayer)
             playerList.add(player);
+    }
+
+    public View getCurrentView() {
+        return currentView;
+    }
+
+    public void setCurrentView(View currentView) {
+        this.currentView = currentView;
+        currentPlayer=currentView.getOwner();
     }
 
     public Field getField() {
@@ -109,5 +125,23 @@ public class Game {
     }
 
 
+    @Override
+    public void notifyObservers(Event event) {
+        for (Observer observer : observers)
+            observer.update(event);
+    }
 
+    public void notifyCurrent(Event event){
+        currentView.update(event);
+    }
+
+    @Override
+    public void register(Observer observer) {
+
+    }
+
+    @Override
+    public void unregister(Observer observer) {
+
+    }
 }
