@@ -39,15 +39,14 @@ public class Controller {
         game.setInitialPosition(command.getCoordinateX(),command.getCoordinateY(),view);
     }
 
-    //IMPLEMENTARE
+
     public void apply(ChooseYourWorker command) {
-        //ESTRAE WORKER...
-        //game.setTargetInUse(workerEstratto);
+        game.setTargetInUse(game.getBoard().getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
     }
 
     public void apply(ChooseTarget command) {
-        //ESTRAE TARGET...
-        //game.setTargetSelected(targetestratto);
+
+        game.setTargetSelected(game.getBoard().getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
     }
 
     public void apply(UseEffect command) {
