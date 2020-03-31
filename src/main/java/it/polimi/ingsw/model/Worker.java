@@ -24,8 +24,7 @@ public class Worker implements Target {
      * this metod is the builder of the class
      * @param c color of the worker
      */
-    public Worker(Color c) {
-        this.c = c;
+    public Worker() {
         this.canBeMoved = true;
         this.canMoveUp = true;
         this.canBuild = true;

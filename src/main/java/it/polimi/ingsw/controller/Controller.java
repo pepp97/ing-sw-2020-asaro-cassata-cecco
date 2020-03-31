@@ -19,7 +19,7 @@ public class Controller {
     }
 
     public void apply(LoginCommand command, VirtualView view) {
-        game.login(command.getNickname(),view);
+        game.login(command.getNickname(), command.getColor(),view);
     }
 
     public void apply(ChooseSettings command, VirtualView view){

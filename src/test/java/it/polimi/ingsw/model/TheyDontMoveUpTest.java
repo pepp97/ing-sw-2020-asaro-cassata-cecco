@@ -10,21 +10,21 @@ public class TheyDontMoveUpTest {
     private Move move=new Move();
     private Game game=new Game();
     private TheyDontMoveUp theyDontMoveUp=new TheyDontMoveUp();
-    private Player p=new Player("nick");
-    private Player p2=new Player("john");
+    private Player p=new Player("nick",Color.Black);
+    private Player p2=new Player("john",Color.Brown);
 
 
     @Test
     void theyDontMoveUpTest(){
-        Worker w1=new Worker(Color.Black);
-        Worker w2=new Worker(Color.Brown);
+        Worker w1=new Worker();
+        Worker w2=new Worker();
         game.getPlayerList().add(p);
         game.getPlayerList().add(p2);
         game.setCurrentPlayer(p);
         p.add(w1);
-        p.add(new Worker(Color.Black));
-        p.add(new Worker(Color.Black));
-        p.add(new Worker(Color.Black));
+        p.add(new Worker());
+        p.add(new Worker());
+        p.add(new Worker());
         //System.out.println(p.getWorkers().size());
         p2.add(w2);
         field=game.getField();
