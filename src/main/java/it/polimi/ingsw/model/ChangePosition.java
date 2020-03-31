@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.events.ChooseTarget;
-import it.polimi.ingsw.exceptions.TargetNotAvailableException;
+import it.polimi.ingsw.events.ExceptionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class ChangePosition implements SubAction {
      * @param game
      */
     @Override
-    public void use(Game game) throws TargetNotAvailableException {
+    public void use(Game game) {
 
         ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",availableSquare);
         game.notifyObservers(chooseTarget);
@@ -38,7 +38,7 @@ public class ChangePosition implements SubAction {
             availableSquare.clear();
         }
 
-        else throw new TargetNotAvailableException();
+        else new ExceptionEvent( "target not available");
         //worker.setActualPos(target.getSquare());
         // worker.getHistoryPos().add(target.getSquare());
 

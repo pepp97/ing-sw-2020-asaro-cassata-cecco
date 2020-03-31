@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,19 +43,15 @@ public class TheyDontMoveUpTest {
         game.setTargetSelected(squares[1][2]);
         game.setTargetInUse(w1);
         move.isUsable(game);
-        try {
+
             move.use(game);
-        } catch (TargetNotAvailableException e) {
-            e.printStackTrace();
-        }
+
         game.setTargetSelected(squares[3][2]);
         game.setTargetInUse(w2);
         move.isUsable(game);
-        try {
+
             move.use(game);
-        } catch (TargetNotAvailableException e) {
-            e.printStackTrace();
-        }
+
         game.setTargetInUse(w1);
         assertTrue(theyDontMoveUp.isUsable(game));
         game.setTargetInUse(w2);

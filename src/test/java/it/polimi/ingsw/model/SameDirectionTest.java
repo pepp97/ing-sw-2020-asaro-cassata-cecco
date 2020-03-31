@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,22 +30,17 @@ public class SameDirectionTest {
         game.setTargetInUse(w1);
         game.setTargetSelected(squares[1][1]);
         move.isUsable(game);
-        try {
+
             move.use(game);
-        } catch (TargetNotAvailableException e) {
-            e.printStackTrace();
-        }
-        game.setTargetSelected(w2);
+       game.setTargetSelected(w2);
         moveInSameDirection.isUsable(game);
         moveInSameDirection.use(game);
         assertEquals(squares[0][0].getWorker(),w2);
         game.setTargetSelected(squares[2][2]);
         move.isUsable(game);
-        try {
+
             move.use(game);
-        } catch (TargetNotAvailableException e) {
-            e.printStackTrace();
-        }
+
         moveInSameDirection.isUsable(game);
         game.setTargetSelected(w2);
         moveInSameDirection.use(game);

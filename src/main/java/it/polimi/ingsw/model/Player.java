@@ -15,6 +15,7 @@ public class Player {
     private God god;
 
 
+
     /**
      * this metod is the builder of the class
      * @param username to identify the player

@@ -1,10 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,11 +46,9 @@ public class ChangePositionTest {
         game.setTargetSelected(squares[2][2]);
         changePosition.isUsable(game);
        // System.out.println(changePosition.getAvailableSquare().contains(squares[2][2]));
-        try {
+
             changePosition.use(game);
-        } catch (TargetNotAvailableException e) {
-            e.printStackTrace();
-        }
+
         //System.out.println(w1.getHistoryPos().size());
         assertEquals(test+1, w1.getHistoryPos().size());
         assertEquals(w1.getSquare(), squares[2][2]);

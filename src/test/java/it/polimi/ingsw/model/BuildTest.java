@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 
-import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,11 +52,9 @@ public class BuildTest {
         System.out.println(build.getAvailableSquare().toString());
         System.out.println(game.getTargetSelected().toString());
       //  assertTrue(build.getAvailableSquare().contains(game.getTargetSelected()));
-       try {
+
             build.use(game);
-        } catch (TargetNotAvailableException e) {
-            e.printStackTrace();
-        }
+
         assertEquals(4, squares[2][2].getLevel());
     }
 

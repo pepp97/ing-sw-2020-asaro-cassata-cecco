@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.TargetNotAvailableException;
 import org.junit.jupiter.api.Test;
 
 
@@ -37,11 +36,9 @@ public class MoveTest {
         assertTrue(move.isUsable(game));
         int prova=w1.getHistoryPos().size();
         game.setTargetSelected(squares [0][0]);
-        try {
+
             move.use(game);
-        } catch (TargetNotAvailableException e) {
-            e.printStackTrace();
-        }
+
         assertEquals(prova+1, w1.getHistoryPos().size());
         assertFalse(squares[1][1].getWorker()==w1);
         assertTrue(squares[0][0].getWorker()==w1);

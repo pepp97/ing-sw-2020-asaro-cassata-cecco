@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 //DEVE AVERE ISTANZA CONTROLLER CHE HA ATTRIBUTO SKIP.
 import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
-import it.polimi.ingsw.events.Event;
+import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -90,8 +90,44 @@ public class Game implements Observable {
 
 
     //IMPLEMENTARE
-    public void login(String nickname, Color color, VirtualView view) {
+    public void login(String nickname, VirtualView view) {
+        Event e=null;
+        if(nicknameAvailable(nickname)){
+            currentView=view;
+            Player player=new Player(nickname);
+            playerList.add(player);
+            view.setOwner(player);
+            if (playerList.size()==1){
+                e=new SettingsEvent();
+                notifyCurrent(e);
+            }
+           else if(playerList.size()==numplayer) {
+                List<String> godlist=new ArrayList<>();
+                for(God g: startGods)
+                    godlist.add(g.getName());
+                e = new StartGameEvent(godlist);
+                notifyObservers(e);
+            }
+           else {
+                List<String> list=new ArrayList<>();
+                for(Player p: playerList)
+                    list.add(p.getUsername());
+                e=new LoginSuccessful(list);
+                notifyCurrent(e);}
+        }
+        else e=new ExceptionEvent("Username already in use!");
+        notifyCurrent(e);
+
     }
+
+    private boolean nicknameAvailable(String nick){
+        for(Player p: playerList)
+            if(nick.equals(p.getUsername()))
+                return false;
+        return true;
+    }
+
+
 
     public void selectNplayer(int nplayer) {
         this.numplayer=nplayer;

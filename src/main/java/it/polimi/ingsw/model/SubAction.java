@@ -1,13 +1,11 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.exceptions.TargetNotAvailableException;
-
 public interface SubAction {
     /**
      *
      * @param game
      */
-    public void use(Game game) throws TargetNotAvailableException;
+    public void use(Game game) ;
 
     /**
      *

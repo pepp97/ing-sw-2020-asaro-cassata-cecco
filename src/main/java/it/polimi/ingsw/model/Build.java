@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.events.ChooseTarget;
-import it.polimi.ingsw.exceptions.TargetNotAvailableException;
+import it.polimi.ingsw.events.ExceptionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class Build implements SubAction {
      *
      */
     @Override
-    public void use(Game game) throws TargetNotAvailableException {
+    public void use(Game game) {
 
         ChooseTarget chooseTarget=new ChooseTarget("Select your square to upgrade",availableSquare);
         game.notifyObservers(chooseTarget);
@@ -42,7 +42,7 @@ public class Build implements SubAction {
             availableSquare.clear();
         }
         else
-            throw new TargetNotAvailableException();
+             new ExceptionEvent("you can't build here!");
 
         //generazione pacchetto->creazione evento
 
