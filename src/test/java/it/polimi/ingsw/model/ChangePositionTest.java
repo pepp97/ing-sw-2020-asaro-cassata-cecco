@@ -9,9 +9,9 @@ public class ChangePositionTest {
     private ChangePosition changePosition=new ChangePosition();
     private Field field;
     private Game game=new Game();
-    Worker w1=new Worker(Color.Black);
-    Worker w2=new Worker(Color.Brown);
-    Worker w3=new Worker(Color.Brown);
+    Worker w1=new Worker();
+    Worker w2=new Worker();
+    Worker w3=new Worker();
 
     @Test
     void changePositionTest(){

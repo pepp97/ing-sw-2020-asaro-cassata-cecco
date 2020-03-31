@@ -90,11 +90,11 @@ public class Game implements Observable {
 
 
     //IMPLEMENTARE
-    public void login(String nickname, VirtualView view) {
+    public void login(String nickname, Color color, VirtualView view) {
         Event e=null;
-        if(nicknameAvailable(nickname)){
+        if(nicknameAvailable(nickname) && colorAvailable(color)){
             currentView=view;
-            Player player=new Player(nickname);
+            Player player=new Player(nickname,color);
             playerList.add(player);
             view.setOwner(player);
             if (playerList.size()==1){
@@ -115,7 +115,10 @@ public class Game implements Observable {
                 e=new LoginSuccessful(list);
                 notifyCurrent(e);}
         }
-        else e=new ExceptionEvent("Username already in use!");
+        else if (!nicknameAvailable(nickname))
+            e=new ExceptionEvent("Username already in use!");
+        else
+            e=new ExceptionEvent("Color already in use!");
         notifyCurrent(e);
 
     }
@@ -127,6 +130,12 @@ public class Game implements Observable {
         return true;
     }
 
+    private boolean colorAvailable(Color color){
+        for(Player p: playerList)
+            if(color.equals(p.getColor()))
+                return false;
+        return true;
+    }
 
 
     public void selectNplayer(int nplayer) {

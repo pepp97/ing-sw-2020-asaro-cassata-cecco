@@ -9,7 +9,7 @@ public class SwapTargetTest {
 
     @Test
      void swapTargetTest(){
-        Target a= new Worker(Color.Black);
+        Target a= new Worker();
         Target b=new Square(0, 0);
         game.setTargetInUse(a);
         game.setTargetSelected(b);

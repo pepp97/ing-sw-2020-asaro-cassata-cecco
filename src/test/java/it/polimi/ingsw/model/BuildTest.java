@@ -14,13 +14,13 @@ public class BuildTest {
     private Build build=new Build();
     private Field field;
     private Game game;
-    Worker w1=new Worker(Color.Black);
-    Worker w2=new Worker(Color.Brown);
+    Worker w1=new Worker();
+    Worker w2=new Worker();
 
     @Test
     void buildTest(){
         game=new Game ();
-        Player p= new Player("john");
+        Player p= new Player("john",Color.Black);
         game.setCurrentPlayer(p);
         God g=new God();
         p.setGod(g);

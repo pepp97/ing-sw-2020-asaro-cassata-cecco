@@ -10,8 +10,8 @@ public class MoveTest {
     private Field field;
     private Move move=new Move();
     private Game game=new Game();
-    Worker w1=new Worker(Color.Black);
-    Worker w2=new Worker(Color.Brown);
+    Worker w1=new Worker();
+    Worker w2=new Worker();
 
 
     @Test

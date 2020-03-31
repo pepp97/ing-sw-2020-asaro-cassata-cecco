@@ -13,18 +13,26 @@ public class Player {
     private String username;
     private List<Worker> workers=new ArrayList<>(2);
     private God god;
-
+    private Color color;
 
 
     /**
      * this metod is the builder of the class
      * @param username to identify the player
      */
-    public Player(String username) {
+    public Player(String username, Color color) {
         this.username = username;
-
+        this.color=color;
     }
 
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     /**
      * this method is used to assign a worker to the respective player
@@ -35,6 +43,7 @@ public class Player {
    public void add(Worker worker){
         if(workers.size()<2)
             workers.add(worker);
+        worker.setC(this.color);
     }
 
     //Metodi Setter
