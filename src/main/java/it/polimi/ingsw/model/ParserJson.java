@@ -2,11 +2,9 @@ package it.polimi.ingsw.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.*;
 
 public class ParserJson {
@@ -39,7 +37,7 @@ public class ParserJson {
             for(int j=0;j<god.size();j++) {
                 if(god.get(j)!=null){
                     JsonNode singleGod = god.get(j);
-                    ArrayList<EffettoRoutine> listEff= new ArrayList<EffettoRoutine>();
+                    ArrayList<EffectRoutine> listEff= new ArrayList<EffectRoutine>();
                     JsonNode name = singleGod.path("name");
                     JsonNode surname = singleGod.path("surname");
                     JsonNode description = singleGod.path("description");
@@ -49,7 +47,7 @@ public class ParserJson {
                         JsonNode eff = routine.get(i);
                         JsonNode typeEffect = eff.path("effect");
                         JsonNode bool = eff.path("skippable");
-                        EffettoRoutine newEff;
+                        EffectRoutine newEff;
 
                         if(typeEffect.toString().equals("\"filterLevel\"") || typeEffect.toString().equals("\"checkVictory\"")){
                             JsonNode levelsNode = eff.path("levels");
@@ -57,9 +55,9 @@ public class ParserJson {
                             for(int k=0;k<levelsNode.size();k++){
                                 levels.add(levelsNode.get(k).asInt());
                             }
-                            newEff = new EffettoRoutine(typeEffect.toString().replace("\"",""), bool.asBoolean(),levels);
+                            newEff = new EffectRoutine(typeEffect.toString().replace("\"",""), bool.asBoolean(),levels);
                         }else{
-                            newEff = new EffettoRoutine(typeEffect.toString().replace("\"",""), bool.asBoolean());
+                            newEff = new EffectRoutine(typeEffect.toString().replace("\"",""), bool.asBoolean());
                         }
                         listEff.add(newEff);
                     }

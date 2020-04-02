@@ -15,7 +15,7 @@ public class God {
 
     private String surname;
 
-    private List<EffettoRoutine> Routine= new ArrayList<>();
+    private List<EffectRoutine> Routine= new ArrayList<>();
 
     private List<Integer> cantDo = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class God {
         return cantDo;
     }
 
-    public God(String name, String textEffect, String surname, List<EffettoRoutine> routine) {
+    public God(String name, String textEffect, String surname, List<EffectRoutine> routine) {
         this.name = name;
         this.textEffect = textEffect;
         this.surname = surname;
@@ -67,7 +67,7 @@ public class God {
 
     public void setSurname(String surname) { this.surname = surname; }
 
-    public List<EffettoRoutine> getRoutine() { return Routine; }
+    public List<EffectRoutine> getRoutine() { return Routine; }
 
-    public void setRoutine(List<EffettoRoutine> routine) { Routine = routine; }
+    public void setRoutine(List<EffectRoutine> routine) { Routine = routine; }
 }

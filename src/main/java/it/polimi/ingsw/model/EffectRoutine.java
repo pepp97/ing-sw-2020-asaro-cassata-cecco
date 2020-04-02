@@ -2,12 +2,12 @@ package it.polimi.ingsw.model;
 
 import java.util.List;
 
-public class EffettoRoutine {
+public class EffectRoutine {
     private Object effect;
     private boolean isSkippable;
     private List<Integer> levels;
 
-    public EffettoRoutine(String eff, boolean isSkippable) {
+    public EffectRoutine(String eff, boolean isSkippable) {
         switchClass(eff);
         this.isSkippable = isSkippable;
         this.levels=null;
@@ -53,7 +53,7 @@ public class EffettoRoutine {
         }
     }
 
-    public EffettoRoutine(String effect, boolean isSkippable, List<Integer> levels) {
+    public EffectRoutine(String effect, boolean isSkippable, List<Integer> levels) {
         this.effect = effect;
         this.isSkippable = isSkippable;
         this.levels=levels;

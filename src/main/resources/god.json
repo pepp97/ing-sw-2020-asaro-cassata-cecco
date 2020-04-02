@@ -3,8 +3,8 @@
   [
     {
       "name": "Apollo",
-      "surname": "Il dio della musica",
-      "description": "Tuo spostamento: il tuo lavoratore può spostarsi nella casella di un lavoratore avversario (usando le normali regole di spostamento) e costringerlo a occupare la casella appena liberata.",
+      "surname": "God Of Music",
+      "description": "Your Move: Your Worker may move into an opponent Worker’s space by forcing their Worker tothe space yours just vacated.",
       "Routine": [
         {
           "effect": "changePosition",
@@ -29,9 +29,9 @@
       ]
     },
     {
-      "name": "Artemide",
-      "surname": "La dea dalla caccia",
-      "description": "Tuo spostamento: il tuo lavoratore può spostarsi una volta in più, ma non può tornare alla casella da cui è partito",
+      "name": "Artemis",
+      "surname": "Goddess of the Hunt",
+      "description": "Your Move: Your Worker may move one additional time, but not back to its initial space.",
       "Routine": [
         {
           "effect": "move",
@@ -56,9 +56,9 @@
       ]
     },
     {
-      "name": "Atena",
-      "surname": "La dea dalla saggezza",
-      "description": "Turno dell'avversario: se nel tuo ultimo turno uno dei tuoi lavoratori è salito di livello, in questo turno i lavoratori avversari non possono salire di livello",
+      "name": "Athena",
+      "surname": "Goddess of Wisdom",
+      "description": "Workers moved up on your last turn, opponent Workers cannot move up this turn.",
       "Routine": [
         {
           "effect": "move",
@@ -75,9 +75,9 @@
       ]
     },
     {
-      "name": "Atlante",
-      "surname": "Il titano che regge sulle spalle la volta celeste",
-      "description": "Tua costruzione: il tuo lavoratore può costruire una cupola su qualsiasi livello, compreso il terreno",
+      "name": "Atlas",
+      "surname": "Titan Shouldering the Heavens",
+      "description": "Your Build: Your Worker may build a dome at any level.",
       "Routine": [
         {
           "effect": "move",
@@ -99,9 +99,9 @@
       ]
     },
     {
-      "name": "Demetra",
-      "surname": "La dea dal raccolto",
-      "description": "Tua costruzione: il tuo lavoratore può costruire una volta in più, ma non nella stessa casella",
+      "name": "Demeter",
+      "surname": "Goddess of the Harvest",
+      "description": "Your Build: Your Worker may build one additional time, but not on the same space.",
       "Routine": [
         {
           "effect": "move",
@@ -126,9 +126,9 @@
       ]
     },
     {
-      "name": "Efesto",
-      "surname": "Il dio delle fucine",
-      "description": "Tua costruzione: il tuo lavoratore può costruire un blocco aggiuntivo (non una cupola) al di sopra del primo blocco",
+      "name": "Hephaestus",
+      "surname": "God of Blacksmiths",
+      "description": "Your Build: Your Worker may build one additional block (not dome) on top of your first block.",
       "Routine": [
         {
           "effect": "move",
@@ -158,9 +158,9 @@
       ]
     },
     {
-      "name": "Minotauro",
-      "surname": "Il mostro della testa di toro",
-      "description": "Tuo spostamento: il tuo lavoratore può spostarsi nella casella di un lavoratore avversario( in base alle normali regole di spostamento) se la casella successiva nella stessa direzione è libera. Il lavoratore avversario è costretto a spostarsi in quella casella (indipendentemente dal livello)",
+      "name": "Minotaur",
+      "surname": "Bull-headed Monster",
+      "description": "Your Move: Your Worker may move into an opponent Worker’s space, if their Worker can be forced one space straight backwards to an unoccupied space at any level.",
       "Routine": [
         {
           "effect": "changePosition",
@@ -178,8 +178,8 @@
     },
     {
       "name": "Pan",
-      "surname": "Il dio dalla natura selvaggia",
-      "description": "Condizione di vittoria: vinci anche se il tuo lavoratore è sceso di due o più livelli",
+      "surname": "God of the Wild",
+      "description": "Win Condition: You also win if your Worker moves down two or more levels.",
       "Routine": [
         {
           "effect": "move",
@@ -197,9 +197,9 @@
       ]
     },
     {
-      "name": "Prometeo",
-      "surname": "Il titano beneffatore dell'umanità",
-      "description": "Tuo turno: se il tuo lavoratore non sale di livello, può costruire sia prima, sia dopo essere stato mosso",
+      "name": "Prometheus",
+      "surname": "Titan Benefactor of Mankind",
+      "description": "Your Turn: If your Worker does not move up, it may build both before and after moving.",
       "Routine": [
         {
           "effect":"askUser",
