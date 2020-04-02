@@ -52,4 +52,6 @@ public class Controller {
     public void apply(UseEffect command) {
         canSkip=command.getReply();
     }
+
+    
 }

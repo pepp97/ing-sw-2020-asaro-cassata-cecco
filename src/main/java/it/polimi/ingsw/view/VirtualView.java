@@ -54,6 +54,8 @@ public class VirtualView extends Thread implements View  {
                 while((s = in.nextLine())!=null){
                     if(s.equals("END")) break;
                     System.out.println("Messaggio: "+ s);
+                    out.print(s + "\n");
+                    out.flush();
                 }
             }
     }

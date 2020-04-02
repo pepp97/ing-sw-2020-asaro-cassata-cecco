@@ -26,6 +26,7 @@ public class Client {
             while ((userInput = stdin.readLine()) != null) {
                 if(userInput.equals("END")) break;
                 out.println(userInput);
+                System.out.println(  in.readLine());
             }
 
         }catch (UnknownHostException exp2){
