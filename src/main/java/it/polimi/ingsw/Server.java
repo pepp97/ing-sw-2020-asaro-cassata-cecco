@@ -20,41 +20,6 @@ public class Server {
             }
 
         }
-        /*ServerSocket serverSocket= new ServerSocket(port);
-        System.out.println("Server started: " +serverSocket);
-        Socket clientSocket=null;
-        BufferedReader bufferedReader= null;
-        PrintWriter printWriter=null;
-
-        try{
-            clientSocket= serverSocket.accept();
-            System.out.println("Connection accepted: "+clientSocket);
-            //Stream del server
-            InputStreamReader input= new InputStreamReader(clientSocket.getInputStream());
-            bufferedReader=new BufferedReader(input);
-            OutputStreamWriter output=new OutputStreamWriter(clientSocket.getOutputStream());
-            BufferedWriter writer= new BufferedWriter(output);
-            printWriter=new PrintWriter(writer,true);
-
-            while(true){
-                String s= bufferedReader.readLine();
-                if(s.equals("END")){
-                    break;
-                }
-                System.out.println("Messaggio da Client: "+ s);
-                printWriter.println(s);
-            }
-        }catch (IOException exp){
-            System.err.println("Errore: "+ exp.getMessage());
-            System.exit(1);
-        }
-
-        System.out.println("Server: closing");
-        printWriter.close();
-        bufferedReader.close();
-        clientSocket.close();
-        serverSocket.close();
-
-         */
+        
     }
 }
