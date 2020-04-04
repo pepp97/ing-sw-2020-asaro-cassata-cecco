@@ -22,7 +22,6 @@ public class Worker implements Target {
 
     /**
      * this metod is the builder of the class
-     * @param c color of the worker
      */
     public Worker() {
         this.canBeMoved = true;
@@ -111,6 +110,8 @@ public class Worker implements Target {
     public Square getSquareNotAvailable() {
         return squareNotAvailable;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
