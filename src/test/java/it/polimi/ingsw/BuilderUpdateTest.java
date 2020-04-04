@@ -54,12 +54,12 @@ public class BuilderUpdateTest {
         Worker c1=new Worker();
         Worker c2=new Worker();
 
-        a1.setC(Color.Black);
-        a2.setC(Color.Black);
-        b1.setC(Color.Brown);
-        b2.setC(Color.Brown);
-        c1.setC(Color.White);
-        c2.setC(Color.White);
+        a1.setC(Color.BLACK);
+        a2.setC(Color.BLACK);
+        b1.setC(Color.BROWN);
+        b2.setC(Color.BROWN);
+        c1.setC(Color.WHITE);
+        c2.setC(Color.WHITE);
 
         squares[0][0].setWorker(a1);
         squares[4][1].setWorker(a2);

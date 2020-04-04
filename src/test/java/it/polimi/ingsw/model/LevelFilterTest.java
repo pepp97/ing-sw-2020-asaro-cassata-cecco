@@ -21,7 +21,7 @@ public class LevelFilterTest {
         list.add(1);
         list.add(2);
         game=new Game ();
-        Player p= new Player("john",Color.Black);
+        Player p= new Player("john",Color.BLACK);
         game.setCurrentPlayer(p);
         God g=new God();
         p.setGod(g);

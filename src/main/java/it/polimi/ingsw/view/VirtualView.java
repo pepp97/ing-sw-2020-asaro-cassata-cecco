@@ -26,6 +26,7 @@ public class VirtualView extends Thread implements View  {
             this.in=new Scanner(input);
             this.out=new PrintWriter(socket.getOutputStream());
             System.out.println("Utente connesso, IP: "+socket.getInetAddress()+ "; Port: "+socket.getPort());
+
         } catch (IOException e) {
             System.out.println("Error: "+e.getMessage());
             e.printStackTrace();
@@ -51,12 +52,12 @@ public class VirtualView extends Thread implements View  {
     public void run() {
             while(true){
                 String s= null;
-                while((s = in.nextLine())!=null){
+               /* while((s = in.nextLine())!=null){
                     if(s.equals("END")) break;
                     System.out.println("Messaggio: "+ s);
                     out.print(s + "\n");
                     out.flush();
-                }
+                }*/
             }
     }
 }

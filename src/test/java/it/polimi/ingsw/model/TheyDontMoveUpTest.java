@@ -10,8 +10,8 @@ public class TheyDontMoveUpTest {
     private Move move=new Move();
     private Game game=new Game();
     private TheyDontMoveUp theyDontMoveUp=new TheyDontMoveUp();
-    private Player p=new Player("nick",Color.Black);
-    private Player p2=new Player("john",Color.Brown);
+    private Player p=new Player("nick",Color.BLACK);
+    private Player p2=new Player("john",Color.BROWN);
 
 
     @Test
