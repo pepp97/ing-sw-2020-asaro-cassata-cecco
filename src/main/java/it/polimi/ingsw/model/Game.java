@@ -41,7 +41,7 @@ public class Game implements Observable {
 
     public void setCurrentView(View currentView) {
         this.currentView = currentView;
-        currentPlayer=currentView.getOwner();
+       // currentPlayer=currentView.getOwner();
     }
 
     public Field getField() {
@@ -91,6 +91,7 @@ public class Game implements Observable {
 
     //IMPLEMENTARE
     public void login(String nickname, Color color, VirtualView view) {
+        //  aggiustare numero di giocatori che si possono loggare
         Event e=null;
         if(nicknameAvailable(nickname) && colorAvailable(color)){
             currentView=view;

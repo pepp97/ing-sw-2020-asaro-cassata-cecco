@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.Client;
 import it.polimi.ingsw.events.*;
+import it.polimi.ingsw.model.FileLoader;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.view.gui.*;
 import javafx.application.Application;
@@ -83,6 +84,7 @@ public class Gui extends  Application implements View {
 
 
         startMenu = new Scene(stackPane,widthScreen,heightScreen );
+
         Image intro = new Image("SantoriniIntro.jpg", widthScreen,heightScreen,true, true); //modificare percorso.
 
            //Image intro = new Image("SantoriniIntro.jpg");

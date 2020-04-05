@@ -1,7 +1,8 @@
 module AM06 {
+    requires javafx.graphics;
     requires javafx.controls;
-    requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.core;
-    exports it.polimi.ingsw.model;
+    requires com.fasterxml.jackson.databind;
     exports it.polimi.ingsw.view;
+    exports it.polimi.ingsw.model;
 }

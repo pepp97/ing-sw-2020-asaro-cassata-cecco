@@ -16,7 +16,7 @@ public class TheyDontMoveUp implements SubAction {
     public void use(Game game) {
 
         for(Player p: game.getPlayerList())
-            if (p != game.getCurrentPlayer())
+            if (!(p.equals(game.getCurrentPlayer())))
                 for(Worker w: p.getWorkers())
                     w.setCanMoveUp(false);
 
