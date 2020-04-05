@@ -13,13 +13,12 @@ public class BuilderUpdate {
 
 
     private Square[][] squares;
-    private final String path = "/god.json";
 
     public BuilderUpdate(Square [][] squares) {
         this.squares = squares;
     }
 
-    public void parser(){
+    public void builder(){
         int levels;
         Worker work=null;
         ArrayList<SquareToJson> list=new ArrayList<>();

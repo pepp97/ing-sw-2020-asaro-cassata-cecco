@@ -73,7 +73,7 @@ public class BuilderUpdateTest {
         Square square= new Square(0,0);
         String c="Black";
         p=new BuilderUpdate(squares);
-        p.parser();
+        p.builder();
     }
 }
 
