@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,6 +16,7 @@ public class SameDirectionTest {
     @Test
     void testMoveInSameDirection(){
         field=game.getField();
+        game.setCurrentView(new VirtualView());
         Square [][] squares=field.getSquares();
         squares[1][1].setLevel(1);
         squares[1][2].setLevel(4);

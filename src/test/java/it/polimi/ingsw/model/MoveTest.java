@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.Test;
 
 
@@ -36,7 +37,7 @@ public class MoveTest {
         assertTrue(move.isUsable(game));
         int prova=w1.getHistoryPos().size();
         game.setTargetSelected(squares [0][0]);
-
+        game.setCurrentView(new VirtualView());
             move.use(game);
 
         assertEquals(prova+1, w1.getHistoryPos().size());

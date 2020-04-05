@@ -33,7 +33,7 @@ public class VirtualView extends Thread implements View  {
         }
     }
 
-
+    public VirtualView(){}
     public void setOwner(Player owner) {
         this.owner = owner;
     }
