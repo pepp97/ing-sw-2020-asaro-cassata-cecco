@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui;
 import it.polimi.ingsw.commands.LoginCommand;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.events.LoginSuccessful;
+import it.polimi.ingsw.events.SettingsEvent;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.View;
@@ -86,11 +87,7 @@ public class LoginWindow implements GuiScreen {
                             LoginCommand command= new LoginCommand(nameInput.getText(), Color.valueOf(color.toUpperCase()));
                             gui.getClient().send(command);
                             Event event;
-                            List<String> prova= new ArrayList<>();
-                            prova.add("Ricktardato");
-                            prova.add("Peppe");
-                            prova.add("Salvo");
-                            event=new LoginSuccessful(prova);
+                            event= new SettingsEvent();
                             event.send(gui);
                         } catch (Exception e) {
                             e.printStackTrace();

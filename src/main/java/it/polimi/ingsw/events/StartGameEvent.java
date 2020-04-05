@@ -10,14 +10,15 @@ import java.util.List;
 public class StartGameEvent implements Event {
 
     private List<String> gods;
-
-    public StartGameEvent(List<String> gods) {
+    private int numPlayers;
+    public StartGameEvent(List<String> gods , int numPlayers) {
         this.gods = gods;
+        this.numPlayers = numPlayers;
     }
 
     @Override
     public void send(Gui view) {
-
+        view.update(this);
     }
 
     @Override
@@ -25,5 +26,11 @@ public class StartGameEvent implements Event {
         view.update(this);
     }
 
+    public List<String> getGods() {
+        return gods;
+    }
 
+    public int getNumPlayers() {
+        return numPlayers;
+    }
 }

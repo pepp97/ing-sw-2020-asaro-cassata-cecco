@@ -1,14 +1,9 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.Client;
-import it.polimi.ingsw.events.ConnectionSuccessful;
-import it.polimi.ingsw.events.Event;
-import it.polimi.ingsw.events.LoginSuccessful;
+import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.view.gui.GuiScreen;
-import it.polimi.ingsw.view.gui.LobbyWindow;
-import it.polimi.ingsw.view.gui.LoginWindow;
-import it.polimi.ingsw.view.gui.SelectBox;
+import it.polimi.ingsw.view.gui.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -29,6 +24,7 @@ public class Gui extends  Application implements View {
     private Client client;
     private SelectBox exitGame;
     private GuiScreen state;
+    private SettingsWindow settings;
 
     private  double widthScreen = Screen.getPrimary().getBounds().getWidth();
    private double heightScreen = Screen.getPrimary().getBounds().getHeight()-40.00;
@@ -177,6 +173,24 @@ public class Gui extends  Application implements View {
     public void update(Event event) {
 
     }
+
+    public void update (SettingsEvent settingsEvent){
+        settings = new SettingsWindow(this);
+        settings.displayMessage(primaryStage);
+
+    }
+
+    public void update(StartGameEvent startGameEvent){
+
+        Platform.runLater(() -> {
+            this.state = new SelectGodWindow(this,startGameEvent);
+            state.setScene();
+        });
+
+
+    }
+
+
 }
 
 

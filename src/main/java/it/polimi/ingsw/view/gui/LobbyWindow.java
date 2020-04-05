@@ -1,14 +1,23 @@
 package it.polimi.ingsw.view.gui;
 
+import it.polimi.ingsw.commands.ChooseGods;
+import it.polimi.ingsw.commands.LoginCommand;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.events.LoginSuccessful;
+import it.polimi.ingsw.events.SettingsEvent;
+import it.polimi.ingsw.events.StartGameEvent;
+import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.view.Gui;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LobbyWindow implements GuiScreen {
     private Gui gui;
@@ -50,8 +59,24 @@ public class LobbyWindow implements GuiScreen {
         AnchorPane.setTopAnchor(hbox, 200.0);
         AnchorPane.setLeftAnchor(hbox, 550.0);
         anchorPane.getChildren().add(0, hbox);
+
+        Button connect = new Button("Connect");
+
+        hbox.getChildren().add(connect);
+
+        connect.setOnAction(f -> {
+            List<String>gods=List.of(new String ("Apollo"),
+                    new String ("Artemis"),new String("Athena"), new String("Atlas"),
+                    new String ("Demeter"), new String("Hephaestus"),
+                    new String ("Minotaur"), new String ("Pan"),
+                    new String ("Prometheus"));
+            Event event;
+            event= new StartGameEvent(gods,3);
+            event.send(gui);
+        });
         gui.getPrimaryStage().setScene(scene);
         gui.getPrimaryStage().setTitle("WaitRoom Window");
     }
+
 }
 

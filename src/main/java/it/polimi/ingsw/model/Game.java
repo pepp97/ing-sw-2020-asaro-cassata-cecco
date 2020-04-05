@@ -105,7 +105,7 @@ public class Game implements Observable {
                 List<String> godlist=new ArrayList<>();
                 for(God g: startGods)
                     godlist.add(g.getName());
-                e = new StartGameEvent(godlist);
+                e = new StartGameEvent(godlist, numplayer);
                 notifyObservers(e);
             }
            else {
