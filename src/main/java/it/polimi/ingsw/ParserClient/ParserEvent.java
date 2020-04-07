@@ -52,6 +52,20 @@ public class ParserEvent {
                 squaresList.add(square);
             }
             ChooseWorker chooseWorker=new ChooseWorker(squaresList);
+        }else if(event.equals("\"ChooseYourGodEvent\"")){
+            JsonNode gods=a.path("gods");
+            JsonNode effects=a.path("effects");
+            List<String> godsList=new ArrayList<>();
+            List<String> effectsList=new ArrayList<>();
+            for(int i=0;i<gods.size();i++){
+                JsonNode b=gods.get(i);
+                godsList.add(b.toString().replace("\"",""));
+            }
+            for(int i=0;i<effects.size();i++){
+                JsonNode b=effects.get(i);
+                effectsList.add(b.toString().replace("\"",""));
+            }
+            ChooseYourGodEvent chooseYourGodEvent=new ChooseYourGodEvent(godsList,effectsList);
         }
         else if(event.equals("\"ConnectionSuccessful\"")){
             ConnectionSuccessful connectionSuccessful=new ConnectionSuccessful();

@@ -55,6 +55,7 @@ public class BuilderEventTest {
         askUser askUser=new askUser();
         ChooseTarget chooseTarget= new ChooseTarget(message,availableSquare);
         ChooseWorker chooseWorker= new ChooseWorker(posWorker);
+        ChooseYourGodEvent chooseYourGodEvent=new ChooseYourGodEvent(namesGod,login);
         ConnectionSuccessful connectionSuccessful= new ConnectionSuccessful();
         DeathPlayer deathPlayer=new DeathPlayer(nick1);
         EndGame endGame=new EndGame(result);
@@ -67,6 +68,7 @@ public class BuilderEventTest {
         b.builder(askUser);
         b.builder(chooseTarget);
         b.builder(chooseWorker);
+        b.builder(chooseYourGodEvent);
         b.builder(connectionSuccessful);
         b.builder(deathPlayer);
         b.builder(endGame);

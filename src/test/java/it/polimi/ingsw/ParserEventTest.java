@@ -8,7 +8,7 @@ public class ParserEventTest {
     @Test
     void parser(){
         p=new ParserEvent();
-        String json="{\"eventName\":\"LoginSuccessful\",\"attributes\":{\"nickname\":[\"Mario\",\"Marco\"]}}";
+        String json="{\"eventName\":\"ChooseYourGodEvent\",\"attributes\":{\"gods\":[\"Apollo\",\"Artemis\"],\"effects\":[\"Mario\",\"Marco\"]}}";
         p.parser(json);
     }
 }

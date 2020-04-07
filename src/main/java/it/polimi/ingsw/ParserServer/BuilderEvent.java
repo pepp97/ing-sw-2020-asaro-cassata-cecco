@@ -37,6 +37,8 @@ public class BuilderEvent {
             s="ChooseTarget";
         }else if(event instanceof ChooseWorker){
             s="ChooseWorker";
+        }else if(event instanceof ChooseYourGodEvent){
+            s="ChooseYourGodEvent";
         }else if(event instanceof ConnectionSuccessful){
             s="ConnectionSuccessful";
         }else if(event instanceof DeathPlayer){
