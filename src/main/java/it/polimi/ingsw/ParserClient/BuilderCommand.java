@@ -51,9 +51,9 @@ public class BuilderCommand {
     public String buildjsonString(String attributes,String type){
         String json;
         if(attributes==null)
-            json="{" + " \"commandName\":\"" + type+ "\"}";
+            json="{" + "\"commandName\":\"" + type+ "\"}";
         else{
-            json="{" + " \"commandName\":\"" + type+ "\"," + "\"attributi\":"+attributes+"}";
+            json="{" + "\"commandName\":\"" + type+ "\"," + "\"attributes\":"+attributes+"}";
         }
         return json;
     }
