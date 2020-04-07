@@ -11,6 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="AM06" target="9" />
       <module name="ing-sw-2020-asaro-cassata-cecco" target="1.7" />
     </bytecodeTargetLevel>
   </component>

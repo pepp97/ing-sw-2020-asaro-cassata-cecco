@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParserEvent {
-    private Event event;
+    private Event eventReturn;
 
-    public void parser(String json){
+    public Event parser(String json){
         ObjectMapper mapper = new ObjectMapper();
 
         try{
@@ -25,12 +25,13 @@ public class ParserEvent {
         }catch(IOException e){
             e.printStackTrace();
         }
+        return eventReturn;
     }
 
     public void selectType(String event, JsonNode a){
         String s=null;
         if(event.equals("\"askUser\"")){
-            askUser askUser= new askUser();
+            eventReturn= new askUser();
         }
         else if(event.equals("\"ChooseTarget\"")){
             JsonNode message=a.path("message");
@@ -41,7 +42,7 @@ public class ParserEvent {
                 Square square= new Square(b.get(0).asInt(),b.get(1).asInt());
                 squaresList.add(square);
             }
-            ChooseTarget chooseTarget=new ChooseTarget(message.toString().replace("\"",""),squaresList);
+            eventReturn=new ChooseTarget(message.toString().replace("\"",""),squaresList);
         }
         else if(event.equals("\"ChooseWorker\"")){
             JsonNode squares=a.path("S");
@@ -51,7 +52,7 @@ public class ParserEvent {
                 Square square= new Square(b.get(0).asInt(),b.get(1).asInt());
                 squaresList.add(square);
             }
-            ChooseWorker chooseWorker=new ChooseWorker(squaresList);
+            eventReturn=new ChooseWorker(squaresList);
         }else if(event.equals("\"ChooseYourGodEvent\"")){
             JsonNode gods=a.path("gods");
             JsonNode effects=a.path("effects");
@@ -65,22 +66,22 @@ public class ParserEvent {
                 JsonNode b=effects.get(i);
                 effectsList.add(b.toString().replace("\"",""));
             }
-            ChooseYourGodEvent chooseYourGodEvent=new ChooseYourGodEvent(godsList,effectsList);
+            eventReturn=new ChooseYourGodEvent(godsList,effectsList);
         }
         else if(event.equals("\"ConnectionSuccessful\"")){
-            ConnectionSuccessful connectionSuccessful=new ConnectionSuccessful();
+            eventReturn=new ConnectionSuccessful();
         }
         else if(event.equals("\"DeathPlayer\"")){
             JsonNode nick=a.path("nickname");
-            DeathPlayer deathPlayer=new DeathPlayer(nick.toString().replace("\"",""));
+            eventReturn=new DeathPlayer(nick.toString().replace("\"",""));
         }
         else if(event.equals("\"EndGame\"")){
             JsonNode result=a.path("result");
-            EndGame endGame=new EndGame(result.toString().replace("\"",""));
+            eventReturn=new EndGame(result.toString().replace("\"",""));
         }
         else if(event.equals("\"ExceptionEvent\"")){
             JsonNode exp=a.path("exception");
-            ExceptionEvent endGame=new ExceptionEvent(exp.toString().replace("\"",""));
+            eventReturn=new ExceptionEvent(exp.toString().replace("\"",""));
         }
         else if(event.equals("\"LoginSuccessful\"")){
             JsonNode nicknames=a.path("nickname");
@@ -89,13 +90,13 @@ public class ParserEvent {
                 JsonNode b=nicknames.get(i);
                 nickList.add(b.toString().replace("\"",""));
             }
-            LoginSuccessful loginSuccessful=new LoginSuccessful(nickList);
+            eventReturn=new LoginSuccessful(nickList);
         }
         else if(event.equals("\"LogoutSuccessful\"")){
-            LogoutSuccessful logoutSuccessful=new LogoutSuccessful();
+            eventReturn=new LogoutSuccessful();
         }
         else if(event.equals("\"SettingsEvent\"")){
-            SettingsEvent settingsEvent=new SettingsEvent();
+            eventReturn=new SettingsEvent();
         }
         else if(event.equals("\"StartGameEvent\"")){
             JsonNode gods=a.path("gods");
@@ -104,7 +105,7 @@ public class ParserEvent {
                 namesGod.add(gods.get(i).toString().replace("\"",""));
             }
             JsonNode numPlayers=a.path("numPlayers");
-            StartGameEvent startGameEvent= new StartGameEvent(namesGod,numPlayers.asInt());
+            eventReturn= new StartGameEvent(namesGod,numPlayers.asInt());
         }
         else if(event.equals("\"UpdateEvent\"")){
             s="UpdateEvent";

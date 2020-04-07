@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AM06.iml" filepath="$PROJECT_DIR$/AM06.iml" />
       <module fileurl="file://$PROJECT_DIR$/ing-sw-2020-asaro-cassata-cecco.iml" filepath="$PROJECT_DIR$/ing-sw-2020-asaro-cassata-cecco.iml" />
     </modules>
   </component>
