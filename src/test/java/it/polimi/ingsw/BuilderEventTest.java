@@ -42,16 +42,18 @@ public class BuilderEventTest {
         String nick1="Mario";
         String nick2="Marco";
         List<String> login=new ArrayList<>();
+        login.add(nick1);
+        login.add(nick2);
 
         //variabili test per LoginSuccessful
         List<String> namesGod=new ArrayList<>();
-        login.add("Apollo");
-        login.add("Artemis");
+        namesGod.add("Apollo");
+        namesGod.add("Artemis");
         int nplayer=3;
 
 
         askUser askUser=new askUser();
-        ChooseTarget chooseTarget=new ChooseTarget(message,availableSquare);
+        ChooseTarget chooseTarget= new ChooseTarget(message,availableSquare);
         ChooseWorker chooseWorker= new ChooseWorker(posWorker);
         ConnectionSuccessful connectionSuccessful= new ConnectionSuccessful();
         DeathPlayer deathPlayer=new DeathPlayer(nick1);

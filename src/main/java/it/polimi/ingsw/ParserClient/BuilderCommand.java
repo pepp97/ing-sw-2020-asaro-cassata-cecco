@@ -18,11 +18,7 @@ public class BuilderCommand {
         }catch(IOException e){
             e.printStackTrace();
         }
-        if(attributes==null)
-            json="{" + " \" commandName\" :\"" + type+ "\" }";
-        else{
-            json="{" + " \" commandName\" :\"" + type+ "\"," + "\"attributi\" :"+attributes+"}";
-        }
+        json=buildjsonString(attributes,type);
         System.out.println(json);
     }
 
@@ -50,5 +46,15 @@ public class BuilderCommand {
             s="UseEffect";
         }
         return s;
+    }
+
+    public String buildjsonString(String attributes,String type){
+        String json;
+        if(attributes==null)
+            json="{" + " \"commandName\":\"" + type+ "\"}";
+        else{
+            json="{" + " \"commandName\":\"" + type+ "\"," + "\"attributi\":"+attributes+"}";
+        }
+        return json;
     }
 }

@@ -17,6 +17,14 @@ public class ChooseTarget implements Event {
         this.availableSquare = availableSquare;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public List<Square> getAvailableSquare() {
+        return availableSquare;
+    }
+
     @Override
     public void send(Gui view) {
 

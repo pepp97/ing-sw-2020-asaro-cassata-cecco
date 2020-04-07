@@ -11,6 +11,10 @@ public class ExceptionEvent implements Event {
         this.exception = exception;
     }
 
+    public String getException() {
+        return exception;
+    }
+
     @Override
     public void send(Gui view) {
 

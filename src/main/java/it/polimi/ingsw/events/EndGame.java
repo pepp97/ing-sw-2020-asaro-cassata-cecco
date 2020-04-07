@@ -12,6 +12,10 @@ public class EndGame implements Event {
         this.result = result;
     }
 
+    public String getResult() {
+        return result;
+    }
+
     @Override
     public void send(Gui view) {
 

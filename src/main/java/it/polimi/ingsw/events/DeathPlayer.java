@@ -12,6 +12,10 @@ public class DeathPlayer implements Event {
         this.nickname = nickname;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
     @Override
     public void send(Gui view) {
 

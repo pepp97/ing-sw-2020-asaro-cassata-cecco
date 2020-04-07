@@ -16,6 +16,7 @@ public class StartGameEvent implements Event {
         this.numPlayers = numPlayers;
     }
 
+
     @Override
     public void send(Gui view) {
         view.update(this);

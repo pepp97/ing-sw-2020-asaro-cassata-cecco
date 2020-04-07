@@ -16,6 +16,10 @@ public class ChooseWorker implements Event {
         this.posWorker = posWorker;
     }
 
+    public List<Square> getPosWorker() {
+        return posWorker;
+    }
+
     @Override
     public void send(Gui view) {
 
