@@ -35,11 +35,13 @@ public class LoginWindow implements GuiScreen {
         form.setAlignment(Pos.CENTER);
 
         Scene scene=new Scene(form,gui.getWidthScreen(),gui.getHeightScreen());
-        Image intro = new Image("rickFatto.jpg", gui.getWidthScreen(),gui.getHeightScreen(),true, true); //modificare percorso.
+        Image intro = new Image("SantoriniIntro.jpg", gui.getWidthScreen(),gui.getHeightScreen(),true, true); //modificare percorso.
 
         //Image intro = new Image("SantoriniIntro.jpg");
         ImageView imageView = new ImageView();
         imageView.setImage(intro);
+        imageView.setFitHeight(gui.getHeightScreen());
+        imageView.setFitWidth(gui.getWidthScreen());
         BackgroundImage backgroundImage = new BackgroundImage(intro, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         form.setBackground(new Background(backgroundImage));
         TextField nameInput = new TextField("");
