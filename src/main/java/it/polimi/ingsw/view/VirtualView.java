@@ -36,7 +36,9 @@ public class VirtualView extends Thread implements View  {
         }
     }
 
-    public VirtualView(){}
+    public VirtualView(){
+        this.out=new PrintWriter(System.out);
+    }
     public void setOwner(Player owner) {
         this.owner = owner;
     }
