@@ -1,5 +1,9 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.ParserClient.BuilderCommand;
+import it.polimi.ingsw.ParserClient.ParserEvent;
+import it.polimi.ingsw.ParserServer.BuilderEvent;
+import it.polimi.ingsw.ParserServer.ParserCommand;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.commands.LoginCommand;
 import it.polimi.ingsw.events.ConnectionSuccessful;
@@ -90,6 +94,8 @@ public class Client {
 
 
 
+
+
            }catch (UnknownHostException exp2){
                System.err.println("Errore: "+ exp2.getMessage());
                System.exit(1);
@@ -101,8 +107,19 @@ public class Client {
           // socket.close();
        }
 
-    public void send(Command command) {
-        //impacchetta e manda
+    public void send(Command cmd){
+        BuilderCommand b=new BuilderCommand();
+        String json=b.builder(cmd);
+
+        this.out.println(json);
+        System.out.println("Command: " +cmd.toString());
+
+    }
+
+    public Event receive(String json){
+        ParserEvent p=new ParserEvent();
+        Event event=p.parser(json);
+        return event;
     }
 }
 

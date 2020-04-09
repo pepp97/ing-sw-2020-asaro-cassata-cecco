@@ -1,5 +1,9 @@
 package it.polimi.ingsw;
 
+import it.polimi.ingsw.ParserServer.BuilderEvent;
+import it.polimi.ingsw.ParserServer.ParserCommand;
+import it.polimi.ingsw.events.*;
+import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.*;
@@ -22,4 +26,6 @@ public class Server {
         }
         
     }
+
+
 }

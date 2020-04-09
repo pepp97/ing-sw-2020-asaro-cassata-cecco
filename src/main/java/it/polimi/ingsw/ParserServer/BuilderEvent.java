@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BuilderEvent {
 
-    public void builder(Event event)  {
+    public String builder(Event event)  {
         ObjectMapper mapper = new ObjectMapper();
         String attributes=null;
         String type=selectType(event);
@@ -26,7 +26,7 @@ public class BuilderEvent {
             e.printStackTrace();
         }
         json=buildjsonString(attributes,type);
-        System.out.println(json);
+        return json;
     }
 
     public String selectType(Event event){

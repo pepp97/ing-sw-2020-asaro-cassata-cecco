@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.ParserServer.BuilderEvent;
+import it.polimi.ingsw.ParserServer.ParserCommand;
+import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.model.Player;
@@ -40,7 +43,18 @@ public class VirtualView extends Thread implements View  {
 
 
     public void update(Event event) {
-        //prepara JSon e manda
+        BuilderEvent b=new BuilderEvent();
+        String json=b.builder(event);
+
+        this.out.println(json);
+        System.out.println("Event: "+event.toString());
+
+    }
+
+    public Command receive(String json){
+        ParserCommand b=new ParserCommand();
+        Command command=b.parser(json);
+        return command;
     }
 
     @Override
@@ -50,14 +64,14 @@ public class VirtualView extends Thread implements View  {
 
     @Override
     public void run() {
+        Command cmd=null;
             while(true){
                 String s= null;
-               /* while((s = in.nextLine())!=null){
+                while((s = in.nextLine())!=null){
                     if(s.equals("END")) break;
-                    System.out.println("Messaggio: "+ s);
-                    out.print(s + "\n");
-                    out.flush();
-                }*/
+                    cmd=receive(s);
+                    System.out.println("Command: "+ cmd.toString());
+                }
             }
     }
 }

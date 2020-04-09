@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class BuilderCommand {
 
-    public void builder(Command command)  {
+    public String builder(Command command)  {
         ObjectMapper mapper = new ObjectMapper();
         String attributes=null;
         String type=selectType(command);
@@ -19,7 +19,7 @@ public class BuilderCommand {
             e.printStackTrace();
         }
         json=buildjsonString(attributes,type);
-        System.out.println(json);
+        return json;
     }
 
     public String selectType(Command command){
