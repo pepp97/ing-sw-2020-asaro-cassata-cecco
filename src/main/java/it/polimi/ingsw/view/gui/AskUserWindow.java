@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.commands.ChooseSettings;
-import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.events.LoginSuccessful;
 import it.polimi.ingsw.view.Gui;
@@ -19,50 +18,30 @@ import javafx.stage.StageStyle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingsWindow {
-
+public class AskUserWindow {
     private Stage stage;
     private Gui gui;
     private Scene scene;
 
 
-    public SettingsWindow(Gui gui) {
+    public AskUserWindow(Gui gui) {
         this.gui = gui;
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label();
-        confirmMessage.setText("how many players?");
-        Button twoButton = new Button("2");
-        Button threeButton = new Button("3");
-        twoButton.setOnAction(e -> {
-            ChooseSettings chooseSettings = new ChooseSettings(2);
-            gui.getClient().send(chooseSettings);
-            stage.close();
-            Event event;
-            List<String> prova= new ArrayList<>();
-            prova.add("Ricktardato");
-            prova.add("Peppe");
-            prova.add("Salvo");
-            event=new LoginSuccessful(prova);
-            event.send(gui);
+        confirmMessage.setText("Do you want use the effect?");
+        Button yesButton = new Button("yes");
+        Button noButton = new Button("no");
+        yesButton.setOnAction(e -> {
+            System.out.println("si");
+            // inviare risposta
         });
-        threeButton.setOnAction(e -> {
-            ChooseSettings chooseSettings = new ChooseSettings(3);
-            gui.getClient().send(chooseSettings);
-            stage.close();
-            Event event;
-            List<String> prova= new ArrayList<>();
-            prova.add("Ricktardato");
-            prova.add("Peppe");
-            prova.add("Salvo");
-            event=new LoginSuccessful(prova);
-            gui.setNicknames(prova);
-            event.send(gui);
-
+        noButton.setOnAction(e -> {
+            System.out.println("no");
         });
 
         VBox layoutMessage = new VBox(20);
         HBox buttonLine = new HBox(20);
-        buttonLine.getChildren().addAll(twoButton, threeButton);
+        buttonLine.getChildren().addAll(yesButton, noButton);
         buttonLine.setAlignment(Pos.CENTER);
         buttonLine.backgroundProperty().setValue(confirmBackground);
         layoutMessage.getChildren().addAll(confirmMessage, buttonLine);
@@ -81,4 +60,3 @@ public class SettingsWindow {
         stage.showAndWait();
     }
 }
-

@@ -20,12 +20,21 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Gui extends  Application implements View {
     private Stage primaryStage;
     private Client client;
     private SelectBox exitGame;
     private GuiScreen state;
     private SettingsWindow settings;
+    private AskUserWindow askUs;
+    private DeathPlayerWindow death;
+    private EndGameWindow end;
+    private List<String> gods;
+    private List<String> nicknames = new ArrayList<>();
+
 
     private  double widthScreen = Screen.getPrimary().getBounds().getWidth();
    private double heightScreen = Screen.getPrimary().getBounds().getHeight()-40.00;
@@ -50,6 +59,22 @@ public class Gui extends  Application implements View {
 
     public Client getClient() {
         return client;
+    }
+
+    public List<String> getGods() {
+        return gods;
+    }
+
+    public void setGods(List<String> gods) {
+        this.gods = gods;
+    }
+
+    public List<String> getNicknames() {
+        return nicknames;
+    }
+
+    public void setNicknames(List<String> nicknames) {
+        this.nicknames = nicknames;
     }
 
     @Override
@@ -203,6 +228,28 @@ public class Gui extends  Application implements View {
             this.state = new GameWindow(this,event);
             state.setScene();
         });
+    }
+
+    public void update (askUser ask){
+        askUs = new AskUserWindow(this);
+        askUs.displayMessage(primaryStage);
+
+    }
+
+    public void update (DeathPlayer deathPlayer){
+        death = new DeathPlayerWindow(this, deathPlayer);
+        death.displayMessage(primaryStage);
+
+    }
+
+    public void update (EndGame endGame){
+
+        Platform.runLater(() -> {
+            this.state = new EndGameWindow(this, endGame);
+            state.setScene();
+        });
+
+
     }
 
 }

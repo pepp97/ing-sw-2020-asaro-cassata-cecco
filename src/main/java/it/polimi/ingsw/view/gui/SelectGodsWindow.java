@@ -282,6 +282,7 @@ public class SelectGodsWindow implements GuiScreen {
                 effetti.add(" Questa divinità ha lo strabiliante potere di menare rick ogni \n volta che il nostro amico fa una delle sue minchiate, \n  per questo è considrata una delle divinità più forti dell'Olimpo. \n  Provala adesso!");
                 effetti.add("insulta rick");
                 effetti.add("uccidi rick");
+                gui.setGods(selected);
                 event= new ChooseYourGodEvent(selected,effetti);
                 event.send(gui);
                 stage.close();

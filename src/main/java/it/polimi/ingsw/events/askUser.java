@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.VirtualView;
 public class askUser implements Event {
     @Override
     public void send(Gui view) {
+        view.update(this);
 
     }
 
