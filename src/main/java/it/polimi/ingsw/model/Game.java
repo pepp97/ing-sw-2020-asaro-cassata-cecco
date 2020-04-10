@@ -57,11 +57,15 @@ public class Game implements Observable {
     }
 
     public List<Player> getPlayerList() {
-        return playerList;
+        return List.copyOf(playerList);
     }
 
-    public void setPlayerList(List<Player> playerList) {
-        this.playerList = playerList;
+    public void setPlayerInList(Player player) {
+        if(playerList.size()<3)
+        this.playerList.add(player);
+    }
+    public void removePlayerInList(Player player){
+        this.playerList.remove(player);
     }
 
     public Player getCurrentPlayer() {
@@ -80,13 +84,13 @@ public class Game implements Observable {
         this.targetSelected = targetSelected;
     }
 
-    public Board getBoard() {
+    protected Board getBoard() {
         return board;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
-    }
+    //public void setBoard(Board board) {
+      //  this.board = board;
+    //}
 
 
     //IMPLEMENTARE
@@ -166,8 +170,11 @@ public class Game implements Observable {
         }
     }
 
-    //IMPLEMENTARE
+
     public void setInitialPosition(int coordinateX, int coordinateY, VirtualView view) {
+        Worker w=new Worker();
+        view.getOwner().setWorkers(w);
+        getField().getSquares()[coordinateX][coordinateY].setWorker(w);
     }
 
 

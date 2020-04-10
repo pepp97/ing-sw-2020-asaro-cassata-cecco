@@ -55,6 +55,7 @@ public class Square implements Target {
 
 
     public void setLevel(int level) {
+        if(level>=0 && level<5)
         this.level = level;
     }
 
@@ -66,6 +67,7 @@ public class Square implements Target {
      * this metod is called to build a new level on the field
      */
     public void upgrade () {
+        if(level<=3)
         level++;
     }
 
@@ -91,11 +93,12 @@ public class Square implements Target {
      * @param square the actual adjacent square
      */
     public void setAdjacentSquares (Square square){
+        if(square.level==0)
         adjacentSquares.add(square);
     }
 
     public List<Square> getAdjacentSquares() {
-        return adjacentSquares;
+        return List.copyOf(adjacentSquares);
     }
 
     public int getCoordinateX() {

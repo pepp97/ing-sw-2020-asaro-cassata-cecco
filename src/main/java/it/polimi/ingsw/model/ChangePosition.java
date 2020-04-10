@@ -31,14 +31,18 @@ public class ChangePosition implements SubAction {
             i++;
 
 
-
-        if(availableSquare.contains(game.getTargetSelected())) {
+        Worker worker = (Worker) game.getTargetInUse();
+        if(game.getTargetSelected().getSquare().getWorker()!=null)
+            game.setTargetSelected(game.getTargetSelected().getSquare().getWorker());
+        if (worker.getCanBeMoved()) {
+        if(availableSquare.contains(game.getTargetSelected().getSquare())) {
             game.getTargetInUse().getSquare().removeWorker();
             game.getTargetSelected().getSquare().setWorker((Worker) game.getTargetInUse());
             availableSquare.clear();
         }
 
-        else new ExceptionEvent( "target not available");
+        else new ExceptionEvent( "target not available");}
+        else new ExceptionEvent("you can't move");
         //worker.setActualPos(target.getSquare());
         // worker.getHistoryPos().add(target.getSquare());
 
@@ -46,6 +50,7 @@ public class ChangePosition implements SubAction {
         //creazione evento+gestione skippable
     }
 
+    //only for a test purpose
     public List<Square> getAvailableSquare() {
         return availableSquare;
     }
@@ -64,12 +69,16 @@ public class ChangePosition implements SubAction {
 
 
         for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getLevel() < 4 &&(s.getWorker()==null || s.getWorker().getC()!=worker.getC())&& s.getLevel()-1<=worker.getSquare().getLevel()) {
+            if(s.getLevel() < 4 &&(s.getWorker()==null || s.getWorker().getC()!=worker.getC())&& ((worker.getCanMoveUp()&& worker.getSquare().getLevel()==s.getLevel()-1) || (worker.getSquare().getLevel()>s.getLevel()-1))) {
                 availableSquare.add(s);
                 result = true;
-                worker.setCanBeMoved(result);
-            }
 
+            }
+        if (worker.getSquareNotAvailable() != null)
+            availableSquare.remove(worker.getSquareNotAvailable());
+        if (availableSquare.size() == 0)
+            result = false;
+        worker.setCanBeMoved(result);
         return result;
     }
 }

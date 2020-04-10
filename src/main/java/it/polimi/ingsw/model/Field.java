@@ -35,7 +35,7 @@ public class Field {
     }
 
     public List<Square> getAvailableSquares() {
-        return availableSquares;
+        return List.copyOf(availableSquares);
     }
 
     /**

@@ -50,8 +50,10 @@ public class Worker implements Target {
 
     //questo metodo mi serve per aggiornare la posizione del worker ad ogni suo spostamento
     public void setActualPos(Square pos){
-        this.actualPos=pos;
-        aggiornaPos(pos); //aggiungo alla lista della cronologia delle posizioni quella corrente
+        if(pos.getLevel()<4 && pos.getCoordinateX()<5 && 0<=pos.getCoordinateY() && 0<=pos.getCoordinateX() && pos.getCoordinateY()<5) {
+            this.actualPos = pos;
+            aggiornaPos(pos); //aggiungo alla lista della cronologia delle posizioni quella corrente
+        }
     }
 
     /**
@@ -59,7 +61,9 @@ public class Worker implements Target {
      * @param pos new position of the worker
      */
     //questo metodo mi serve per aggiornare  la lista delle cronologia delle posizioni del worker nel turno
-    private void aggiornaPos(Square pos){ this.historyPos.add(pos); }
+    private void aggiornaPos(Square pos){
+        if(pos.getLevel()<4 && pos.getCoordinateX()<5 && 0<=pos.getCoordinateY() && 0<=pos.getCoordinateX() && pos.getCoordinateY()<5)
+            this.historyPos.add(pos); }
 
     /**
      * this method is used by controller to reset the history of the worker position of from the previous round
@@ -101,10 +105,10 @@ public class Worker implements Target {
 
     public boolean getCanBuild() { return canBuild; }
 
-    public List<Square> getHistoryPos() { return historyPos; }
+    public List<Square> getHistoryPos() { return List.copyOf(historyPos); }
 
     public List<Square> getTargetNotValid() {
-        return targetNotValid;
+        return List.copyOf(targetNotValid);
     }
 
     public Square getSquareNotAvailable() {

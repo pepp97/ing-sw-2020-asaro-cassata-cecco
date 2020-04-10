@@ -11,7 +11,7 @@ import java.util.List;
 public class Player {
 
     private String username;
-    private List<Worker> workers=new ArrayList<>(2);
+    private List<Worker> workers=new ArrayList<>();
     private God god;
     private Color color;
 
@@ -40,23 +40,31 @@ public class Player {
      */
 
    //questo metodo serve per assegnare un worker ad un player
-   public void add(Worker worker){
-        if(workers.size()<2)
+   public void setWorkers(Worker worker){
+        if(workers.size()<2){
             workers.add(worker);
-        worker.setC(this.color);
+            worker.setC(this.color);}
     }
 
     //Metodi Setter
     public void setUsername(String username) { this.username = username; }
 
-    public void setWorkers(List <Worker> workers) { this.workers = workers; }
 
-    public void setGod(God god) { this.god = god; }
+
+    public void setGod(God god) {
+        if(god.getTextEffect()!=null && god.getName()!=null && god.getSurname()!=null && god.getRoutine().size()>=1)
+       this.god = god;
+   }
 
     //Metodi Getter
-    public String getUsername() { return username; }
+    public String getUsername() {
+       return username;
+   }
 
-    public List <Worker>  getWorkers() { return workers; }
+    public List <Worker>  getWorkers() {
+       List<Worker> workerstoRet=  List.copyOf(workers);
+       return workerstoRet; }
 
     public God getGod() { return god; }
+
 }

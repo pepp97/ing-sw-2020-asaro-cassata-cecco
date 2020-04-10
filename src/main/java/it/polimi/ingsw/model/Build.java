@@ -30,20 +30,20 @@ public class Build implements SubAction {
 
         ChooseTarget chooseTarget=new ChooseTarget("Select your square to upgrade",availableSquare);
         game.notifyObservers(chooseTarget);
-
+        Worker worker = (Worker) game.getTargetInUse();
         int i=0;
 
         while(game.getTargetSelected()==null)
             i++;
-
-        if(availableSquare.contains(game.getTargetSelected())){
-            game.getTargetSelected().getSquare().upgrade();
-            game.getCurrentPlayer().getGod().getCantDo().clear();
-            availableSquare.clear();
+        if(worker.getCanBuild()) {
+            if (availableSquare.contains(game.getTargetSelected())) {
+                game.getTargetSelected().getSquare().upgrade();
+                game.getCurrentPlayer().getGod().getCantDo().clear();
+                availableSquare.clear();
+            } else
+                new ExceptionEvent("you can't build here!");
         }
-        else
-             new ExceptionEvent("you can't build here!");
-
+        else new ExceptionEvent("you can't build");
         //generazione pacchetto->creazione evento
 
 
@@ -65,7 +65,7 @@ public class Build implements SubAction {
 
 
         for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getWorker()==null && s.getLevel()!=4 && !(cantDo.contains(s.getLevel())) && s != worker.getSquareNotAvailable()) {
+            if(s.getWorker()==null && s.getLevel()!=4 && !(cantDo.contains(s.getLevel()+1)) && s != worker.getSquareNotAvailable()) {
                 availableSquare.add(s);
                 result = true;
             }

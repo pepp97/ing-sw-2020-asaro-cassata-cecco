@@ -34,11 +34,12 @@ public class God {
         Routine = routine;
     }
 
-    public God() {
-    }
+
 
     public void setCantDo(List<Integer> cantDo) {
-        this.cantDo = cantDo;
+        for(Integer i: cantDo)
+            if(i>=0 && i<=4)
+                this.cantDo.add(i);
     }
 
     public void setEffect(List<SubAction> effect) {
@@ -70,4 +71,6 @@ public class God {
     public List<EffectRoutine> getRoutine() { return Routine; }
 
     public void setRoutine(List<EffectRoutine> routine) { Routine = routine; }
+
+   
 }

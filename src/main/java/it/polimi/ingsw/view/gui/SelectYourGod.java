@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view.gui;
 
-import it.polimi.ingsw.commands.ChooseGods;
 import it.polimi.ingsw.commands.ChooseYourGod;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.ChooseYourGodEvent;
@@ -11,7 +10,6 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.view.Gui;
-import it.polimi.ingsw.view.gui.GuiScreen;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -27,7 +25,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SelectYourGod implements GuiScreen {
@@ -187,10 +184,10 @@ public class SelectYourGod implements GuiScreen {
             Worker w2=new Worker();
             Worker w3=new Worker();
             Worker w4=new Worker();
-            p1.add(w1);
-            p1.add(w2);
-            p2.add(w3);
-            p2.add(w4);
+            p1.setWorkers(w1);
+            p1.setWorkers(w2);
+            p2.setWorkers(w3);
+            p2.setWorkers(w4);
             squares[1][1].setLevel(1);
             squares[1][2].setLevel(4);
             squares[1][3].setLevel(4);

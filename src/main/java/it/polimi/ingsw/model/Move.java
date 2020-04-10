@@ -23,7 +23,7 @@ public class Move implements SubAction {
     @Override
     public void use(Game game) {
 
-        ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",availableSquare);
+        ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",List.copyOf(availableSquare));
         game.notifyCurrent(chooseTarget);
 
         int i=0;
@@ -32,22 +32,25 @@ public class Move implements SubAction {
             i++;
 
         Worker worker = (Worker) game.getTargetInUse();
+        if (worker.getCanBeMoved()) {
         if(availableSquare.contains(game.getTargetSelected())) {
 
-            if (worker.getCanBeMoved()) {
+
                 worker.getSquare().removeWorker();
                 //worker.setActualPos(target.getSquare());
                 game.getTargetSelected().getSquare().setWorker(worker);
                 availableSquare.clear();
             }
+        else new ExceptionEvent("target not available");
         }
 
-        else new ExceptionEvent("target not available");
+        else new ExceptionEvent("You can't move");
 
         //creazione evento
 
     }
 
+    //only for testing purpose
     public List<Square> getAvailableSquare() {
         return availableSquare;
     }

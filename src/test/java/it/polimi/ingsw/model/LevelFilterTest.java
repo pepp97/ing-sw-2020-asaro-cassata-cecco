@@ -23,7 +23,9 @@ public class LevelFilterTest {
         game=new Game ();
         Player p= new Player("john",Color.BLACK);
         game.setCurrentPlayer(p);
-        God g=new God();
+        List<EffectRoutine> listt=new ArrayList<>();
+        listt.add(new EffectRoutine("prova",false));
+        God g=new God("prova","prova","prova",listt);
         p.setGod(g);
         levelFilter=new LevelFilter(list);
         game.setTargetSelected(w1);

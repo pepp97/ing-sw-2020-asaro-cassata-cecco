@@ -1,53 +1,78 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.view.VirtualView;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SameDirectionTest {
 
-    private Field field;
-    private Move move=new Move();
+
+
     private Game game=new Game();
+    private Field field=game.getField();
     Worker w1=new Worker();
     Worker w2=new Worker();
     private MoveInSameDirection moveInSameDirection=new MoveInSameDirection();
+    private ChangePosition changePosition=new ChangePosition();
+    Square [][] squares=field.getSquares();
+    Player p1=new Player("prova", Color.BLACK);
+    Player p2=new Player("provaa",Color.WHITE);
+
+    @BeforeEach
+    void setup(){
+        p1.setWorkers(w1);
+        p2.setWorkers(w2);
+    }
 
     @Test
-    void testMoveInSameDirection(){
-        field=game.getField();
-        game.setCurrentView(new VirtualView());
-        Square [][] squares=field.getSquares();
-        squares[1][1].setLevel(1);
-        squares[1][2].setLevel(4);
-        squares[1][3].setLevel(4);
-        squares[2][1].setLevel(4);
-        squares[2][2].setLevel(0);
+    void lowAndUp(){
         squares[2][2].setWorker(w1);
-        squares[2][3].setLevel(4);
-        squares[3][1].setLevel(4);
-        squares[3][2].setLevel(4);
-        squares[3][3].setLevel(0);
-        squares[2][2].setWorker(w2);
+        squares[1][3].setWorker(w2);
+        game.setTargetSelected(squares[1][3]);
         game.setTargetInUse(w1);
-        game.setTargetSelected(squares[1][1]);
-        move.isUsable(game);
-
-            move.use(game);
-       game.setTargetSelected(w2);
+        System.out.println(w1.getHistoryPos());
+        changePosition.isUsable(game);
+        System.out.println(changePosition.getAvailableSquare());
+        System.out.println(squares[1][3]);
+        changePosition.use(game);
+       // System.out.println(w1.getSquare().getCoordinateX());
+        //System.out.println(w1.getSquare().getCoordinateY());
+        System.out.println(w1.getHistoryPos());
         moveInSameDirection.isUsable(game);
         moveInSameDirection.use(game);
-        assertEquals(squares[0][0].getWorker(),w2);
-        game.setTargetSelected(squares[2][2]);
-        move.isUsable(game);
+        assertTrue(squares[0][4].getWorker()==w2);
+    }
 
-            move.use(game);
-
+    @Test
+    void UpAndLow(){
+        squares[2][2].setWorker(w1);
+        squares[3][1].setWorker(w2);
+        game.setTargetSelected(squares[3][1]);
+        game.setTargetInUse(w1);
+        changePosition.isUsable(game);
+        changePosition.use(game);
+        // System.out.println(w1.getSquare().getCoordinateX());
+        //System.out.println(w1.getSquare().getCoordinateY());
+        System.out.println(w1.getHistoryPos());
         moveInSameDirection.isUsable(game);
-        game.setTargetSelected(w2);
         moveInSameDirection.use(game);
-        assertEquals(squares[3][3].getWorker(),w2);
+        assertTrue(squares[4][0].getWorker()==w2);
+    }
 
+    @Test
+    void SameDirectionKO(){
+        squares[2][2].setWorker(w1);
+        squares[3][1].setWorker(w2);
+        game.setTargetSelected(squares[3][1]);
+        game.setTargetInUse(w1);
+        changePosition.isUsable(game);
+        changePosition.use(game);
+        // System.out.println(w1.getSquare().getCoordinateX());
+        //System.out.println(w1.getSquare().getCoordinateY());
+        System.out.println(w1.getHistoryPos());
+        squares[4][0].setWorker(new Worker());
+       assertFalse( moveInSameDirection.isUsable(game));
     }
 
 }

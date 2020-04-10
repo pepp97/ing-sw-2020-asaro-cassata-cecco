@@ -10,8 +10,10 @@ public class MoveInSameDirection implements SubAction {
      */
     @Override
     public void use(Game game) {
-        Worker toMove=(Worker)game.getTargetSelected();
-        toMove.getSquare().removeWorker();
+        Worker toMove=((Worker)game.getTargetSelected());
+        //toMove.getSquare().removeWorker();
+        System.out.println(toMove);
+        System.out.println(positionToGo);
         positionToGo.setWorker(toMove);
 
     }
@@ -38,11 +40,10 @@ public class MoveInSameDirection implements SubAction {
             coordinateY = coordinateY - 1;
         else if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getCoordinateY() < worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateY())
             coordinateY = coordinateY + 1;
-        if (squares[coordinateX][coordinateY].getWorker() == null) {
+        if (squares[coordinateX][coordinateY].getWorker() == null && squares[coordinateX][coordinateY].getLevel()!=4) {
             positionToGo = squares[coordinateX][coordinateY].getSquare();
             return true;
         }
         return false;
-
     }
 }
