@@ -8,10 +8,7 @@ import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.model.Player;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -29,7 +26,7 @@ public class VirtualView extends Thread implements View  {
         try{
             InputStreamReader input= new InputStreamReader(socket.getInputStream());
             this.in=new Scanner(input);
-            this.out=new PrintWriter(socket.getOutputStream());
+            this.out=new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
             System.out.println("Utente connesso, IP: "+socket.getInetAddress()+ "; Port: "+socket.getPort());
 
         } catch (IOException e) {
@@ -47,18 +44,16 @@ public class VirtualView extends Thread implements View  {
 
 
     public void update(Event event) {
-        System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOO4");
         BuilderEvent b=new BuilderEvent();
         String json=b.builder(event);
 
         this.out.println(json);
-        System.out.println("Event: "+event.toString());
-        System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOO5");
+        System.out.println("Inviato Event: "+event.toString());
+
 
     }
 
     public void receive(String json){
-        System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOO");
         ParserCommand b=new ParserCommand();
         Command command=b.parser(json);
         command.execute(controller,this);
@@ -76,7 +71,7 @@ public class VirtualView extends Thread implements View  {
                 String s= null;
                 while((s = in.nextLine())!=null){
                     receive(s);
-                   // System.out.println("Command: "+ cmd.toString());
+                    System.out.println("Ricevuto: "+s);
                 }
             }
     }

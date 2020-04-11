@@ -1,9 +1,9 @@
 package it.polimi.ingsw.model;
 
 public enum Color {
-    WHITE ("White","ffffff"),
-    BLACK("Black","000000"),
-    BROWN("Brown","a52a2a");
+    WHITE ("WHITE","ffffff"),
+    BLACK("BLACK","000000"),
+    BROWN("BROWN","a52a2a");
 
     private String color;
     private String hexadecimal;

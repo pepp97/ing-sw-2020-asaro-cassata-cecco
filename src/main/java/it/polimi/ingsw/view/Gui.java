@@ -146,11 +146,9 @@ public class Gui extends  Application implements View {
                         menu.getChildren().add(0, error);
                     } else {
                          try {
-                             System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
                         client = new Client(ipInput.getText(), Integer.decode(portInput.getText()),this);
-                             System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+                        client.start();
                         Connection command=new Connection();
-                             client.start();
                         client.send(command);
 
                          } catch (Exception e1) {

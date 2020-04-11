@@ -39,7 +39,7 @@ public class SettingsWindow {
             stage.close();
             Event event;
             List<String> prova= new ArrayList<>();
-            prova.add("Ricktardato");
+            prova.add("Rick");
             prova.add("Peppe");
             prova.add("Salvo");
             event=new LoginSuccessful(prova);
@@ -51,7 +51,7 @@ public class SettingsWindow {
             stage.close();
             Event event;
             List<String> prova= new ArrayList<>();
-            prova.add("Ricktardato");
+            prova.add("Rick");
             prova.add("Peppe");
             prova.add("Salvo");
             event=new LoginSuccessful(prova);

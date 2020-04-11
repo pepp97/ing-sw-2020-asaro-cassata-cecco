@@ -12,13 +12,13 @@ import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.View;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
-public class Client {
-
-
-    private  View view;
+public class Client extends Thread {
+    private  Gui view;
     /*    public static void main(String[] args) throws IOException {
                 Socket socket=null;
                 BufferedReader in=null,stdin=null;
@@ -58,15 +58,18 @@ public class Client {
                 socket.close();
             }*/
     private Socket socket=null;
-   private BufferedReader in=null,stdin=null;
     private BufferedWriter writer=null;
     private PrintWriter out=null;
     private int portNumber;
     private String ipAddress;
+    private BufferedReader in;
+    /*
+    public Client(String text, int port, View gui)
+     */
 
 
 
-    public Client(String text, int port, View gui) {
+    public Client(String text, int port, Gui gui) {
         this.view=gui;
         this.ipAddress=text;
         this.portNumber=port;
@@ -85,11 +88,15 @@ public class Client {
                System.out.println("Client started "+socket);
 
                //Stream del client
-               in=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+               InputStreamReader input= new InputStreamReader(socket.getInputStream());
+               this.in=new BufferedReader(input);
                writer= new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                out=new PrintWriter(writer,true);
+
+
+
                //stream input da tastiera
-               stdin= new BufferedReader(new InputStreamReader(System.in));
+
                //String userInput;
 
 
@@ -110,16 +117,32 @@ public class Client {
     public void send(Command cmd){
         BuilderCommand b=new BuilderCommand();
         String json=b.builder(cmd);
-
         this.out.println(json);
-        System.out.println("Command: " +cmd.toString());
+        System.out.println("Inviato comando: " +cmd.toString());
 
     }
 
-    public Event receive(String json){
+    public void receive(String json){
         ParserEvent p=new ParserEvent();
         Event event=p.parser(json);
-        return event;
+        event.send(view);
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            String s= null;
+            try {
+                s=in.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(s!=null){
+                receive(s);
+                System.out.println("Ricevuto: "+s);
+            }
+
+        }
     }
 }
 

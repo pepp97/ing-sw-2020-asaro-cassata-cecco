@@ -279,9 +279,9 @@ public class SelectGodsWindow implements GuiScreen {
              gui.getClient().send(command);
                 Event event;
                 List <String> effetti= new ArrayList<>();
-                effetti.add(" Questa divinità ha lo strabiliante potere di menare rick ogni \n volta che il nostro amico fa una delle sue minchiate, \n  per questo è considrata una delle divinità più forti dell'Olimpo. \n  Provala adesso!");
-                effetti.add("insulta rick");
-                effetti.add("uccidi rick");
+                effetti.add(" Questa divinità ha lo strabiliante potere di menare  ogni \n volta che il nostro amico fa una delle sue minchiate, \n  per questo è considrata una delle divinità più forti dell'Olimpo. \n  Provala adesso!");
+                effetti.add("insulta ");
+                effetti.add("uccidi ");
                 gui.setGods(selected);
                 event= new ChooseYourGodEvent(selected,effetti);
                 event.send(gui);
