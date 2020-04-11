@@ -8,5 +8,5 @@ import it.polimi.ingsw.view.VirtualView;
 public interface Event {
     void send(Gui view);
 
-    public void send(View view);
+    public void send(VirtualView view);
 }

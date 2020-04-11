@@ -3,6 +3,7 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.ParserServer.BuilderEvent;
 import it.polimi.ingsw.ParserServer.ParserCommand;
 import it.polimi.ingsw.commands.Command;
+import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.model.Player;
@@ -20,10 +21,11 @@ public class VirtualView extends Thread implements View  {
     private Socket socket;
     private Scanner in;
     private PrintWriter out;
+    private Controller controller;
 
-    public VirtualView(Socket socket){
+    public VirtualView(Socket socket,Controller controller){
         this.socket=socket;
-
+        this.controller=controller;
         try{
             InputStreamReader input= new InputStreamReader(socket.getInputStream());
             this.in=new Scanner(input);
@@ -45,18 +47,21 @@ public class VirtualView extends Thread implements View  {
 
 
     public void update(Event event) {
+        System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOO4");
         BuilderEvent b=new BuilderEvent();
         String json=b.builder(event);
 
         this.out.println(json);
         System.out.println("Event: "+event.toString());
+        System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOO5");
 
     }
 
-    public Command receive(String json){
+    public void receive(String json){
+        System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOO");
         ParserCommand b=new ParserCommand();
         Command command=b.parser(json);
-        return command;
+        command.execute(controller,this);
     }
 
     @Override
@@ -66,13 +71,12 @@ public class VirtualView extends Thread implements View  {
 
     @Override
     public void run() {
-        Command cmd=null;
+
             while(true){
                 String s= null;
                 while((s = in.nextLine())!=null){
-                    if(s.equals("END")) break;
-                    cmd=receive(s);
-                    System.out.println("Command: "+ cmd.toString());
+                    receive(s);
+                   // System.out.println("Command: "+ cmd.toString());
                 }
             }
     }

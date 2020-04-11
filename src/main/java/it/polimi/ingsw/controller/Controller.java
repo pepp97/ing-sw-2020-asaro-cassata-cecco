@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.commands.*;
+import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.model.Game;
 
 import it.polimi.ingsw.model.ParserJson;
@@ -54,5 +55,10 @@ public class Controller {
         canSkip=command.getReply();
     }
 
-    
+
+    public void apply(Connection connection,VirtualView view) {
+        System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO2");
+        ConnectionSuccessful event=new ConnectionSuccessful();
+        event.send(view);
+    }
 }

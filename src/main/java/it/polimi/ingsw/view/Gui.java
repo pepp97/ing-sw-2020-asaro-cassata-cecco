@@ -2,6 +2,8 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.Client;
 import it.polimi.ingsw.commands.ChooseYourGod;
+import it.polimi.ingsw.commands.Connection;
+import it.polimi.ingsw.commands.LoginCommand;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.view.gui.*;
@@ -144,10 +146,13 @@ public class Gui extends  Application implements View {
                         menu.getChildren().add(0, error);
                     } else {
                          try {
+                             System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
                         client = new Client(ipInput.getText(), Integer.decode(portInput.getText()),this);
+                             System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+                        Connection command=new Connection();
+                             client.start();
+                        client.send(command);
 
-                             Event event = new ConnectionSuccessful();
-                             event.send(this);
                          } catch (Exception e1) {
                              e1.printStackTrace();
                             }

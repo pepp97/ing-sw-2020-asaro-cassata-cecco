@@ -31,7 +31,7 @@ public class ChooseTarget implements Event {
     }
 
     @Override
-    public void send(View view) {
+    public void send(VirtualView view) {
         view.update(this);
     }
 }

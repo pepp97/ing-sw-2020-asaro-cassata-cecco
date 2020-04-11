@@ -24,7 +24,9 @@ public class DeathPlayer implements Event {
     }
 
     @Override
-    public void send(View view) {
-        view.update(this);
+    public void send(VirtualView view) {
+
     }
+
+
 }

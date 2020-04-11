@@ -14,7 +14,7 @@ public class SettingsEvent implements Event {
     }
 
     @Override
-    public void send(View view) {
+    public void send(VirtualView view) {
         view.update(this);
     }
 
