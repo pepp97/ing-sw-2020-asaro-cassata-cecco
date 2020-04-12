@@ -201,8 +201,7 @@ public class SelectYourGod implements GuiScreen {
             squares[2][2].setWorker(w3);
             squares[4][1].setWorker(w4);
             squares[4][4].setWorker(w2);
-            Event event=new UpdateEvent(squares);
-            event.send(gui);
+
             stage.close();
         });
 

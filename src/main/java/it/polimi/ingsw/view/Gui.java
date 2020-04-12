@@ -205,8 +205,9 @@ public class Gui extends  Application implements View {
     }
 
     public void update (SettingsEvent settingsEvent){
+        Platform.runLater(()->{
         settings = new SettingsWindow(this);
-        settings.displayMessage(primaryStage);
+        settings.displayMessage(primaryStage);});
 
     }
 

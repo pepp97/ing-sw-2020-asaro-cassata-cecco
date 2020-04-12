@@ -37,26 +37,25 @@ public class SettingsWindow {
             ChooseSettings chooseSettings = new ChooseSettings(2);
             gui.getClient().send(chooseSettings);
             stage.close();
-            Event event;
+
             List<String> prova= new ArrayList<>();
             prova.add("Rick");
             prova.add("Peppe");
             prova.add("Salvo");
-            event=new LoginSuccessful(prova);
-            event.send(gui);
+          ;
         });
         threeButton.setOnAction(e -> {
             ChooseSettings chooseSettings = new ChooseSettings(3);
             gui.getClient().send(chooseSettings);
             stage.close();
-            Event event;
+
             List<String> prova= new ArrayList<>();
             prova.add("Rick");
             prova.add("Peppe");
             prova.add("Salvo");
-            event=new LoginSuccessful(prova);
+
             gui.setNicknames(prova);
-            event.send(gui);
+
 
         });
 

@@ -70,9 +70,6 @@ public class LobbyWindow implements GuiScreen {
                     new String ("Demeter"), new String("Hephaestus"),
                     new String ("Minotaur"), new String ("Pan"),
                     new String ("Prometheus"));
-            Event event;
-            event= new StartGameEvent(gods,3);
-            event.send(gui);
         });
         gui.getPrimaryStage().setScene(scene);
         gui.getPrimaryStage().setTitle("WaitRoom Window");

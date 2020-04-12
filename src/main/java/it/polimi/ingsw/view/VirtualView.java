@@ -69,8 +69,8 @@ public class VirtualView extends Thread implements View  {
 
             while(true){
                 String s= null;
-                while((s = in.nextLine())!=null){
-                    receive(s);
+                if((in.hasNext())){
+                    receive(in.nextLine());
                     System.out.println("Ricevuto: "+s);
                 }
             }

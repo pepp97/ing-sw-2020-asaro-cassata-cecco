@@ -88,9 +88,6 @@ public class LoginWindow implements GuiScreen {
                         try {
                             LoginCommand command= new LoginCommand(nameInput.getText(), Color.valueOf(color.toUpperCase()));
                             gui.getClient().send(command);
-                            Event event;
-                            event= new SettingsEvent();
-                            event.send(gui);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
