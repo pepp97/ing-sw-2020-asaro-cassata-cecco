@@ -7,7 +7,7 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.util.List;
 
-public class ChooseTarget implements Event {
+public class ChooseTarget implements Event  {
 
     private String message;
     private List<Square> availableSquare;
@@ -25,6 +25,7 @@ public class ChooseTarget implements Event {
         return availableSquare;
     }
 
+
     @Override
     public void send(Gui view) {
 
@@ -32,6 +33,7 @@ public class ChooseTarget implements Event {
 
     @Override
     public void send(VirtualView view) {
-        view.update(this);
+
     }
+
 }

@@ -273,18 +273,14 @@ public class SelectGodsWindow implements GuiScreen {
         Button confirm= new Button ("Confirm");
         gridPane.add(confirm, 3,4);
         confirm.setOnAction(f->{
+
             Command command;
-            if(selected.size()==3){
+            if(selected.size()==startGameEvent.getNumPlayers()){
              command=new ChooseGods(selected);
              gui.getClient().send(command);
 
-                List <String> effetti= new ArrayList<>();
-                effetti.add(" Questa divinità ha lo strabiliante potere di menare  ogni \n volta che il nostro amico fa una delle sue minchiate, \n  per questo è considrata una delle divinità più forti dell'Olimpo. \n  Provala adesso!");
-                effetti.add("insulta ");
-                effetti.add("uccidi ");
-                gui.setGods(selected);
-
                 stage.close();
+             confirm.setVisible(false);
 
             }
         });

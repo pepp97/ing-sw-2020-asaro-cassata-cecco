@@ -10,7 +10,7 @@ public class ConnectionSuccessful implements Event {
 
     @Override
     public void send(Gui view) {
-        view.update(this);
+        view.update( this);
         System.out.println(this);
         System.out.println(this.getClass());
     }

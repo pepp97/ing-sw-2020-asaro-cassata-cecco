@@ -174,34 +174,9 @@ public class SelectYourGod implements GuiScreen {
         confirm.setOnAction(f->{
             Command command;
             command=new ChooseYourGod(s1);
+            System.out.println(s1 + "OIGSPDIHBOUSHBIUSHGBKJSKJBSJKN");
             gui.getClient().send(command);
-            System.out.println("funziona tutto");
-            Field field=new Field();
-            Square[][] squares=field.getSquares();
-            Player p1=new Player("Giuseppe", it.polimi.ingsw.model.Color.BROWN);
-            Player p2=new Player("Salvatore", it.polimi.ingsw.model.Color.BLACK);
-            Worker w1=new Worker();
-            Worker w2=new Worker();
-            Worker w3=new Worker();
-            Worker w4=new Worker();
-            p1.setWorkers(w1);
-            p1.setWorkers(w2);
-            p2.setWorkers(w3);
-            p2.setWorkers(w4);
-            squares[1][1].setLevel(1);
-            squares[1][2].setLevel(4);
-            squares[1][3].setLevel(4);
-            squares[2][1].setLevel(4);
-            squares[2][2].setLevel(0);
-            squares[1][1].setWorker(w1);
-            squares[2][3].setLevel(4);
-            squares[3][1].setLevel(4);
-            squares[3][2].setLevel(4);
-            squares[3][3].setLevel(4);
-            squares[2][2].setWorker(w3);
-            squares[4][1].setWorker(w4);
-            squares[4][4].setWorker(w2);
-
+            System.out.println(s1 + "OIGSPDIHBOUSHBIUSHGBKJSKJBSJKN"+"JSDAHVDAHVHADVHAD");
             stage.close();
         });
 

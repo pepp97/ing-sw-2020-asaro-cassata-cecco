@@ -4,7 +4,7 @@
     {
       "name": "Apollo",
       "surname": "God Of Music",
-      "description": "Your Move: Your Worker may move into an opponent Worker’s space by forcing their Worker tothe space yours just vacated.",
+      "description": "Your Move: Your Worker may move into an opponent\nWorker’s space by forcing their Worker\nto the space yours just vacated.",
       "Routine": [
         {
           "effect": "changePosition",
@@ -31,7 +31,7 @@
     {
       "name": "Artemis",
       "surname": "Goddess of the Hunt",
-      "description": "Your Move: Your Worker may move one additional time, but not back to its initial space.",
+      "description": "Your Move: Your Worker may move one additional time,\nbut not back to its initial space.",
       "Routine": [
         {
           "effect": "move",
@@ -58,7 +58,7 @@
     {
       "name": "Athena",
       "surname": "Goddess of Wisdom",
-      "description": "Workers moved up on your last turn, opponent Workers cannot move up this turn.",
+      "description": "Workers moved up on your last turn,\nopponent Workers cannot move up this turn.",
       "Routine": [
         {
           "effect": "move",
@@ -101,7 +101,7 @@
     {
       "name": "Demeter",
       "surname": "Goddess of the Harvest",
-      "description": "Your Build: Your Worker may build one additional time, but not on the same space.",
+      "description": "Your Build: Your Worker may build one additional time,\nbut not on the same space.",
       "Routine": [
         {
           "effect": "move",
@@ -128,7 +128,7 @@
     {
       "name": "Hephaestus",
       "surname": "God of Blacksmiths",
-      "description": "Your Build: Your Worker may build one additional block (not dome) on top of your first block.",
+      "description": "Your Build: Your Worker may build one additional block\n(not dome) on top of your first block.",
       "Routine": [
         {
           "effect": "move",
@@ -160,7 +160,7 @@
     {
       "name": "Minotaur",
       "surname": "Bull-headed Monster",
-      "description": "Your Move: Your Worker may move into an opponent Worker’s space, if their Worker can be forced one space straight backwards to an unoccupied space at any level.",
+      "description": "Your Move: Your Worker may move into an opponent Worker’s space,\nif their Worker can be forced one space straight backwards \n to an unoccupied space at any level.",
       "Routine": [
         {
           "effect": "changePosition",
@@ -199,7 +199,7 @@
     {
       "name": "Prometheus",
       "surname": "Titan Benefactor of Mankind",
-      "description": "Your Turn: If your Worker does not move up, it may build both before and after moving.",
+      "description": "Your Turn: If your Worker does not move up,\nit may build both before and after moving.",
       "Routine": [
         {
           "effect":"askUser",

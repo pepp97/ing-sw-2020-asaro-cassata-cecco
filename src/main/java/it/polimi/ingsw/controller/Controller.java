@@ -11,12 +11,10 @@ public class Controller {
 
     private Game game;
     private boolean canSkip;
-    private ParserJson parser;
 
 
     public Controller() {
         this.game = new Game();
-        parser=new ParserJson();
     }
 
     public void apply(LoginCommand command, VirtualView view) {
@@ -24,16 +22,18 @@ public class Controller {
     }
 
     public void apply(ChooseSettings command, VirtualView view){
-        game.selectNplayer(command.getNplayer());
+        game.selectNplayer(command.getNplayer(),view);
     }
 
 
     public void apply(ChooseGods command){
-        game.setUsableGod(command.getNamesGod(),parser.getUsableGod());
+        game.setUsableGod(command.getNamesGod());
     }
 
     public void apply(ChooseYourGod command, VirtualView view) {
         game.setPlayerGod(command.getName(),view);
+        System.out.println("THREAD NUMERO 1,2");
+        System.out.println(view.toString());
     }
 
     public void apply(ChooseInitialPosition command, VirtualView view) {

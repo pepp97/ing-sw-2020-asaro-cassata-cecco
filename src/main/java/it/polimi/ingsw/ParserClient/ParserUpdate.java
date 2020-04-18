@@ -33,6 +33,7 @@ public class ParserUpdate {
                     pass=new SquareToJson(levels.asInt(),color.toString().replace("\"",""),cordinataX.asInt(),cordinataY.asInt());
 
                 }
+
                 mappa[k][j]=pass;
                 if(j==4){
                     k++;
