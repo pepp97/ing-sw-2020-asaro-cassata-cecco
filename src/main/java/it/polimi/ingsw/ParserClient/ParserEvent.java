@@ -112,12 +112,6 @@ public class ParserEvent {
             ParserUpdate p=new ParserUpdate();
             JsonNode fields=a.path("squares");
             eventReturn=p.parser(fields.toString());
-            UpdateEvent u =(UpdateEvent)eventReturn;
-            for (SquareToJson[] squareToJsons : u.getSquares()) {
-                for (SquareToJson squareToJson : squareToJsons) {
-                    System.out.println(squareToJson.toString());
-                }
-            }
         }
     }
 }
