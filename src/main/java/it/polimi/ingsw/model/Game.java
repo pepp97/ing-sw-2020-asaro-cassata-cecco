@@ -113,12 +113,12 @@ public class Game implements Observable {
                 e = new StartGameEvent(godlist, numplayer);
                 notifyObservers(e);
             }
-           else {
+           /*else {
                 List<String> list=new ArrayList<>();
                 for(Player p: playerList)
                     list.add(p.getUsername());
                 e=new LoginSuccessful(list);
-                notifyCurrent(e);}
+                notifyCurrent(e);}*/
         }
         else if (!nicknameAvailable(nickname))
             e=new ExceptionEvent("Username already in use!");
@@ -145,6 +145,11 @@ public class Game implements Observable {
 
     public void selectNplayer(int nplayer) {
         this.numplayer=nplayer;
+        List<String> list=new ArrayList<>();
+        for(Player p: playerList)
+            list.add(p.getUsername());
+        Event e=new LoginSuccessful(list);
+        notifyCurrent(e);
     }
 
 
