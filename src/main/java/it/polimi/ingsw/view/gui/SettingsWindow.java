@@ -34,27 +34,14 @@ public class SettingsWindow {
         Button twoButton = new Button("2");
         Button threeButton = new Button("3");
         twoButton.setOnAction(e -> {
+            stage.close();
             ChooseSettings chooseSettings = new ChooseSettings(2);
             gui.getClient().send(chooseSettings);
-            stage.close();
-
-            List<String> prova= new ArrayList<>();
-            prova.add("Rick");
-            prova.add("Peppe");
-            prova.add("Salvo");
-          ;
         });
         threeButton.setOnAction(e -> {
             ChooseSettings chooseSettings = new ChooseSettings(3);
             gui.getClient().send(chooseSettings);
             stage.close();
-
-            List<String> prova= new ArrayList<>();
-            prova.add("Rick");
-            prova.add("Peppe");
-            prova.add("Salvo");
-
-            gui.setNicknames(prova);
 
 
         });
@@ -73,11 +60,14 @@ public class SettingsWindow {
     }
 
     public void displayMessage(Stage owner) {
-        stage = new Stage(StageStyle.UTILITY);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(owner);
-        stage.setScene(scene);
-        stage.showAndWait();
+
+
+            stage = new Stage(StageStyle.UTILITY);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(owner);
+            stage.setScene(scene);
+            stage.showAndWait();
+
     }
 }
 
