@@ -37,15 +37,11 @@ public class SettingsWindow {
             stage.close();
             ChooseSettings chooseSettings = new ChooseSettings(2);
             gui.getClient().send(chooseSettings);
-
-
-          ;
         });
         threeButton.setOnAction(e -> {
-            stage.close();
             ChooseSettings chooseSettings = new ChooseSettings(3);
             gui.getClient().send(chooseSettings);
-
+            stage.close();
 
 
         });
@@ -64,11 +60,14 @@ public class SettingsWindow {
     }
 
     public void displayMessage(Stage owner) {
-        stage = new Stage(StageStyle.UTILITY);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(owner);
-        stage.setScene(scene);
-        stage.showAndWait();
+
+
+            stage = new Stage(StageStyle.UTILITY);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(owner);
+            stage.setScene(scene);
+            stage.showAndWait();
+
     }
 }
 

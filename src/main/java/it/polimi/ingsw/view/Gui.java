@@ -150,6 +150,7 @@ public class Gui extends  Application implements View {
                         client.start();
                         Connection command=new Connection();
                         client.send(command);
+                             client.start();
 
                          } catch (Exception e1) {
                              e1.printStackTrace();
