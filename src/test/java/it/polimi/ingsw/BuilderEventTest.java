@@ -1,8 +1,11 @@
 package it.polimi.ingsw;
 
 import it.polimi.ingsw.ParserServer.BuilderEvent;
+import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.events.*;
+import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Square;
+import it.polimi.ingsw.model.Worker;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,6 +19,47 @@ public class BuilderEventTest {
         b=new BuilderEvent();
         Square a1= new Square(1,1);
         Square a2= new Square(2,1);
+
+        SquareToJson [][]squares=new SquareToJson[5][5];
+        squares[0][0]= new SquareToJson(0,"",0,0);
+        squares[0][1]= new SquareToJson(0,"",0,1);
+        squares[0][2]= new SquareToJson(0,"",0,2);
+        squares[0][3]= new SquareToJson(0,"",0,3);
+        squares[0][4]= new SquareToJson(0,"",0,4);
+
+        squares[1][0]= new SquareToJson(0,"",1,0);
+        squares[1][1]= new SquareToJson(0,"",1,1);
+        squares[1][2]= new SquareToJson(0,"",1,2);
+        squares[1][3]= new SquareToJson(0,"",1,3);
+        squares[1][4]= new SquareToJson(0,"",1,4);
+
+        squares[2][0]= new SquareToJson(0,"",2,0);
+        squares[2][1]= new SquareToJson(0,"",2,1);
+        squares[2][2]= new SquareToJson(0,"",2,2);
+        squares[2][3]= new SquareToJson(0,"",2,3);
+        squares[2][4]= new SquareToJson(0,"",2,4);
+
+        squares[3][0]= new SquareToJson(0,"",3,0);
+        squares[3][1]= new SquareToJson(0,"",3,1);
+        squares[3][2]= new SquareToJson(0,"",3,2);
+        squares[3][3]= new SquareToJson(0,"",3,3);
+        squares[3][4]= new SquareToJson(0,"",3,4);
+
+        squares[4][0]= new SquareToJson(0,"",4,0);
+        squares[4][1]= new SquareToJson(0,"",4,1);
+        squares[4][2]= new SquareToJson(0,"",4,2);
+        squares[4][3]= new SquareToJson(0,"",4,3);
+        squares[4][4]= new SquareToJson(0,"",4,4);
+
+        squares[0][0].setColor(Color.BLACK);
+        squares[4][1].setColor(Color.BLACK);
+
+        squares[3][1].setColor(Color.WHITE);
+        squares[2][1].setColor(Color.WHITE);
+
+        squares[4][0].setColor(Color.BROWN);
+        squares[3][3].setColor(Color.BROWN);
+
 
 
         //variabili test per ChooseTarget
@@ -64,18 +108,21 @@ public class BuilderEventTest {
         LogoutSuccessful logoutSuccessful=new LogoutSuccessful();
         SettingsEvent settingsEvent=new SettingsEvent();
         StartGameEvent startGameEvent= new StartGameEvent(namesGod,nplayer);
+        UpdateEvent updateEvent=new UpdateEvent(squares);
 
-        b.builder(askUser);
-        b.builder(chooseTarget);
-        b.builder(chooseWorker);
-        b.builder(chooseYourGodEvent);
-        b.builder(connectionSuccessful);
-        b.builder(deathPlayer);
-        b.builder(endGame);
-        b.builder(exceptionEvent);
-        b.builder(loginSuccessful);
-        b.builder(logoutSuccessful);
-        b.builder(settingsEvent);
-        b.builder(startGameEvent);
+        System.out.println(b.builder(askUser));
+        System.out.println(b.builder(chooseTarget));
+        System.out.println(b.builder(chooseWorker));
+        System.out.println(b.builder(chooseYourGodEvent));
+        System.out.println(b.builder(connectionSuccessful));
+        System.out.println(b.builder(deathPlayer));
+        System.out.println(b.builder(endGame));
+        System.out.println(b.builder(exceptionEvent));
+        System.out.println(b.builder(loginSuccessful));
+        System.out.println(b.builder(logoutSuccessful));
+        System.out.println(b.builder(settingsEvent));
+        System.out.println(b.builder(startGameEvent));
+        String c=b.builder(updateEvent);
+        System.out.println(c);
     }
 }

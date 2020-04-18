@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class ParserEventTest {
     private ParserEvent p;
     @Test
-    void parser(){
+    void builder(){
         p=new ParserEvent();
         String a="{\"eventName\":\"askUser\"}";
         String b="{\"eventName\":\"ChooseTarget\",\"attributes\":{\"message\":\"Test\",\"S\":[[1,1],[2,1]]}}";
@@ -23,7 +23,7 @@ public class ParserEventTest {
         String m="{\"eventName\":\"SettingsEvent\"}";
         String n="{\"eventName\":\"StartGameEvent\",\"attributes\":{\"gods\":[\"Apollo\",\"Artemis\"],\"numPlayers\":3}}";
 
-        String u="{\"eventName\":\"UpdateEvent\",\"attributes\":{\"fields\":[{\"cordinataX\":0,\"cordinataY\":0,\"levels\":0,\"color\":\"BLACK\"},{\"cordinataX\":0,\"cordinataY\":1,\"levels\":0,\"color\":\"\"},{\"cordinataX\":0,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":0,\"cordinataY\":3,\"levels\":0,\"color\":\"\"},{\"cordinataX\":0,\"cordinataY\":4,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":0,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":1,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":3,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":4,\"levels\":0,\"color\":\"\"},{\"cordinataX\":2,\"cordinataY\":0,\"levels\":0,\"color\":\"\"},{\"cordinataX\":2,\"cordinataY\":1,\"levels\":0,\"color\":\"BROWN\"},{\"cordinataX\":2,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":2,\"cordinataY\":3,\"levels\":0,\"color\":\"\"},{\"cordinataX\":2,\"cordinataY\":4,\"levels\":0,\"color\":\"\"},{\"cordinataX\":3,\"cordinataY\":0,\"levels\":0,\"color\":\"\"},{\"cordinataX\":3,\"cordinataY\":1,\"levels\":0,\"color\":\"BROWN\"},{\"cordinataX\":3,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":3,\"cordinataY\":3,\"levels\":0,\"color\":\"WHITE\"},{\"cordinataX\":3,\"cordinataY\":4,\"levels\":0,\"color\":\"\"},{\"cordinataX\":4,\"cordinataY\":0,\"levels\":0,\"color\":\"WHITE\"},{\"cordinataX\":4,\"cordinataY\":1,\"levels\":0,\"color\":\"BLACK\"},{\"cordinataX\":4,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":4,\"cordinataY\":3,\"levels\":0,\"color\":\"\"},{\"cordinataX\":4,\"cordinataY\":4,\"levels\":0,\"color\":\"\"}]}}";
+        String u1="{\"eventName\":\"UpdateEvent\",\"attributes\":{\"squares\":[{\"cordinataX\":0,\"cordinataY\":0,\"levels\":0,\"color\":\"BLACK\"},{\"cordinataX\":0,\"cordinataY\":1,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":0,\"cordinataY\":2,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":0,\"cordinataY\":3,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":0,\"cordinataY\":4,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":1,\"cordinataY\":0,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":1,\"cordinataY\":1,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":1,\"cordinataY\":2,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":1,\"cordinataY\":3,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":1,\"cordinataY\":4,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":2,\"cordinataY\":0,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":2,\"cordinataY\":1,\"levels\":0,\"color\":\"WHITE\"},{\"cordinataX\":2,\"cordinataY\":2,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":2,\"cordinataY\":3,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":2,\"cordinataY\":4,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":3,\"cordinataY\":0,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":3,\"cordinataY\":1,\"levels\":0,\"color\":\"WHITE\"},{\"cordinataX\":3,\"cordinataY\":2,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":3,\"cordinataY\":3,\"levels\":0,\"color\":\"BROWN\"},{\"cordinataX\":3,\"cordinataY\":4,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":4,\"cordinataY\":0,\"levels\":0,\"color\":\"BROWN\"},{\"cordinataX\":4,\"cordinataY\":1,\"levels\":0,\"color\":\"BLACK\"},{\"cordinataX\":4,\"cordinataY\":2,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":4,\"cordinataY\":3,\"levels\":0,\"color\":\"null\"},{\"cordinataX\":4,\"cordinataY\":4,\"levels\":0,\"color\":\"null\"}]}}";
         Event ea=p.parser(a);
         Event eb=p.parser(b);
         Event ec=p.parser(c);
@@ -36,6 +36,6 @@ public class ParserEventTest {
         Event el=p.parser(l);
         Event em=p.parser(m);
         Event en=p.parser(n);
-        Event up=p.parser(u);
+        Event up=p.parser(u1);
             }
 }

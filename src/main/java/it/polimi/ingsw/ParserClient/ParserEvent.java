@@ -110,7 +110,7 @@ public class ParserEvent {
         }
         else if(event.equals("\"UpdateEvent\"")){
             ParserUpdate p=new ParserUpdate();
-            JsonNode fields=a.path("fields");
+            JsonNode fields=a.path("squares");
             eventReturn=p.parser(fields.toString());
             UpdateEvent u =(UpdateEvent)eventReturn;
             for (SquareToJson[] squareToJsons : u.getSquares()) {

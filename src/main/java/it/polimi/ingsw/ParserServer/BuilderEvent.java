@@ -2,6 +2,7 @@ package it.polimi.ingsw.ParserServer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.events.*;
+import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Square;
 
 import java.io.IOException;
@@ -19,6 +20,8 @@ public class BuilderEvent {
                 attributes=typeTarget(event);
             } else if(type.equals("ChooseWorker")){
                 attributes=typeWorker(event);
+            }else if(type.equals("UpdateEvent")){
+                attributes=typeUpdate(event);
             }
             else if(!type.equals("askUser") && !type.equals("ConnectionSuccessful") && !type.equals("LogoutSuccessful") && !type.equals("SettingsEvent"))
                 attributes = mapper.writeValueAsString(event);
@@ -94,6 +97,32 @@ public class BuilderEvent {
                 attributes=attributes+"["+x+","+y+"]";
             }else{
                 attributes=attributes+"["+x+","+y+"],";
+            }
+        }
+        attributes=attributes+"]}";
+        return attributes;
+    }
+
+    public String typeUpdate(Event event){
+        UpdateEvent u1=(UpdateEvent) event;
+        SquareToJson [][] map=u1.getSquares();
+        String attributes=null;
+        attributes="{\"squares\":[";
+        for(int i=0;i<5;i++){
+            for(int j=0;j<5;j++){
+                int levels=map[i][j].getLevels();
+                Color c=map[i][j].getColor();
+                if(i==4 && j==4){
+                    if(c!=null){
+                        attributes=attributes+"{\"cordinataX\":"+i+",\"cordinataY\":"+j+",\"levels\":"+levels+",\"color\":\""+c+"\"}";
+                    }else{
+                        attributes=attributes+"{\"cordinataX\":"+i+",\"cordinataY\":"+j+",\"levels\":"+levels+",\"color\":\"null\"}";
+                    }
+                }else if(c!=null){
+                    attributes=attributes+"{\"cordinataX\":"+i+",\"cordinataY\":"+j+",\"levels\":"+levels+",\"color\":\""+c+"\"},";
+                }else{
+                    attributes=attributes+"{\"cordinataX\":"+i+",\"cordinataY\":"+j+",\"levels\":"+levels+",\"color\":\"null\"},";
+                }
             }
         }
         attributes=attributes+"]}";
