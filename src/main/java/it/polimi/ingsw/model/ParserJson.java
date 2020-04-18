@@ -18,6 +18,7 @@ public class ParserJson {
     }
 
     public ArrayList<God> getUsableGod() {
+        System.out.println(usableGod.size());
         return usableGod;
     }
 
@@ -65,8 +66,9 @@ public class ParserJson {
                     String repSurname=surname.toString().replace("\"","");
                     String repDecsription=description.toString().replace("\"","");
 
-                    God newGod = new God(repName, repSurname, repDecsription, listEff);
+                    God newGod = new God(repName, repDecsription, repSurname, listEff);
                     usableGod.add(newGod);
+                    System.out.println(usableGod.size());
                 }
             }
         }catch (IOException e) {

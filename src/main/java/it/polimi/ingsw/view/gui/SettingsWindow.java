@@ -44,6 +44,7 @@ public class SettingsWindow {
             stage.close();
 
 
+
         });
 
         VBox layoutMessage = new VBox(20);
@@ -56,6 +57,7 @@ public class SettingsWindow {
         layoutMessage.backgroundProperty().setValue(confirmBackground);
         scene = new Scene(layoutMessage, 400, 200, Color.BLACK);
         scene.setFill(Color.BROWN);
+
 
     }
 

@@ -36,6 +36,7 @@ public class Gui extends  Application implements View {
     private EndGameWindow end;
     private List<String> gods;
     private List<String> nicknames = new ArrayList<>();
+    private ErrorWindow error;
 
 
     private  double widthScreen = Screen.getPrimary().getBounds().getWidth();
@@ -150,7 +151,7 @@ public class Gui extends  Application implements View {
                         client.start();
                         Connection command=new Connection();
                         client.send(command);
-                             client.start();
+
 
                          } catch (Exception e1) {
                              e1.printStackTrace();
@@ -204,6 +205,11 @@ public class Gui extends  Application implements View {
 
     }
 
+    public void update(ExceptionEvent exceptionEvent){
+        Platform.runLater(()->{
+            error= new ErrorWindow(this,exceptionEvent);
+            error.displayMessage(primaryStage);});
+    }
     public void update (SettingsEvent settingsEvent){
         Platform.runLater(()->{
         settings = new SettingsWindow(this);

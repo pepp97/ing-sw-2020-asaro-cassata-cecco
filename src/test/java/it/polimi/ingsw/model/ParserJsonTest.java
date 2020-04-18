@@ -13,7 +13,7 @@ public class ParserJsonTest {
         @Test
          void parser(){
             p=new ParserJson();
-            p.apriFile();
+            System.out.println(p.getUsableGod().size());
         }
 }
 

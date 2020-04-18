@@ -59,18 +59,6 @@ public class LobbyWindow implements GuiScreen {
         AnchorPane.setTopAnchor(hbox, 200.0);
         AnchorPane.setLeftAnchor(hbox, 550.0);
         anchorPane.getChildren().add(0, hbox);
-
-        Button connect = new Button("Connect");
-
-        hbox.getChildren().add(connect);
-
-        connect.setOnAction(f -> {
-            List<String>gods=List.of(new String ("Apollo"),
-                    new String ("Artemis"),new String("Athena"), new String("Atlas"),
-                    new String ("Demeter"), new String("Hephaestus"),
-                    new String ("Minotaur"), new String ("Pan"),
-                    new String ("Prometheus"));
-        });
         gui.getPrimaryStage().setScene(scene);
         gui.getPrimaryStage().setTitle("WaitRoom Window");
     }

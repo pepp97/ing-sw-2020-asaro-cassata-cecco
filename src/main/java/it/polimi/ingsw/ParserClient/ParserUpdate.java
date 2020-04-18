@@ -26,8 +26,14 @@ public class ParserUpdate {
                 JsonNode cordinataY = square.path("cordinataY");
                 JsonNode levels = square.path("levels");
                 JsonNode color = square.path("color");
+                SquareToJson pass;
+                if(color.toString().equals("null")){
+                    pass=new SquareToJson(levels.asInt(),"",cordinataX.asInt(),cordinataY.asInt());
+                }else{
+                    pass=new SquareToJson(levels.asInt(),color.toString().replace("\"",""),cordinataX.asInt(),cordinataY.asInt());
 
-                SquareToJson pass=new SquareToJson(levels.asInt(),color.toString().replace("\"",""),cordinataX.asInt(),cordinataY.asInt());
+                }
+
                 mappa[k][j]=pass;
                 if(j==4){
                     k++;
