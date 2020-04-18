@@ -33,8 +33,8 @@ public class ParserJson {
             JsonNode rootNode=mapper.readTree(jsonFile);
 
             JsonNode god=rootNode.path("God");
-
-            for(int j=0;j<god.size();j++) {
+            int size=god.size();
+            for(int j=0;j<size;j++) {
                 if(god.get(j)!=null){
                     JsonNode singleGod = god.get(j);
                     ArrayList<EffectRoutine> listEff= new ArrayList<EffectRoutine>();
@@ -72,6 +72,7 @@ public class ParserJson {
         }catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
