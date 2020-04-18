@@ -5,13 +5,21 @@ import it.polimi.ingsw.model.Color;
 public class SquareToJson {
     private int cordinataX, cordinataY;
     private int levels;
-    private String color;
+    private Color color;
 
     public SquareToJson( int levels, String color, int cordinataX, int cordinataY) {
         this.levels = levels;
-        this.color = color;
         this.cordinataX = cordinataX;
         this.cordinataY = cordinataY;
+        if(color.equals("WHITE")){
+            this.color=Color.WHITE;
+        }else if(color.equals("BLACK")){
+            this.color=Color.BLACK;
+        }else if(color.equals("BROWN")){
+            this.color=Color.BROWN;
+        }else{
+            this.color=null;
+        }
     }
 
     public int getCordinataX() {
@@ -26,7 +34,7 @@ public class SquareToJson {
         return levels;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -42,7 +50,7 @@ public class SquareToJson {
         this.levels = levels;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

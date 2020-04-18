@@ -159,7 +159,6 @@ public class Gui extends  Application implements View {
 
                      );
 
-
         Button close = new Button("exit");
         GridPane.setConstraints(close, 151, 140);
         menu.getChildren().addAll(connectionButton, close, ipInput, portInput);
@@ -255,6 +254,7 @@ public class Gui extends  Application implements View {
 
 
     }
+
 
 }
 

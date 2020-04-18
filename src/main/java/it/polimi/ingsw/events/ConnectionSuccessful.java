@@ -17,7 +17,6 @@ public class ConnectionSuccessful implements Event {
 
     @Override
     public void send(VirtualView view) {
-        System.out.println("CI SONOOOOOOOOOOOOOOOO3");
         view.update(this);
         System.out.println(this.getClass());
     }

@@ -35,8 +35,6 @@ public class BuilderUpdate {
             }
         }
         createJson(list);
-
-
     }
 
 
@@ -54,18 +52,3 @@ public class BuilderUpdate {
 }
 
 
-/*
-        for(int i=0;i<squares.length;i++) {
-            for (int j = 0; j < squares[i].length; j++) {
-                levels = squares[i][j].getLevel();
-                work = squares[i][j].getWorker();
-                SquareToJson pass = new SquareToJson(levels, c, i, j);
-                if(i!=(squares.length-1)){
-                    System.out.println(pass.toString()+",");
-                }else{
-                    System.out.println(pass.toString());
-                }
-
-            }
-        }
-*/

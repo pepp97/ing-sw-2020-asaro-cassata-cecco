@@ -2,6 +2,7 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.ParserClient.ParserEvent;
 import it.polimi.ingsw.events.Event;
+import it.polimi.ingsw.events.UpdateEvent;
 import org.junit.jupiter.api.Test;
 
 public class ParserEventTest {
@@ -21,6 +22,8 @@ public class ParserEventTest {
         String l="{\"eventName\":\"LogoutSuccessful\"}";
         String m="{\"eventName\":\"SettingsEvent\"}";
         String n="{\"eventName\":\"StartGameEvent\",\"attributes\":{\"gods\":[\"Apollo\",\"Artemis\"],\"numPlayers\":3}}";
+
+        String u="{\"eventName\":\"UpdateEvent\",\"attributes\":{\"fields\":[{\"cordinataX\":0,\"cordinataY\":0,\"levels\":0,\"color\":\"BLACK\"},{\"cordinataX\":0,\"cordinataY\":1,\"levels\":0,\"color\":\"\"},{\"cordinataX\":0,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":0,\"cordinataY\":3,\"levels\":0,\"color\":\"\"},{\"cordinataX\":0,\"cordinataY\":4,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":0,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":1,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":3,\"levels\":0,\"color\":\"\"},{\"cordinataX\":1,\"cordinataY\":4,\"levels\":0,\"color\":\"\"},{\"cordinataX\":2,\"cordinataY\":0,\"levels\":0,\"color\":\"\"},{\"cordinataX\":2,\"cordinataY\":1,\"levels\":0,\"color\":\"BROWN\"},{\"cordinataX\":2,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":2,\"cordinataY\":3,\"levels\":0,\"color\":\"\"},{\"cordinataX\":2,\"cordinataY\":4,\"levels\":0,\"color\":\"\"},{\"cordinataX\":3,\"cordinataY\":0,\"levels\":0,\"color\":\"\"},{\"cordinataX\":3,\"cordinataY\":1,\"levels\":0,\"color\":\"BROWN\"},{\"cordinataX\":3,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":3,\"cordinataY\":3,\"levels\":0,\"color\":\"WHITE\"},{\"cordinataX\":3,\"cordinataY\":4,\"levels\":0,\"color\":\"\"},{\"cordinataX\":4,\"cordinataY\":0,\"levels\":0,\"color\":\"WHITE\"},{\"cordinataX\":4,\"cordinataY\":1,\"levels\":0,\"color\":\"BLACK\"},{\"cordinataX\":4,\"cordinataY\":2,\"levels\":0,\"color\":\"\"},{\"cordinataX\":4,\"cordinataY\":3,\"levels\":0,\"color\":\"\"},{\"cordinataX\":4,\"cordinataY\":4,\"levels\":0,\"color\":\"\"}]}}";
         Event ea=p.parser(a);
         Event eb=p.parser(b);
         Event ec=p.parser(c);
@@ -33,5 +36,6 @@ public class ParserEventTest {
         Event el=p.parser(l);
         Event em=p.parser(m);
         Event en=p.parser(n);
-    }
+        Event up=p.parser(u);
+            }
 }

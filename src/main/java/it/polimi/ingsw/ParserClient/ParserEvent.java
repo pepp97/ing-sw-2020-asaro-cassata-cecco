@@ -2,6 +2,7 @@ package it.polimi.ingsw.ParserClient;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.model.Square;
 
@@ -108,7 +109,15 @@ public class ParserEvent {
             eventReturn= new StartGameEvent(namesGod,numPlayers.asInt());
         }
         else if(event.equals("\"UpdateEvent\"")){
-            s="UpdateEvent";
+            ParserUpdate p=new ParserUpdate();
+            JsonNode fields=a.path("fields");
+            eventReturn=p.parser(fields.toString());
+            UpdateEvent u =(UpdateEvent)eventReturn;
+            for (SquareToJson[] squareToJsons : u.getSquares()) {
+                for (SquareToJson squareToJson : squareToJsons) {
+                    System.out.println(squareToJson.toString());
+                }
+            }
         }
     }
 }

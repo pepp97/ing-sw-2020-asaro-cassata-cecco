@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui;
 
+import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.ChooseYourGod;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.*;
@@ -121,7 +122,7 @@ public class GameWindow implements GuiScreen {
         //setting field
         int i;
         int j;
-        Square[][] squares = event.getSquares();
+        SquareToJson[][] squares = event.getSquares();
 
         buttons = new Hyperlink[5][5];
         stacks = new StackPane[5][5];
@@ -370,8 +371,8 @@ public class GameWindow implements GuiScreen {
 
         for ( j = 0; j < 5; j++)
             for ( i = 0; i < 5; i++){
-            if (squares[i][j].getWorker() != null) {
-                System.out.println(squares[i][j].getWorker().toString());
+            if (squares[i][j].getColor() != null) {
+                System.out.println(squares[i][j].getColor());
                 // settare il colore giusto del player
                 Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
                 ImageView imageViewColorWorker = new ImageView(imageColorWorker);

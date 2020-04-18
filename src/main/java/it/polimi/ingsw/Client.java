@@ -72,7 +72,6 @@ public class Client extends Thread {
     }
 
     public void receive(String json){
-        System.out.println("aigfhoifghaohglajhgljhrgljaehgjklahkjghkrhg");
         ParserEvent p=new ParserEvent();
         Event event=p.parser(json);
         event.send(view);
@@ -85,14 +84,12 @@ public class Client extends Thread {
     public void run() {
         while(true){
             String s= null;
-            System.out.println("PROVAAAAAAAAAAAAAAAAAAAAAAA");
             try {
                 System.out.println(socket.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
             }
             System.out.println(scanner.getClass());
-            System.out.println("avinfjgnhjgnajgbjsgnjkbsgjksgrbbbbbbbbbbbbbbbbbbvbjsknbvjdsvksnfdjbknfdjkvbndkfnbkgf");
             if(scanner.hasNext()){
             s=scanner.nextLine();
             System.out.println(s);

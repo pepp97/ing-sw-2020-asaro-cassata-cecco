@@ -1,20 +1,19 @@
 package it.polimi.ingsw.events;
 
-import it.polimi.ingsw.model.Square;
+import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.view.Gui;
-import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 public class UpdateEvent  implements Event{
 
 
-    private Square [][]squares;
+    private SquareToJson[][]squares;
 
-    public UpdateEvent(Square[][] squares) {
+    public UpdateEvent(SquareToJson[][] squares) {
         this.squares = squares;
     }
 
-    public Square[][] getSquares() {
+    public SquareToJson[][] getSquares() {
         return squares;
     }
 
