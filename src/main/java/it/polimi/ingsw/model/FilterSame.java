@@ -9,8 +9,12 @@ public class FilterSame implements SubAction {
 
         // controllare tutte per build o passare penultima posizione
 
+        Worker worker = (Worker) game.getTargetInUse();
 
-
+        for(Square s: worker.getSquare().getAdjacentSquares()){
+            if(s.getStart_level() != s.getLevel())
+                worker.setMandatorySquare(s);
+        }
     }
 
     /**

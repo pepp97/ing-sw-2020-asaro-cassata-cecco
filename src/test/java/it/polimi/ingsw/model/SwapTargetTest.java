@@ -1,11 +1,12 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.Controller;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SwapTargetTest {
     private SwapTarget swapTarget=new SwapTarget();
-    private Game game=new Game();
+    private Game game=new Game(new Controller());
 
     @Test
      void swapTargetTest(){

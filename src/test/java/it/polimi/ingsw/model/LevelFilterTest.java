@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.Controller;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class LevelFilterTest {
     private List <Integer> list=new ArrayList<>();
     private LevelFilter levelFilter;
     private Field field;
-    private Game game=new Game();
+    private Game game=new Game(new Controller());
     Worker w1=new Worker();
     Worker w2=new Worker();
 
@@ -20,7 +21,7 @@ public class LevelFilterTest {
     void levelFilterTest(){
         list.add(1);
         list.add(2);
-        game=new Game ();
+        game=new Game (new Controller());
         Player p= new Player("john",Color.BLACK);
         game.setCurrentPlayer(p);
         List<EffectRoutine> listt=new ArrayList<>();

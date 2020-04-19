@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ChangePositionTest {
 
     private ChangePosition changePosition=new ChangePosition();
-    private Game game=new Game();
+    private Game game=new Game(new Controller());
     private Field field=game.getField();
     Worker w1=new Worker();
     Worker w2=new Worker();

@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
@@ -31,6 +32,7 @@ public class Game implements Observable {
     private int turnIndex=1;
     private List<String> selected=new ArrayList<>();
     private Player winner;
+    private Controller controller;
 
     public Player getWinner() {
         return winner;
@@ -40,7 +42,8 @@ public class Game implements Observable {
         this.winner = winner;
     }
 
-    public Game() {
+    public Game(Controller controller) {
+        this.controller=controller;
         field=new Field();
         board=new Board();
         startGods=new ArrayList<>();
@@ -250,6 +253,9 @@ public class Game implements Observable {
     }
 
 
+    public Controller getController() {
+        return controller;
+    }
 
     public void setInitialPosition(int coordinateX, int coordinateY, VirtualView view) {
         Worker w=new Worker();

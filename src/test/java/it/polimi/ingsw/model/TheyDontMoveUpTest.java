@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,7 @@ public class TheyDontMoveUpTest {
 
 
     private Move move=new Move();
-    private Game game=new Game();
+    private Game game=new Game(new Controller());
     private Field field=game.getField();
     private TheyDontMoveUp theyDontMoveUp=new TheyDontMoveUp();
     private Player p=new Player("nick",Color.BLACK);
