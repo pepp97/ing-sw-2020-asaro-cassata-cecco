@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Square;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ParserEvent {
@@ -83,6 +84,9 @@ public class ParserEvent {
         else if(event.equals("\"ExceptionEvent\"")){
             JsonNode exp=a.path("exception");
             eventReturn=new ExceptionEvent(exp.toString().replace("\"",""));
+        }else if(event.equals("\"StartGameEvent\"")){
+            JsonNode exp=a.path("exception");
+            eventReturn=new ExceptionEvent(exp.toString().replace("\"",""));
         }
         else if(event.equals("\"LoginSuccessful\"")){
             JsonNode nicknames=a.path("nickname");
@@ -99,14 +103,17 @@ public class ParserEvent {
         else if(event.equals("\"SettingsEvent\"")){
             eventReturn=new SettingsEvent();
         }
-        else if(event.equals("\"StartGameEvent\"")){
-            JsonNode gods=a.path("gods");
-            List<String> namesGod=new ArrayList<>();
-            for(int i=0;i<gods.size();i++){
-                namesGod.add(gods.get(i).toString().replace("\"",""));
+        else if(event.equals("\"StartMatchEvent\"")){
+            JsonNode link=a.path("linking");
+            JsonNode squares=a.path("squares");
+            LinkedHashMap<String,String> godPlayer=new LinkedHashMap<>();
+            for(int i=0;i<link.size();i++){
+                JsonNode linking=link.get(i);
+                JsonNode name=linking.path("nickname");
+                JsonNode god=linking.path("godName");
+                godPlayer.put(name.toString().replace("\"",""),god.toString().replace("\"",""));
             }
-            JsonNode numPlayers=a.path("numPlayers");
-            eventReturn= new StartGameEvent(namesGod,numPlayers.asInt());
+            eventReturn= new StartMatchEvent(godPlayer);
         }
         else if(event.equals("\"UpdateEvent\"")){
             ParserUpdate p=new ParserUpdate();

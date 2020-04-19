@@ -195,6 +195,7 @@ public class Gui extends  Application implements View {
 
     public void update(LoginSuccessful loginSuccessful){
         Platform.runLater(() -> {
+            nicknames=loginSuccessful.getNickname();
             this.state = new LobbyWindow(this,loginSuccessful);
             state.setScene();
         });
@@ -228,6 +229,7 @@ public class Gui extends  Application implements View {
 
     public void update(ChooseYourGodEvent event){
         Platform.runLater(() -> {
+            gods=event.getGods();
             this.state = new SelectYourGod(this,event);
             state.setScene();
         });

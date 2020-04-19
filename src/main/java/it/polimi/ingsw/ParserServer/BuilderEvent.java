@@ -6,7 +6,9 @@ import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Square;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BuilderEvent {
 
@@ -22,6 +24,9 @@ public class BuilderEvent {
                 attributes=typeWorker(event);
             }else if(type.equals("UpdateEvent")){
                 attributes=typeUpdate(event);
+            }
+            else if(type.equals("StartMatchEvent")){
+                attributes=typeStartMatch(event);
             }
             else if(!type.equals("askUser") && !type.equals("ConnectionSuccessful") && !type.equals("LogoutSuccessful") && !type.equals("SettingsEvent"))
                 attributes = mapper.writeValueAsString(event);
@@ -60,6 +65,8 @@ public class BuilderEvent {
             s="StartGameEvent";
         }else if(event instanceof UpdateEvent){
             s="UpdateEvent";
+        }else if(event instanceof StartMatchEvent){
+            s="StartMatchEvent";
         }
         return s;
     }
@@ -102,6 +109,26 @@ public class BuilderEvent {
         attributes=attributes+"]}";
         return attributes;
     }
+
+    public String typeStartMatch(Event event){
+        StartMatchEvent s1=(StartMatchEvent) event;
+        LinkedHashMap<String,String> godPlayer= s1.getGodPlayer();
+        SquareToJson [][] map=s1.getMappa();
+        String attributes=null;
+        attributes="{\"linking\":[";
+        int k=0;
+        for(Map.Entry<String, String> entry : godPlayer.entrySet()){
+            if(k==(godPlayer.size()-1)){
+                attributes=attributes+"{\"nickname\":\""+entry.getKey()+"\",\"godName\":\""+entry.getValue()+"\"}";
+            }else{
+                attributes=attributes+"{\"nickname\":\""+entry.getKey()+"\",\"godName\":\""+entry.getValue()+"\"},";
+            }
+            k++;
+        }
+        attributes=attributes+"]}";
+        return attributes;
+    }
+
 
     public String typeUpdate(Event event){
         UpdateEvent u1=(UpdateEvent) event;

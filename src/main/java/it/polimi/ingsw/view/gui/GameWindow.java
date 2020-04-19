@@ -483,7 +483,7 @@ public class GameWindow implements GuiScreen {
         });
         gridPane.add(button2,3,1);
 
-        if (gui.getGods().get(2) != null ) {
+        if (gui.getGods().size()==3 ) {
 
             Hyperlink button3 = new Hyperlink();
             button3.setMaxSize(180.0, 240.0);

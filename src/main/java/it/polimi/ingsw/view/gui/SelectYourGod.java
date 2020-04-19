@@ -174,9 +174,7 @@ public class SelectYourGod implements GuiScreen {
         confirm.setOnAction(f->{
             Command command;
             command=new ChooseYourGod(s1);
-            System.out.println(s1 + "OIGSPDIHBOUSHBIUSHGBKJSKJBSJKN");
             gui.getClient().send(command);
-            System.out.println(s1 + "OIGSPDIHBOUSHBIUSHGBKJSKJBSJKN"+"JSDAHVDAHVHADVHAD");
             stage.close();
         });
 

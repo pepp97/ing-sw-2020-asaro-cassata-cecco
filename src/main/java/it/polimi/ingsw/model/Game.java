@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -199,7 +200,7 @@ public class Game implements Observable {
 
     public synchronized void setPlayerGod(String godname, VirtualView view) {
 
-        System.out.println("il nome è" + " "+godname);
+        System.out.println("il nome è " + godname);
         for(God g: startGods){
             System.out.println(g.getName());
             if(g.getName().equals(godname)) {
@@ -207,7 +208,6 @@ public class Game implements Observable {
                     currentView = view;
                     notifyCurrent(new ExceptionEvent("God already selected"));
                 } else {
-                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADSDVSDVSDVSFVSFVSD");
                     view.getOwner().setGod(g);
                     selected.add(g.getName());
                     turnIndex++;
@@ -224,11 +224,15 @@ public class Game implements Observable {
                         for(int i=0;i<5;i++)
                             for(int j=0; j<5;j++)
                                 map[i][j]=new SquareToJson(mappa[i][j].getLevel(),"",i,j);
-                        e = new UpdateEvent(map);
+
+                        LinkedHashMap<String,String> godPlayer=new LinkedHashMap<>();
+                        for(Player p:playerList){
+                            godPlayer.put(p.getUsername(),p.getGod().getName());
+                        }
+                        e = new StartMatchEvent(godPlayer);
                         notifyObservers(e);
                     } else {
                         e = new ChooseYourGodEvent(names, effects);
-                        System.out.println("PROVAAAAAAAAAAAAAAAAAAAAAAA");
                         notifyCurrent(e);
                         break;
                     }

@@ -3,12 +3,11 @@ package it.polimi.ingsw;
 import it.polimi.ingsw.ParserServer.BuilderEvent;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.events.*;
-import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.Square;
-import it.polimi.ingsw.model.Worker;
+import it.polimi.ingsw.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class BuilderEventTest {
@@ -95,6 +94,11 @@ public class BuilderEventTest {
         namesGod.add("Artemis");
         int nplayer=3;
 
+        //variabili test per StartMatch
+        LinkedHashMap<String,String> godPlayer=new LinkedHashMap<>();
+        godPlayer.put("Salvo","Apollo");
+        godPlayer.put("Rick","Artmide");
+        godPlayer.put("Peppe","Gino");
 
         askUser askUser=new askUser();
         ChooseTarget chooseTarget= new ChooseTarget(message,availableSquare);
@@ -109,6 +113,7 @@ public class BuilderEventTest {
         SettingsEvent settingsEvent=new SettingsEvent();
         StartGameEvent startGameEvent= new StartGameEvent(namesGod,nplayer);
         UpdateEvent updateEvent=new UpdateEvent(squares);
+        StartMatchEvent startMatchEvent=new StartMatchEvent(godPlayer);
 
         System.out.println(b.builder(askUser));
         System.out.println(b.builder(chooseTarget));
@@ -122,7 +127,8 @@ public class BuilderEventTest {
         System.out.println(b.builder(logoutSuccessful));
         System.out.println(b.builder(settingsEvent));
         System.out.println(b.builder(startGameEvent));
-        String c=b.builder(updateEvent);
+        System.out.println(b.builder(updateEvent));
+        String c=b.builder(startMatchEvent);
         System.out.println(c);
     }
 }
