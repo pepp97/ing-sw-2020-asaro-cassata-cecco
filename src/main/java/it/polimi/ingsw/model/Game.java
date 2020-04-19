@@ -230,11 +230,6 @@ public class Game implements Observable {
                         List<String> fullGods = new ArrayList<>();
                         for (God g1 : startGods)
                             fullGods.add(g1.getName());
-                        SquareToJson [][]map=new SquareToJson[5][5];
-                        Square [][]mappa=field.getSquares();
-                        for(int i=0;i<5;i++)
-                            for(int j=0; j<5;j++)
-                                map[i][j]=new SquareToJson(mappa[i][j].getLevel(),"",i,j);
 
                         LinkedHashMap<String,String> godPlayer=new LinkedHashMap<>();
                         for(Player p:playerList){
