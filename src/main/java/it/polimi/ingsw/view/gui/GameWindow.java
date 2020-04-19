@@ -127,6 +127,7 @@ public class GameWindow implements GuiScreen {
         buttons = new Hyperlink[5][5];
         stacks = new StackPane[5][5];
 
+
         Hyperlink button00 = new Hyperlink();
         buttons[0][0] = button00;
         Hyperlink button10 = new Hyperlink();
@@ -226,12 +227,14 @@ public class GameWindow implements GuiScreen {
         button34.setMaxSize(217.0,115.0);
         button34.setMinSize(217.0,115.0);
         button44.setMaxSize(217.0,115.0);
+
+
         button44.setMinSize(217.0,115.0);
         button00.setOnAction(f ->{
             System.out.println("ciao");
             Event event;
-            event = new askUser();
-            event.send(gui);
+            //event = new askUser();
+            //event.send(gui);
         });
         button10.setOnAction(f ->{
             System.out.println("ciao");
@@ -371,19 +374,19 @@ public class GameWindow implements GuiScreen {
 
         for ( j = 0; j < 5; j++)
             for ( i = 0; i < 5; i++){
-            if (squares[i][j].getColor() != null) {
-                System.out.println(squares[i][j].getColor());
-                // settare il colore giusto del player
-                Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
-                ImageView imageViewColorWorker = new ImageView(imageColorWorker);
-                imageViewColorWorker.setFitHeight(40.0);
-                imageViewColorWorker.setFitWidth(20.0);
-                stacks[i][j].getChildren().add(imageViewColorWorker);
+                if (squares[i][j].getColor() != null) {
+                    System.out.println(squares[i][j].getColor());
+                    // settare il colore giusto del player
+                    Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
+                    ImageView imageViewColorWorker = new ImageView(imageColorWorker);
+                    imageViewColorWorker.setFitHeight(40.0);
+                    imageViewColorWorker.setFitWidth(20.0);
+                    stacks[i][j].getChildren().add(imageViewColorWorker);
 
+                }
+                stacks[i][j].getChildren().add(buttons[i][j]);
+                field.add(stacks[i][j], i, j, 1, 1);
             }
-            stacks[i][j].getChildren().add(buttons[i][j]);
-            field.add(stacks[i][j], i, j, 1, 1);
-        }
 
         arena.add(board,2,1);
 
@@ -426,6 +429,7 @@ public class GameWindow implements GuiScreen {
         ColumnConstraints c5=new ColumnConstraints();
         ColumnConstraints c6=new ColumnConstraints();
         ColumnConstraints c7=new ColumnConstraints();
+
 
         r1.setPercentHeight(20);
         r2.setPercentHeight(60);
@@ -483,7 +487,7 @@ public class GameWindow implements GuiScreen {
         });
         gridPane.add(button2,3,1);
 
-        if (gui.getGods().size()==3 ) {
+        if (gui.getGods().get(2) != null ) {
 
             Hyperlink button3 = new Hyperlink();
             button3.setMaxSize(180.0, 240.0);

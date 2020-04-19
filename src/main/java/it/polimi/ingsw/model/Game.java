@@ -30,7 +30,15 @@ public class Game implements Observable {
     List <String> names=new ArrayList<>();
     private int turnIndex=1;
     private List<String> selected=new ArrayList<>();
+    private Player winner;
 
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
 
     public Game() {
         field=new Field();

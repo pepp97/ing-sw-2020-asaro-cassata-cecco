@@ -5,6 +5,11 @@ import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 public class askUser implements Event {
+
+    public askUser() {
+
+    }
+
     @Override
     public void send(Gui view) {
         view.update(this);

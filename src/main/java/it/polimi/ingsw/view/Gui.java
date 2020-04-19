@@ -24,6 +24,7 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Gui extends  Application implements View {
     private Stage primaryStage;
@@ -39,8 +40,9 @@ public class Gui extends  Application implements View {
     private ErrorWindow error;
 
 
+
     private  double widthScreen = Screen.getPrimary().getBounds().getWidth();
-   private double heightScreen = Screen.getPrimary().getBounds().getHeight()-40.00;
+    private double heightScreen = Screen.getPrimary().getBounds().getHeight()-40.00;
 
 
     public static void main() {
@@ -99,7 +101,7 @@ public class Gui extends  Application implements View {
             e.consume();
             closeApplication();
         });
-         Scene startMenu;
+        Scene startMenu;
 
         exitGame = new SelectBox("Vuoi uscire dal gioco?");
         GridPane menu = new GridPane();
@@ -107,7 +109,7 @@ public class Gui extends  Application implements View {
         menu.setHgap(1);
         menu.setVgap(1);
 
-         boolean continua;
+        boolean continua;
         StackPane stackPane = new StackPane();
 
 
@@ -115,11 +117,11 @@ public class Gui extends  Application implements View {
 
         Image intro = new Image("SantoriniIntro.jpg", widthScreen,heightScreen,true, true); //modificare percorso.
 
-           //Image intro = new Image("SantoriniIntro.jpg");
+        //Image intro = new Image("SantoriniIntro.jpg");
         ImageView imageView = new ImageView();
         imageView.setImage(intro);
-         //   ImageViewPane imageViewPane = new ImageViewPane(imageView);
-           // stackPane.getChildren().add(imageViewPane);
+        //   ImageViewPane imageViewPane = new ImageViewPane(imageView);
+        // stackPane.getChildren().add(imageViewPane);
         stackPane.getChildren().add(menu);
         BackgroundImage backgroundImage = new BackgroundImage(intro, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         menu.setBackground(new Background(backgroundImage));
@@ -134,37 +136,38 @@ public class Gui extends  Application implements View {
 
         GridPane.setConstraints(ipInput, 150, 120);
 
+
         TextField portInput = new TextField("8080");
         portInput.setPromptText("Default port:8080");
         GridPane.setConstraints(portInput, 150, 128);
         Button connectionButton = new Button("Vai al Login");
         GridPane.setConstraints(connectionButton, 150, 140);
         primaryStage.show();
-       connectionButton.setOnAction(e -> {
+        connectionButton.setOnAction(e -> {
                     if (ipInput.getText().equals("") || portInput.getText().equals("")) {
                         Label error = new Label("        Completa i campi errati, scemo");
                         GridPane.setConstraints(error, 150, 80);
                         menu.getChildren().add(0, error);
                     } else {
-                         try {
-                        client = new Client(ipInput.getText(), Integer.decode(portInput.getText()),this);
-                        client.start();
-                        Connection command=new Connection();
-                        client.send(command);
+                        try {
+                            client = new Client(ipInput.getText(), Integer.decode(portInput.getText()),this);
+                            client.start();
+                            Connection command=new Connection();
+                            client.send(command);
 
 
-                         } catch (Exception e1) {
-                             e1.printStackTrace();
-                            }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
                         }
                     }
+                }
 
-                     );
+        );
 
         Button close = new Button("exit");
         GridPane.setConstraints(close, 151, 140);
         menu.getChildren().addAll(connectionButton, close, ipInput, portInput);
-       // close.setOnAction(e -> closeApplication());
+        // close.setOnAction(e -> closeApplication());
 
 
     }
@@ -195,7 +198,6 @@ public class Gui extends  Application implements View {
 
     public void update(LoginSuccessful loginSuccessful){
         Platform.runLater(() -> {
-            nicknames=loginSuccessful.getNickname();
             this.state = new LobbyWindow(this,loginSuccessful);
             state.setScene();
         });
@@ -206,6 +208,20 @@ public class Gui extends  Application implements View {
 
     }
 
+    public void update(StartMatchEvent startMatchEvent){
+        Platform.runLater(() -> {
+
+            for(Map.Entry iterator : startMatchEvent.getGodPlayer().entrySet()){
+                nicknames.add((String) iterator.getKey());
+                gods.add((String) iterator.getValue());
+            }
+
+            this.state = new ChooseStarterWindow(this,startMatchEvent);
+            state.setScene();
+        });
+
+    }
+
     public void update(ExceptionEvent exceptionEvent){
         Platform.runLater(()->{
             error= new ErrorWindow(this,exceptionEvent);
@@ -213,8 +229,8 @@ public class Gui extends  Application implements View {
     }
     public void update (SettingsEvent settingsEvent){
         Platform.runLater(()->{
-        settings = new SettingsWindow(this);
-        settings.displayMessage(primaryStage);});
+            settings = new SettingsWindow(this);
+            settings.displayMessage(primaryStage);});
 
     }
 
@@ -229,7 +245,6 @@ public class Gui extends  Application implements View {
 
     public void update(ChooseYourGodEvent event){
         Platform.runLater(() -> {
-            gods=event.getGods();
             this.state = new SelectYourGod(this,event);
             state.setScene();
         });
@@ -256,6 +271,7 @@ public class Gui extends  Application implements View {
 
     public void update (EndGame endGame){
 
+
         Platform.runLater(() -> {
             this.state = new EndGameWindow(this, endGame);
             state.setScene();
@@ -266,5 +282,3 @@ public class Gui extends  Application implements View {
 
 
 }
-
-
