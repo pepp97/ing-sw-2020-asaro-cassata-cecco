@@ -148,7 +148,7 @@ public class Game implements Observable {
                 for(Player p1: playerList)
                     list.add(p1.getUsername());
                 e=new LoginSuccessful(list);
-                notifyCurrent(e);
+                notifyObservers(e);
                 e = new StartGameEvent(godlist, numplayer);
                 currentView= (View) observers.get(0);
                 notifyCurrent(e);

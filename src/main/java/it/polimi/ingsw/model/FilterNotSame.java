@@ -25,6 +25,7 @@ public class FilterNotSame implements SubAction {
 
     }
 
+
     /**
      * @param game
      * @return
