@@ -26,8 +26,8 @@ public class Game implements Observable {
     private List<God> startGods;
     private List<God> totalGods;
     private ParserJson p;
-    List <String> effects=new ArrayList<>();
-    List <String> names=new ArrayList<>();
+    private List <String> effects=new ArrayList<>();
+    private List <String> names=new ArrayList<>();
     private int turnIndex=1;
     private List<String> selected=new ArrayList<>();
     private Player winner;
