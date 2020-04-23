@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.AfterEach;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MoveTest {
 
-    private Game game=new Game();
+    private Game game=new Game(new Controller());
     private Field field=game.getField();
     private Move move=new Move();
     Worker w1=new Worker();

@@ -19,7 +19,7 @@ public class Controller {
 
 
     public Controller() {
-        this.game = new Game();
+        this.game = new Game(this);
     }
 
     public void setTurnManager(List<Player> turnManager) {
@@ -87,5 +87,9 @@ public class Controller {
 
         for(int k=0; k<i;k++)
             turnManager.add(game.getPlayerList().get(k));
+    }
+
+    public void goBack() {
+        //RIAVVOLGE ROUTINE
     }
 }

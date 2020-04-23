@@ -85,8 +85,13 @@ public class ParserEvent {
             JsonNode exp=a.path("exception");
             eventReturn=new ExceptionEvent(exp.toString().replace("\"",""));
         }else if(event.equals("\"StartGameEvent\"")){
-            JsonNode exp=a.path("exception");
-            eventReturn=new ExceptionEvent(exp.toString().replace("\"",""));
+            JsonNode gods=a.path("gods");
+            List<String> namesGod=new ArrayList<>();
+            for(int i=0;i<gods.size();i++) {
+                namesGod.add(gods.get(i).toString().replace("\"", ""));
+            }
+            JsonNode numPlayers=a.path("numPlayers");
+            eventReturn= new StartGameEvent(namesGod,numPlayers.asInt());
         }
         else if(event.equals("\"LoginSuccessful\"")){
             JsonNode nicknames=a.path("nickname");

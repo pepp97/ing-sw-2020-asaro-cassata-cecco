@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 
+import it.polimi.ingsw.controller.Controller;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ import java.util.List;
 public class BuildTest {
 
     private Build build=new Build();
-    private Game game=new Game();
+    private Game game=new Game(new Controller());
     private Field field=game.getField();
     Worker w1=new Worker();
     Worker w2=new Worker();

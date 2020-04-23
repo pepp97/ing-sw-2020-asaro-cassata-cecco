@@ -235,7 +235,7 @@ public class Gui extends  Application implements View {
     }
 
     public void update(StartGameEvent startGameEvent){
-
+        System.out.println("STARTGAME PROVA!");
         Platform.runLater(() -> {
             this.state = new SelectGodsWindow(this,startGameEvent);
             state.setScene();

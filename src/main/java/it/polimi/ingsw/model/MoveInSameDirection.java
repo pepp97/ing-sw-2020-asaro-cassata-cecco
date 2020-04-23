@@ -44,6 +44,7 @@ public class MoveInSameDirection implements SubAction {
             positionToGo = squares[coordinateX][coordinateY].getSquare();
             return true;
         }
+        game.getController().goBack();
         return false;
     }
 }

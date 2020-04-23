@@ -19,6 +19,7 @@ public class Worker implements Target {
     private List<Square> historyPos=new ArrayList<>();
     private List<Square> targetNotValid;
     private Square squareNotAvailable;
+    private Square mandatorySquare;
 
     /**
      * this metod is the builder of the class
@@ -42,6 +43,13 @@ public class Worker implements Target {
         return this.actualPos;
     }
 
+    public Square getMandatorySquare() {
+        return mandatorySquare;
+    }
+
+    public void setMandatorySquare(Square mandatorySquare) {
+        this.mandatorySquare = mandatorySquare;
+    }
 
     /**
      * this method is used to update the position of the worker for every movement
