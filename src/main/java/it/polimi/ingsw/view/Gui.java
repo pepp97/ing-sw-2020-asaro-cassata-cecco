@@ -287,7 +287,7 @@ public class Gui extends  Application implements View {
         });
     }
 
-    public void update(StartMatchEvent event){
+    public void update(SetWorkerEvent event){
         Platform.runLater(() -> {
             this.state = new StartMatchWindow(this,event);
             state.setScene();
