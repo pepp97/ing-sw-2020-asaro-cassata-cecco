@@ -91,7 +91,7 @@ public class BuilderEvent {
     }
 
     public String typeTarget(Event event){
-        ChooseTarget t1=(ChooseTarget) event;
+      /*  ChooseTarget t1=(ChooseTarget) event;
         String message=t1.getMessage();
         List<Square> availableSquare=t1.getAvailableSquare();
         String attributes=null;
@@ -107,7 +107,8 @@ public class BuilderEvent {
             }
         }
         attributes=attributes+"]}";
-        return attributes;
+        return attributes;*/
+      return "da levare commenti";
     }
 
     public String typeStartMatch(Event event){

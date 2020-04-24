@@ -101,7 +101,7 @@ public class BuilderEventTest {
         godPlayer.put("Peppe","Gino");
 
         askUser askUser=new askUser();
-        ChooseTarget chooseTarget= new ChooseTarget(message,availableSquare);
+        //ChooseTarget chooseTarget= new ChooseTarget(message,availableSquare);
         ChooseWorker chooseWorker= new ChooseWorker(posWorker);
         ChooseYourGodEvent chooseYourGodEvent=new ChooseYourGodEvent(namesGod,login);
         ConnectionSuccessful connectionSuccessful= new ConnectionSuccessful();
@@ -116,7 +116,7 @@ public class BuilderEventTest {
         StartMatchEvent startMatchEvent=new StartMatchEvent(godPlayer);
 
         System.out.println(b.builder(askUser));
-        System.out.println(b.builder(chooseTarget));
+        //System.out.println(b.builder(chooseTarget));
         System.out.println(b.builder(chooseWorker));
         System.out.println(b.builder(chooseYourGodEvent));
         System.out.println(b.builder(connectionSuccessful));
