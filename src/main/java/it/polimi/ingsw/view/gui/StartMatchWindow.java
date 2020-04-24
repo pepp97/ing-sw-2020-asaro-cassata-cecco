@@ -4,6 +4,8 @@ import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.ChooseInitialPosition;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.ChooseTarget;
+import it.polimi.ingsw.events.ChooseWorker;
+import it.polimi.ingsw.events.SetWorkerEvent;
 import it.polimi.ingsw.events.StartMatchEvent;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.Insets;
@@ -22,12 +24,12 @@ import javafx.stage.StageStyle;
 
 public class StartMatchWindow implements GuiScreen {
     private Gui gui;
-    private StartMatchEvent event;
+    private SetWorkerEvent event;
     private Hyperlink[][] buttons;
     private StackPane[][] stacks;
     private Command command;
 
-    public StartMatchWindow(Gui gui, StartMatchEvent event) {
+    public StartMatchWindow(Gui gui, SetWorkerEvent event) {
         this.gui=gui;
         this.event=event;
     }
