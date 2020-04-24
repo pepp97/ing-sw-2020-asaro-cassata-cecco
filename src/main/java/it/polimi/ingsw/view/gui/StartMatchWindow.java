@@ -22,12 +22,12 @@ import javafx.stage.StageStyle;
 
 public class StartMatchWindow implements GuiScreen {
     private Gui gui;
-    private ChooseTarget event;
+    private StartMatchEvent event;
     private Hyperlink[][] buttons;
     private StackPane[][] stacks;
     private Command command;
 
-    public StartMatchWindow(Gui gui, ChooseTarget event) {
+    public StartMatchWindow(Gui gui, StartMatchEvent event) {
         this.gui=gui;
         this.event=event;
     }

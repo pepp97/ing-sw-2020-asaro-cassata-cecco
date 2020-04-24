@@ -83,6 +83,7 @@ public class Game implements Observable {
         if(playerList.size()<3)
         this.playerList.add(player);
     }
+
     public void removePlayerInList(Player player){
         this.playerList.remove(player);
     }
@@ -235,7 +236,13 @@ public class Game implements Observable {
                         for(Player p:playerList){
                             godPlayer.put(p.getUsername(),p.getGod().getName());
                         }
-                        e = new StartMatchEvent(godPlayer);
+                       // e = new StartMatchEvent(godPlayer);
+                        SquareToJson [][]map=new SquareToJson[5][5];
+                        Square [][]mappa=field.getSquares();
+                        for(int i=0;i<5;i++)
+                            for(int j=0; j<5;j++)
+                                map[i][j]=new SquareToJson(mappa[i][j].getLevel(),"",i,j);
+                        e=new UpdateEvent(map) ;
                         notifyObservers(e);
                     } else {
                         e = new ChooseYourGodEvent(names, effects);

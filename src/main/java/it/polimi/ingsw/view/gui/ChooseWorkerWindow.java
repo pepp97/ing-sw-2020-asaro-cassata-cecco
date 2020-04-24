@@ -22,12 +22,12 @@ import javafx.stage.StageStyle;
 
 public class ChooseWorkerWindow implements GuiScreen {
     private Gui gui;
-    private ChooseTarget event;
+    private ChooseWorker event;
     private Hyperlink[][] buttons;
     private StackPane[][] stacks;
     private Command command;
 
-    public ChooseWorkerWindow(Gui gui, ChooseTarget event) {
+    public ChooseWorkerWindow(Gui gui, ChooseWorker event) {
         this.gui=gui;
         this.event=event;
     }
