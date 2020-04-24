@@ -1,5 +1,6 @@
 package it.polimi.ingsw.events;
 
+import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.View;
@@ -10,9 +11,9 @@ import java.util.List;
 public class ChooseTarget implements Event  {
 
     private String message;
-    private List<Square> availableSquare;
+    private List<SquareToJson> availableSquare;
 
-    public ChooseTarget(String message, List<Square> availableSquare) {
+    public ChooseTarget(String message, List<SquareToJson> availableSquare) {
         this.message = message;
         this.availableSquare = availableSquare;
     }
@@ -21,7 +22,7 @@ public class ChooseTarget implements Event  {
         return message;
     }
 
-    public List<Square> getAvailableSquare() {
+    public List<SquareToJson> getAvailableSquare() {
         return availableSquare;
     }
 
