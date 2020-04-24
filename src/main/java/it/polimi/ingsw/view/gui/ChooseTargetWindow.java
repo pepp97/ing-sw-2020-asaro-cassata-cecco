@@ -1,13 +1,9 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
-import it.polimi.ingsw.commands.ChooseYourGod;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.*;
-import it.polimi.ingsw.model.Field;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Square;
-import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,16 +19,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class GameWindow implements GuiScreen {
+public class ChooseTargetWindow implements GuiScreen {
     private Gui gui;
-    private UpdateEvent event;
+    private ChooseTarget event;
     private Hyperlink[][] buttons;
-    private StackPane [][] stacks;
+    private StackPane[][] stacks;
+    private Command command;
 
-    public GameWindow(Gui gui, UpdateEvent event) {
+    public ChooseTargetWindow(Gui gui, ChooseTarget event) {
         this.gui=gui;
         this.event=event;
     }
@@ -203,7 +199,6 @@ public class GameWindow implements GuiScreen {
         Hyperlink button44 = new Hyperlink();
         button44.setVisible(false);
         buttons[4][4] = button44;
-
         button00.setMaxSize(217.0,115.0);
         button00.setMinSize(217.0,115.0);
         button10.setMaxSize(217.0,115.0);
@@ -257,90 +252,106 @@ public class GameWindow implements GuiScreen {
 
         button44.setMinSize(217.0,115.0);
         button00.setOnAction(f ->{
-            System.out.println("ciao");
-            Event event;
+            command = new it.polimi.ingsw.commands.ChooseTarget(0,0);
+            gui.getClient().send(command);
             //event = new askUser();
             //event.send(gui);
         });
         button10.setOnAction(f ->{
-            System.out.println("ciao");
-            Event event;
-            String string = "peppe";
-            event = new DeathPlayer(string);
-            event.send(gui);
+            command = new it.polimi.ingsw.commands.ChooseTarget(1,0);
+            gui.getClient().send(command);
         });
         button20.setOnAction(f ->{
-            System.out.println("ciao");
-            Event event;
-            String string = "salvo";
-            event = new EndGame(string);
-            event.send(gui);
+            command = new it.polimi.ingsw.commands.ChooseTarget(2,0);
+            gui.getClient().send(command);
         });
         button30.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(3,0);
+            gui.getClient().send(command);
         });
         button40.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(4,0);
+            gui.getClient().send(command);
         });
         button01.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(0,1);
+            gui.getClient().send(command);
         });
         button11.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(1,1);
+            gui.getClient().send(command);
         });
         button21.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(2,1);
+            gui.getClient().send(command);
         });
         button31.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(3,1);
+            gui.getClient().send(command);
         });
         button41.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(4,1);
+            gui.getClient().send(command);
         });
         button02.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(0,2);
+            gui.getClient().send(command);
         });
         button12.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(1,2);
+            gui.getClient().send(command);
         });
         button22.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(2,2);
+            gui.getClient().send(command);
         });
         button32.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(3,2);
+            gui.getClient().send(command);
         });
         button42.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(4,2);
+            gui.getClient().send(command);
         });
         button03.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(0,3);
+            gui.getClient().send(command);
         });
         button13.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(1,3);
+            gui.getClient().send(command);
         });
         button23.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(2,3);
+            gui.getClient().send(command);
         });
         button33.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(3,3);
+            gui.getClient().send(command);
         });
         button43.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(4,3);
+            gui.getClient().send(command);
         });
         button04.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(0,4);
+            gui.getClient().send(command);
         });
         button14.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(1,4);
+            gui.getClient().send(command);
         });
         button24.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(2,4);
+            gui.getClient().send(command);
         });
         button34.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(3,4);
+            gui.getClient().send(command);
         });
         button44.setOnAction(f ->{
-            System.out.println("ciao");
+            command = new it.polimi.ingsw.commands.ChooseTarget(4,4);
+            gui.getClient().send(command);
         });
 
 
@@ -402,7 +413,7 @@ public class GameWindow implements GuiScreen {
             for ( i = 0; i < 5; i++){
                 if (squares[i][j].getColor() != null) {
                     System.out.println(squares[i][j].getColor());
-                    // settare il colore giusto del player
+                    // settare il colore giusto del player quindi il worker
                     Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
                     ImageView imageViewColorWorker = new ImageView(imageColorWorker);
                     imageViewColorWorker.setFitHeight(40.0);
@@ -413,6 +424,11 @@ public class GameWindow implements GuiScreen {
                 stacks[i][j].getChildren().add(buttons[i][j]);
                 field.add(stacks[i][j], i, j, 1, 1);
             }
+        for(SquareToJson square: event.getAvailableSquare() ) {
+            buttons[square.getCordinataX()][square.getCordinataY()].setVisible(true);
+            // cambio il colore dei bottoni ok
+            buttons[square.getCordinataX()][square.getCordinataY()].setBackground(new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY)));
+        }
 
         arena.add(board,2,1);
 
@@ -549,7 +565,7 @@ public class GameWindow implements GuiScreen {
         Scene scene;
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label();
-        confirmMessage.setText("Do you want to use this god?" +
+        confirmMessage.setText(
                 "\n \n                 this is " + str + "'s effect: ");
 
         GridPane gridPane=new GridPane();

@@ -280,5 +280,33 @@ public class Gui extends  Application implements View {
 
     }
 
+    public void update(ChooseTarget event){
+        Platform.runLater(() -> {
+            this.state = new ChooseTargetWindow(this,event);
+            state.setScene();
+        });
+    }
+
+    public void update(StartMatchEvent event){
+        Platform.runLater(() -> {
+            this.state = new StartMatchWindow(this,event);
+            state.setScene();
+        });
+    }
+
+    public void update(ChooseWorker event){
+        Platform.runLater(() -> {
+            this.state = new ChooseWorkerWindow(this,event);
+            state.setScene();
+        });
+    }
+
+    /*public void update(LogoutSuccessful event){
+        Platform.runLater(() -> {
+            this.state = new LogoutWindow(this,event);
+            state.setScene();
+        });
+    }*/
+
 
 }
