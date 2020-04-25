@@ -2,9 +2,11 @@ package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * It is the micro-effect that have the role to check if the player have win
- *  @author  Salvatore Cassata
+ *
+ * @author Salvatore Cassata
  */
 
 public class God {
@@ -15,7 +17,7 @@ public class God {
 
     private String surname;
 
-    private List<EffectRoutine> Routine= new ArrayList<>();
+    private List<EffectRoutine> Routine = new ArrayList<>();
 
     private List<Integer> cantDo = new ArrayList<>();
 
@@ -35,10 +37,9 @@ public class God {
     }
 
 
-
     public void setCantDo(List<Integer> cantDo) {
-        for(Integer i: cantDo)
-            if(i>=0 && i<=4)
+        for (Integer i : cantDo)
+            if (i >= 0 && i <= 4)
                 this.cantDo.add(i);
     }
 
@@ -64,13 +65,21 @@ public class God {
         this.textEffect = textEffect;
     }
 
-    public String getSurname() { return surname; }
+    public String getSurname() {
+        return surname;
+    }
 
-    public void setSurname(String surname) { this.surname = surname; }
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-    public List<EffectRoutine> getRoutine() { return Routine; }
+    public List<EffectRoutine> getRoutine() {
+        return Routine;
+    }
 
-    public void setRoutine(List<EffectRoutine> routine) { Routine = routine; }
+    public void setRoutine(List<EffectRoutine> routine) {
+        Routine = routine;
+    }
 
-   
+
 }

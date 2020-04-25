@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * rapresent the pawns of the Player
+ *
  * @author Riccardo Cecco
  */
 
@@ -16,7 +17,7 @@ public class Worker implements Target {
     private boolean canMoveUp;
     private boolean canBuild;
     private Square actualPos;
-    private List<Square> historyPos=new ArrayList<>();
+    private List<Square> historyPos = new ArrayList<>();
     private List<Square> targetNotValid;
     private Square squareNotAvailable;
     private Square mandatorySquare;
@@ -35,6 +36,7 @@ public class Worker implements Target {
 
     /**
      * this method is used to find the position of the worker
+     *
      * @return the actual position of the worker
      */
 
@@ -53,12 +55,13 @@ public class Worker implements Target {
 
     /**
      * this method is used to update the position of the worker for every movement
+     *
      * @param pos is the position where is the pawn
      */
 
     //questo metodo mi serve per aggiornare la posizione del worker ad ogni suo spostamento
-    public void setActualPos(Square pos){
-        if(pos.getLevel()<4 && pos.getCoordinateX()<5 && 0<=pos.getCoordinateY() && 0<=pos.getCoordinateX() && pos.getCoordinateY()<5) {
+    public void setActualPos(Square pos) {
+        if (pos.getLevel() < 4 && pos.getCoordinateX() < 5 && 0 <= pos.getCoordinateY() && 0 <= pos.getCoordinateX() && pos.getCoordinateY() < 5) {
             this.actualPos = pos;
             aggiornaPos(pos); //aggiungo alla lista della cronologia delle posizioni quella corrente
         }
@@ -66,35 +69,42 @@ public class Worker implements Target {
 
     /**
      * this method is used to update the list that records each movement in the round of the player
+     *
      * @param pos new position of the worker
      */
     //questo metodo mi serve per aggiornare  la lista delle cronologia delle posizioni del worker nel turno
-    private void aggiornaPos(Square pos){
-        if(pos.getLevel()<4 && pos.getCoordinateX()<5 && 0<=pos.getCoordinateY() && 0<=pos.getCoordinateX() && pos.getCoordinateY()<5)
-            this.historyPos.add(pos); }
+    private void aggiornaPos(Square pos) {
+        if (pos.getLevel() < 4 && pos.getCoordinateX() < 5 && 0 <= pos.getCoordinateY() && 0 <= pos.getCoordinateX() && pos.getCoordinateY() < 5)
+            this.historyPos.add(pos);
+    }
 
     /**
      * this method is used by controller to reset the history of the worker position of from the previous round
-     *
      */
     //questo metodo verrà chiamato dal controller ogni turno per resettare la cronologia delle posizioni del worker
     //prima dell'inizio di un nuovo turno turno e terrà nella lista solo la posizione attuale del worker
-
-    public void resetHystoricPos(){
+    public void resetHystoricPos() {
         this.historyPos.clear();
         this.historyPos.add(this.actualPos);
     }
 
 
-
     //metodi Setter
-    public void setC(Color c) { this.c = c; }
+    public void setC(Color c) {
+        this.c = c;
+    }
 
-    public void setCanBeMoved(boolean canBeMoved) { this.canBeMoved = canBeMoved; }
+    public void setCanBeMoved(boolean canBeMoved) {
+        this.canBeMoved = canBeMoved;
+    }
 
-    public void setCanMoveUp(boolean canMoveUp) { this.canMoveUp = canMoveUp; }
+    public void setCanMoveUp(boolean canMoveUp) {
+        this.canMoveUp = canMoveUp;
+    }
 
-    public void setCanBuild(boolean canBuild) { this.canBuild = canBuild; }
+    public void setCanBuild(boolean canBuild) {
+        this.canBuild = canBuild;
+    }
 
     public void setTargetNotValid(List<Square> targetNotValid) {
         this.targetNotValid = targetNotValid;
@@ -105,15 +115,25 @@ public class Worker implements Target {
     }
 
     //metodi Getter
-    public Color getC() { return c; }
+    public Color getC() {
+        return c;
+    }
 
-    public boolean getCanBeMoved() { return canBeMoved; }
+    public boolean getCanBeMoved() {
+        return canBeMoved;
+    }
 
-    public boolean getCanMoveUp() { return canMoveUp; }
+    public boolean getCanMoveUp() {
+        return canMoveUp;
+    }
 
-    public boolean getCanBuild() { return canBuild; }
+    public boolean getCanBuild() {
+        return canBuild;
+    }
 
-    public List<Square> getHistoryPos() { return List.copyOf(historyPos); }
+    public List<Square> getHistoryPos() {
+        return List.copyOf(historyPos);
+    }
 
     public List<Square> getTargetNotValid() {
         return List.copyOf(targetNotValid);
@@ -122,7 +142,6 @@ public class Worker implements Target {
     public Square getSquareNotAvailable() {
         return squareNotAvailable;
     }
-
 
 
     @Override

@@ -1,16 +1,19 @@
 package it.polimi.ingsw.model;
 
+/**
+ * It is the micro-effect that has the role of moving another player in the same direction
+ */
 public class MoveInSameDirection implements SubAction {
 
     private Square positionToGo;
 
 
     /**
-     * @param game
+     * @param game instance
      */
     @Override
     public void use(Game game) {
-        Worker toMove=((Worker)game.getTargetSelected());
+        Worker toMove = ((Worker) game.getTargetSelected());
         //toMove.getSquare().removeWorker();
         System.out.println(toMove);
         System.out.println(positionToGo);
@@ -18,12 +21,13 @@ public class MoveInSameDirection implements SubAction {
 
     }
 
-    /**
-     * @param game
-     * @return
-     */
 
     // aumenta aumenta, diminuisce diminuisce per le diagonali,
+
+    /**
+     * @param game instance
+     * @return a boolean to determine if the effect is usable
+     */
     @Override
     public Boolean isUsable(Game game) {
         Worker worker = (Worker) game.getTargetInUse();
@@ -40,7 +44,7 @@ public class MoveInSameDirection implements SubAction {
             coordinateY = coordinateY - 1;
         else if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getCoordinateY() < worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateY())
             coordinateY = coordinateY + 1;
-        if (squares[coordinateX][coordinateY].getWorker() == null && squares[coordinateX][coordinateY].getLevel()!=4) {
+        if (squares[coordinateX][coordinateY].getWorker() == null && squares[coordinateX][coordinateY].getLevel() != 4) {
             positionToGo = squares[coordinateX][coordinateY].getSquare();
             return true;
         }

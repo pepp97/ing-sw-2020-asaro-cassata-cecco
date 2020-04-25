@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-
+/**
+ * This class is the base of the game and is the link between the others class
+ */
 public class Game implements Observable {
 
     private List<Player> playerList = new ArrayList<>();

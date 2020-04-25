@@ -2,63 +2,74 @@ package it.polimi.ingsw.model;
 
 import java.util.List;
 
+/**
+ * @author cecco
+ */
 public class EffectRoutine {
     private Object effect;
     private boolean isSkippable;
     private List<Integer> levels;
 
+
+    /**
+     * We use this class to describe the effect of a god
+     *
+     * @param effect      description of the effect
+     * @param isSkippable describes  if is possible to skip the effect in the routine
+     * @param levels      describes on which levels the effect should be applied, is use only for specified effects
+     */
+    public EffectRoutine(String effect, boolean isSkippable, List<Integer> levels) {
+        this.effect = effect;
+        this.isSkippable = isSkippable;
+        this.levels = levels;
+    }
+
     public EffectRoutine(String eff, boolean isSkippable) {
         switchClass(eff);
         this.isSkippable = isSkippable;
-        this.levels=null;
+        this.levels = null;
     }
 
-    public void switchClass(String eff){
-        switch (eff){
+
+    public void switchClass(String eff) {
+        switch (eff) {
             case "move":
-                effect=new Move();
+                effect = new Move();
                 break;
             case "build":
-                effect=new Build();
+                effect = new Build();
                 break;
             case "askUser":
-                effect=new AskUser();
+                effect = new AskUser();
                 break;
             case "filterNotSame":
-                effect=new FilterNotSame();
+                effect = new FilterNotSame();
                 break;
             case "filterLevel":
-                effect=new LevelFilter(this.levels);
+                effect = new LevelFilter(this.levels);
                 break;
             case "theyDoNotMoveUp":
-                effect=new TheyDontMoveUp();
+                effect = new TheyDontMoveUp();
                 break;
             case "changePosition":
-                effect=new ChangePosition();
+                effect = new ChangePosition();
                 break;
             case "moveSameDirection":
-                effect=new MoveInSameDirection();
+                effect = new MoveInSameDirection();
                 break;
             case "youDontMoveUp":
-                effect=new YouDontMoveUp();
+                effect = new YouDontMoveUp();
                 break;
             case "changeTarget":
-                effect=new SwapTarget();
+                effect = new SwapTarget();
                 break;
             case "filterSame":
-                effect=new FilterSame();
+                effect = new FilterSame();
                 break;
             default:
                 System.out.println("Class not found");
         }
     }
-
-    public EffectRoutine(String effect, boolean isSkippable, List<Integer> levels) {
-        this.effect = effect;
-        this.isSkippable = isSkippable;
-        this.levels=levels;
-    }
-
 
     public boolean isSkippable() {
         return isSkippable;
@@ -68,7 +79,9 @@ public class EffectRoutine {
         return levels;
     }
 
-    public Object getEffect() { return effect; }
+    public Object getEffect() {
+        return effect;
+    }
 
     public void setLevels(List<Integer> levels) {
         this.levels = levels;

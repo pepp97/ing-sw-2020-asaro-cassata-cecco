@@ -2,15 +2,10 @@ package it.polimi.ingsw.model;
 
 public interface SubAction {
     /**
-     *
-     * @param game
+     * @param game instance
      */
-    public void use(Game game) ;
+    public void use(Game game);
 
-    /**
-     *
-     * @param game
-     * @return
-     */
+
     public Boolean isUsable(Game game);
 }
