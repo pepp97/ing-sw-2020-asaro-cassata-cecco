@@ -123,7 +123,7 @@ public class Game implements Observable {
             notifyCurrent(new ExceptionEvent("Color already in use!"));
         } else {
             currentView = view;
-            if (playerList.size() == numplayer && numplayer != 0) {
+            if (gameAlreadyStarted()) {
                 notifyCurrent(new ExceptionEvent("game already started"));
             } else if (playerList.size() == 1 && numplayer == 0) {
                 System.out.println("ERROREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
@@ -132,6 +132,13 @@ public class Game implements Observable {
                 playerLogin(nickname, color, view);
             }
         }
+    }
+
+    public boolean gameAlreadyStarted() {
+        if (playerList.size() == numplayer && numplayer != 0) {
+            return true;
+        }
+        return false;
     }
 
     private void playerLogin(String nickname, Color color, VirtualView view) {
@@ -171,14 +178,14 @@ public class Game implements Observable {
         notifyCurrent(new StartGameEvent(godlist, numplayer));
     }
 
-    private boolean nicknameAvailable(String nick) {
+    public boolean nicknameAvailable(String nick) {
         for (Player p : playerList)
             if (nick.equals(p.getUsername()))
                 return false;
         return true;
     }
 
-    private boolean colorAvailable(Color color) {
+    public boolean colorAvailable(Color color) {
         for (Player p : playerList)
             if (color.equals(p.getColor()))
                 return false;
