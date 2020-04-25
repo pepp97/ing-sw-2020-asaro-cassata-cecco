@@ -23,8 +23,8 @@ public class Move implements SubAction {
     @Override
     public void use(Game game) {
 
-        ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",List.copyOf(availableSquare));
-        game.notifyCurrent(chooseTarget);
+      //  ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",List.copyOf(availableSquare));
+      //  game.notifyCurrent(chooseTarget);
 
         int i=0;
 

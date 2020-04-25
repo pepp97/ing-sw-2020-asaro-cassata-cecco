@@ -22,8 +22,8 @@ public class ChangePosition implements SubAction {
     @Override
     public void use(Game game) {
 
-        ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",availableSquare);
-        game.notifyObservers(chooseTarget);
+        //ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",availableSquare);
+        //game.notifyObservers(chooseTarget);
 
         int i=0;
 
