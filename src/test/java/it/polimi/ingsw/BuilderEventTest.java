@@ -14,7 +14,7 @@ public class BuilderEventTest {
     private BuilderEvent b;
 
     @Test
-    void parser(){
+    void builder(){
         b=new BuilderEvent();
         Square a1= new Square(1,1);
         Square a2= new Square(2,1);
@@ -68,9 +68,11 @@ public class BuilderEventTest {
         availableSquare.add(a2);
 
         //variabili test per ChooseWorker
-        List<Square> posWorker= new ArrayList<>();
-        posWorker.add(a1);
-        posWorker.add(a2);
+        List<SquareToJson> posWorker= new ArrayList<>();
+        SquareToJson s1= new SquareToJson(0,"",1,1);
+        SquareToJson s2= new SquareToJson(0,"",2,3);
+        posWorker.add(s1);
+        posWorker.add(s2);
 
         //variabili test per DeathPlayer
         String nickname="Mario";
@@ -101,8 +103,8 @@ public class BuilderEventTest {
         godPlayer.put("Peppe","Gino");
 
         askUser askUser=new askUser();
-        //ChooseTarget chooseTarget= new ChooseTarget(message,availableSquare);
-        ChooseWorker chooseWorker= new ChooseWorker(posWorker);
+        ChooseTarget chooseTarget= new ChooseTarget(message,posWorker,squares);
+        ChooseWorker chooseWorker= new ChooseWorker(posWorker,squares);
         ChooseYourGodEvent chooseYourGodEvent=new ChooseYourGodEvent(namesGod,login);
         ConnectionSuccessful connectionSuccessful= new ConnectionSuccessful();
         DeathPlayer deathPlayer=new DeathPlayer(nick1);
@@ -111,12 +113,13 @@ public class BuilderEventTest {
         LoginSuccessful loginSuccessful=new LoginSuccessful(login);
         LogoutSuccessful logoutSuccessful=new LogoutSuccessful();
         SettingsEvent settingsEvent=new SettingsEvent();
+        SetWorkerEvent setWorkerEvent=new SetWorkerEvent(posWorker,squares);
         StartGameEvent startGameEvent= new StartGameEvent(namesGod,nplayer);
         UpdateEvent updateEvent=new UpdateEvent(squares);
         StartMatchEvent startMatchEvent=new StartMatchEvent(godPlayer);
 
         System.out.println(b.builder(askUser));
-        //System.out.println(b.builder(chooseTarget));
+        System.out.println(b.builder(chooseTarget));
         System.out.println(b.builder(chooseWorker));
         System.out.println(b.builder(chooseYourGodEvent));
         System.out.println(b.builder(connectionSuccessful));
@@ -126,9 +129,9 @@ public class BuilderEventTest {
         System.out.println(b.builder(loginSuccessful));
         System.out.println(b.builder(logoutSuccessful));
         System.out.println(b.builder(settingsEvent));
+        System.out.println(b.builder(setWorkerEvent));
         System.out.println(b.builder(startGameEvent));
         System.out.println(b.builder(updateEvent));
-        String c=b.builder(startMatchEvent);
-        System.out.println(c);
+        System.out.println(b.builder(startMatchEvent));
     }
 }
