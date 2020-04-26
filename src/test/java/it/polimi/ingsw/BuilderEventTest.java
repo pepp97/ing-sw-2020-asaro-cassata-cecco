@@ -11,13 +11,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class BuilderEventTest {
-    private BuilderEvent b;
 
     @Test
     void builder() {
-        b = new BuilderEvent();
-        Square a1 = new Square(1, 1);
-        Square a2 = new Square(2, 1);
+        BuilderEvent b = new BuilderEvent();
 
         SquareToJson[][] squares = new SquareToJson[5][5];
         squares[0][0] = new SquareToJson(0, "", 0, 0);
@@ -62,9 +59,11 @@ public class BuilderEventTest {
 
         //variabili test per ChooseTarget
         String message = "Test";
-        List<Square> availableSquare = new ArrayList<>();
-        availableSquare.add(a1);
-        availableSquare.add(a2);
+        List<SquareToJson> availableSquare = new ArrayList<>();
+        SquareToJson pos1 = new SquareToJson(0, "", 1, 1);
+        SquareToJson pos2 = new SquareToJson(0, "", 2, 3);
+        availableSquare.add(pos1);
+        availableSquare.add(pos2);
 
         //variabili test per ChooseWorker
         List<SquareToJson> posWorker = new ArrayList<>();
@@ -102,11 +101,11 @@ public class BuilderEventTest {
         godPlayer.put("Peppe", "Gino");
 
         askUser askUser = new askUser();
-        ChooseTarget chooseTarget = new ChooseTarget(message, posWorker, squares);
+        ChooseTarget chooseTarget = new ChooseTarget(message, availableSquare, squares);
         ChooseWorker chooseWorker = new ChooseWorker(posWorker, squares);
         ChooseYourGodEvent chooseYourGodEvent = new ChooseYourGodEvent(namesGod, login);
         ConnectionSuccessful connectionSuccessful = new ConnectionSuccessful();
-        DeathPlayer deathPlayer = new DeathPlayer(nick1);
+        DeathPlayer deathPlayer = new DeathPlayer(nickname);
         EndGame endGame = new EndGame(result);
         ExceptionEvent exceptionEvent = new ExceptionEvent(exp);
         LoginSuccessful loginSuccessful = new LoginSuccessful(login);

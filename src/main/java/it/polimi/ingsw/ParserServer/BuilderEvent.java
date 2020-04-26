@@ -3,7 +3,6 @@ package it.polimi.ingsw.ParserServer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.Square;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -16,7 +15,7 @@ public class BuilderEvent {
         ObjectMapper mapper = new ObjectMapper();
         String attributes = null;
         String type = selectType(event);
-        String json = null;
+        String json;
         try {
             if (type.equals("ChooseTarget")) {
                 attributes = typeTarget(event);
@@ -75,7 +74,7 @@ public class BuilderEvent {
 
     private String typeWorker(Event event) {
         ChooseWorker w1 = (ChooseWorker) event;
-        String attributes = null;
+        String attributes;
         attributes = "{\"S\":[" + buildSquareToJson(w1.getPosWorker(), w1.getPosWorker().size()) + "],";
         attributes = attributes + buildMap(((ChooseWorker) event).getSquares()) + "}";
         return attributes;
@@ -83,7 +82,7 @@ public class BuilderEvent {
 
     private String typeTarget(Event event) {
         ChooseTarget t1 = (ChooseTarget) event;
-        String attributes = null;
+        String attributes;
         attributes = "{\"message\":\"" + t1.getMessage() + "\"," + "\"S\":[";
         attributes = attributes + buildSquareToJson(t1.getAvailableSquare(), t1.getAvailableSquare().size());
         attributes = attributes + "]," + buildMap(t1.getSquares()) + "}";
@@ -93,8 +92,7 @@ public class BuilderEvent {
     private String typeStartMatch(Event event) {
         StartMatchEvent s1 = (StartMatchEvent) event;
         LinkedHashMap<String, String> godPlayer = s1.getGodPlayer();
-        SquareToJson[][] map = s1.getMappa();
-        String attributes = null;
+        String attributes;
         attributes = "{\"linking\":[";
         int k = 0;
         for (Map.Entry<String, String> entry : godPlayer.entrySet()) {
@@ -105,7 +103,7 @@ public class BuilderEvent {
             }
             k++;
         }
-        attributes = attributes + "]}";
+        attributes = attributes + "],"+buildMap(s1.getMappa())+"}";
         return attributes;
     }
 
@@ -113,14 +111,14 @@ public class BuilderEvent {
     private String typeUpdate(Event event) {
         UpdateEvent u1 = (UpdateEvent) event;
         SquareToJson[][] map = u1.getSquares();
-        String attributes = null;
+        String attributes;
         attributes = "{" + buildMap(map) + "}";
         return attributes;
     }
 
     private String typeSetWorker(Event event) {
         SetWorkerEvent s1 = (SetWorkerEvent) event;
-        String attributes = null;
+        String attributes;
         attributes = "{\"S\":[" + buildSquareToJson(s1.getAvailableSquares(), s1.getAvailableSquares().size()) + "],";
         attributes = attributes + buildMap(s1.getMap()) + "}";
         return attributes;
