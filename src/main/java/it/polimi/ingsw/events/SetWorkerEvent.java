@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SetWorkerEvent implements Event {
-    private List <SquareToJson> availableSquares=new ArrayList<>();
-    private Square [][] map;
 
-    public SetWorkerEvent(List<SquareToJson> availableSquares, Square[][] map) {
+    private List <SquareToJson> availableSquares=new ArrayList<>();
+    private SquareToJson [][] map;
+
+    public SetWorkerEvent(List<SquareToJson> availableSquares, SquareToJson[][] map) {
         this.availableSquares = availableSquares;
         this.map = map;
     }
@@ -21,7 +22,7 @@ public class SetWorkerEvent implements Event {
         return availableSquares;
     }
 
-    public Square[][] getMap() {
+    public SquareToJson[][] getMap() {
         return map;
     }
 

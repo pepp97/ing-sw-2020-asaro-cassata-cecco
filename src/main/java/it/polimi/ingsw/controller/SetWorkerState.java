@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SetWorkerState implements TurnState {
-    private List <Square> availableSquare;
+    private List <Square> availableSquare=new ArrayList<>();
     private Controller controller;
 
 
@@ -44,7 +44,7 @@ public class SetWorkerState implements TurnState {
             toJsons.add(new SquareToJson(s.getLevel(), "",s.getCoordinateX(),s.getCoordinateY() ));
 
 
-        SetWorkerEvent event2=new SetWorkerEvent(toJsons,mappa);
+        SetWorkerEvent event2=new SetWorkerEvent(toJsons,map);
         controller.getGame().notifyCurrent(event);
 
     }

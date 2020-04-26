@@ -603,6 +603,6 @@ public class ChooseTargetWindow implements GuiScreen {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(gui.getPrimaryStage());
         stage.setScene(scene);
-        stage.showAndWait();*/
+        stage.showAndWait();
     }
 }
