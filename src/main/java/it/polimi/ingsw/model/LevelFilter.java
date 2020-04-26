@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * It is the micro-effect that have the role to che
- *  @author  Salvatore Cassata
+ *
+ * @author Salvatore Cassata
  */
 
 public class LevelFilter implements SubAction {
@@ -26,7 +27,7 @@ public class LevelFilter implements SubAction {
     }
 
     /**
-     * @param game
+     * @param game instance
      */
     @Override
     public void use(Game game) {
@@ -35,10 +36,9 @@ public class LevelFilter implements SubAction {
     }
 
     /**
-     * @param game
-     * @return
+     * @param game instance
+     * @return a boolean to determine if the effect is usable
      */
-
     // faccio il controllo se può costruire così setto il livello altrimenti non lo setto, chiedersi se serve fare ciò
     //sostituire con return true?
     @Override
@@ -55,6 +55,6 @@ public class LevelFilter implements SubAction {
             }
 
         return result;*/
-       return true;
+        return true;
     }
 }

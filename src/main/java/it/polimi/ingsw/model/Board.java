@@ -3,10 +3,15 @@ package it.polimi.ingsw.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class describes the base of the game
+ *
+ * @author cecco
+ */
 public class Board {
 
     private Field field;
-    private List<God> godCardSelected= new ArrayList<>();
+    private List<God> godCardSelected = new ArrayList<>();
 
 
     public Board() {

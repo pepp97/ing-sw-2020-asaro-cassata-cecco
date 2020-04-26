@@ -423,7 +423,7 @@ public class ChooseTargetWindow implements GuiScreen {
                 }
                 stacks[i][j].getChildren().add(buttons[i][j]);
                 field.add(stacks[i][j], i, j, 1, 1);
-            }
+            }*/
         for(SquareToJson square: event.getAvailableSquare() ) {
             buttons[square.getCordinataX()][square.getCordinataY()].setVisible(true);
             // cambio il colore dei bottoni ok

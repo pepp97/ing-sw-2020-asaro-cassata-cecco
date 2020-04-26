@@ -10,7 +10,7 @@ public class YouDontMoveUp implements SubAction {
 
 
     /**
-     * @param game
+     * @param game instance
      */
     @Override
     public void use(Game game) {
@@ -20,8 +20,8 @@ public class YouDontMoveUp implements SubAction {
     }
 
     /**
-     * @param game
-     * @return
+     * @param game instance
+     * @return a boolean to determine if the effect is usable
      */
     @Override
     public Boolean isUsable( Game game) {

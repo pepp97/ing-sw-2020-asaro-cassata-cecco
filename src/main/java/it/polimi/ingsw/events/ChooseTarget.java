@@ -12,10 +12,16 @@ public class ChooseTarget implements Event  {
 
     private String message;
     private List<SquareToJson> availableSquare;
+    private SquareToJson[][]squares;
 
-    public ChooseTarget(String message, List<SquareToJson> availableSquare) {
+    public ChooseTarget(String message, List<SquareToJson> availableSquare, SquareToJson[][] squares) {
         this.message = message;
         this.availableSquare = availableSquare;
+        this.squares = squares;
+    }
+
+    public SquareToJson[][] getSquares() {
+        return squares;
     }
 
     public String getMessage() {

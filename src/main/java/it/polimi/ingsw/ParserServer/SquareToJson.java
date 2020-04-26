@@ -11,15 +11,18 @@ public class SquareToJson {
         this.levels = levels;
         this.cordinataX = cordinataX;
         this.cordinataY = cordinataY;
-        if(color.equals("WHITE")){
-            this.color=Color.WHITE;
-        }else if(color.equals("BLACK")){
-            this.color=Color.BLACK;
-        }else if(color.equals("BROWN")){
-            this.color=Color.BROWN;
-        }else{
-            this.color=null;
+        this.color=typeColor(color);
+    }
+
+    private Color typeColor(String col){
+        if(col.equals("BLACK")){
+            return Color.BLACK;
+        }else if(col.equals("BROWN")){
+            return Color.BROWN;
+        }else if(col.equals("WHITE")){
+            return Color.WHITE;
         }
+        return null;
     }
 
     public int getCordinataX() {

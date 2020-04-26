@@ -1,12 +1,13 @@
 package it.polimi.ingsw.model;
 
 /**
-        * It is the micro-effect that have the role to check if the player have win if he is go down by levelToWin level
-        *  @author  Salvatore Cassata
-        */
+ * It is the micro-effect that have the role to check if the player have win if he is go down by levelToWin level
+ *
+ * @author Salvatore Cassata
+ */
 
 
-public class CheckVictory implements  SubAction{
+public class CheckVictory implements SubAction {
 
     private int levelToWin;
 
@@ -19,21 +20,22 @@ public class CheckVictory implements  SubAction{
     }
 
     /**
-            * @param game
+     * @param game instance
      */
     @Override
     public void use(Game game) {
 
         //se è salito da livello 3 a livello 4
-        for(Player p: game.getPlayerList()){
-            if (p.getWorkers().contains((Worker) game.getTargetInUse()));
-            game.setWinner(p);}
+        for (Player p : game.getPlayerList()) {
+            if (p.getWorkers().contains((Worker) game.getTargetInUse())) ;
+            game.setWinner(p);
+        }
 
     }
 
     /**
-     * @param game
-     * @return
+     * @param game instance
+     * @return a boolean to determine if the effect is usable
      */
     @Override
     public Boolean isUsable(Game game) {
