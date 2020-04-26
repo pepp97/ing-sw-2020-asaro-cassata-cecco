@@ -258,8 +258,9 @@ public class Gui extends  Application implements View {
     }
 
     public void update (askUser ask){
+        Platform.runLater(()->{
         askUs = new AskUserWindow(this);
-        askUs.displayMessage(primaryStage);
+        askUs.displayMessage(primaryStage);});
 
     }
 

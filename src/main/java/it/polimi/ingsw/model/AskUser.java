@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.events.UpdateEvent;
 import it.polimi.ingsw.events.askUser;
 
 /**
@@ -14,7 +16,12 @@ public class AskUser implements SubAction {
      */
     @Override
     public void use(Game game) {
+
+        while (game.getCurrentPlayer().isInQue());
+
         askUser askUser = new askUser();
+        game.getCurrentPlayer().setInQue(true);
+
         game.notifyCurrent(askUser);
     }
 

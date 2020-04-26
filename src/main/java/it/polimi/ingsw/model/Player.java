@@ -17,6 +17,8 @@ public class Player {
     private boolean hasBuilt;
     private boolean hasBeenMoved;
     private boolean defeat;
+    private boolean inQue;
+
 
 
 
@@ -28,6 +30,14 @@ public class Player {
         this.username = username;
         this.color=color;
         this.defeat=false;
+    }
+
+    public boolean isInQue() {
+        return inQue;
+    }
+
+    public void setInQue(boolean inQue) {
+        this.inQue = inQue;
     }
 
     public boolean isHasBuilt() {

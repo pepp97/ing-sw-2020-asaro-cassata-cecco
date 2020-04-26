@@ -54,6 +54,7 @@ public class VirtualView extends Thread implements View  {
     }
 
     public void receive(String json){
+        System.out.println(json);
         ParserCommand b=new ParserCommand();
         Command command=b.parser(json);
         command.execute(controller,this);
@@ -70,7 +71,8 @@ public class VirtualView extends Thread implements View  {
             while(true){
                 String s= null;
                 if((in.hasNext())){
-                    receive(in.nextLine());
+                    s=in.nextLine();
+                    receive(s);
                     System.out.println("Ricevuto: "+s);
                 }
             }

@@ -149,9 +149,9 @@ public class BuilderEvent {
             int x = list.get(i).getCordinataX();
             int y = list.get(i).getCordinataY();
             if (i == size - 1) {
-                attributes = attributes + "[" + level + "," + col + "," + x + "," + y + "]";
+                attributes = attributes + "[" + level + ",\"" + col + "\"," + x + "," + y + "]";
             } else {
-                attributes = attributes + "[" + level + "," + col + "," + x + "," + y + "],";
+                attributes = attributes + "[" + level + ",\"" + col + "\"," + x + "," + y + "],";
             }
         }
         return attributes;
