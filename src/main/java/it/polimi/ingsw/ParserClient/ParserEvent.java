@@ -30,53 +30,57 @@ public class ParserEvent {
 
     public void selectType(String event, JsonNode a){
         String s=null;
-        if(event.equals("\"askUser\"")){
-            eventReturn= new askUser();
-        }
-        else if(event.equals("\"ChooseTarget\"")){
-            eventReturn=typeChooseTarget(a);
-        }
-        else if(event.equals("\"ChooseWorker\"")){
-            eventReturn=typeChooseWorker(a);
-        }else if(event.equals("\"ChooseYourGodEvent\"")){
-            eventReturn=typeChooseYourGodEvent(a);
-        }
-        else if(event.equals("\"ConnectionSuccessful\"")){
-            eventReturn=new ConnectionSuccessful();
-        }
-        else if(event.equals("\"DeathPlayer\"")){
-            JsonNode nick=a.path("nickname");
-            eventReturn=new DeathPlayer(nick.toString().replace("\"",""));
-        }
-        else if(event.equals("\"EndGame\"")){
-            JsonNode result=a.path("result");
-            eventReturn=new EndGame(result.toString().replace("\"",""));
-        }
-        else if(event.equals("\"ExceptionEvent\"")){
-            JsonNode exp=a.path("exception");
-            eventReturn=new ExceptionEvent(exp.toString().replace("\"",""));
-        }else if(event.equals("\"StartGameEvent\"")){
-            eventReturn= typeStartGameEvent(a);
-        }
-        else if(event.equals("\"LoginSuccessful\"")){
-            eventReturn=typeLogin(a);
-        }
-        else if(event.equals("\"LogoutSuccessful\"")){
-            eventReturn=new LogoutSuccessful();
-        }
-        else if(event.equals("\"SettingsEvent\"")){
-            eventReturn=new SettingsEvent();
-        }
-        else if(event.equals("\"SetWorkerEvent\"")){
-            eventReturn=typeSetWorkerEvent(a);
-        }
-        else if(event.equals("\"StartMatchEvent\"")){
-            eventReturn= typeStartMatchEvent(a);
-        }
-        else if(event.equals("\"UpdateEvent\"")){
-            ParserUpdate p=new ParserUpdate();
-            JsonNode fields=a.path("squares");
-            eventReturn=p.parser(fields.toString());
+        switch (event) {
+            case "\"askUser\"":
+                eventReturn = new askUser();
+                break;
+            case "\"ChooseTarget\"":
+                eventReturn = typeChooseTarget(a);
+                break;
+            case "\"ChooseWorker\"":
+                eventReturn = typeChooseWorker(a);
+                break;
+            case "\"ChooseYourGodEvent\"":
+                eventReturn = typeChooseYourGodEvent(a);
+                break;
+            case "\"ConnectionSuccessful\"":
+                eventReturn = new ConnectionSuccessful();
+                break;
+            case "\"DeathPlayer\"":
+                JsonNode nick = a.path("nickname");
+                eventReturn = new DeathPlayer(nick.toString().replace("\"", ""));
+                break;
+            case "\"EndGame\"":
+                JsonNode result = a.path("result");
+                eventReturn = new EndGame(result.toString().replace("\"", ""));
+                break;
+            case "\"ExceptionEvent\"":
+                JsonNode exp = a.path("exception");
+                eventReturn = new ExceptionEvent(exp.toString().replace("\"", ""));
+                break;
+            case "\"StartGameEvent\"":
+                eventReturn = typeStartGameEvent(a);
+                break;
+            case "\"LoginSuccessful\"":
+                eventReturn = typeLogin(a);
+                break;
+            case "\"LogoutSuccessful\"":
+                eventReturn = new LogoutSuccessful();
+                break;
+            case "\"SettingsEvent\"":
+                eventReturn = new SettingsEvent();
+                break;
+            case "\"SetWorkerEvent\"":
+                eventReturn = typeSetWorkerEvent(a);
+                break;
+            case "\"StartMatchEvent\"":
+                eventReturn = typeStartMatchEvent(a);
+                break;
+            case "\"UpdateEvent\"":
+                ParserUpdate p = new ParserUpdate();
+                JsonNode fields = a.path("squares");
+                eventReturn = p.parser(fields.toString());
+                break;
         }
     }
 
@@ -147,7 +151,7 @@ public class ParserEvent {
 
     private StartMatchEvent typeStartMatchEvent(JsonNode a){
         JsonNode link=a.path("linking");
-        JsonNode squares=a.path("squares");
+        SquareToJson [][] mappa;
         LinkedHashMap<String,String> godPlayer=new LinkedHashMap<>();
         for(int i=0;i<link.size();i++){
             JsonNode linking=link.get(i);
@@ -155,6 +159,9 @@ public class ParserEvent {
             JsonNode god=linking.path("godName");
             godPlayer.put(name.toString().replace("\"",""),god.toString().replace("\"",""));
         }
+        ParserUpdate p=new ParserUpdate();
+        JsonNode fields=a.path("squares");
+        mappa=p.parser(fields.toString()).getSquares();
         return new StartMatchEvent(godPlayer);
     }
 
