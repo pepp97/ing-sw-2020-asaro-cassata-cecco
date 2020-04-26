@@ -22,8 +22,8 @@ public class ChangePosition implements SubAction {
     @Override
     public void use(Game game) {
 
-        ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",availableSquare);
-        game.notifyObservers(chooseTarget);
+       // ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",availableSquare);
+       // game.notifyObservers(chooseTarget);
 
         int i=0;
 
@@ -32,11 +32,17 @@ public class ChangePosition implements SubAction {
 
 
         Worker worker = (Worker) game.getTargetInUse();
-        if(game.getTargetSelected().getSquare().getWorker()!=null)
+        game.getController().setCanSkip(true);
+
+        if(game.getTargetSelected().getSquare().getWorker()!=null) {
             game.setTargetSelected(game.getTargetSelected().getSquare().getWorker());
+            game.getController().setCanSkip(false);
+        }
+
         if (worker.getCanBeMoved()) {
         if(availableSquare.contains(game.getTargetSelected().getSquare())) {
             game.getTargetInUse().getSquare().removeWorker();
+            game.getCurrentPlayer().setHasBeenMoved(true);
             game.getTargetSelected().getSquare().setWorker((Worker) game.getTargetInUse());
             availableSquare.clear();
         }
@@ -76,11 +82,12 @@ public class ChangePosition implements SubAction {
             }
         if (worker.getSquareNotAvailable() != null)
             availableSquare.remove(worker.getSquareNotAvailable());
-        if (availableSquare.size() == 0)
+
+        if (availableSquare.size() == 0){
+            game.getCurrentPlayer().setDefeat(true);
             result = false;
+        }
         worker.setCanBeMoved(result);
         return result;
     }
 }
-
-

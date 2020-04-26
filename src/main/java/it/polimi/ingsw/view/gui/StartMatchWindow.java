@@ -119,7 +119,7 @@ public class StartMatchWindow implements GuiScreen {
         //setting field
         int i;
         int j;
-        SquareToJson[][] squares = event.getSquares();
+       // SquareToJson[][] squares = event.getSquares();
 
         buttons = new Hyperlink[5][5];
         stacks = new StackPane[5][5];
@@ -409,13 +409,13 @@ public class StartMatchWindow implements GuiScreen {
 
 
 
-
+/*
         for ( j = 0; j < 5; j++)
             for ( i = 0; i < 5; i++){
                 if (squares[i][j].getColor() != null) {
                     System.out.println(squares[i][j].getColor());
                     // settare il colore giusto del player quindi il worker
-                    Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
+                    Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg""Apollo.jpg");
                     ImageView imageViewColorWorker = new ImageView(imageColorWorker);
                     imageViewColorWorker.setFitHeight(40.0);
                     imageViewColorWorker.setFitWidth(20.0);
@@ -604,6 +604,6 @@ public class StartMatchWindow implements GuiScreen {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(gui.getPrimaryStage());
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.showAndWait();*/
     }
 }

@@ -117,7 +117,7 @@ public class ChooseWorkerWindow implements GuiScreen {
         //setting field
         int i;
         int j;
-        SquareToJson[][] squares = event.getSquares();
+      //  SquareToJson[][] squares = event.getSquares();
 
         buttons = new Hyperlink[5][5];
         stacks = new StackPane[5][5];
@@ -408,13 +408,13 @@ public class ChooseWorkerWindow implements GuiScreen {
 
 
 
-        for ( j = 0; j < 5; j++)
+      /*  for ( j = 0; j < 5; j++)
             for ( i = 0; i < 5; i++){
                 if (squares[i][j].getColor() != null) {
                     System.out.println(squares[i][j].getColor());
                     // settare il colore giusto del player quindi il worker
-                    Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
-                    ImageView imageViewColorWorker = new ImageView(imageColorWorker);
+                    Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg""Apollo.jpg");
+                    /*ImageView imageViewColorWorker = new ImageView(imageColorWorker);
                     imageViewColorWorker.setFitHeight(40.0);
                     imageViewColorWorker.setFitWidth(20.0);
                     stacks[i][j].getChildren().add(imageViewColorWorker);
@@ -423,7 +423,7 @@ public class ChooseWorkerWindow implements GuiScreen {
                 stacks[i][j].getChildren().add(buttons[i][j]);
                 field.add(stacks[i][j], i, j, 1, 1);
             }
-        for(SquareToJson square: event.getAvailableSquare() ) {
+       for(SquareToJson square: event.getAvailableSquare() ) {
             buttons[square.getCordinataX()][square.getCordinataY()].setVisible(true);
             // cambio il colore dei bottoni ok
             buttons[square.getCordinataX()][square.getCordinataY()].setBackground(new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -602,6 +602,6 @@ public class ChooseWorkerWindow implements GuiScreen {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(gui.getPrimaryStage());
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.showAndWait();*/
     }
 }

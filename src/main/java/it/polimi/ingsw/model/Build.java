@@ -28,8 +28,8 @@ public class Build implements SubAction {
     @Override
     public void use(Game game) {
 
-        ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquare);
-        game.notifyObservers(chooseTarget);
+        //ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquare);
+        //game.notifyObservers(chooseTarget);
         Worker worker = (Worker) game.getTargetInUse();
         int i = 0;
 
@@ -39,6 +39,7 @@ public class Build implements SubAction {
             if (worker.getCanBuild()) {
                 if (availableSquare.contains(game.getTargetSelected())) {
                     game.getTargetSelected().getSquare().upgrade();
+                    game.getCurrentPlayer().setHasBuilt(true);
                     game.getCurrentPlayer().getGod().getCantDo().clear();
                     availableSquare.clear();
                 } else

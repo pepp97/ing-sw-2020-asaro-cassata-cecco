@@ -14,6 +14,10 @@ public class Player {
     private List<Worker> workers=new ArrayList<>();
     private God god;
     private Color color;
+    private boolean hasBuilt;
+    private boolean hasBeenMoved;
+    private boolean defeat;
+
 
 
     /**
@@ -23,8 +27,32 @@ public class Player {
     public Player(String username, Color color) {
         this.username = username;
         this.color=color;
+        this.defeat=false;
     }
 
+    public boolean isHasBuilt() {
+        return hasBuilt;
+    }
+
+    public void setHasBuilt(boolean hasBuilt) {
+        this.hasBuilt = hasBuilt;
+    }
+
+    public boolean isHasBeenMoved() {
+        return hasBeenMoved;
+    }
+
+    public void setHasBeenMoved(boolean hasBeenMoved) {
+        this.hasBeenMoved = hasBeenMoved;
+    }
+
+    public boolean isDefeat() {
+        return defeat;
+    }
+
+    public void setDefeat(boolean defeat) {
+        this.defeat = defeat;
+    }
 
     public Color getColor() {
         return color;

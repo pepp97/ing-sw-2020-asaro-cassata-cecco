@@ -77,6 +77,7 @@ public class ChooseStarterWindow implements GuiScreen{
         // form.setGridLinesVisible(true);
 
         // mettere il for
+        form.add(confirmMessage, 4, 0);
 
         Button b0=new Button(gui.getNicknames().get(0));
         Button b1=new Button (gui.getNicknames().get(1));
@@ -97,24 +98,24 @@ public class ChooseStarterWindow implements GuiScreen{
 
 
         b0.setOnAction(f->{
-            StarterCommand starterCommand=new StarterCommand(b0.getId());
-            gui.getClient().send(starterCommand);
+           // StarterCommand starterCommand=new StarterCommand(b0.getId());
+            //gui.getClient().send(starterCommand);
         });
         form.add(b0,1,3);
 
         b1.setOnAction(f->{
-            StarterCommand starterCommand=new StarterCommand(b1.getId());
-            gui.getClient().send(starterCommand);
+            //StarterCommand starterCommand=new StarterCommand(b1.getId());
+            //gui.getClient().send(starterCommand);
         });
-        form.add(b0,3,3);
+        form.add(b1,3,3);
 
         if (gui.getNicknames().size()==3){
             Button b2=new Button(gui.getNicknames().get(2));
             b2.setOnAction(f->{
-                StarterCommand starterCommand=new StarterCommand(b2.getId());
-                gui.getClient().send(starterCommand);
+              //  StarterCommand starterCommand=new StarterCommand(b2.getId());
+                //gui.getClient().send(starterCommand);
             });
-            form.add(b0,5,3);}
+            form.add(b2,5,3);}
 
         gui.getPrimaryStage().setScene(scene);
         gui.getPrimaryStage().setTitle("choose starter");

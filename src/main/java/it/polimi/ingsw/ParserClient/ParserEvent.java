@@ -44,7 +44,7 @@ public class ParserEvent {
                 Square square= new Square(b.get(0).asInt(),b.get(1).asInt());
                 squaresList.add(square);
             }
-            eventReturn=new ChooseTarget(message.toString().replace("\"",""),squaresList);
+          //  eventReturn=new ChooseTarget(message.toString().replace("\"",""),squaresList);
         }
         else if(event.equals("\"ChooseWorker\"")){
             JsonNode squares=a.path("S");

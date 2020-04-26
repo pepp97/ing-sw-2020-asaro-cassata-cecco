@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 import java.util.List;
 
 public class EffectRoutine {
-    private Object effect;
+    private SubAction effect;
     private boolean isSkippable;
     private List<Integer> levels;
 
@@ -54,7 +54,7 @@ public class EffectRoutine {
     }
 
     public EffectRoutine(String effect, boolean isSkippable, List<Integer> levels) {
-        this.effect = effect;
+        switchClass(effect);
         this.isSkippable = isSkippable;
         this.levels=levels;
     }
@@ -68,7 +68,7 @@ public class EffectRoutine {
         return levels;
     }
 
-    public Object getEffect() { return effect; }
+    public SubAction getEffect() { return effect; }
 
     public void setLevels(List<Integer> levels) {
         this.levels = levels;

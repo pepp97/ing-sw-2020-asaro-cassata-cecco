@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.events.ExceptionEvent;
+
 public class MoveInSameDirection implements SubAction {
 
     private Square positionToGo;
@@ -42,9 +44,12 @@ public class MoveInSameDirection implements SubAction {
             coordinateY = coordinateY + 1;
         if (squares[coordinateX][coordinateY].getWorker() == null && squares[coordinateX][coordinateY].getLevel()!=4) {
             positionToGo = squares[coordinateX][coordinateY].getSquare();
-            return true;
+            result=true;
+            return result;
         }
+        new ExceptionEvent("Minothaur cannot use its effect, try again.");
+        //mandare evento
         game.getController().goBack();
-        return false;
+        return result;
     }
 }

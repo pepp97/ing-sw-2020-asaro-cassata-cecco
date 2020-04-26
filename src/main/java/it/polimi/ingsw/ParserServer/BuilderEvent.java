@@ -91,9 +91,9 @@ public class BuilderEvent {
     }
 
     public String typeTarget(Event event){
-        ChooseTarget t1=(ChooseTarget) event;
+   /*     ChooseTarget t1=(ChooseTarget) event;
         String message=t1.getMessage();
-        List<Square> availableSquare=t1.getAvailableSquare();
+        //List<Square> availableSquare=t1.getAvailableSquare();
         String attributes=null;
         attributes="{\"message\":\""+message+"\",";
         attributes=attributes+"\"S\":[";
@@ -107,7 +107,8 @@ public class BuilderEvent {
             }
         }
         attributes=attributes+"]}";
-        return attributes;
+        return attributes;*/
+   return "prova";
     }
 
     public String typeStartMatch(Event event){

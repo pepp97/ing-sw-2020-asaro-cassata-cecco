@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.commands.StarterCommand;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
@@ -17,6 +18,7 @@ public class Game implements Observable {
 
     private List <Player> playerList=new ArrayList<>();
     private List <Observer> observers=new ArrayList<>();
+    private List <VirtualView> views=new ArrayList<>();
     private Player currentPlayer;
     private View currentView;
     private Target targetSelected;
@@ -85,6 +87,14 @@ public class Game implements Observable {
     }
 
     public void removePlayerInList(Player player){
+        numplayer--;
+        Worker w1=player.getWorkers().get(0);
+        Worker w2=player.getWorkers().get(1);
+        for(int j=0; j<=5; j++)
+            for (int i=0; i<=5;i++)
+                if(field.getSquares()[i][j].getWorker().equals(w1)||field.getSquares()[i][j].getWorker().equals(w2))
+                    field.getSquares()[i][j].removeWorker();
+        //pulire virtualview e observers?
         this.playerList.remove(player);
     }
 
@@ -94,6 +104,9 @@ public class Game implements Observable {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+        for(VirtualView v: views)
+            if(v.getOwner().equals(currentPlayer))
+                currentView=v;
     }
 
     public Target getTargetSelected() {
@@ -128,6 +141,7 @@ public class Game implements Observable {
             System.out.println("ERROREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
         notifyCurrent(e);}
         else if(nicknameAvailable(nickname) && colorAvailable(color)){
+            views.add(view);
             currentView=view;
             observers.add(view);
             Player player=new Player(nickname,color);
@@ -236,14 +250,12 @@ public class Game implements Observable {
                         for(Player p:playerList){
                             godPlayer.put(p.getUsername(),p.getGod().getName());
                         }
-                       // e = new StartMatchEvent(godPlayer);
-                        SquareToJson [][]map=new SquareToJson[5][5];
-                        Square [][]mappa=field.getSquares();
-                        for(int i=0;i<5;i++)
-                            for(int j=0; j<5;j++)
-                                map[i][j]=new SquareToJson(mappa[i][j].getLevel(),"",i,j);
-                        e=new UpdateEvent(map) ;
-                        notifyObservers(e);
+                        e = new StartMatchEvent(godPlayer);
+                        System.out.println(currentView.getOwner().getUsername());
+                        currentView=(VirtualView)observers.get(0);
+                        notifyCurrent(e);
+                        StarterCommand command=new StarterCommand("Peppe");
+                        controller.apply(command,(VirtualView) currentView);
                     } else {
                         e = new ChooseYourGodEvent(names, effects);
                         notifyCurrent(e);
@@ -284,5 +296,10 @@ public class Game implements Observable {
     @Override
     public void unregister(Observer observer) {
 
+    }
+
+
+    public List<Observer> getObservers() {
+        return observers;
     }
 }

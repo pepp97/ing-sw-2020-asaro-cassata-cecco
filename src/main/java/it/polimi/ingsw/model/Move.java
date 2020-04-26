@@ -23,8 +23,8 @@ public class Move implements SubAction {
     @Override
     public void use(Game game) {
 
-        ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",List.copyOf(availableSquare));
-        game.notifyCurrent(chooseTarget);
+        //ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",List.copyOf(availableSquare));
+        //game.notifyCurrent(chooseTarget);
 
         int i=0;
 
@@ -38,6 +38,7 @@ public class Move implements SubAction {
 
                 worker.getSquare().removeWorker();
                 //worker.setActualPos(target.getSquare());
+                game.getCurrentPlayer().setHasBeenMoved(true);
                 game.getTargetSelected().getSquare().setWorker(worker);
                 availableSquare.clear();
             }
@@ -46,7 +47,7 @@ public class Move implements SubAction {
 
         else new ExceptionEvent("You can't move");
 
-        //creazione evento
+        //creazione evento + sistemare minotauro
 
     }
 
@@ -61,6 +62,7 @@ public class Move implements SubAction {
      */
     @Override
     public Boolean isUsable(Game game) {
+        availableSquare.clear();
 
         Boolean result = false;
         Worker worker = (Worker) game.getTargetInUse();
@@ -71,11 +73,15 @@ public class Move implements SubAction {
                 availableSquare.add(s);
                 result = true;
             }
+
         if (worker.getSquareNotAvailable() != null)
             availableSquare.remove(worker.getSquareNotAvailable());
-        if (availableSquare.size() == 0)
-            result = false;
 
+        if (availableSquare.size() == 0) {
+            if(!game.getCurrentPlayer().isHasBeenMoved())
+                game.getCurrentPlayer().setDefeat(true);
+            result = false;
+        }
         worker.setCanBeMoved(result);
 
 
