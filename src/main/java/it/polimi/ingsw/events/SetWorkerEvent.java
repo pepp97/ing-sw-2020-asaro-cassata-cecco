@@ -28,11 +28,11 @@ public class SetWorkerEvent implements Event {
 
     @Override
     public void send(Gui view) {
-
+        view.update(this);
     }
 
     @Override
     public void send(VirtualView view) {
-
+        view.update(this);
     }
 }

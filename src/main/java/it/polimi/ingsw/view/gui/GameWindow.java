@@ -429,7 +429,7 @@ public class GameWindow implements GuiScreen {
 
 
         gui.getPrimaryStage().setScene(scene);
-        gui.getPrimaryStage().setTitle("Let's Play!");
+        gui.getPrimaryStage().setTitle("GameWindow");
 
 
     }

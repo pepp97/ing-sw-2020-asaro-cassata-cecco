@@ -107,6 +107,9 @@ public class Game implements Observable {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+        for(VirtualView v: views)
+            if(v.getOwner().equals(currentPlayer))
+                currentView=v;
     }
 
     public Target getTargetSelected() {
@@ -136,6 +139,7 @@ public class Game implements Observable {
             notifyCurrent(new ExceptionEvent("Color already in use!"));
         } else {
             currentView = view;
+            views.add(view);
             if (gameAlreadyStarted()) {
                 notifyCurrent(new ExceptionEvent("game already started"));
             } else if (playerList.size() == 1 && numplayer == 0) {
@@ -259,8 +263,10 @@ public class Game implements Observable {
                             godPlayer.put(p.getUsername(), p.getGod().getName());
                         }
                         e = new StartMatchEvent(godPlayer);
+                        System.out.println(currentView.getOwner().getUsername());
                         currentView=(VirtualView)observers.get(0);
                         notifyCurrent(e);
+
                     } else {
                         e = new ChooseYourGodEvent(names, effects);
                         notifyCurrent(e);

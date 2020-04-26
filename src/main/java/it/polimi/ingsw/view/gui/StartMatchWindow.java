@@ -119,7 +119,7 @@ public class StartMatchWindow implements GuiScreen {
         //setting field
         int i;
         int j;
-        SquareToJson[][] squares = event.getSquares();
+        SquareToJson[][] squares = event.getMap();
 
         buttons = new Hyperlink[5][5];
         stacks = new StackPane[5][5];
@@ -425,7 +425,7 @@ public class StartMatchWindow implements GuiScreen {
                 stacks[i][j].getChildren().add(buttons[i][j]);
                 field.add(stacks[i][j], i, j, 1, 1);
             }
-        for(SquareToJson square: event.getAvailableSquare() ) {
+        for(SquareToJson square: event.getAvailableSquares() ) {
             buttons[square.getCordinataX()][square.getCordinataY()].setVisible(true);
             // cambio il colore dei bottoni ok
             buttons[square.getCordinataX()][square.getCordinataY()].setBackground(new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -446,7 +446,7 @@ public class StartMatchWindow implements GuiScreen {
 
 
         gui.getPrimaryStage().setScene(scene);
-        gui.getPrimaryStage().setTitle("Let's Play!");
+        gui.getPrimaryStage().setTitle("StartMatchWindow");
 
 
     }

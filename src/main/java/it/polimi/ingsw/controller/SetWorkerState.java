@@ -45,7 +45,7 @@ public class SetWorkerState implements TurnState {
 
 
         SetWorkerEvent event2=new SetWorkerEvent(toJsons,map);
-        controller.getGame().notifyCurrent(event);
+        controller.getGame().notifyCurrent(event2);
 
     }
 

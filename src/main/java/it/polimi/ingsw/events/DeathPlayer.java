@@ -25,7 +25,7 @@ public class DeathPlayer implements Event {
 
     @Override
     public void send(VirtualView view) {
-
+        view.update(this);
     }
 
 

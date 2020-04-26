@@ -1,11 +1,15 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.events.ConnectionSuccessful;
+import it.polimi.ingsw.events.Event;
+import it.polimi.ingsw.events.UpdateEvent;
 import it.polimi.ingsw.model.Game;
 
 import it.polimi.ingsw.model.ParserJson;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
@@ -66,6 +70,17 @@ public class Controller {
         game.setInitialPosition(command.getCoordinateX(),command.getCoordinateY(),view);
 
         if(turnManager.get(turnManager.size()-1).getWorkers().size()==2) {
+            SquareToJson[][]map=new SquareToJson[5][5];
+            Square[][]mappa=game.getField().getSquares();
+
+            for(int i=0;i<5;i++)
+                for(int j=0; j<5;j++)
+                    if(mappa[i][j].getWorker()!=null)
+                        map[i][j]=new SquareToJson(mappa[i][j].getLevel(),mappa[i][j].getWorker().getC().toString(),i,j);
+                    else map[i][j]=new SquareToJson(mappa[i][j].getLevel(),"",i,j);
+
+            Event e=new UpdateEvent(map);
+            game.notifyObservers(e);
             state=new StartTurnState();
             state.executeState(this);
             state=new ExecuteRoutineState();
@@ -143,9 +158,9 @@ public class Controller {
         }
 
         if(i==turnManager.size()-1)
-            i=0;
+            i=-1;
 
-        return  turnManager.get(i);
+        return  turnManager.get(i+1);
     }
 
     public void deletePlayer(Player currentPlayer) {
