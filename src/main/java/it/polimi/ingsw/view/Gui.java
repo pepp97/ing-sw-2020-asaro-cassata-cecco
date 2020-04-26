@@ -35,7 +35,7 @@ public class Gui extends  Application implements View {
     private AskUserWindow askUs;
     private DeathPlayerWindow death;
     private EndGameWindow end;
-    private List<String> gods;
+    private List<String> gods=new ArrayList<>();
     private List<String> nicknames = new ArrayList<>();
     private ErrorWindow error;
 

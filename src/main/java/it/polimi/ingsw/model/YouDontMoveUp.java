@@ -25,6 +25,8 @@ public class YouDontMoveUp implements SubAction {
      */
     @Override
     public Boolean isUsable( Game game) {
+        for(Worker w: game.getCurrentPlayer().getWorkers())
+            w.setCanMoveUp(true);
         return true;
     }
 }

@@ -8,8 +8,7 @@ import java.util.List;
 
 /**
  * It is the micro-effect that have the role to build a new Level
- *
- * @author Salvatore Cassata
+ *  @author  Salvatore Cassata
  */
 
 public class Build implements SubAction {
@@ -20,16 +19,17 @@ public class Build implements SubAction {
 
     private List<Square> availableSquare = new ArrayList<>();
 
+
     /**
      * This method is called when a player say to build
      *
-     * @param game instance
+     * @param game
      */
     @Override
     public void use(Game game) {
 
-        // ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquare);
-        // game.notifyObservers(chooseTarget);
+        //ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquare);
+        //game.notifyObservers(chooseTarget);
         Worker worker = (Worker) game.getTargetInUse();
         int i = 0;
 
@@ -39,6 +39,7 @@ public class Build implements SubAction {
             if (worker.getCanBuild()) {
                 if (availableSquare.contains(game.getTargetSelected())) {
                     game.getTargetSelected().getSquare().upgrade();
+                    game.getCurrentPlayer().setHasBuilt(true);
                     game.getCurrentPlayer().getGod().getCantDo().clear();
                     availableSquare.clear();
                 } else
@@ -56,7 +57,7 @@ public class Build implements SubAction {
     /**
      * this method control if the workers choosed can build
      *
-     * @param game instance
+     * @param game
      * @return if true the worker can build
      */
 
@@ -68,7 +69,7 @@ public class Build implements SubAction {
         List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
         Worker worker = (Worker) game.getTargetInUse();
 
-        if (worker.getMandatorySquare() == null) {
+        if(worker.getMandatorySquare() == null){
             for (Square s : worker.getSquare().getAdjacentSquares())
                 if (s.getWorker() == null && s.getLevel() != 4 && !(cantDo.contains(s.getLevel() + 1)) && s != worker.getSquareNotAvailable()) {
                     availableSquare.add(s);
@@ -83,8 +84,10 @@ public class Build implements SubAction {
             worker.setCanBuild(result);
 
             return result;
-        } else if (worker.getMandatorySquare().getLevel() <= 2)
-            return true;
-        return false;
-    }
+            }
+        else
+            if(worker.getMandatorySquare().getLevel()<=2)
+                return true;
+            return false;
+        }
 }

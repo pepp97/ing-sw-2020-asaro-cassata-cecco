@@ -9,7 +9,7 @@ public class LogoutSuccessful implements Event {
 
     @Override
     public void send(Gui view) {
-
+        view.update(this);
     }
 
     @Override

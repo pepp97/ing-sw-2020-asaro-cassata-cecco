@@ -113,7 +113,7 @@ public class SelectGodsWindow implements GuiScreen {
 
         button1.setOnAction(f->{
             System.out.println(button1.getId());
-            if(selected.size()<3 && !selected.contains(button1.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button1.getId()))
             selected.add(button1.getId());
         });
         form.add(button1,1,1);
@@ -124,7 +124,7 @@ public class SelectGodsWindow implements GuiScreen {
         form.add(button2,3,1);
         button2.setOnAction(f->{
             System.out.println(button2.getId());
-            if(selected.size()<3 && !selected.contains(button2.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button2.getId()))
             selected.add(button2.getId());
         });
 
@@ -134,7 +134,7 @@ public class SelectGodsWindow implements GuiScreen {
         form.add(button3,5,1);
         button3.setOnAction(f->{
             System.out.println(button3.getId());
-            if(selected.size()<3 && !selected.contains(button3.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button3.getId()))
             selected.add(button3.getId());
 
         });
@@ -145,7 +145,7 @@ public class SelectGodsWindow implements GuiScreen {
         form.add(button4,7,1);
         button4.setOnAction(f->{
             System.out.println(button4.getId());
-            if(selected.size()<3 && !selected.contains(button4.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button4.getId()))
             selected.add(button4.getId());
         });
         Hyperlink button5=new Hyperlink();
@@ -154,7 +154,7 @@ public class SelectGodsWindow implements GuiScreen {
         form.add(button5,9,1);
         button5.setOnAction(f->{
             System.out.println(button5.getId());
-            if(selected.size()<3 && !selected.contains(button5.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button5.getId()))
             selected.add(button5.getId());
         });
         Hyperlink button6=new Hyperlink();
@@ -163,7 +163,7 @@ public class SelectGodsWindow implements GuiScreen {
         form.add(button6,1,3);
         button6.setOnAction(f->{
             System.out.println(button6.getId());
-            if(selected.size()<3 && !selected.contains(button6.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button6.getId()))
             selected.add(button6.getId());
         });
         Hyperlink button7=new Hyperlink();
@@ -172,7 +172,7 @@ public class SelectGodsWindow implements GuiScreen {
         form.add(button7,3,3);
         button7.setOnAction(f->{
             System.out.println(button7.getId());
-            if(selected.size()<3 && !selected.contains(button7.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button7.getId()))
             selected.add(button7.getId());
         });
         Hyperlink button8=new Hyperlink();
@@ -181,7 +181,7 @@ public class SelectGodsWindow implements GuiScreen {
         form.add(button8,5,3);
         button8.setOnAction(f->{
             System.out.println(button8.getId());
-            if(selected.size()<3 && !selected.contains(button8.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button8.getId()))
             selected.add(button8.getId());
         });
         Hyperlink button9=new Hyperlink();
@@ -190,7 +190,7 @@ public class SelectGodsWindow implements GuiScreen {
         form.add(button9,7,3);
         button9.setOnAction(f->{
             System.out.println(button9.getId());
-            if(selected.size()<3 && !selected.contains(button9.getId()))
+            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button9.getId()))
             selected.add(button9.getId());
         });
         Button view=new Button("view your Gods");

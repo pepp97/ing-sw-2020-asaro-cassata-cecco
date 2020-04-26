@@ -72,6 +72,7 @@ public class Client extends Thread {
     }
 
     public void receive(String json){
+        System.out.println(json);
         ParserEvent p=new ParserEvent();
         Event event=p.parser(json);
         event.send(view);

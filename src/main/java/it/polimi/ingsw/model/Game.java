@@ -20,6 +20,7 @@ public class Game implements Observable {
 
     private List<Player> playerList = new ArrayList<>();
     private List<Observer> observers = new ArrayList<>();
+    private List <VirtualView> views=new ArrayList<>();
     private Player currentPlayer;
     private View currentView;
     private Target targetSelected;
@@ -87,7 +88,16 @@ public class Game implements Observable {
             this.playerList.add(player);
     }
 
-    public void removePlayerInList(Player player) {
+    public void removePlayerInList(Player player){
+        numplayer--;
+        Worker w1=player.getWorkers().get(0);
+        Worker w2=player.getWorkers().get(1);
+        for(int j=0; j<=5; j++)
+            for (int i=0; i<=5;i++)
+                if(field.getSquares()[i][j].getWorker().equals(w1)||field.getSquares()[i][j].getWorker().equals(w2))
+                    field.getSquares()[i][j].removeWorker();
+        //pulire virtualview e observers?
+
         this.playerList.remove(player);
     }
 
@@ -97,6 +107,9 @@ public class Game implements Observable {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+        for(VirtualView v: views)
+            if(v.getOwner().equals(currentPlayer))
+                currentView=v;
     }
 
     public Target getTargetSelected() {
@@ -119,12 +132,14 @@ public class Game implements Observable {
     //IMPLEMENTARE
     public synchronized void login(String nickname, Color color, VirtualView view) {
         //  aggiustare numero di giocatori che si possono loggare
+        currentView=view;
         if (!nicknameAvailable(nickname)) {
             notifyCurrent(new ExceptionEvent("Username already in use!"));
-        } else if (colorAvailable(color)) {
+        } else if (!colorAvailable(color)) {
             notifyCurrent(new ExceptionEvent("Color already in use!"));
         } else {
             currentView = view;
+            views.add(view);
             if (gameAlreadyStarted()) {
                 notifyCurrent(new ExceptionEvent("game already started"));
             } else if (playerList.size() == 1 && numplayer == 0) {
@@ -248,7 +263,10 @@ public class Game implements Observable {
                             godPlayer.put(p.getUsername(), p.getGod().getName());
                         }
                         e = new StartMatchEvent(godPlayer);
-                        notifyObservers(e);
+                        System.out.println(currentView.getOwner().getUsername());
+                        currentView=(VirtualView)observers.get(0);
+                        notifyCurrent(e);
+
                     } else {
                         e = new ChooseYourGodEvent(names, effects);
                         notifyCurrent(e);

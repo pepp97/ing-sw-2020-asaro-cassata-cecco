@@ -28,6 +28,9 @@ public class TheyDontMoveUp implements SubAction {
      */
     @Override
     public Boolean isUsable(Game game) {
+        for(Player p: game.getPlayerList())
+            for (Worker w:p.getWorkers())
+                w.setCanMoveUp(true);
         Worker worker = (Worker) game.getTargetInUse();
         if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() - worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() == 1)
             return true;

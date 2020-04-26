@@ -8,8 +8,7 @@ import java.util.List;
 
 /**
  * It is the micro-effect that move the player
- *
- * @author Salvatore Cassata
+ *  @author  Salvatore Cassata
  */
 
 public class Move implements SubAction {
@@ -24,27 +23,31 @@ public class Move implements SubAction {
     @Override
     public void use(Game game) {
 
-        //  ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",List.copyOf(availableSquare));
-        //  game.notifyCurrent(chooseTarget);
+        //ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",List.copyOf(availableSquare));
+        //game.notifyCurrent(chooseTarget);
 
-        int i = 0;
+        int i=0;
 
-        while (game.getTargetSelected() == null)
+        while(game.getTargetSelected()==null)
             i++;
 
         Worker worker = (Worker) game.getTargetInUse();
         if (worker.getCanBeMoved()) {
-            if (availableSquare.contains(game.getTargetSelected())) {
+        if(availableSquare.contains(game.getTargetSelected())) {
 
 
                 worker.getSquare().removeWorker();
                 //worker.setActualPos(target.getSquare());
+                game.getCurrentPlayer().setHasBeenMoved(true);
                 game.getTargetSelected().getSquare().setWorker(worker);
                 availableSquare.clear();
-            } else new ExceptionEvent("target not available");
-        } else new ExceptionEvent("You can't move");
+            }
+        else new ExceptionEvent("target not available");
+        }
 
-        //creazione evento
+        else new ExceptionEvent("You can't move");
+
+        //creazione evento + sistemare minotauro
 
     }
 
@@ -54,26 +57,31 @@ public class Move implements SubAction {
     }
 
     /**
-     * @param game instance
-     * @return a boolean to determine if the effect is usable
+     * @param game
+     * @return
      */
     @Override
     public Boolean isUsable(Game game) {
+        availableSquare.clear();
 
         Boolean result = false;
         Worker worker = (Worker) game.getTargetInUse();
 
 
-        for (Square s : worker.getSquare().getAdjacentSquares())
-            if (s.getWorker() == null && s.getLevel() < 4 && ((worker.getCanMoveUp() && worker.getSquare().getLevel() == s.getLevel() - 1) || (worker.getSquare().getLevel() > s.getLevel() - 1))) {
+        for(Square s: worker.getSquare().getAdjacentSquares())
+            if(s.getWorker() == null && s.getLevel()<4 &&((worker.getCanMoveUp()&& worker.getSquare().getLevel()==s.getLevel()-1) || (worker.getSquare().getLevel()>s.getLevel()-1))) {
                 availableSquare.add(s);
                 result = true;
             }
+
         if (worker.getSquareNotAvailable() != null)
             availableSquare.remove(worker.getSquareNotAvailable());
-        if (availableSquare.size() == 0)
-            result = false;
 
+        if (availableSquare.size() == 0) {
+            if(!game.getCurrentPlayer().isHasBeenMoved())
+                game.getCurrentPlayer().setDefeat(true);
+            result = false;
+        }
         worker.setCanBeMoved(result);
 
 
