@@ -106,9 +106,10 @@ public class Controller {
     }
 
     public void apply(UseEffect command) {
-        canSkip=command.getReply();
-        state.executeState(this);
+        canSkip=!command.getReply();
         game.getCurrentPlayer().setInQue(false);
+        state.executeState(this);
+
     }
 
 

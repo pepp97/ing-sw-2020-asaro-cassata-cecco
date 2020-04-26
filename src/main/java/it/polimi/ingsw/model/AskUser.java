@@ -17,7 +17,7 @@ public class AskUser implements SubAction {
     @Override
     public void use(Game game) {
 
-        while (game.getCurrentPlayer().isInQue());
+
 
         askUser askUser = new askUser();
         game.getCurrentPlayer().setInQue(true);
