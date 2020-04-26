@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.events.ExceptionEvent;
 
@@ -28,8 +29,23 @@ public class Build implements SubAction {
     @Override
     public void use(Game game) {
 
-        //ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquare);
-        //game.notifyObservers(chooseTarget);
+        List <SquareToJson> availableSquares= new ArrayList<>();
+        for(Square s : availableSquare)
+            availableSquares.add(new SquareToJson(s.getLevel(), "", s.getCoordinateX(), s.getCoordinateY()));
+
+        SquareToJson[][]map=new SquareToJson[5][5];
+        Square [][]mappa=game.getField().getSquares();
+
+
+        for(int i=0;i<5;i++)
+            for(int j=0; j<5;j++)
+                if(mappa[i][j].getWorker()!=null)
+                    map[i][j]=new SquareToJson(mappa[i][j].getLevel(),mappa[i][j].getWorker().getC().toString(),i,j);
+                else map[i][j]=new SquareToJson(mappa[i][j].getLevel(),"",i,j);
+
+
+        ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquares,map);
+        game.notifyObservers(chooseTarget);
         Worker worker = (Worker) game.getTargetInUse();
         int i = 0;
 

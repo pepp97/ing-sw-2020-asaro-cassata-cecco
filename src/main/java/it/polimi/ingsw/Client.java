@@ -68,6 +68,7 @@ public class Client extends Thread {
         BuilderCommand b=new BuilderCommand();
         String json=b.builder(cmd);
         this.out.println(json);
+        System.out.println(json);
         System.out.println("Command: " +cmd.toString());
     }
 

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.commands.ChooseSettings;
+import it.polimi.ingsw.commands.UseEffect;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.events.LoginSuccessful;
 import it.polimi.ingsw.view.Gui;
@@ -33,10 +34,13 @@ public class AskUserWindow {
         Button noButton = new Button("no");
         yesButton.setOnAction(e -> {
             System.out.println("si");
-            // inviare risposta
+            UseEffect command=new UseEffect(true);
+            gui.getClient().send(command);
         });
         noButton.setOnAction(e -> {
             System.out.println("no");
+            UseEffect command=new UseEffect(false);
+            gui.getClient().send(command);
         });
 
         VBox layoutMessage = new VBox(20);

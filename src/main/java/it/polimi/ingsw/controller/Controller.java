@@ -96,16 +96,19 @@ public class Controller {
     //spostare in game?
     public void apply(ChooseYourWorker command) {
         game.setTargetInUse(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
+        game.getCurrentPlayer().setInQue(false);
+        state.executeState(this);
     }
 
     //spostare in game?
     public void apply(ChooseTarget command) {
-
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
     }
 
     public void apply(UseEffect command) {
         canSkip=command.getReply();
+        state.executeState(this);
+        game.getCurrentPlayer().setInQue(false);
     }
 
 
