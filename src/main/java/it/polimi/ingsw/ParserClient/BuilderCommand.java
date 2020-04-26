@@ -12,7 +12,7 @@ public class BuilderCommand {
         ObjectMapper mapper = new ObjectMapper();
         String attributes = null;
         String type = selectType(command);
-        String json = null;
+        String json;
         try {
             if (!type.equals("Connection") && !type.equals("Disconnection"))
                 attributes = mapper.writeValueAsString(command);
@@ -43,6 +43,8 @@ public class BuilderCommand {
             s = "Disconnection";
         } else if (command instanceof LoginCommand) {
             s = "LoginCommand";
+        } else if (command instanceof StarterCommand) {
+            s = "StarterCommand";
         } else if (command instanceof UseEffect) {
             s = "UseEffect";
         }
