@@ -13,52 +13,57 @@ public class BuilderCommandTest {
     private BuilderCommand p;
 
     @Test
-    void parser(){
-        p=new BuilderCommand();
+    void builder() {
+        p = new BuilderCommand();
 
         //variabili test Choose Gods
-        List<String> namesGods= new ArrayList<>();
+        List<String> namesGods = new ArrayList<>();
         namesGods.add("Appollo");
         namesGods.add("Artemis");
 
         //variabili test ChooseInitialPosition, ChooseTarget, ChooseYourWorker
-        int x=1;
-        int y=2;
+        int x = 1;
+        int y = 2;
 
         //variabile test ChooseSettings
-        int nplayer=3;
+        int nplayer = 3;
 
         //variabile test ChooseYourGod
-        String name="Appollo";
+        String name = "Appollo";
 
         //variabili test LoginCommand
-        String nickname="Mario";
-        Color c= Color.BLACK;
+        String nickname = "Mario";
+        Color c = Color.BLACK;
 
         //variabile test UseEffect
-        boolean reply=true;
+        String nick = "RICK";
 
-        ChooseGods chooseGods=new ChooseGods(namesGods);
-        ChooseInitialPosition initialPosition=new ChooseInitialPosition(x,y);
-        ChooseSettings chooseSettings=new ChooseSettings(nplayer);
-        ChooseTarget chooseTarget= new ChooseTarget(x,y);
-        ChooseYourGod chooseYourGod=new ChooseYourGod(name);
-        ChooseYourWorker chooseYourWorker=new ChooseYourWorker(x,y);
-        Connection connection= new Connection();
-        Disconnection disconnection=new Disconnection();
-        LoginCommand loginCommand=new LoginCommand(nickname,c);
-        UseEffect useEffect=new UseEffect(reply);
+        //variabile test UseEffect
+        boolean reply = true;
 
-        p.builder(chooseGods);
-        p.builder(initialPosition);
-        p.builder(chooseSettings);
-        p.builder(chooseTarget);
-        p.builder(chooseYourGod);
-        p.builder(chooseYourWorker);
-        p.builder(connection);
-        p.builder(disconnection);
-        p.builder(loginCommand);
-        p.builder(useEffect);
+        ChooseGods chooseGods = new ChooseGods(namesGods);
+        ChooseInitialPosition initialPosition = new ChooseInitialPosition(x, y);
+        ChooseSettings chooseSettings = new ChooseSettings(nplayer);
+        ChooseTarget chooseTarget = new ChooseTarget(x, y);
+        ChooseYourGod chooseYourGod = new ChooseYourGod(name);
+        ChooseYourWorker chooseYourWorker = new ChooseYourWorker(x, y);
+        Connection connection = new Connection();
+        Disconnection disconnection = new Disconnection();
+        LoginCommand loginCommand = new LoginCommand(nickname, c);
+        StarterCommand starterCommand = new StarterCommand(nick);
+        UseEffect useEffect = new UseEffect(reply);
+
+        System.out.println(p.builder(chooseGods));
+        System.out.println(p.builder(initialPosition));
+        System.out.println(p.builder(chooseSettings));
+        System.out.println(p.builder(chooseTarget));
+        System.out.println(p.builder(chooseYourGod));
+        System.out.println(p.builder(chooseYourWorker));
+        System.out.println(p.builder(connection));
+        System.out.println(p.builder(disconnection));
+        System.out.println(p.builder(loginCommand));
+        System.out.println(p.builder(starterCommand));
+        System.out.println(p.builder(useEffect));
 
     }
 }
