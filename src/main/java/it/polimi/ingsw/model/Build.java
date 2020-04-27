@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.events.ExceptionEvent;
+import it.polimi.ingsw.events.UpdateEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,17 @@ public class Build implements SubAction {
                     game.getCurrentPlayer().setHasBuilt(true);
                     game.getCurrentPlayer().getGod().getCantDo().clear();
                     availableSquare.clear();
+
+                    Square [][] mappa=game.getField().getSquares();
+                    SquareToJson [][]map = new SquareToJson[5][5];
+                    for(int x=0; x<5; x++)
+                        for(int y=0; y<5; y++)
+                            if (mappa[x][y].getWorker()!=null)
+                                map[x][y]=new SquareToJson(mappa[x][y].getLevel(),mappa[x][y].getWorker().getC().toString(),mappa[x][y].getCoordinateX(),mappa[x][y].getCoordinateX());
+                            else
+                                map[x][y]=new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
+                    UpdateEvent event=new UpdateEvent(map);
+                    game.notifyObservers(event);
                 } else
                     new ExceptionEvent("you can't build here!");
             } else new ExceptionEvent("you can't build");
