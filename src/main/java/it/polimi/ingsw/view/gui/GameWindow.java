@@ -132,24 +132,31 @@ public class GameWindow implements GuiScreen {
         button00.setVisible(false);
         buttons[0][0] = button00;
         Hyperlink button10 = new Hyperlink();
+
         button10.setVisible(false);
         buttons[1][0] = button10;
         Hyperlink button20 = new Hyperlink();
+
         button20.setVisible(false);
         buttons[2][0] = button20;
         Hyperlink button30 = new Hyperlink();
+
         button30.setVisible(false);
         buttons[3][0] = button30;
         Hyperlink button40 = new Hyperlink();
+
         button40.setVisible(false);
         buttons[4][0] = button40;
         Hyperlink button01 = new Hyperlink();
+
         button01.setVisible(false);
         buttons[0][1] = button01;
         Hyperlink button11 = new Hyperlink();
+
         button11.setVisible(false);
         buttons[1][1] = button11;
         Hyperlink button21 = new Hyperlink();
+
         button21.setVisible(false);
         buttons[2][1] = button21;
         Hyperlink button31 = new Hyperlink();
@@ -408,8 +415,8 @@ public class GameWindow implements GuiScreen {
                     imageViewColorWorker.setFitHeight(40.0);
                     imageViewColorWorker.setFitWidth(20.0);
                     stacks[i][j].getChildren().add(imageViewColorWorker);
-
                 }
+
                 stacks[i][j].getChildren().add(buttons[i][j]);
                 field.add(stacks[i][j], i, j, 1, 1);
             }
