@@ -31,6 +31,7 @@ public class GameWindow implements GuiScreen {
     private UpdateEvent event;
     private Hyperlink[][] buttons;
     private StackPane [][] stacks;
+    private GridPane[][] gridButtons;
 
     public GameWindow(Gui gui, UpdateEvent event) {
         this.gui=gui;
@@ -80,6 +81,7 @@ public class GameWindow implements GuiScreen {
         ColumnConstraints c8=new ColumnConstraints();
 
 
+
         r4.setPercentHeight(20);
         r5.setPercentHeight(20);
         r6.setPercentHeight(20);
@@ -126,37 +128,31 @@ public class GameWindow implements GuiScreen {
 
         buttons = new Hyperlink[5][5];
         stacks = new StackPane[5][5];
+        gridButtons = new GridPane[5][5];
 
 
         Hyperlink button00 = new Hyperlink();
         button00.setVisible(false);
         buttons[0][0] = button00;
         Hyperlink button10 = new Hyperlink();
-
         button10.setVisible(false);
         buttons[1][0] = button10;
         Hyperlink button20 = new Hyperlink();
-
         button20.setVisible(false);
         buttons[2][0] = button20;
         Hyperlink button30 = new Hyperlink();
-
         button30.setVisible(false);
         buttons[3][0] = button30;
         Hyperlink button40 = new Hyperlink();
-
         button40.setVisible(false);
         buttons[4][0] = button40;
         Hyperlink button01 = new Hyperlink();
-
         button01.setVisible(false);
         buttons[0][1] = button01;
         Hyperlink button11 = new Hyperlink();
-
         button11.setVisible(false);
         buttons[1][1] = button11;
         Hyperlink button21 = new Hyperlink();
-
         button21.setVisible(false);
         buttons[2][1] = button21;
         Hyperlink button31 = new Hyperlink();
@@ -351,6 +347,89 @@ public class GameWindow implements GuiScreen {
         });
 
 
+        ColumnConstraints c13= new ColumnConstraints();
+        ColumnConstraints c12 = new ColumnConstraints();
+
+        c13.setPercentWidth(50);
+        c12.setPercentWidth(50);
+
+        GridPane gridButton00 = new GridPane();
+        gridButton00.getColumnConstraints().addAll(c13,c12);
+        gridButtons[0][0] = gridButton00;
+        GridPane gridButton10 = new GridPane();
+        gridButton10.getColumnConstraints().addAll(c13,c12);
+        gridButtons[1][0] = gridButton10;
+        GridPane gridButton20 = new GridPane();
+        gridButton20.getColumnConstraints().addAll(c13,c12);
+        gridButtons[2][0] = gridButton20;
+        GridPane gridButton30 = new GridPane();
+        gridButton30.getColumnConstraints().addAll(c13,c12);
+        gridButtons[3][0] = gridButton30;
+        GridPane gridButton40 = new GridPane();
+        gridButton40.getColumnConstraints().addAll(c13,c12);
+        gridButtons[4][0] = gridButton40;
+        GridPane gridButton01 = new GridPane();
+        gridButton01.getColumnConstraints().addAll(c13,c12);
+        gridButtons[0][1] = gridButton01;
+        GridPane gridButton11 = new GridPane();
+        gridButton11.getColumnConstraints().addAll(c13,c12);
+        gridButtons[1][1] = gridButton11;
+        GridPane gridButton21 = new GridPane();
+        gridButton21.getColumnConstraints().addAll(c13,c12);
+        gridButtons[2][1] = gridButton21;
+        GridPane gridButton31 = new GridPane();
+        gridButton31.getColumnConstraints().addAll(c13,c12);
+        gridButtons[3][1] = gridButton31;
+        GridPane gridButton41 = new GridPane();
+        gridButton41.getColumnConstraints().addAll(c13,c12);
+        gridButtons[4][1] = gridButton41;
+        GridPane gridButton02 = new GridPane();
+        gridButton02.getColumnConstraints().addAll(c13,c12);
+        gridButtons[0][2] = gridButton02;
+        GridPane gridButton12 = new GridPane();
+        gridButton12.getColumnConstraints().addAll(c13,c12);
+        gridButtons[1][2] = gridButton12;
+        GridPane gridButton22 = new GridPane();
+        gridButton22.getColumnConstraints().addAll(c13,c12);
+        gridButtons[2][2] = gridButton22;
+        GridPane gridButton32 = new GridPane();
+        gridButton32.getColumnConstraints().addAll(c13,c12);
+        gridButtons[3][2] = gridButton32;
+        GridPane gridButton42 = new GridPane();
+        gridButton42.getColumnConstraints().addAll(c13,c12);
+        gridButtons[4][2] = gridButton42;
+        GridPane gridButton03 = new GridPane();
+        gridButton03.getColumnConstraints().addAll(c13,c12);
+        gridButtons[0][3] = gridButton03;
+        GridPane gridButton13 = new GridPane();
+        gridButton13.getColumnConstraints().addAll(c13,c12);
+        gridButtons[1][3] = gridButton13;
+        GridPane gridButton23 = new GridPane();
+        gridButton23.getColumnConstraints().addAll(c13,c12);
+        gridButtons[2][3] = gridButton23;
+        GridPane gridButton33 = new GridPane();
+        gridButton33.getColumnConstraints().addAll(c13,c12);
+        gridButtons[3][3] = gridButton33;
+        GridPane gridButton43 = new GridPane();
+        gridButton43.getColumnConstraints().addAll(c13,c12);
+        gridButtons[4][3] = gridButton43;
+        GridPane gridButton04 = new GridPane();
+        gridButton04.getColumnConstraints().addAll(c13,c12);
+        gridButtons[0][4] = gridButton04;
+        GridPane gridButton14 = new GridPane();
+        gridButton14.getColumnConstraints().addAll(c13,c12);
+        gridButtons[1][4] = gridButton14;
+        GridPane gridButton24 = new GridPane();
+        gridButton24.getColumnConstraints().addAll(c13,c12);
+        gridButtons[2][4] = gridButton24;
+        GridPane gridButton34 = new GridPane();
+        gridButton34.getColumnConstraints().addAll(c13,c12);
+        gridButtons[3][4] = gridButton34;
+        GridPane gridButton44 = new GridPane();
+        gridButton44.getColumnConstraints().addAll(c13,c12);
+        gridButtons[4][4] = gridButton44;
+
+
         StackPane stack00 = new StackPane();
         stacks[0][0] = stack00;
         StackPane stack10 = new StackPane();
@@ -405,6 +484,8 @@ public class GameWindow implements GuiScreen {
 
 
 
+
+
         for ( j = 0; j < 5; j++)
             for ( i = 0; i < 5; i++){
                 if (squares[i][j].getColor() != null) {
@@ -412,13 +493,53 @@ public class GameWindow implements GuiScreen {
                     // settare il colore giusto del player
                     Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
                     ImageView imageViewColorWorker = new ImageView(imageColorWorker);
-                    imageViewColorWorker.setFitHeight(40.0);
-                    imageViewColorWorker.setFitWidth(20.0);
-                    stacks[i][j].getChildren().add(imageViewColorWorker);
+                    imageViewColorWorker.setFitHeight(100.0);
+                    imageViewColorWorker.setFitWidth(40.0);
+                    gridButtons[i][j].add(imageViewColorWorker,1,0);
+
+                }
+                if (squares[i][j].getLevels() == 0) {
+ // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("0.png");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(100.0);
+                    imageViewLevelSquare.setFitWidth(40.0);
+                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
+                }
+                else if (squares[i][j].getLevels() == 1) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("1.png");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(40.0);
+                    imageViewLevelSquare.setFitWidth(20.0);
+                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
+                }
+                else if (squares[i][j].getLevels() == 2) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("2.jpg");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(40.0);
+                    imageViewLevelSquare.setFitWidth(20.0);
+                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
+                }
+                else if (squares[i][j].getLevels() == 3) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("3.png");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(40.0);
+                    imageViewLevelSquare.setFitWidth(20.0);
+                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
+                }
+                else if (squares[i][j].getLevels() == 4) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("4.png");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(40.0);
+                    imageViewLevelSquare.setFitWidth(20.0);
+                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
                 }
 
-                stacks[i][j].getChildren().add(buttons[i][j]);
-                field.add(stacks[i][j], i, j, 1, 1);
+                field.add(gridButtons[i][j], i, j, 1, 1);
             }
 
         arena.add(board,2,1);
