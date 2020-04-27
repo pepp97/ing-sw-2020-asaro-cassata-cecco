@@ -15,7 +15,7 @@ public class ExecuteRoutineState implements TurnState {
 
     @Override
     public void executeState(Controller controller) {
-        System.out.println(i);
+        System.out.println("round: " +i);
         if (i == -1) {
             List<Square> pos = new ArrayList<>();
             for (Worker s : controller.getGame().getCurrentPlayer().getWorkers())
@@ -42,8 +42,12 @@ public class ExecuteRoutineState implements TurnState {
                 return;
             if(i<controller.getGame().getCurrentPlayer().getGod().getRoutine().size() || controller.getGame().getWinner()!=null || !controller.getGame().getCurrentPlayer().isDefeat())
                 if ((!controller.isCanSkip()) || (!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable()))
-                    if (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame()))
-                        controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
+                    if(!controller.isGoOn()){
+                        controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
+                        i--;}
+                          else
+                            controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
+
 
             else
                 if (controller.getGame().getWinner() != null) {

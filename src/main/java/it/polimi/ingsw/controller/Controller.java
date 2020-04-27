@@ -21,6 +21,7 @@ public class Controller {
     private boolean canSkip=false;
     private List<Player> turnManager=new ArrayList<>();
     private TurnState state;
+    private boolean goOn;
 
 
     public Controller() {
@@ -103,11 +104,14 @@ public class Controller {
     //spostare in game?
     public void apply(ChooseTarget command) {
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
+        this.setGoOn(true);
+        state.executeState(this);
     }
 
     public void apply(UseEffect command) {
         canSkip=!command.getReply();
         game.getCurrentPlayer().setInQue(false);
+        this.setGoOn(false);
         state.executeState(this);
 
     }
@@ -169,5 +173,13 @@ public class Controller {
 
     public void deletePlayer(Player currentPlayer) {
         turnManager.remove( currentPlayer);
+    }
+
+    public void setGoOn(boolean b) {
+        this.goOn=b;
+    }
+
+    public boolean isGoOn() {
+        return  this.goOn;
     }
 }
