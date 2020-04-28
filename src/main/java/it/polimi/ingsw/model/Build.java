@@ -69,7 +69,7 @@ public class Build implements SubAction {
             worker.getMandatorySquare().upgrade();
             worker.setMandatorySquare(null);
         }
-      //  game.setTargetSelected(null);
+      game.setTargetSelected(null);
 
     }
 
@@ -83,7 +83,7 @@ public class Build implements SubAction {
     @Override
     public Boolean isUsable(Game game) {
 
-
+        game.getCurrentPlayer().setInQue(true);
         Boolean result = false;
         List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
         Worker worker = (Worker) game.getTargetInUse();

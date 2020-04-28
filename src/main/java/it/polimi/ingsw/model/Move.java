@@ -65,6 +65,7 @@ public class Move implements SubAction {
         else new ExceptionEvent("You can't move");
 
         //creazione evento + sistemare minotauro
+        game.setTargetSelected(null);
 
     }
 
@@ -83,7 +84,7 @@ public class Move implements SubAction {
 
         Boolean result = false;
         Worker worker = (Worker) game.getTargetInUse();
-
+        game.getCurrentPlayer().setInQue(true);
 
         for(Square s: worker.getSquare().getAdjacentSquares())
             if(s.getWorker() == null && s.getLevel()<4 &&((worker.getCanMoveUp()&& worker.getSquare().getLevel()==s.getLevel()-1) || (worker.getSquare().getLevel()>s.getLevel()-1))) {

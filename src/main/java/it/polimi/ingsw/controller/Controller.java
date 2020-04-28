@@ -104,6 +104,7 @@ public class Controller {
     //spostare in game?
     public void apply(ChooseTarget command) {
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
+        game.getCurrentPlayer().setInQue(false);
         this.setGoOn(true);
         state.executeState(this);
     }
