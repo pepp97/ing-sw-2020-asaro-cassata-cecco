@@ -17,8 +17,8 @@ public class AskUser implements SubAction {
     @Override
     public void use(Game game) {
 
-        while (game.getCurrentPlayer().isInQue());
 
+        game.getController().setGoOn(false);
         askUser askUser = new askUser();
         game.getCurrentPlayer().setInQue(true);
 
@@ -35,6 +35,7 @@ public class AskUser implements SubAction {
      */
     @Override
     public Boolean isUsable(Game game) {
+        game.getController().setGoOn(true);
         return true;
     }
 }

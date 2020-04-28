@@ -11,6 +11,7 @@ public class StartTurnState implements TurnState {
 
     @Override
     public void executeState(Controller controller) {
+        controller.setGoOn(true);
         controller.getGame().setCurrentPlayer(controller.getNextPlayer(controller.getGame().getCurrentPlayer()));
         controller.setCanSkip(false);
         controller.getGame().getCurrentPlayer().setHasBeenMoved(false);
