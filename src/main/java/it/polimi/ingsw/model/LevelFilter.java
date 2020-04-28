@@ -13,6 +13,11 @@ public class LevelFilter implements SubAction {
 
     private List<Integer> cantDo = new ArrayList<>();
 
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
     public LevelFilter(List<Integer> cantDo) {
         this.cantDo = cantDo;
     }

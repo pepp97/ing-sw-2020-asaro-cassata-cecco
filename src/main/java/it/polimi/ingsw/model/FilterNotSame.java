@@ -7,6 +7,12 @@ package it.polimi.ingsw.model;
  */
 
 public class FilterNotSame implements SubAction {
+
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
     /**
      * @param game instance
      */

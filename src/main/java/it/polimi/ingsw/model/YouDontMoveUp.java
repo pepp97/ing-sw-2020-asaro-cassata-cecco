@@ -6,6 +6,11 @@ package it.polimi.ingsw.model;
  */
 
 public class YouDontMoveUp implements SubAction {
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
 
 
 
@@ -14,7 +19,7 @@ public class YouDontMoveUp implements SubAction {
      */
     @Override
     public void use(Game game) {
-
+        game.getController().setGoOn(false);
         for(Worker w: game.getCurrentPlayer().getWorkers())
             w.setCanMoveUp(false);
     }
@@ -27,6 +32,7 @@ public class YouDontMoveUp implements SubAction {
     public Boolean isUsable( Game game) {
         for(Worker w: game.getCurrentPlayer().getWorkers())
             w.setCanMoveUp(true);
+        game.getController().setGoOn(true);
         return true;
     }
 }

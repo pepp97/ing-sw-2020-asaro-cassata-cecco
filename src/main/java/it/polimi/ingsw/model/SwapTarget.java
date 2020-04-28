@@ -4,6 +4,11 @@ package it.polimi.ingsw.model;
  * It is the micro-effect that have the role to swap the target
  */
 public class SwapTarget implements SubAction {
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
 
     @Override
     public void use(Game game) {

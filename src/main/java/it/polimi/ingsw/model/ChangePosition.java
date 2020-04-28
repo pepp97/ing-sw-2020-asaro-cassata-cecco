@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.events.ExceptionEvent;
 
 import java.util.ArrayList;
@@ -13,7 +12,11 @@ import java.util.List;
 public class ChangePosition implements SubAction {
 
     private List<Square> availableSquare = new ArrayList<>();
+    private boolean interationNeeded=true;
 
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
 
     /**
      * this use change the position of the player and save the new position in the HistoryPos of the worker

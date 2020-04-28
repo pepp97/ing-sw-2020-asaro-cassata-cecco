@@ -5,6 +5,11 @@ import it.polimi.ingsw.events.ExceptionEvent;
 public class MoveInSameDirection implements SubAction {
 
     private Square positionToGo;
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
 
 
     /**

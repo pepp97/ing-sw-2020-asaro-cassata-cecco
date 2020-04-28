@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.ParserServer.SquareToJson;
-import it.polimi.ingsw.events.UpdateEvent;
 import it.polimi.ingsw.events.askUser;
 
 /**
@@ -11,18 +9,20 @@ import it.polimi.ingsw.events.askUser;
  */
 public class AskUser implements SubAction {
 
+    private boolean interationNeeded=true;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
+
     /**
      * @param game instance
      */
     @Override
     public void use(Game game) {
-
-
         game.getController().setGoOn(false);
-        askUser askUser = new askUser();
-        game.getCurrentPlayer().setInQue(true);
 
-        game.notifyCurrent(askUser);
+
     }
 
     /*
@@ -36,6 +36,9 @@ public class AskUser implements SubAction {
     @Override
     public Boolean isUsable(Game game) {
         game.getController().setGoOn(true);
+        askUser askUser = new askUser();
+        game.getCurrentPlayer().setInQue(true);
+        game.notifyCurrent(askUser);
         return true;
     }
 }

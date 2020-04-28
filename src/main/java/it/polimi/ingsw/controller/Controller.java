@@ -21,7 +21,7 @@ public class Controller {
     private boolean canSkip=false;
     private List<Player> turnManager=new ArrayList<>();
     private TurnState state;
-    private boolean goOn;
+    private boolean goOn=false;
 
 
     public Controller() {
@@ -111,7 +111,7 @@ public class Controller {
     public void apply(UseEffect command) {
         canSkip=!command.getReply();
         game.getCurrentPlayer().setInQue(false);
-        this.setGoOn(false);
+        //this.setGoOn(false);
         state.executeState(this);
 
     }

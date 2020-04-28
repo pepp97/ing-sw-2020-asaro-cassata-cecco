@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.events.ChooseTarget;
-import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.events.UpdateEvent;
 
@@ -19,6 +18,13 @@ public class Build implements SubAction {
     public List<Square> getAvailableSquare() {
         return availableSquare;
     }
+    private boolean interationNeeded=true;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
+
+
 
     private List<Square> availableSquare = new ArrayList<>();
 
@@ -31,9 +37,9 @@ public class Build implements SubAction {
     @Override
     public void use(Game game) {
 
-
         Worker worker = (Worker) game.getTargetInUse();
         int i = 0;
+        game.getController().setGoOn(false);
 
 
         if (worker.getMandatorySquare() == null) {
@@ -63,8 +69,8 @@ public class Build implements SubAction {
             worker.getMandatorySquare().upgrade();
             worker.setMandatorySquare(null);
         }
+      //  game.setTargetSelected(null);
 
-        game.getController().setGoOn(false);
     }
 
     /**

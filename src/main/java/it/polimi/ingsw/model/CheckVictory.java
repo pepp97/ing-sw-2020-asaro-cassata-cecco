@@ -11,6 +11,11 @@ public class CheckVictory implements SubAction {
 
     private int levelToWin;
 
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
     public int getLevelToWin() {
         return levelToWin;
     }
