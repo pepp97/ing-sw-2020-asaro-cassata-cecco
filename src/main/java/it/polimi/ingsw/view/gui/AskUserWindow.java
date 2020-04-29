@@ -36,11 +36,13 @@ public class AskUserWindow {
             System.out.println("si");
             UseEffect command=new UseEffect(true);
             gui.getClient().send(command);
+            stage.close();
         });
         noButton.setOnAction(e -> {
             System.out.println("no");
             UseEffect command=new UseEffect(false);
             gui.getClient().send(command);
+            stage.close();
         });
 
         VBox layoutMessage = new VBox(20);

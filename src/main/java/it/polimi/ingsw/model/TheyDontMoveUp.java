@@ -7,6 +7,11 @@ package it.polimi.ingsw.model;
  */
 
 public class TheyDontMoveUp implements SubAction {
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
 
 
     /**
@@ -20,6 +25,8 @@ public class TheyDontMoveUp implements SubAction {
                 for (Worker w : p.getWorkers())
                     w.setCanMoveUp(false);
 
+        game.getCurrentPlayer().setInQue(false);
+
     }
 
     /**
@@ -27,7 +34,8 @@ public class TheyDontMoveUp implements SubAction {
      * @return a boolean to determine if the effect is usable
      */
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
+        game.getCurrentPlayer().setInQue(true);
         for(Player p: game.getPlayerList())
             for (Worker w:p.getWorkers())
                 w.setCanMoveUp(true);

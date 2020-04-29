@@ -15,7 +15,7 @@ public class ExecuteRoutineState implements TurnState {
 
     @Override
     public void executeState(Controller controller) {
-        System.out.println("round: " +i);
+        System.out.println("round: " + i);
         if (i == -1) {
             List<Square> pos = new ArrayList<>();
             for (Worker s : controller.getGame().getCurrentPlayer().getWorkers())
@@ -34,23 +34,25 @@ public class ExecuteRoutineState implements TurnState {
             ChooseWorker chooseWorker = new ChooseWorker(positions, map);
             controller.getGame().getCurrentPlayer().setInQue(true);
             controller.getGame().notifyCurrent(chooseWorker);
+            i++;
+            controller.setGoOn(false);
+            return;
 
         } else {
-            //       for(;i<controller.getGame().getCurrentPlayer().getGod().getRoutine().size() || controller.getGame().getWinner()!=null || !controller.getGame().getCurrentPlayer().isDefeat();i++) {
-            //     while (controller.getGame().getCurrentPlayer().isInQue());
-            if(controller.getGame().getCurrentPlayer().isInQue())
+
+            if (controller.getGame().getCurrentPlayer().isInQue())
                 return;
-            if(i<controller.getGame().getCurrentPlayer().getGod().getRoutine().size() || controller.getGame().getWinner()!=null || !controller.getGame().getCurrentPlayer().isDefeat())
-                if ((!controller.isCanSkip()) || (!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable()))
-                    if(!controller.isGoOn()){
+
+            if (i < controller.getGame().getCurrentPlayer().getGod().getRoutine().size() && controller.getGame().getWinner() == null && !controller.getGame().getCurrentPlayer().isDefeat()) {
+                if ((!controller.isCanSkip()) || (!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable())) {
+                    if (!controller.isGoOn()) {
                         controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
-                        i--;}
-                          else
-                            controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
-
-
-            else
-                if (controller.getGame().getWinner() != null) {
+                        i--;
+                    } else {
+                        controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
+                    }
+                }
+            } else if (controller.getGame().getWinner() != null) {
                 TurnState state = new NotifyVictoryState();
                 controller.setState(state);
                 state.executeState(controller);
@@ -60,11 +62,25 @@ public class ExecuteRoutineState implements TurnState {
                 state.executeState(controller);
             } else {
                 TurnState state = new StartTurnState();
+                i=-1;
                 controller.setState(state);
                 state.executeState(controller);
+                ExecuteRoutineState state1=new ExecuteRoutineState();
+                controller.setState(state1);
+                state1.executeState(controller);
             }
+            if (controller.getGame().getCurrentPlayer().getGod().getRoutine().size() != i)
+                i++;
         }
 
-        i++;
+
+        Worker w = (Worker) controller.getGame().getTargetInUse();
+        if (controller.getGame().getCurrentPlayer().getGod().getRoutine().size() == i)
+            executeState(controller);
+        else if ((!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded()) || (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded() && w.getMandatorySquare() != null))
+            executeState(controller);
+        else if (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded())
+                executeState(controller);
+
     }
 }

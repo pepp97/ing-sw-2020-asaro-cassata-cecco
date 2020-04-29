@@ -18,6 +18,13 @@ public class Build implements SubAction {
     public List<Square> getAvailableSquare() {
         return availableSquare;
     }
+    private boolean interationNeeded=true;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
+
+
 
     private List<Square> availableSquare = new ArrayList<>();
 
@@ -30,9 +37,9 @@ public class Build implements SubAction {
     @Override
     public void use(Game game) {
 
-
         Worker worker = (Worker) game.getTargetInUse();
         int i = 0;
+        game.getController().setGoOn(false);
 
 
         if (worker.getMandatorySquare() == null) {
@@ -57,11 +64,12 @@ public class Build implements SubAction {
                     new ExceptionEvent("you can't build here!");
             } else new ExceptionEvent("you can't build");
             //generazione pacchetto->creazione evento
+
         } else {
             worker.getMandatorySquare().upgrade();
             worker.setMandatorySquare(null);
         }
-
+      game.setTargetSelected(null);
 
     }
 
@@ -73,9 +81,9 @@ public class Build implements SubAction {
      */
 
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
 
-
+        game.getCurrentPlayer().setInQue(true);
         Boolean result = false;
         List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
         Worker worker = (Worker) game.getTargetInUse();
@@ -101,7 +109,9 @@ public class Build implements SubAction {
 
 
                     ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquares,map);
-                    game.notifyObservers(chooseTarget);
+                    UpdateEvent event=new UpdateEvent(map);
+                    game.notifyObservers(event);
+                    game.notifyCurrent(chooseTarget);
 
 
                 }

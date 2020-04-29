@@ -5,6 +5,11 @@ import it.polimi.ingsw.events.ExceptionEvent;
 public class MoveInSameDirection implements SubAction {
 
     private Square positionToGo;
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
 
 
     /**
@@ -17,7 +22,7 @@ public class MoveInSameDirection implements SubAction {
         System.out.println(toMove);
         System.out.println(positionToGo);
         positionToGo.setWorker(toMove);
-
+        game.getCurrentPlayer().setInQue(false);
     }
 
     /**
@@ -27,7 +32,8 @@ public class MoveInSameDirection implements SubAction {
 
     // aumenta aumenta, diminuisce diminuisce per le diagonali,
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
+        game.getCurrentPlayer().setInQue(true);
         Worker worker = (Worker) game.getTargetInUse();
         int coordinateX = worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateX();
         int coordinateY = worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getCoordinateY();

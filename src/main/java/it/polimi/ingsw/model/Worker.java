@@ -34,6 +34,8 @@ public class Worker implements Target {
         this.targetNotValid = new ArrayList<>();
     }
 
+
+
     /**
      * this method is used to find the position of the worker
      *

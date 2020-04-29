@@ -5,6 +5,12 @@ package it.polimi.ingsw.model;
  * It is the micro-effect that have the role to set a filter
  */
 public class FilterSame implements SubAction {
+
+    private boolean interationNeeded=false;
+
+    public boolean isInterationNeeded() {
+        return interationNeeded;
+    }
     /**
      * @param game instance
      */
@@ -19,6 +25,7 @@ public class FilterSame implements SubAction {
             if (s.getStart_level() != s.getLevel())
                 worker.setMandatorySquare(s);
         }
+        game.getCurrentPlayer().setInQue(false);
     }
 
     /**
@@ -26,8 +33,8 @@ public class FilterSame implements SubAction {
      * @return a boolean to determine if the effect is usable
      */
     @Override
-    public Boolean isUsable(Game game) {
-
+    public boolean isUsable(Game game) {
+        game.getCurrentPlayer().setInQue(true);
         return true;
 
     }
