@@ -109,7 +109,9 @@ public class Build implements SubAction {
 
 
                     ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquares,map);
-                    game.notifyObservers(chooseTarget);
+                    UpdateEvent event=new UpdateEvent(map);
+                    game.notifyObservers(event);
+                    game.notifyCurrent(chooseTarget);
 
 
                 }

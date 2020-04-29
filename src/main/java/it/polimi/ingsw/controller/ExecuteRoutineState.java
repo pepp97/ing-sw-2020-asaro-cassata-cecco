@@ -36,6 +36,7 @@ public class ExecuteRoutineState implements TurnState {
             controller.getGame().notifyCurrent(chooseWorker);
             i++;
             controller.setGoOn(false);
+            return;
 
         } else {
 
@@ -64,6 +65,9 @@ public class ExecuteRoutineState implements TurnState {
                 i=-1;
                 controller.setState(state);
                 state.executeState(controller);
+                ExecuteRoutineState state1=new ExecuteRoutineState();
+                controller.setState(state1);
+                state1.executeState(controller);
             }
             if (controller.getGame().getCurrentPlayer().getGod().getRoutine().size() != i)
                 i++;

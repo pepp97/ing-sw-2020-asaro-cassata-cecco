@@ -106,7 +106,9 @@ public class Move implements SubAction {
 
 
                 ChooseTarget chooseTarget = new ChooseTarget("Where do you want to move?", availableSquares,map);
-                game.notifyObservers(chooseTarget);
+                UpdateEvent event=new UpdateEvent(map);
+                game.notifyObservers(event);
+                game.notifyCurrent(chooseTarget);
             }
 
         if (worker.getSquareNotAvailable() != null)
