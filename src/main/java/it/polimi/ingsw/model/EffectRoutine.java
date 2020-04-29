@@ -50,6 +50,8 @@ public class EffectRoutine {
                 break;
             case "checkVictory":
                 effect=new CheckVictory();
+
+
             default:
                 System.out.println("Class not found");
         }

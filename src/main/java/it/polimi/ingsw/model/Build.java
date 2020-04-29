@@ -81,7 +81,7 @@ public class Build implements SubAction {
      */
 
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
 
         game.getCurrentPlayer().setInQue(true);
         Boolean result = false;

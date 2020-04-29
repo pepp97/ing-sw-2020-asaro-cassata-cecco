@@ -79,10 +79,10 @@ public class Move implements SubAction {
      * @return
      */
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
         availableSquare.clear();
 
-        Boolean result = false;
+        boolean result = false;
         Worker worker = (Worker) game.getTargetInUse();
         game.getCurrentPlayer().setInQue(true);
 

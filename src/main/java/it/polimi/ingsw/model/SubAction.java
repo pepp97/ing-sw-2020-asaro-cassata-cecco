@@ -8,5 +8,5 @@ public interface SubAction {
     public void use(Game game);
 
     boolean isInterationNeeded();
-    public Boolean isUsable(Game game);
+    public boolean isUsable(Game game);
 }

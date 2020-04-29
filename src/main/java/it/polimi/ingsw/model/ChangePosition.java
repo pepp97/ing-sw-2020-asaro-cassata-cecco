@@ -28,6 +28,7 @@ public class ChangePosition implements SubAction {
        // ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",availableSquare);
        // game.notifyObservers(chooseTarget);
 
+
         int i=0;
 
         while(game.getTargetSelected()==null)
@@ -57,6 +58,7 @@ public class ChangePosition implements SubAction {
 
 
         //creazione evento+gestione skippable
+        game.getCurrentPlayer().setInQue(false);
     }
 
     //only for a test purpose
@@ -71,8 +73,8 @@ public class ChangePosition implements SubAction {
      */
 
     @Override
-    public Boolean isUsable(Game game) {
-
+    public boolean isUsable(Game game) {
+        game.getCurrentPlayer().setInQue(true);
         Boolean result = false;
         Worker worker = (Worker) game.getTargetInUse();
 

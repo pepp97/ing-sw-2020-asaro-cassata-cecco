@@ -38,6 +38,7 @@ public class LevelFilter implements SubAction {
     public void use(Game game) {
 
         game.getCurrentPlayer().getGod().setCantDo(cantDo);
+        game.getCurrentPlayer().setInQue(false);
     }
 
     /**
@@ -47,7 +48,7 @@ public class LevelFilter implements SubAction {
     // faccio il controllo se può costruire così setto il livello altrimenti non lo setto, chiedersi se serve fare ciò
     //sostituire con return true?
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
        /* List<Square> adiacentSquare = worker.getSquare().getAdjacentSquares();
         Boolean result = false;
         int j = 0;
@@ -60,6 +61,7 @@ public class LevelFilter implements SubAction {
             }
 
         return result;*/
+        game.getCurrentPlayer().setInQue(true);
         return true;
     }
 }

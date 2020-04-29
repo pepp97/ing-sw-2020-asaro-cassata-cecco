@@ -34,7 +34,7 @@ public class AskUser implements SubAction {
      * @return a boolean to determine if the effect is usable
      */
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
         game.getController().setGoOn(true);
         askUser askUser = new askUser();
         game.getCurrentPlayer().setInQue(true);

@@ -15,7 +15,7 @@ public class SwapTarget implements SubAction {
         Target temp = game.getTargetInUse();
         game.setTargetInUse(game.getTargetSelected());
         game.setTargetSelected(temp);
-
+        game.getCurrentPlayer().setInQue(false);
     }
 
     /**
@@ -23,7 +23,8 @@ public class SwapTarget implements SubAction {
      * @return a boolean to determine if the effect is usable
      */
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
+        game.getCurrentPlayer().setInQue(true);
         return true;
     }
 

@@ -79,43 +79,8 @@ public class ExecuteRoutineState implements TurnState {
             executeState(controller);
         else if ((!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded()) || (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded() && w.getMandatorySquare() != null))
             executeState(controller);
-        else //if (i > 0)
-            // if ((!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i - 1).getEffect().isInterationNeeded()))
-            //   executeState(controller);
-            if (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded())
+        else if (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded())
                 executeState(controller);
-        /*Worker w=new Worker();
-            if(controller.getGame().getTargetInUse()!=null)
-                 w=(Worker) controller.getGame().getTargetInUse();
 
-            for(;i<controller.getGame().getCurrentPlayer().getGod().getRoutine().size() || controller.getGame().getWinner()!=null || !controller.getGame().getCurrentPlayer().isDefeat();i++){
-                if ((!controller.isCanSkip()) || (!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable()))
-                    if(!controller.isGoOn()){
-                        controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
-                        i--;
-                        if((controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i+1).getEffect().isInterationNeeded() && w.getMandatorySquare()==null ))
-                            return;
-                    }
-                    else
-                        controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
-            }
-
-            if (controller.getGame().getWinner() != null) {
-                TurnState state = new NotifyVictoryState();
-                controller.setState(state);
-                state.executeState(controller);
-            } else if (controller.getGame().getCurrentPlayer().isDefeat() || !controller.getGame().getCurrentPlayer().isHasBuilt()) {
-                TurnState state = new DefeatState();
-                controller.setState(state);
-                state.executeState(controller);
-            } else {
-                TurnState state = new StartTurnState();
-                controller.setState(state);
-                state.executeState(controller);
-            }
-
-
-
-        }*/
     }
 }

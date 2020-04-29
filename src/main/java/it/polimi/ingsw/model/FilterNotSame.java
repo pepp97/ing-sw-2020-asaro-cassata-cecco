@@ -29,7 +29,7 @@ public class FilterNotSame implements SubAction {
         }
         if (worker.getSquareNotAvailable() == null)
             worker.setSquareNotAvailable(worker.getHistoryPos().get(0)); // passo la penultima posizione, che coincide con la prima
-
+        game.getCurrentPlayer().setInQue(false);
     }
 
 
@@ -38,7 +38,8 @@ public class FilterNotSame implements SubAction {
      * @return a boolean to determine if the effect is usable
      */
     @Override
-    public Boolean isUsable(Game game) {
+    public boolean isUsable(Game game) {
+        game.getCurrentPlayer().setInQue(true);
 
         return true;
 

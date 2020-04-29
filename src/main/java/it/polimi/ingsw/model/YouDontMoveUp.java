@@ -29,7 +29,7 @@ public class YouDontMoveUp implements SubAction {
      * @return a boolean to determine if the effect is usable
      */
     @Override
-    public Boolean isUsable( Game game) {
+    public boolean isUsable(Game game) {
         for(Worker w: game.getCurrentPlayer().getWorkers())
             w.setCanMoveUp(true);
         game.getController().setGoOn(true);
