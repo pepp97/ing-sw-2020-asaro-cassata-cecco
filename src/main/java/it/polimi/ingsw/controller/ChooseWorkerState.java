@@ -28,6 +28,6 @@ public class ChooseWorkerState implements TurnState {
         ChooseWorker chooseWorker=new ChooseWorker(positions, map);
         controller.getGame().getCurrentPlayer().setInQue(true);
         controller.getGame().notifyCurrent(chooseWorker);
-
+        controller.setGoOn(false);
     }
 }

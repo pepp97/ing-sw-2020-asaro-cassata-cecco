@@ -19,6 +19,7 @@ public class StartTurnState implements TurnState {
         controller.getGame().getCurrentPlayer().setDefeat(false);
         controller.getGame().getCurrentPlayer().setInQue(false);
 
+
        for(Worker w: controller.getGame().getCurrentPlayer().getWorkers()){
            w.setSquareNotAvailable(null);
            w.setMandatorySquare(null);

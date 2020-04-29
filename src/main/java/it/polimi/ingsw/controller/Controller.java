@@ -69,7 +69,7 @@ public class Controller {
 
     public void apply(ChooseInitialPosition command, VirtualView view) {
         game.setInitialPosition(command.getCoordinateX(),command.getCoordinateY(),view);
-
+// entro appena tutti hanno selezionato la posizione iniziale
         if(turnManager.get(turnManager.size()-1).getWorkers().size()==2) {
             SquareToJson[][]map=new SquareToJson[5][5];
             Square[][]mappa=game.getField().getSquares();
@@ -94,10 +94,13 @@ public class Controller {
 
 
 
-    //spostare in game?
+
+
+    //arriva l'esito del worker da utilizzare per fare le azioni
     public void apply(ChooseYourWorker command) {
         game.setTargetInUse(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
         game.getCurrentPlayer().setInQue(false);
+
         state.executeState(this);
     }
 
@@ -106,6 +109,7 @@ public class Controller {
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
         game.getCurrentPlayer().setInQue(false);
         this.setGoOn(true);
+
         state.executeState(this);
     }
 
@@ -114,6 +118,7 @@ public class Controller {
         game.getCurrentPlayer().setInQue(false);
         //this.setGoOn(false);
         state.executeState(this);
+
 
     }
 

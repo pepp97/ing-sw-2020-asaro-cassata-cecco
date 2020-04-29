@@ -14,6 +14,7 @@ public class ChangePosition implements SubAction {
     private List<Square> availableSquare = new ArrayList<>();
     private boolean interationNeeded=true;
 
+
     public boolean isInterationNeeded() {
         return interationNeeded;
     }
@@ -55,7 +56,6 @@ public class ChangePosition implements SubAction {
         else new ExceptionEvent("you can't move");
         //worker.setActualPos(target.getSquare());
         // worker.getHistoryPos().add(target.getSquare());
-
 
         //creazione evento+gestione skippable
         game.getCurrentPlayer().setInQue(false);

@@ -7,6 +7,7 @@ public interface SubAction {
      */
     public void use(Game game);
 
+
     boolean isInterationNeeded();
     public boolean isUsable(Game game);
 }

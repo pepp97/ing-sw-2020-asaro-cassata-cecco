@@ -11,9 +11,13 @@ public class AskUser implements SubAction {
 
     private boolean interationNeeded=true;
 
+
+
     public boolean isInterationNeeded() {
         return interationNeeded;
     }
+
+
 
     /**
      * @param game instance

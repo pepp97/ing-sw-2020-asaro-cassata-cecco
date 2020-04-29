@@ -20,10 +20,10 @@ public class Build implements SubAction {
     }
     private boolean interationNeeded=true;
 
+
     public boolean isInterationNeeded() {
         return interationNeeded;
     }
-
 
 
     private List<Square> availableSquare = new ArrayList<>();

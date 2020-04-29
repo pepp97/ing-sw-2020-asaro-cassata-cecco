@@ -8,6 +8,7 @@ package it.polimi.ingsw.model;
 public class YouDontMoveUp implements SubAction {
     private boolean interationNeeded=false;
 
+
     public boolean isInterationNeeded() {
         return interationNeeded;
     }
