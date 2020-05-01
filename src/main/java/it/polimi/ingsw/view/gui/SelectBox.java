@@ -19,8 +19,13 @@ public class SelectBox {
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label();
         confirmMessage.setText(message);
-        Button yesButton = new Button("Si");
+        confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 12pt;");
+        Button yesButton = new Button("Yes");
+        String styleYes="-fx-text-fill: #000000;" +"-fx-background-color: #ff0000;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        yesButton.setStyle(styleYes);
         Button noButton = new Button("No");
+        String styleNo="-fx-text-fill: #000000;" +"-fx-background-color: #00ff00;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        noButton.setStyle(styleNo);
         yesButton.setOnAction(e -> {
             answer = true;
             stage.close();
