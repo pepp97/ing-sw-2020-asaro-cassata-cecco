@@ -195,9 +195,11 @@ public class ChooseStarterWindow implements GuiScreen {
         //pane.getCenter().setStyle("-fx-border-color: black");
 
 
-        Button b0 = new Button(gui.getNicknames().get(0));
-        Button b1 = new Button(gui.getNicknames().get(1));
-        Button b2 = new Button(gui.getNicknames().get(2));
+        Button b0 = new Button();
+        b0.setId(gui.getNicknames().get(0));
+        Button b1 = new Button();
+        b1.setId(gui.getNicknames().get(1));
+
 
         int i = 0;
         int j = 0;
@@ -229,12 +231,15 @@ public class ChooseStarterWindow implements GuiScreen {
         });
         form.add(b1, 1, 2);
 
-        b2.setOnAction(f -> {
-            StarterCommand starterCommand = new StarterCommand(b2.getId());
-            gui.getClient().send(starterCommand);
-        });
-        form.add(b2, 2, 2);
-
+        if (gui.getNicknames().size() == 3) {
+            Button b2 = new Button();
+            b2.setId(gui.getNicknames().get(2));
+            b2.setOnAction(f -> {
+                StarterCommand starterCommand = new StarterCommand(b2.getId());
+                gui.getClient().send(starterCommand);
+            });
+            form.add(b2, 5, 3);
+        }
 
         center.getChildren().add(form);
         center.setAlignment(form, Pos.TOP_CENTER);
@@ -325,14 +330,7 @@ public class ChooseStarterWindow implements GuiScreen {
         });
         form.add(b1, 3, 3);
 
-        if (gui.getNicknames().size() == 3) {
-            Button b2 = new Button(gui.getNicknames().get(2));
-            b2.setOnAction(f -> {
-                StarterCommand starterCommand = new StarterCommand(b2.getId());
-                gui.getClient().send(starterCommand);
-            });
-            form.add(b2, 5, 3);
-        }
+
         gui.getPrimaryStage().setScene(scene);
         gui.getPrimaryStage().setTitle("choose starter");
  */
