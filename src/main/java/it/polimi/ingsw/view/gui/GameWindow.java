@@ -491,10 +491,11 @@ public class GameWindow implements GuiScreen {
                 if (squares[i][j].getColor() != null) {
                     System.out.println(squares[i][j].getColor());
                     // settare il colore giusto del player
-                    Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
+                    //Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
+                    Image imageColorWorker = new Image(checkColor(squares[i][j].getColor().toString()));
                     ImageView imageViewColorWorker = new ImageView(imageColorWorker);
                     imageViewColorWorker.setFitHeight(100.0);
-                    imageViewColorWorker.setFitWidth(40.0);
+                    imageViewColorWorker.setFitWidth(60.0);
                     gridButtons[i][j].add(imageViewColorWorker,1,0);
 
                 }
@@ -560,6 +561,18 @@ public class GameWindow implements GuiScreen {
         gui.getPrimaryStage().setTitle("GameWindow");
 
 
+    }
+
+    private String checkColor(String c){
+        String path="";
+        if(c.equals("BLACK")){
+            path="pedinanera.png";
+        }else if(c.equals("BROWN")){
+            path="pedinamarrone.png";
+        }else if(c.equals("WHITE")){
+            path="pedinabianca.png";
+        }
+        return path;
     }
 
     private void display() {

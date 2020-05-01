@@ -411,7 +411,8 @@ public class ChooseWorkerWindow implements GuiScreen {
                 if (squares[i][j].getColor() != null) {
                     System.out.println(squares[i][j].getColor());
                     // settare il colore giusto del player quindi il worker
-                    Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
+                    //Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
+                    Image imageColorWorker = new Image(checkColor(squares[i][j].getColor().toString()));
                     ImageView imageViewColorWorker = new ImageView(imageColorWorker);
                     imageViewColorWorker.setFitHeight(40.0);
                     imageViewColorWorker.setFitWidth(20.0);
@@ -445,6 +446,18 @@ public class ChooseWorkerWindow implements GuiScreen {
         gui.getPrimaryStage().setTitle("Choose Worker Window");
 
 
+    }
+
+    private String checkColor(String c){
+        String path="";
+        if(c.equals("BLACK")){
+            path="pedinanera.png";
+        }else if(c.equals("BROWN")){
+            path="pedinamarrone.png";
+        }else if(c.equals("WHITE")){
+            path="pedinabianca.png";
+        }
+        return path;
     }
 
     private void display() {
