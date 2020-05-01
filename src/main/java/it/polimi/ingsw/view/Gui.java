@@ -85,10 +85,6 @@ public class Gui extends  Application implements View {
     @Override
     public void start(final Stage primaryStage) throws Exception {
 
-
-
-
-
         this.primaryStage = primaryStage;
 
         primaryStage.initStyle(StageStyle.DECORATED);
@@ -116,6 +112,7 @@ public class Gui extends  Application implements View {
         startMenu = new Scene(stackPane,widthScreen,heightScreen );
 
         Image intro = new Image("SantoriniIntro.jpg", widthScreen,heightScreen,true, true); //modificare percorso.
+
 
         //Image intro = new Image("SantoriniIntro.jpg");
         ImageView imageView = new ImageView();

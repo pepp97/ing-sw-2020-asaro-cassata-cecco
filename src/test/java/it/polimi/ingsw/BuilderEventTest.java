@@ -67,8 +67,8 @@ public class BuilderEventTest {
 
         //variabili test per ChooseWorker
         List<SquareToJson> posWorker = new ArrayList<>();
-        SquareToJson s1 = new SquareToJson(0, "", 1, 1);
-        SquareToJson s2 = new SquareToJson(0, "", 2, 3);
+        SquareToJson s1 = new SquareToJson(0, "BROWN", 1, 1);
+        SquareToJson s2 = new SquareToJson(0, "BLACK", 2, 3);
         posWorker.add(s1);
         posWorker.add(s2);
 
