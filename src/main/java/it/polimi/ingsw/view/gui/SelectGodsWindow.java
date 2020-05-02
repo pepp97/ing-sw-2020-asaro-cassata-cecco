@@ -97,6 +97,7 @@ public class SelectGodsWindow implements GuiScreen {
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(240.0);
             imageView.setFitWidth(180.0);
+            imageView.setStyle("-fx-border-color: black; -fx-border-width:10px;");
             form.add(imageView, i, j, 1, 1);
             i = i + 2;
             if(i == 11){
@@ -193,7 +194,9 @@ public class SelectGodsWindow implements GuiScreen {
             if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button9.getId()))
             selected.add(button9.getId());
         });
-        Button view=new Button("view your Gods");
+        Button view=new Button("View your Gods");
+        String style="-fx-text-fill: #ffffff;" +"-fx-background-color: #000000;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        view.setStyle(style);
         form.add(view, 9,3);
         view.setOnAction(f->{
             System.out.println(selected.size());
@@ -237,16 +240,19 @@ public class SelectGodsWindow implements GuiScreen {
         int j=1;
         for (String s: selected){
             Label l=new Label (s);
+            String styleLabel="-fx-font-size: 14pt;" + "-fx-font-family: \"Segoe UI Semibold\";" + "-fx-text-fill: black;"+"-fx-opacity: 1;";
+            l.setStyle(styleLabel);
             gridPane.add(l,i,j);
             j++;
         }
 
 
 
-
+        String styleDelete="-fx-text-fill: #000000;" +"-fx-background-color: #ff0000;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
 
         if (selected.size()>=1) {
             Button button1=new Button("Delete");
+            button1.setStyle(styleDelete);
             gridPane.add(button1,2,1);
             button1.setOnAction(f->{
                 selected.remove(0);
@@ -256,6 +262,7 @@ public class SelectGodsWindow implements GuiScreen {
 
         if (selected.size()>=2){
             Button button2=new Button("Delete");
+            button2.setStyle(styleDelete);
             gridPane.add(button2,2,2);
             button2.setOnAction(f->{
                 selected.remove(k);
@@ -264,6 +271,7 @@ public class SelectGodsWindow implements GuiScreen {
 
         if (selected.size()==3){
             Button button3=new Button("Delete");
+            button3.setStyle(styleDelete);
             gridPane.add(button3,2,3);
             button3.setOnAction(f->{
                 selected.remove(selected.size()-1);
@@ -271,6 +279,8 @@ public class SelectGodsWindow implements GuiScreen {
             });}
 
         Button confirm= new Button ("Confirm");
+        String styleconfirm="-fx-text-fill: #000000;" +"-fx-background-color: #00ff00;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        confirm.setStyle(styleconfirm);
         gridPane.add(confirm, 3,4);
         confirm.setOnAction(f->{
 
