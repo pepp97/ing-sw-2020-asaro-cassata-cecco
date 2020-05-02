@@ -30,8 +30,13 @@ public class AskUserWindow {
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label();
         confirmMessage.setText("Do you want use the effect?");
-        Button yesButton = new Button("yes");
-        Button noButton = new Button("no");
+        confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 12pt; -fx-font-family: \"Segoe UI Semibold\";");
+        Button yesButton = new Button("YES");
+        String styleYes="-fx-text-fill: #000000;" +"-fx-background-color: #ff4500;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        yesButton.setStyle(styleYes);
+        Button noButton = new Button("NO");
+        String styleNo="-fx-text-fill: #000000;" +"-fx-background-color: #0000ff;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        noButton.setStyle(styleNo);
         yesButton.setOnAction(e -> {
             System.out.println("si");
             UseEffect command=new UseEffect(true);

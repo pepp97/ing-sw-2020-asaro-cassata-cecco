@@ -33,7 +33,7 @@ public class SettingsWindow {
         confirmMessage.setText("How many players?");
         confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 12pt; -fx-font-family: \"Segoe UI Semibold\";");
         Button twoButton = new Button("2");
-        String style2="-fx-text-fill: #000000;" +"-fx-background-color: #8f00ffrick;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        String style2="-fx-text-fill: #000000;" +"-fx-background-color: #8f00ff;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
         twoButton.setStyle(style2);
         Button threeButton = new Button("3");
         String style3="-fx-text-fill: #000000;" +"-fx-background-color: #ffa500;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
