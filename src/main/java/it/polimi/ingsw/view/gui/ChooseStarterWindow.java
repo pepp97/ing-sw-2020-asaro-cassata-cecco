@@ -99,7 +99,9 @@ public class ChooseStarterWindow implements GuiScreen {
 
 
         Button b0 = new Button(gui.getNicknames().get(0));
+        b0.setId(gui.getNicknames().get(0));
         Button b1 = new Button(gui.getNicknames().get(1));
+        b1.setId(gui.getNicknames().get(1));
 
         int i = 0;
         int j = 0;
@@ -195,9 +197,9 @@ public class ChooseStarterWindow implements GuiScreen {
         //pane.getCenter().setStyle("-fx-border-color: black");
 
 
-        Button b0 = new Button();
+        Button b0 = new Button(gui.getNicknames().get(0));
         b0.setId(gui.getNicknames().get(0));
-        Button b1 = new Button();
+        Button b1 = new Button(gui.getNicknames().get(1));
         b1.setId(gui.getNicknames().get(1));
 
 
@@ -232,7 +234,7 @@ public class ChooseStarterWindow implements GuiScreen {
         form.add(b1, 1, 2);
 
         if (gui.getNicknames().size() == 3) {
-            Button b2 = new Button();
+            Button b2 = new Button(gui.getNicknames().get(2));
             b2.setId(gui.getNicknames().get(2));
             b2.setOnAction(f -> {
                 StarterCommand starterCommand = new StarterCommand(b2.getId());

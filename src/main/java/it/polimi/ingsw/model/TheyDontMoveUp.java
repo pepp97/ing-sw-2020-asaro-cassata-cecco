@@ -19,13 +19,14 @@ public class TheyDontMoveUp implements SubAction {
      */
     @Override
     public void use(Game game) {
-
+        Worker worker = (Worker) game.getTargetInUse();
+        if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() - worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() == 1)
         for (Player p : game.getPlayerList())
             if (!(p.equals(game.getCurrentPlayer())))
                 for (Worker w : p.getWorkers())
                     w.setCanMoveUp(false);
 
-        game.getCurrentPlayer().setInQue(false);
+        game.getController().setGoOn(false);
 
     }
 
@@ -35,15 +36,12 @@ public class TheyDontMoveUp implements SubAction {
      */
     @Override
     public boolean isUsable(Game game) {
-        game.getCurrentPlayer().setInQue(true);
+        game.getController().setGoOn(true);
         for(Player p: game.getPlayerList())
             for (Worker w:p.getWorkers())
                 w.setCanMoveUp(true);
-        Worker worker = (Worker) game.getTargetInUse();
-        if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() - worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() == 1)
-            return true;
-        return false;
 
+            return true;
 
     }
 }

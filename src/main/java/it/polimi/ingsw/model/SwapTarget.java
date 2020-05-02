@@ -12,8 +12,9 @@ public class SwapTarget implements SubAction {
 
     @Override
     public void use(Game game) {
+        game.getController().setGoOn(false);
         Target temp = game.getTargetInUse();
-        game.setTargetInUse(game.getTargetSelected());
+        game.setTargetInUse((Worker)game.getTargetSelected());
         game.setTargetSelected(temp);
         game.getCurrentPlayer().setInQue(false);
     }
@@ -24,7 +25,8 @@ public class SwapTarget implements SubAction {
      */
     @Override
     public boolean isUsable(Game game) {
-        game.getCurrentPlayer().setInQue(true);
+        //game.getCurrentPlayer().setInQue(true);
+        game.getController().setGoOn(true);
         return true;
     }
 

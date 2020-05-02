@@ -199,8 +199,8 @@ public class LoginWindow implements GuiScreen {
         colorGrid.add(black,0,0);
         colorGrid.add(white,0,1);
         colorGrid.add(brown,0,2);
-        black.setStyle("-fx-background-color: White");
-        white.setStyle("-fx-background-color: Black");
+        black.setStyle("-fx-background-color: Black");
+        white.setStyle("-fx-background-color: White");
         brown.setStyle("-fx-background-color: Brown;");
 
         colorGrid.setStyle("-fx-alignment:center");

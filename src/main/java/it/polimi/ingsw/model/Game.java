@@ -220,6 +220,9 @@ public class Game implements Observable {
         notifyCurrent(e);
     }
 
+    public List<VirtualView> getViews() {
+        return List.copyOf(views);
+    }
 
     public void setUsableGod(List<String> god) {
         for (String s : god) {
@@ -265,7 +268,23 @@ public class Game implements Observable {
                         e = new StartMatchEvent(godPlayer);
                         System.out.println(currentView.getOwner().getUsername());
                         currentView=(VirtualView)observers.get(0);
-                        notifyCurrent(e);
+                        View tmp=currentView;
+                        notifyObservers(e);
+                        for(VirtualView v: views)
+                            if(!v.getOwner().equals(currentView.getOwner())){
+                                currentView=v;
+                                Square [][] mappa=field.getSquares();
+                                SquareToJson [][]map = new SquareToJson[5][5];
+                                for(int x=0; x<5; x++)
+                                    for(int y=0; y<5; y++)
+                                        if (mappa[x][y].getWorker()!=null)
+                                            map[x][y]=new SquareToJson(mappa[x][y].getLevel(),mappa[x][y].getWorker().getC().toString(),mappa[x][y].getCoordinateX(),mappa[x][y].getCoordinateX());
+                                        else
+                                            map[x][y]=new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
+                                UpdateEvent event=new UpdateEvent(map);
+                                notifyCurrent(event);
+                            }
+                        currentView=tmp;
 
                     } else {
                         e = new ChooseYourGodEvent(names, effects);

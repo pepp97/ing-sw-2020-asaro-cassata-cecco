@@ -22,6 +22,7 @@ public class FilterNotSame implements SubAction {
         // controllare tutte per build o passare penultima posizione
 
         Worker worker = (Worker) game.getTargetInUse();
+        game.getController().setGoOn(false);
 
         for (Square s : worker.getSquare().getAdjacentSquares()) {
             if (s.getStart_level() != s.getLevel())
@@ -29,7 +30,7 @@ public class FilterNotSame implements SubAction {
         }
         if (worker.getSquareNotAvailable() == null)
             worker.setSquareNotAvailable(worker.getHistoryPos().get(0)); // passo la penultima posizione, che coincide con la prima
-        game.getCurrentPlayer().setInQue(false);
+
     }
 
 
@@ -39,8 +40,8 @@ public class FilterNotSame implements SubAction {
      */
     @Override
     public boolean isUsable(Game game) {
-        game.getCurrentPlayer().setInQue(true);
 
+        game.getController().setGoOn(true);
         return true;
 
     }

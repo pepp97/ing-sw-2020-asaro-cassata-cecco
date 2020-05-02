@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ParserJson;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Square;
+import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
@@ -152,7 +153,9 @@ public class Controller {
             System.out.println(p.getUsername());
 
         game.setCurrentPlayer(turnManager.get(0));
-        game.setCurrentView(view);
+        for(View v: game.getViews())
+            if(v.getOwner().equals(game.getCurrentPlayer()))
+                game.setCurrentView(v);
         state=new SetWorkerState();
         state.executeState(this);
     }
