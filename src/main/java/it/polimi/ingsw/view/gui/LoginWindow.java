@@ -7,6 +7,7 @@ import it.polimi.ingsw.events.SettingsEvent;
 import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.View;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -44,17 +45,17 @@ public class LoginWindow implements GuiScreen {
         title.setTextAlignment(TextAlignment.CENTER);
 
         pane.setTop(title);
-
-
         StackPane center = new StackPane();
+
         center.setMaxHeight(600);
         center.setMinHeight(300);
-        center.setMaxWidth(400);
-        center.setMinWidth(250);
+        center.setMaxWidth(500);
+        center.setMinWidth(300);
         //center.setStyle("-fx-border-color: black");
 
-
+        Background back = new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY));
         GridPane structure = new GridPane();
+        structure.setBackground(back);
         RowConstraints l1 = new RowConstraints();
         RowConstraints l2 = new RowConstraints();
         l2.setMinHeight(120);
@@ -64,37 +65,40 @@ public class LoginWindow implements GuiScreen {
 
         l2.setValignment(VPos.CENTER);
 
-
+        Background background = new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY));
         StackPane top = new StackPane();
+        top.setBackground(background);
         top.setMaxHeight(80);
         top.setMinHeight(80);
-        top.setMaxWidth(200);
-        top.setMinWidth(200);
+        top.setMaxWidth(260);
+        top.setMinWidth(260);
         //top.setStyle("-fx-alignment: center");
-        top.setStyle("-fx-border-color: black");
+        top.setStyle("-fx-border-color: black; -fx-border-width:3px;");
 
 
         StackPane medium = new StackPane();
+        medium.setBackground(background);
         medium.setMaxHeight(100);
         medium.setMinHeight(100);
-        medium.setMaxWidth(200);
-        medium.setMinWidth(200);
+        medium.setMaxWidth(260);
+        medium.setMinWidth(260);
         //medium.setStyle("-fx-alignment: center");
-        medium.setStyle("-fx-border-color: black");
+        medium.setStyle("-fx-border-color: black; -fx-border-width:3px;");
 
         StackPane bottom = new StackPane();
+        bottom.setBackground(background);
         bottom.setMaxHeight(80);
         bottom.setMinHeight(80);
-        bottom.setMaxWidth(200);
-        bottom.setMinWidth(200);
+        bottom.setMaxWidth(260);
+        bottom.setMinWidth(260);
         //bottom.setStyle("-fx-alignment: center");
-        bottom.setStyle("-fx-border-color: black");
+        bottom.setStyle("-fx-border-color: black; -fx-border-width:3px;");
 
         StackPane error=new StackPane();
         error.setMaxHeight(40);
         error.setMinHeight(50);
-        error.setMaxWidth(200);
-        error.setMinWidth(200);
+        error.setMaxWidth(260);
+        error.setMinWidth(260);
         //structure.setMaxHeight(370);
         //structure.setMaxWidth(100);
 
@@ -103,24 +107,25 @@ public class LoginWindow implements GuiScreen {
         GridPane topGrid = new GridPane();
         ColumnConstraints c1 = new ColumnConstraints();
         ColumnConstraints c2 = new ColumnConstraints();
-        c1.setMinWidth(100);
-        c1.setMaxWidth(100);
-        c2.setMinWidth(100);
-        c2.setMaxWidth(100);
+        c1.setMinWidth(130);
+        c1.setMaxWidth(130);
+        c2.setMinWidth(130);
+        c2.setMaxWidth(130);
         topGrid.setMaxHeight(80);
         topGrid.setMinHeight(80);
         c1.setHalignment(HPos.CENTER);
         c2.setHalignment(HPos.CENTER);
         topGrid.getColumnConstraints().addAll(c1, c2);
+        topGrid.setStyle("-fx-alignment:center");
         //topGrid.setStyle("-fx-border-color: black");
 
         GridPane mediumGrid = new GridPane();
         ColumnConstraints c3 = new ColumnConstraints();
         ColumnConstraints c4 = new ColumnConstraints();
-        c3.setMinWidth(100);
-        c3.setMaxWidth(100);
-        c4.setMinWidth(100);
-        c4.setMaxWidth(100);
+        c3.setMinWidth(130);
+        c3.setMaxWidth(130);
+        c4.setMinWidth(130);
+        c4.setMaxWidth(130);
         mediumGrid.setMaxHeight(100);
         mediumGrid.setMinHeight(100);
         c3.setHalignment(HPos.CENTER);
@@ -128,26 +133,14 @@ public class LoginWindow implements GuiScreen {
         mediumGrid.getColumnConstraints().addAll(c3, c4);
         //mediumGrid.setStyle("-fx-border-color: black");
         mediumGrid.setStyle("-fx-alignment:center-right");
-        //mediumGrid.setStyle("-fx-alignment: center");
-
-        /*GridPane bottomGrid = new GridPane();
-        ColumnConstraints c5 = new ColumnConstraints();
-        ColumnConstraints c6 = new ColumnConstraints();
-        c5.setMinWidth(100);
-        c5.setMaxWidth(100);
-        c6.setMinWidth(100);
-        c6.setMaxWidth(100);
-        bottomGrid.setMaxHeight(80);
-        bottomGrid.setMinHeight(80);
-        c5.setHalignment(HPos.CENTER);
-        c6.setHalignment(HPos.RIGHT);
-        bottomGrid.getColumnConstraints().addAll(c5, c6);
-        //bottomGrid.setStyle("-fx-border-color: black");
-        bottomGrid.setStyle("-fx-alignment:center");*/
 
 
         TextField nameInput = new TextField("");
         Label istr1=new Label("Nickname:");
+        istr1.setMinWidth(100);
+        istr1.setMaxWidth(100);
+        nameInput.setMaxWidth(100);
+        nameInput.setMinWidth(100);
         istr1.setTextFill(Color.BLACK);
         istr1.setFont(Font.font("Helvetica", FontWeight.BOLD, 18));
         //istr1.setStyle("-fx-alignment: left");
@@ -266,14 +259,13 @@ public class LoginWindow implements GuiScreen {
 
         center.getChildren().add(structure);
         center.setAlignment(structure, Pos.CENTER);
-        center.setStyle("-fx-border-color: black");
+        center.setStyle("-fx-border-color: black; -fx-border-width:15px;");
 
 
 
         pane.setCenter(center);
         pane.getCenter().setStyle("-fx-alignment: center; -fx-border-color: black");
         pane.setStyle("-fx-alignment: center");
-
 
         gui.getPrimaryStage().setScene(scene);
         gui.getPrimaryStage().setTitle("Login Window");
