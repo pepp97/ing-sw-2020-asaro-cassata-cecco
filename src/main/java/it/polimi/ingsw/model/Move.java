@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.controller.DefeatState;
+import it.polimi.ingsw.controller.NotifyVictoryState;
+import it.polimi.ingsw.controller.TurnState;
 import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.events.UpdateEvent;
@@ -59,6 +62,18 @@ public class Move implements SubAction {
                             map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
                 UpdateEvent event = new UpdateEvent(map);
                 game.notifyObservers(event);
+
+                if (worker.getSquare().getLevel() == 3 && worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() < 3) {
+                    for (Worker w : game.getCurrentPlayer().getWorkers())
+                        if (w.equals(worker)) {
+                            game.setWinner(game.getCurrentPlayer());
+                            TurnState state = new NotifyVictoryState();
+                            game.getController().setState(state);
+                            state.executeState(game.getController());
+                            break;
+                        }
+                }
+
             } else new ExceptionEvent("target not available");
         } else new ExceptionEvent("You can't move");
 
@@ -115,8 +130,10 @@ public class Move implements SubAction {
         }
 
         else if (availableSquare.size() == 0) {
-            if (!game.getCurrentPlayer().isHasBeenMoved())
-                game.getCurrentPlayer().setDefeat(true);
+            game.getCurrentPlayer().setDefeat(true);
+            TurnState state = new DefeatState();
+            game.getController().setState(state);
+            state.executeState(game.getController());
             result = false;
         }
         worker.setCanBeMoved(result);

@@ -17,7 +17,9 @@ public class ExecuteRoutineState implements TurnState {
 
     @Override
     public void executeState(Controller controller) {
-        this.controller=controller;
+        this.controller = controller;
+        if (controller.getGame().getWinner() != null || controller.getGame().getCurrentPlayer().isDefeat())
+            return;
         System.out.println("round: " + i);
         if (i == -1) {
             List<Square> pos = new ArrayList<>();
@@ -47,31 +49,28 @@ public class ExecuteRoutineState implements TurnState {
             if (controller.getGame().getCurrentPlayer().isInQue())
                 return;
 
-            if (i < controller.getGame().getCurrentPlayer().getGod().getRoutine().size() && controller.getGame().getWinner() == null && !controller.getGame().getCurrentPlayer().isDefeat()) {
+            if (i < controller.getGame().getCurrentPlayer().getGod().getRoutine().size()) {
                 if ((!controller.isCanSkip()) || (!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable())) {
                     if (!controller.isGoOn()) {
 
-                        result=controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
+                        result = controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
                         i--;
-                    } else if(result) {
+                    } else if (result) {
                         controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
-                        result=true;
+                        result = true;
                     }
                 }
-            } else if (controller.getGame().getWinner() != null) {
-                TurnState state = new NotifyVictoryState();
-                controller.setState(state);
-                state.executeState(controller);
-            } else if (controller.getGame().getCurrentPlayer().isDefeat() || !controller.getGame().getCurrentPlayer().isHasBuilt()) {
+            } else if (!controller.getGame().getCurrentPlayer().isHasBuilt() && i< controller.getGame().getCurrentPlayer().getGod().getRoutine().size()) {
+                controller.getGame().getCurrentPlayer().setDefeat(true);
                 TurnState state = new DefeatState();
                 controller.setState(state);
                 state.executeState(controller);
             } else {
                 TurnState state = new StartTurnState();
-                i=-1;
+                i = -1;
                 controller.setState(state);
                 state.executeState(controller);
-                ExecuteRoutineState state1=new ExecuteRoutineState();
+                ExecuteRoutineState state1 = new ExecuteRoutineState();
                 controller.setState(state1);
                 state1.executeState(controller);
             }
@@ -86,13 +85,13 @@ public class ExecuteRoutineState implements TurnState {
         else if ((!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded()) || (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded() && w.getMandatorySquare() != null))
             executeState(controller);
         else if (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded())
-                executeState(controller);
+            executeState(controller);
 
     }
 
     @Override
     public void goBack() {
-      //  Worker thisWorker= (Worker) controller.getGame().getTargetSelected();
+        //  Worker thisWorker= (Worker) controller.getGame().getTargetSelected();
         //thisWorker.getHistoryPos().remove(thisWorker.getHistoryPos().size()-1);
         i--;
     }

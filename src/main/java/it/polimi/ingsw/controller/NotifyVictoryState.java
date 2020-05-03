@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.events.ExceptionEvent;
+
 public class NotifyVictoryState implements TurnState {
 
 
@@ -7,6 +9,8 @@ public class NotifyVictoryState implements TurnState {
     public void executeState(Controller controller) {
         //evento
         System.out.println(controller.getGame().getCurrentPlayer().getUsername()+" ,COMPLIMENTI HAI VINTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        ExceptionEvent e=new ExceptionEvent("The Winner is:     " + controller.getGame().getCurrentPlayer().getUsername() + "!!!");
+        controller.getGame().notifyObservers(e);
         return;
     }
 

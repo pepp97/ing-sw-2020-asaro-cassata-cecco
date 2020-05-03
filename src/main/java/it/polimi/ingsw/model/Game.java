@@ -20,7 +20,7 @@ public class Game implements Observable {
 
     private List<Player> playerList = new ArrayList<>();
     private List<Observer> observers = new ArrayList<>();
-    private List <VirtualView> views=new ArrayList<>();
+    private List<VirtualView> views = new ArrayList<>();
     private Player currentPlayer;
     private View currentView;
     private Target targetSelected;
@@ -88,14 +88,15 @@ public class Game implements Observable {
             this.playerList.add(player);
     }
 
-    public void removePlayerInList(Player player){
+    public void removePlayerInList(Player player) {
         numplayer--;
-        Worker w1=player.getWorkers().get(0);
-        Worker w2=player.getWorkers().get(1);
-        for(int j=0; j<=5; j++)
-            for (int i=0; i<=5;i++)
-                if(field.getSquares()[i][j].getWorker().equals(w1)||field.getSquares()[i][j].getWorker().equals(w2))
-                    field.getSquares()[i][j].removeWorker();
+        Worker w1 = player.getWorkers().get(0);
+        Worker w2 = player.getWorkers().get(1);
+        for (int j = 0; j < 5; j++)
+            for (int i = 0; i <5; i++)
+                if (field.getSquares()[i][j].getWorker() != null)
+                    if (field.getSquares()[i][j].getWorker().equals(w1) || field.getSquares()[i][j].getWorker().equals(w2))
+                        field.getSquares()[i][j].removeWorker();
         //pulire virtualview e observers?
 
         this.playerList.remove(player);
@@ -107,9 +108,9 @@ public class Game implements Observable {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
-        for(VirtualView v: views)
-            if(v.getOwner().equals(currentPlayer))
-                currentView=v;
+        for (VirtualView v : views)
+            if (v.getOwner().equals(currentPlayer))
+                currentView = v;
     }
 
     public Target getTargetSelected() {
@@ -132,7 +133,7 @@ public class Game implements Observable {
     //IMPLEMENTARE
     public synchronized void login(String nickname, Color color, VirtualView view) {
         //  aggiustare numero di giocatori che si possono loggare
-        currentView=view;
+        currentView = view;
         if (!nicknameAvailable(nickname)) {
             notifyCurrent(new ExceptionEvent("Username already in use!"));
         } else if (!colorAvailable(color)) {
@@ -267,24 +268,24 @@ public class Game implements Observable {
                         }
                         e = new StartMatchEvent(godPlayer);
                         System.out.println(currentView.getOwner().getUsername());
-                        currentView=(VirtualView)observers.get(0);
-                        View tmp=currentView;
+                        currentView = (VirtualView) observers.get(0);
+                        View tmp = currentView;
                         notifyObservers(e);
-                        for(VirtualView v: views)
-                            if(!v.getOwner().equals(currentView.getOwner())){
-                                currentView=v;
-                                Square [][] mappa=field.getSquares();
-                                SquareToJson [][]map = new SquareToJson[5][5];
-                                for(int x=0; x<5; x++)
-                                    for(int y=0; y<5; y++)
-                                        if (mappa[x][y].getWorker()!=null)
-                                            map[x][y]=new SquareToJson(mappa[x][y].getLevel(),mappa[x][y].getWorker().getC().toString(),mappa[x][y].getCoordinateX(),mappa[x][y].getCoordinateX());
+                        for (VirtualView v : views)
+                            if (!v.getOwner().equals(currentView.getOwner())) {
+                                currentView = v;
+                                Square[][] mappa = field.getSquares();
+                                SquareToJson[][] map = new SquareToJson[5][5];
+                                for (int x = 0; x < 5; x++)
+                                    for (int y = 0; y < 5; y++)
+                                        if (mappa[x][y].getWorker() != null)
+                                            map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
                                         else
-                                            map[x][y]=new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
-                                UpdateEvent event=new UpdateEvent(map);
+                                            map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
+                                UpdateEvent event = new UpdateEvent(map);
                                 notifyCurrent(event);
                             }
-                        currentView=tmp;
+                        currentView = tmp;
 
                     } else {
                         e = new ChooseYourGodEvent(names, effects);
@@ -327,4 +328,6 @@ public class Game implements Observable {
     public void unregister(Observer observer) {
 
     }
+
+
 }
