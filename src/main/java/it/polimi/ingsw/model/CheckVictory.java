@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.NotifyVictoryState;
+import it.polimi.ingsw.controller.TurnState;
+
 /**
  * It is the micro-effect that have the role to check if the player have win if he is go down by levelToWin level
  *
@@ -11,11 +14,12 @@ public class CheckVictory implements SubAction {
 
     private int levelToWin;
 
-    private boolean interationNeeded=false;
+    private boolean interationNeeded = false;
 
     public boolean isInterationNeeded() {
         return interationNeeded;
     }
+
     public int getLevelToWin() {
         return levelToWin;
     }
@@ -24,8 +28,8 @@ public class CheckVictory implements SubAction {
         this.levelToWin = levelToWin;
     }
 
-   // public CheckVictory(int levelToWin) {
-     //   this.levelToWin = levelToWin;
+    // public CheckVictory(int levelToWin) {
+    //   this.levelToWin = levelToWin;
     //}
 
     /**
@@ -36,11 +40,16 @@ public class CheckVictory implements SubAction {
 
 
         //se è salito da livello 3 a livello 4
-        if(isUsable(game))
-        for (Player p : game.getPlayerList()) {
-            if (p.getWorkers().contains((Worker) game.getTargetInUse())) ;
-            game.setWinner(p);
-        }
+        if (isUsable(game))
+            for (Player p : game.getPlayerList()) {
+                if (p.getWorkers().contains((Worker) game.getTargetInUse())) {
+                    game.setWinner(game.getCurrentPlayer());
+                    TurnState state = new NotifyVictoryState();
+                    game.getController().setState(state);
+                    state.executeState(game.getController());
+                    break;
+                }
+            }
         game.getController().setGoOn(false);
     }
 
