@@ -90,7 +90,7 @@
         {
           "effect":"filterLevel",
           "skippable": 1,
-          "levels":  [1,2,3]
+          "levels":  [0]
         },
         {
           "effect": "build",

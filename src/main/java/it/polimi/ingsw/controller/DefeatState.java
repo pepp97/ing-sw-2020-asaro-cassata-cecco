@@ -17,4 +17,9 @@ public class DefeatState implements TurnState {
         //+eventi
     }
 
+    @Override
+    public void goBack() {
+
+    }
+
 }

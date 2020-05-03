@@ -44,6 +44,8 @@ public class Build implements SubAction {
         game.getController().setGoOn(false);
 
 
+
+
         if (worker.getMandatorySquare() == null) {
             if (worker.getCanBuild()) {
                 if (availableSquare.contains(game.getTargetSelected())) {
@@ -51,6 +53,8 @@ public class Build implements SubAction {
                     game.getCurrentPlayer().setHasBuilt(true);
                     game.getCurrentPlayer().getGod().getCantDo().clear();
                     availableSquare.clear();
+                    if(game.getCurrentPlayer().getGod().getName().equals("Atlas") && !game.getController().isCanSkip())
+                        game.getTargetSelected().getSquare().setLevel(4);
 
                     Square[][] mappa = game.getField().getSquares();
                     SquareToJson[][] map = new SquareToJson[5][5];
@@ -69,6 +73,16 @@ public class Build implements SubAction {
 
         } else {
             worker.getMandatorySquare().upgrade();
+            Square[][] mappa = game.getField().getSquares();
+            SquareToJson[][] map = new SquareToJson[5][5];
+            for (int x = 0; x < 5; x++)
+                for (int y = 0; y < 5; y++)
+                    if (mappa[x][y].getWorker() != null)
+                        map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
+                    else
+                        map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
+            UpdateEvent event = new UpdateEvent(map);
+            game.notifyObservers(event);
             worker.setMandatorySquare(null);
         }
         game.setTargetSelected(null);
@@ -86,12 +100,13 @@ public class Build implements SubAction {
     @Override
     public boolean isUsable(Game game) {
 
-        game.getCurrentPlayer().setInQue(true);
+
         Boolean result = false;
         List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
         Worker worker = (Worker) game.getTargetInUse();
 
         if (worker.getMandatorySquare() == null) {
+            game.getCurrentPlayer().setInQue(true);
             for (Square s : worker.getSquare().getAdjacentSquares())
                 if (s.getWorker() == null && s.getLevel() != 4 && !(cantDo.contains(s.getLevel() + 1)) && s != worker.getSquareNotAvailable()) {
                     availableSquare.add(s);
@@ -119,10 +134,18 @@ public class Build implements SubAction {
 
 
         }
-
+        else {
+            if(worker.getSquare().getAdjacentSquares().contains(worker.getMandatorySquare())&&worker.getMandatorySquare().getLevel()!=4 && !(cantDo.contains(worker.getMandatorySquare().getLevel() + 1))){
+                result=true;
+                availableSquare.add(worker.getMandatorySquare());
+            }
+            else game.notifyCurrent(new ExceptionEvent("you can't use the effect!"));
+        }
 
         if (availableSquare.size() == 0)
             result = false;
+
+
 
         worker.setCanBuild(result);
         game.getController().setGoOn(true);

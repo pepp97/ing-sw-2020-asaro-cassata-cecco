@@ -49,8 +49,13 @@ public class SetWorkerState implements TurnState {
 
     }
 
+    @Override
+    public void goBack() {
 
-        //}
+    }
+
+
+    //}
 
 
     private void fillSquare() {

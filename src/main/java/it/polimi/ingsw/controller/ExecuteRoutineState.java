@@ -11,10 +11,13 @@ import java.util.List;
 
 public class ExecuteRoutineState implements TurnState {
     int i = -1;
+    boolean result;
+    private Controller controller;
 
 
     @Override
     public void executeState(Controller controller) {
+        this.controller=controller;
         System.out.println("round: " + i);
         if (i == -1) {
             List<Square> pos = new ArrayList<>();
@@ -36,6 +39,7 @@ public class ExecuteRoutineState implements TurnState {
             controller.getGame().notifyCurrent(chooseWorker);
             i++;
             controller.setGoOn(false);
+
             return;
 
         } else {
@@ -46,10 +50,12 @@ public class ExecuteRoutineState implements TurnState {
             if (i < controller.getGame().getCurrentPlayer().getGod().getRoutine().size() && controller.getGame().getWinner() == null && !controller.getGame().getCurrentPlayer().isDefeat()) {
                 if ((!controller.isCanSkip()) || (!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable())) {
                     if (!controller.isGoOn()) {
-                        controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
+
+                        result=controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
                         i--;
-                    } else {
+                    } else if(result) {
                         controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
+                        result=true;
                     }
                 }
             } else if (controller.getGame().getWinner() != null) {
@@ -82,5 +88,12 @@ public class ExecuteRoutineState implements TurnState {
         else if (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded())
                 executeState(controller);
 
+    }
+
+    @Override
+    public void goBack() {
+      //  Worker thisWorker= (Worker) controller.getGame().getTargetSelected();
+        //thisWorker.getHistoryPos().remove(thisWorker.getHistoryPos().size()-1);
+        i--;
     }
 }

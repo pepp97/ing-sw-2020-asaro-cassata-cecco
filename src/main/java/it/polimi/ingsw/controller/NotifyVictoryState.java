@@ -10,4 +10,9 @@ public class NotifyVictoryState implements TurnState {
         return;
     }
 
+    @Override
+    public void goBack() {
+
+    }
+
 }

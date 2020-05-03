@@ -134,7 +134,7 @@ public class Worker implements Target {
     }
 
     public List<Square> getHistoryPos() {
-        return List.copyOf(historyPos);
+        return historyPos;
     }
 
     public List<Square> getTargetNotValid() {

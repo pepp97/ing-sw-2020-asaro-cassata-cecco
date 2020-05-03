@@ -162,7 +162,7 @@ public class Controller {
 
 
     public void goBack() {
-        state.executeState(this);
+        state.goBack();
     }
 
     public Player getNextPlayer(Player player) {

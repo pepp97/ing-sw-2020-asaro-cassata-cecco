@@ -38,7 +38,9 @@ public class LevelFilter implements SubAction {
     public void use(Game game) {
 
         game.getCurrentPlayer().getGod().setCantDo(cantDo);
-        game.getCurrentPlayer().setInQue(false);
+        Worker w= (Worker) game.getTargetInUse();
+
+        game.getController().setGoOn(false);
     }
 
     /**
@@ -49,19 +51,8 @@ public class LevelFilter implements SubAction {
     //sostituire con return true?
     @Override
     public boolean isUsable(Game game) {
-       /* List<Square> adiacentSquare = worker.getSquare().getAdjacentSquares();
-        Boolean result = false;
-        int j = 0;
-        List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
 
-        for(Square s: worker.getSquare().getAdjacentSquares())
-            if(s.getLevel()!=4 && !(cantDo.contains(s.getLevel()))) {
-                result = true;
-                worker.setCanBuild(result);
-            }
-
-        return result;*/
-        game.getCurrentPlayer().setInQue(true);
+        game.getController().setGoOn(true);
         return true;
     }
 }

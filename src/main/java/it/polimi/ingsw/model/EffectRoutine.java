@@ -8,9 +8,9 @@ public class EffectRoutine {
     private List<Integer> levels;
 
     public EffectRoutine(String eff, boolean isSkippable) {
+        this.levels=null;
         switchClass(eff);
         this.isSkippable = isSkippable;
-        this.levels=null;
     }
 
     public void switchClass(String eff){
@@ -58,9 +58,10 @@ public class EffectRoutine {
     }
 
     public EffectRoutine(String effect, boolean isSkippable, List<Integer> levels) {
+        this.levels=levels;
         switchClass(effect);
         this.isSkippable = isSkippable;
-        this.levels=levels;
+
     }
 
 

@@ -30,4 +30,9 @@ public class ChooseWorkerState implements TurnState {
         controller.getGame().notifyCurrent(chooseWorker);
         controller.setGoOn(false);
     }
+
+    @Override
+    public void goBack() {
+
+    }
 }

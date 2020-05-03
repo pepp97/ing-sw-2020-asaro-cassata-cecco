@@ -25,7 +25,7 @@ public class FilterSame implements SubAction {
             if (s.getStart_level() != s.getLevel())
                 worker.setMandatorySquare(s);
         }
-        game.getCurrentPlayer().setInQue(false);
+        game.getController().setGoOn(false);
     }
 
     /**
@@ -34,7 +34,7 @@ public class FilterSame implements SubAction {
      */
     @Override
     public boolean isUsable(Game game) {
-        game.getCurrentPlayer().setInQue(true);
+        game.getController().setGoOn(true);
         return true;
 
     }
