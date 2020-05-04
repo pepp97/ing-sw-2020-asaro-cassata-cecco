@@ -24,15 +24,7 @@ public class MoveInSameDirection implements SubAction {
         System.out.println(toMove);
         System.out.println(positionToGo);
         positionToGo.setWorker(toMove);
-        Square[][] mappa = game.getField().getSquares();
-        SquareToJson[][] map = new SquareToJson[5][5];
-        for (int x = 0; x < 5; x++)
-            for (int y = 0; y < 5; y++)
-                if (mappa[x][y].getWorker() != null)
-                    map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
-                else
-                    map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
-        UpdateEvent event = new UpdateEvent(map);
+        UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
         game.notifyObservers(event);
         game.getController().setGoOn(false);
     }
@@ -75,15 +67,7 @@ public class MoveInSameDirection implements SubAction {
             old.setWorker(worker);
             worker.getHistoryPos().remove(1);
             newSquare.setWorker(((Worker) game.getTargetSelected()));
-            Square[][] mappa = game.getField().getSquares();
-            SquareToJson[][] map = new SquareToJson[5][5];
-            for (int x = 0; x < 5; x++)
-                for (int y = 0; y < 5; y++)
-                    if (mappa[x][y].getWorker() != null)
-                        map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
-                    else
-                        map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
-            UpdateEvent event = new UpdateEvent(map);
+            UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
             game.notifyObservers(event);
             game.setTargetSelected(null);
             //mandare evento

@@ -43,9 +43,6 @@ public class Build implements SubAction {
         int i = 0;
         game.getController().setGoOn(false);
 
-
-
-
         if (worker.getMandatorySquare() == null) {
             if (worker.getCanBuild()) {
                 if (availableSquare.contains(game.getTargetSelected())) {
@@ -56,15 +53,7 @@ public class Build implements SubAction {
                     if(game.getCurrentPlayer().getGod().getName().equals("Atlas") && !game.getController().isCanSkip())
                         game.getTargetSelected().getSquare().setLevel(4);
 
-                    Square[][] mappa = game.getField().getSquares();
-                    SquareToJson[][] map = new SquareToJson[5][5];
-                    for (int x = 0; x < 5; x++)
-                        for (int y = 0; y < 5; y++)
-                            if (mappa[x][y].getWorker() != null)
-                                map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
-                            else
-                                map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
-                    UpdateEvent event = new UpdateEvent(map);
+                    UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
                     game.notifyObservers(event);
                 } else
                     new ExceptionEvent("you can't build here!");
@@ -73,15 +62,7 @@ public class Build implements SubAction {
 
         } else {
             worker.getMandatorySquare().upgrade();
-            Square[][] mappa = game.getField().getSquares();
-            SquareToJson[][] map = new SquareToJson[5][5];
-            for (int x = 0; x < 5; x++)
-                for (int y = 0; y < 5; y++)
-                    if (mappa[x][y].getWorker() != null)
-                        map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
-                    else
-                        map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
-            UpdateEvent event = new UpdateEvent(map);
+            UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
             game.notifyObservers(event);
             worker.setMandatorySquare(null);
         }
@@ -116,17 +97,7 @@ public class Build implements SubAction {
             for (Square s1 : availableSquare)
                 availableSquares.add(new SquareToJson(s1.getLevel(), "", s1.getCoordinateX(), s1.getCoordinateY()));
 
-            SquareToJson[][] map = new SquareToJson[5][5];
-            Square[][] mappa = game.getField().getSquares();
-
-
-            for (int i = 0; i < 5; i++)
-                for (int j = 0; j < 5; j++)
-                    if (mappa[i][j].getWorker() != null)
-                        map[i][j] = new SquareToJson(mappa[i][j].getLevel(), mappa[i][j].getWorker().getC().toString(), i, j);
-                    else map[i][j] = new SquareToJson(mappa[i][j].getLevel(), "", i, j);
-
-
+            SquareToJson[][] map = game.squareToJsonArrayGenerator();
             ChooseTarget chooseTarget = new ChooseTarget("Select your square to upgrade", availableSquares, map);
             UpdateEvent event = new UpdateEvent(map);
             game.notifyObservers(event);

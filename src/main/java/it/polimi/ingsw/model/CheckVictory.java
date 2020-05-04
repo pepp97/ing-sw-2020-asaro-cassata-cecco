@@ -38,7 +38,6 @@ public class CheckVictory implements SubAction {
     @Override
     public void use(Game game) {
 
-
         //se è salito da livello 3 a livello 4
         if (isUsable(game))
             for (Player p : game.getPlayerList()) {

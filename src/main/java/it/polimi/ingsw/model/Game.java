@@ -139,12 +139,11 @@ public class Game implements Observable {
         } else if (!colorAvailable(color)) {
             notifyCurrent(new ExceptionEvent("Color already in use!"));
         } else {
-            currentView = view;
-            views.add(view);
+            /*currentView = view;
+            views.add(view);*/
             if (gameAlreadyStarted()) {
                 notifyCurrent(new ExceptionEvent("game already started"));
             } else if (playerList.size() == 1 && numplayer == 0) {
-                System.out.println("ERROREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                 notifyCurrent(new ExceptionEvent("Another player is setting the number of opponents, please wait"));
             } else if (nicknameAvailable(nickname) && colorAvailable(color)) {
                 playerLogin(nickname, color, view);
@@ -160,6 +159,7 @@ public class Game implements Observable {
     }
 
     private void playerLogin(String nickname, Color color, VirtualView view) {
+        views.add(view);
         observers.add(view);
         Player player = new Player(nickname, color);
         playerList.add(player);
@@ -181,7 +181,6 @@ public class Game implements Observable {
     }
 
     private void checkIfFull() {
-        System.out.println("ENTRATO?");
         List<String> godlist = new ArrayList<>();
         p = new ParserJson();
         totalGods = p.getUsableGod();
@@ -274,15 +273,7 @@ public class Game implements Observable {
                         for (VirtualView v : views)
                             if (!v.getOwner().equals(currentView.getOwner())) {
                                 currentView = v;
-                                Square[][] mappa = field.getSquares();
-                                SquareToJson[][] map = new SquareToJson[5][5];
-                                for (int x = 0; x < 5; x++)
-                                    for (int y = 0; y < 5; y++)
-                                        if (mappa[x][y].getWorker() != null)
-                                            map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
-                                        else
-                                            map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
-                                UpdateEvent event = new UpdateEvent(map);
+                                UpdateEvent event = new UpdateEvent(squareToJsonArrayGenerator());
                                 notifyCurrent(event);
                             }
                         currentView = tmp;
@@ -327,6 +318,18 @@ public class Game implements Observable {
     @Override
     public void unregister(Observer observer) {
 
+    }
+
+    public SquareToJson[][] squareToJsonArrayGenerator(){
+        Square[][] mappa = field.getSquares();
+        SquareToJson[][] map = new SquareToJson[5][5];
+        for (int x = 0; x < 5; x++)
+            for (int y = 0; y < 5; y++)
+                if (mappa[x][y].getWorker() != null)
+                    map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
+                else
+                    map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
+                return map;
     }
 
 
