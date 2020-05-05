@@ -36,6 +36,7 @@ public class TheyDontMoveUp implements SubAction {
      */
     @Override
     public boolean isUsable(Game game) {
+
         game.getController().setGoOn(true);
         for(Player p: game.getPlayerList())
             for (Worker w:p.getWorkers())

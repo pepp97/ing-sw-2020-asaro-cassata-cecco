@@ -61,10 +61,17 @@ public class Build implements SubAction {
             //generazione pacchetto->creazione evento
 
         } else {
-            worker.getMandatorySquare().upgrade();
-            UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
-            game.notifyObservers(event);
-            worker.setMandatorySquare(null);
+            if(worker.getMandatorySquare().getLevel() < 4) {
+                worker.getMandatorySquare().upgrade();
+                UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
+                game.notifyObservers(event);
+                worker.setMandatorySquare(null);
+            }
+            else{
+               game.notifyCurrent(new ExceptionEvent("you can't build another time in this square"));
+            }
+
+
         }
         game.setTargetSelected(null);
         worker.setSquareNotAvailable(null);
@@ -102,6 +109,7 @@ public class Build implements SubAction {
             UpdateEvent event = new UpdateEvent(map);
             game.notifyObservers(event);
             game.notifyCurrent(chooseTarget);
+
 
 
         }

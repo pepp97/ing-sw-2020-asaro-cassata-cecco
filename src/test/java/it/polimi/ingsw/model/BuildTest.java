@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,8 +26,14 @@ public class BuildTest {
 
     @BeforeEach
     void setUp(){
+        w1.setC(Color.BLACK);
+        w2.setC(Color.WHITE);
+        w3.setC(Color.BROWN);
         Player p= new Player("john",Color.BLACK);
         game.setCurrentPlayer(p);
+        VirtualView view = new VirtualView();
+        view.setOwner(p);
+        game.setCurrentView(view);
         List<EffectRoutine> list=new ArrayList<>();
         list.add(new EffectRoutine("prova",false));
         God g=new God("prova","prova","prova",list);
@@ -114,6 +121,26 @@ public class BuildTest {
         int level=game.getTargetSelected().getSquare().getLevel();
         build.use(game);
         assertFalse(level+1==squares[0][4].getLevel());
+    }
+
+    @Test
+    void buildTestMandatorySquareBuildCorrectly(){
+        game.setTargetInUse(w1);
+        w1.setMandatorySquare(squares[0][2]);
+        build.isUsable(game);
+        int level=w1.getMandatorySquare().getLevel();
+        build.use(game);
+        assertTrue(level+1==squares[0][2].getLevel());
+    }
+
+    @Test
+    void buildTestMandatorySquareNotBuild(){
+        game.setTargetInUse(w1);
+        w1.setMandatorySquare(squares[1][2]);
+        build.isUsable(game);
+        int level=w1.getMandatorySquare().getLevel();
+        build.use(game);
+        assertFalse(level+1==squares[1][2].getLevel());
     }
 
 

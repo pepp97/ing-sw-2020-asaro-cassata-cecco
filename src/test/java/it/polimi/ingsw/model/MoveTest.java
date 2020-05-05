@@ -12,18 +12,37 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MoveTest {
 
-    private Game game=new Game(new Controller());
-    private Field field=game.getField();
+    private Game game;
+    private Field field;
     private Move move=new Move();
     Worker w1=new Worker();
     Worker w2=new Worker();
-    Square [][] squares=field.getSquares();
+    Worker w3 = new Worker();
+    Worker w4 = new Worker();
+    Square [][] squares;
 
 
 
     @BeforeEach
     void setup(){
-        game.setCurrentView(new VirtualView());
+        Controller controller = new Controller();
+        game = controller.getGame();
+        field = game.getField();
+        squares=field.getSquares();
+        w1.setC(Color.BLACK);
+        w2.setC(Color.WHITE);
+        w3.setC(Color.BLACK);
+        w4.setC(Color.WHITE);
+        Player p= new Player("john",Color.BLACK);
+        game.setCurrentPlayer(p);
+        VirtualView view = new VirtualView();
+        view.setOwner(p);
+        game.setCurrentView(view);
+        Player p2=new Player("provaa",Color.WHITE);
+        p.setWorkers(w1);
+        p2.setWorkers(w2);
+        p.setWorkers(w3);
+        p2.setWorkers(w4);
         squares[1][1].setLevel(1);
         squares[1][2].setLevel(4);
         squares[1][3].setLevel(4);
