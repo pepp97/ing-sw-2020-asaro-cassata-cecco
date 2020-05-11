@@ -4,6 +4,7 @@ import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.events.Event;
+import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.events.UpdateEvent;
 import it.polimi.ingsw.model.Game;
 
@@ -13,6 +14,7 @@ import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,26 +51,30 @@ public class Controller {
         this.turnManager = turnManager;
     }
 
-    public void apply(LoginCommand command, VirtualView view) {
+    public synchronized void apply(LoginCommand command, VirtualView view) {
         game.login(command.getNickname(), command.getColor(),view);
     }
 
     public void apply(ChooseSettings command, VirtualView view){
+        game.resetTimer();
         game.selectNplayer(command.getNplayer(),view);
     }
 
 
     public void apply(ChooseGods command){
+        game.resetTimer();
         game.setUsableGod(command.getNamesGod());
     }
 
     public void apply(ChooseYourGod command, VirtualView view) {
+        game.resetTimer();
         game.setPlayerGod(command.getName(),view);
         System.out.println("THREAD NUMERO 1,2");
         System.out.println(view.toString());
     }
 
     public void apply(ChooseInitialPosition command, VirtualView view) {
+        game.resetTimer();
         game.setInitialPosition(command.getCoordinateX(),command.getCoordinateY(),view);
 // entro appena tutti hanno selezionato la posizione iniziale
         if(turnManager.get(turnManager.size()-1).getWorkers().size()==2) {
@@ -99,6 +105,7 @@ public class Controller {
 
     //arriva l'esito del worker da utilizzare per fare le azioni
     public void apply(ChooseYourWorker command) {
+        game.resetTimer();
         game.setTargetInUse(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
         game.getCurrentPlayer().setInQue(false);
 
@@ -107,6 +114,7 @@ public class Controller {
 
     //spostare in game?
     public void apply(ChooseTarget command) {
+        game.resetTimer();
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
         game.getCurrentPlayer().setInQue(false);
         this.setGoOn(true);
@@ -115,6 +123,7 @@ public class Controller {
     }
 
     public void apply(UseEffect command) {
+        game.resetTimer();
         canSkip=!command.getReply();
         game.getCurrentPlayer().setInQue(false);
         //this.setGoOn(false);
@@ -124,13 +133,30 @@ public class Controller {
     }
 
 
-    public void apply(Connection connection,VirtualView view) {
+    public synchronized void apply(Disconnection disconnection, VirtualView view) {
+        game.unregister(view);
+        game.getViews().remove(view);
+        try {
+            view.closeAll();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (view.getOwner() != null){
+            ExceptionEvent e= new ExceptionEvent("Player: " + view.getOwner().getUsername() + " is disconnected, the match is finished");
+            game.notifyObservers(e);
+            game.endGame();
+        }
+
+    }
+
+    public synchronized void apply(Connection connection,VirtualView view) {
         System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO2");
         ConnectionSuccessful event=new ConnectionSuccessful();
         event.send(view);
     }
 
     public void apply(StarterCommand starterCommand, VirtualView view) {
+        game.resetTimer();
         int i=0;
 
 

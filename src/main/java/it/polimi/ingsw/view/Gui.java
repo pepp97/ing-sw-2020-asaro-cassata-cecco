@@ -26,6 +26,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +67,11 @@ public class Gui extends  Application implements View {
         return null;
     }
 
+    @Override
+    public void closeAll() throws IOException {
+
+    }
+
     public Client getClient() {
         return client;
     }
@@ -104,7 +110,7 @@ public class Gui extends  Application implements View {
         Scene startMenu;
 
 
-        exitGame = new SelectBox("Do you really want to exit??");
+        exitGame = new SelectBox("Do you really want to exit??",this);
 
 
         boolean continua;
@@ -450,12 +456,13 @@ public class Gui extends  Application implements View {
         });
     }
 
-    /*public void update(LogoutSuccessful event){
-        Platform.runLater(() -> {
-            this.state = new LogoutWindow(this,event);
-            state.setScene();
-        });
-    }*/
+    public void update(LogoutSuccessful event){
+        try {
+            client.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

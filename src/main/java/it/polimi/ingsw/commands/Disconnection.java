@@ -7,6 +7,6 @@ import it.polimi.ingsw.view.VirtualView;
 public class Disconnection implements Command {
     @Override
     public void execute(Controller controller, VirtualView view) {
-
+        controller.apply(this, view);
     }
 }

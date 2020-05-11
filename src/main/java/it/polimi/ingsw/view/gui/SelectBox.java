@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
+import it.polimi.ingsw.commands.Disconnection;
+import it.polimi.ingsw.view.Gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,11 +13,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
+
 public class SelectBox {
     private  boolean answer;
     private Stage stage;
     private Scene boxMessage;
-    public SelectBox (String message) {
+    public SelectBox(String message, Gui gui) {
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label();
         confirmMessage.setText(message);
@@ -28,6 +32,13 @@ public class SelectBox {
         noButton.setStyle(styleNo);
         yesButton.setOnAction(e -> {
             answer = true;
+            Disconnection disconnection=new Disconnection();
+            gui.getClient().send(disconnection);
+            try {
+                gui.getClient().disconnect();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             stage.close();
         });
         noButton.setOnAction(e -> {

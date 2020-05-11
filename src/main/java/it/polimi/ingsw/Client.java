@@ -29,7 +29,7 @@ public class Client extends Thread {
     private String ipAddress;
     private InputStreamReader input;
     private Scanner scanner;
-
+    private boolean isConnected=true;
 
 
     public Client(String text, int port, Gui gui) {
@@ -84,7 +84,7 @@ public class Client extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (isConnected) {
             String s = null;
             try {
                 System.out.println(socket.getInputStream());
@@ -101,7 +101,15 @@ public class Client extends Thread {
         }
         // System.out.println("Event: "+ s);
     }
-    
+
+    public void disconnect() throws IOException {
+        isConnected=false;
+        input.close();
+        writer.close();
+        out.close();
+        scanner.close();
+        socket.close();
+    }
 }
 
 
