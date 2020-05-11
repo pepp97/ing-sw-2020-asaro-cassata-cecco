@@ -30,8 +30,6 @@ public class ErrorWindow{
     }
 
     public void displayMessage(Stage owner) {
-
-
         stage = new Stage(StageStyle.UTILITY);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(owner);
