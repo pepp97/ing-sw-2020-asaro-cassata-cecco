@@ -9,9 +9,8 @@ import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * This class is the base of the game and is the link between the others class
@@ -37,6 +36,9 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
+    private int maxRetries=30;
+    private boolean stop=false;
+
 
     public Player getWinner() {
         return winner;
@@ -143,6 +145,7 @@ public class Game implements Observable {
             views.add(view);*/
             if (gameAlreadyStarted()) {
                 notifyCurrent(new ExceptionEvent("game already started"));
+
             } else if (playerList.size() == 1 && numplayer == 0) {
                 notifyCurrent(new ExceptionEvent("Another player is setting the number of opponents, please wait"));
             } else if (nicknameAvailable(nickname) && colorAvailable(color)) {
@@ -193,6 +196,41 @@ public class Game implements Observable {
         notifyObservers(new LoginSuccessful(list));
         currentView = (View) observers.get(0);
         notifyCurrent(new StartGameEvent(godlist, numplayer));
+        startMytimer();
+    }
+
+    private void startMytimer() {
+
+        TimeoutCheckerInterface timeoutChecker= (l) -> {
+            System.out.println(l);
+            Boolean timeoutReached= l > maxRetries;
+            if(timeoutReached){
+                System.out.println("reached limit");
+                ExceptionEvent exceptionEvent=new ExceptionEvent("Timeout error, the match is interrupted...");
+                notifyObservers(exceptionEvent);
+                endGame();
+
+                return true;
+            }
+            if(stop){
+                stop=false;
+                return true;
+            }
+            System.out.println("timer: " + l);
+            return false;
+        };
+
+        Timer timer=new Timer();
+        TimerTask task=new TimeoutCounter(timeoutChecker);
+        int initialDelay = 50;
+        int delta= 1000;
+        timer.schedule(task, initialDelay,delta);
+
+    }
+
+    public void resetTimer(){
+        stop=true;
+        startMytimer();
     }
 
     public boolean nicknameAvailable(String nick) {
@@ -221,7 +259,7 @@ public class Game implements Observable {
     }
 
     public List<VirtualView> getViews() {
-        return List.copyOf(views);
+        return views;
     }
 
     public void setUsableGod(List<String> god) {
@@ -306,18 +344,20 @@ public class Game implements Observable {
             observer.update(event);
     }
 
-    public void notifyCurrent(Event event) {
-        currentView.update(event);
-    }
-
     @Override
     public void register(Observer observer) {
 
     }
 
+    public void notifyCurrent(Event event) {
+        currentView.update(event);
+    }
+
+
+
     @Override
     public void unregister(Observer observer) {
-
+        observers.remove(observer);
     }
 
     public SquareToJson[][] squareToJsonArrayGenerator(){
@@ -326,10 +366,27 @@ public class Game implements Observable {
         for (int x = 0; x < 5; x++)
             for (int y = 0; y < 5; y++)
                 if (mappa[x][y].getWorker() != null)
-                    map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateX());
+                    map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
                 else
                     map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
                 return map;
+    }
+
+
+    public void endGame() {
+
+        while (views.size()>0) {
+            currentView=views.get(0);
+            LogoutSuccessful logoutSuccessful= new LogoutSuccessful();
+            notifyCurrent(logoutSuccessful);
+            try {
+                currentView.closeAll();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            views.remove(currentView);
+            unregister(currentView);
+        }
     }
 
 
