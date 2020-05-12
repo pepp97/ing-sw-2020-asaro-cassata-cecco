@@ -123,6 +123,7 @@ public class Build implements SubAction {
 
         if (availableSquare.size() == 0) {
             result = false;
+            game.getCurrentPlayer().setInQue(false);
             result=game.getController().tryToEscape();
         }
 
