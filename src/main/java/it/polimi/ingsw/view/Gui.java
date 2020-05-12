@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Gui extends  Application implements View {
+public class Gui extends Application implements View {
     private Stage primaryStage;
     private Client client;
     private SelectBox exitGame;
@@ -40,14 +40,13 @@ public class Gui extends  Application implements View {
     private AskUserWindow askUs;
     private DeathPlayerWindow death;
     private EndGameWindow end;
-    private List<String> gods=new ArrayList<>();
+    private List<String> gods = new ArrayList<>();
     private List<String> nicknames = new ArrayList<>();
     private ErrorWindow error;
 
 
-
-    private  double widthScreen = Screen.getPrimary().getBounds().getWidth();
-    private double heightScreen = Screen.getPrimary().getBounds().getHeight()-40.00;
+    private double widthScreen = Screen.getPrimary().getBounds().getWidth();
+    private double heightScreen = Screen.getPrimary().getBounds().getHeight() - 40.00;
 
 
     public static void main() {
@@ -116,7 +115,7 @@ public class Gui extends  Application implements View {
         boolean continua;
 
         StackPane stackPane = new StackPane();
-        startMenu = new Scene(stackPane,widthScreen,heightScreen );
+        startMenu = new Scene(stackPane, widthScreen, heightScreen);
 
         GridPane structure = new GridPane();
         RowConstraints l1 = new RowConstraints();
@@ -126,15 +125,15 @@ public class Gui extends  Application implements View {
 
         structure.setStyle("-fx-alignment: top-center;");
 
-        StackPane top= new StackPane();
+        StackPane top = new StackPane();
         top.setStyle("-fx-background-color: #000000;");
-        StackPane bottom= new StackPane();
+        StackPane bottom = new StackPane();
 
-        structure.add(top,0,0);
-        structure.add(bottom,0,1);
+        structure.add(top, 0, 0);
+        structure.add(bottom, 0, 1);
 
 
-        Image intro = new Image("SantoriniIntro.jpg", widthScreen,heightScreen,true, true); //modificare percorso.
+        Image intro = new Image("SantoriniIntro.jpg", widthScreen, heightScreen, true, true); //modificare percorso.
         ImageView imageView = new ImageView();
         imageView.setImage(intro);
         stackPane.getChildren().add(structure);
@@ -151,14 +150,13 @@ public class Gui extends  Application implements View {
         title.setTextAlignment(TextAlignment.CENTER);
 
 
-
         top.getChildren().add(title);
         top.setMinWidth(structure.getLayoutX());
         top.setStyle("-fx-alignment: center; -fx-border-color: black;");
-        top.setAlignment(title,Pos.CENTER);
+        top.setAlignment(title, Pos.CENTER);
 
 
-        GridPane menu=new GridPane();
+        GridPane menu = new GridPane();
         menu.setMinWidth(250);
         menu.setMinHeight(180);
         RowConstraints r1 = new RowConstraints();
@@ -169,56 +167,53 @@ public class Gui extends  Application implements View {
         r3.setMinHeight(30);
         RowConstraints r4 = new RowConstraints();
         r3.setMinHeight(30);
-        menu.getRowConstraints().addAll(r1, r2,r3,r4);
+        menu.getRowConstraints().addAll(r1, r2, r3, r4);
 
         menu.setStyle("-fx-alignment: center;  -fx-border-color: black;");
 
         TextField ipInput = new TextField("localhost");
         ipInput.setPromptText("IP Default: localhost");
-        menu.add(ipInput,0,0);
+        menu.add(ipInput, 0, 0);
 
         TextField portInput = new TextField("8080");
         portInput.setPromptText("Default port:8080");
-        menu.add(portInput,0,1);
+        menu.add(portInput, 0, 1);
 
 
-        GridPane bottomGrid=new GridPane();
+        GridPane bottomGrid = new GridPane();
         bottomGrid.setMinWidth(150);
         bottomGrid.setMinHeight(60);
-        ColumnConstraints c11= new ColumnConstraints();
+        ColumnConstraints c11 = new ColumnConstraints();
         c11.setMinWidth(120);
-        ColumnConstraints c22= new ColumnConstraints();
+        ColumnConstraints c22 = new ColumnConstraints();
         c22.setMinWidth(120);
         c11.setHalignment(HPos.LEFT);
         c22.setHalignment(HPos.RIGHT);
-        bottomGrid.getColumnConstraints().addAll(c11,c22);
-
-
-
+        bottomGrid.getColumnConstraints().addAll(c11, c22);
 
 
         Button connectionButton = new Button("Vai al Login");
         connectionButton.setStyle("-fx-alignment: center;");
-        String styleLogin="-fx-text-fill: #ffffff;" +"-fx-background-color: #000000;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        String styleLogin = "-fx-text-fill: #ffffff;" + "-fx-background-color: #000000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         connectionButton.setStyle(styleLogin);
-        StackPane left=new StackPane();
+        StackPane left = new StackPane();
         left.setStyle("-fx-alignment: center;");
         left.getChildren().add(connectionButton);
-        left.setAlignment(connectionButton,Pos.CENTER);
-        bottomGrid.add(left,0,0);
+        left.setAlignment(connectionButton, Pos.CENTER);
+        bottomGrid.add(left, 0, 0);
 
         Button close = new Button("exit");
-        String styleExit="-fx-text-fill: #000000;" +"-fx-background-color: #ff0000;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        String styleExit = "-fx-text-fill: #000000;" + "-fx-background-color: #ff0000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         close.setStyle(styleExit);
-        StackPane right=new StackPane();
+        StackPane right = new StackPane();
         right.setStyle("-fx-alignment: center;");
         right.getChildren().add(close);
-        right.setAlignment(close,Pos.CENTER);
-        bottomGrid.add(right,1,0);
+        right.setAlignment(close, Pos.CENTER);
+        bottomGrid.add(right, 1, 0);
 
-        menu.add(bottomGrid,0,2);
+        menu.add(bottomGrid, 0, 2);
 
-        structure.add(menu,0,1);
+        structure.add(menu, 0, 1);
 
         primaryStage.setScene(startMenu);
         Stage second = new Stage();
@@ -229,16 +224,16 @@ public class Gui extends  Application implements View {
         connectionButton.setOnAction(e -> {
                     if (ipInput.getText().equals("") || portInput.getText().equals("")) {
                         Label error = new Label("COMPLETE THE FIELDS!!");
-                        String styleError="-fx-alignment: center;-fx-font-size: 14pt;" + "-fx-font-family: \"Segoe UI Semibold\";" + "-fx-text-fill: red;"+"-fx-opacity: 1;";
+                        String styleError = "-fx-alignment: center;-fx-font-size: 14pt;" + "-fx-font-family: \"Segoe UI Semibold\";" + "-fx-text-fill: red;" + "-fx-opacity: 1;";
                         error.setStyle(styleError);
 
-                        menu.add(error,0,3);
+                        menu.add(error, 0, 3);
 
                     } else {
                         try {
-                            client = new Client(ipInput.getText(), Integer.decode(portInput.getText()),this);
+                            client = new Client(ipInput.getText(), Integer.decode(portInput.getText()), this);
                             client.start();
-                            Connection command=new Connection();
+                            Connection command = new Connection();
                             client.send(command);
 
 
@@ -342,7 +337,7 @@ public class Gui extends  Application implements View {
 
     //show login window
 
-    public void update(ConnectionSuccessful e){
+    public void update(ConnectionSuccessful e) {
         Platform.runLater(() -> {
             this.state = new LoginWindow(this);
             state.setScene();
@@ -350,9 +345,9 @@ public class Gui extends  Application implements View {
     }
 
 
-    public void update(LoginSuccessful loginSuccessful){
+    public void update(LoginSuccessful loginSuccessful) {
         Platform.runLater(() -> {
-            this.state = new LobbyWindow(this,loginSuccessful);
+            this.state = new LobbyWindow(this, loginSuccessful);
             state.setScene();
         });
     }
@@ -362,69 +357,74 @@ public class Gui extends  Application implements View {
 
     }
 
-    public void update(StartMatchEvent startMatchEvent){
+    public void update(StartMatchEvent startMatchEvent) {
         Platform.runLater(() -> {
 
-            for(Map.Entry iterator : startMatchEvent.getGodPlayer().entrySet()){
+            for (Map.Entry iterator : startMatchEvent.getGodPlayer().entrySet()) {
                 nicknames.add((String) iterator.getKey());
                 gods.add((String) iterator.getValue());
             }
 
-            this.state = new ChooseStarterWindow(this,startMatchEvent);
+            this.state = new ChooseStarterWindow(this, startMatchEvent);
             state.setScene();
         });
 
     }
 
-    public void update(ExceptionEvent exceptionEvent){
-        Platform.runLater(()->{
-            error= new ErrorWindow(this,exceptionEvent);
-            error.displayMessage(primaryStage);});
+    public void update(ExceptionEvent exceptionEvent) {
+        Platform.runLater(() -> {
+            error = new ErrorWindow(this, exceptionEvent);
+            error.displayMessage(primaryStage);
+        });
+        
     }
-    public void update (SettingsEvent settingsEvent){
-        Platform.runLater(()->{
+
+    public void update(SettingsEvent settingsEvent) {
+        Platform.runLater(() -> {
             settings = new SettingsWindow(this);
-            settings.displayMessage(primaryStage);});
+            settings.displayMessage(primaryStage);
+        });
 
     }
 
-    public void update(StartGameEvent startGameEvent){
+    public void update(StartGameEvent startGameEvent) {
         System.out.println("STARTGAME PROVA!");
         Platform.runLater(() -> {
-            this.state = new SelectGodsWindow(this,startGameEvent);
+            this.state = new SelectGodsWindow(this, startGameEvent);
             state.setScene();
         });
     }
 
 
-    public void update(ChooseYourGodEvent event){
+    public void update(ChooseYourGodEvent event) {
         Platform.runLater(() -> {
-            this.state = new SelectYourGod(this,event);
+            this.state = new SelectYourGod(this, event);
             state.setScene();
         });
     }
 
-    public void update (UpdateEvent event){
+    public void update(UpdateEvent event) {
         Platform.runLater(() -> {
-            this.state = new GameWindow(this,event);
+            this.state = new GameWindow(this, event);
             state.setScene();
         });
     }
 
-    public void update (askUser ask){
-        Platform.runLater(()->{
-        askUs = new AskUserWindow(this);
-        askUs.displayMessage(primaryStage);});
+    public void update(askUser ask) {
+        Platform.runLater(() -> {
+            askUs = new AskUserWindow(this);
+            askUs.displayMessage(primaryStage);
+        });
 
     }
 
-    public void update (DeathPlayer deathPlayer){
+    public void update(DeathPlayer deathPlayer) {
         death = new DeathPlayerWindow(this, deathPlayer);
         death.displayMessage(primaryStage);
 
     }
 
-    public void update (EndGame endGame){
+    public void update(EndGame endGame) {
 
 
         Platform.runLater(() -> {
@@ -435,23 +435,23 @@ public class Gui extends  Application implements View {
 
     }
 
-    public void update(ChooseTarget event){
+    public void update(ChooseTarget event) {
         Platform.runLater(() -> {
-            this.state = new ChooseTargetWindow(this,event);
+            this.state = new ChooseTargetWindow(this, event);
             state.setScene();
         });
     }
 
-    public void update(SetWorkerEvent event){
+    public void update(SetWorkerEvent event) {
         Platform.runLater(() -> {
-            this.state = new StartMatchWindow(this,event);
+            this.state = new StartMatchWindow(this, event);
             state.setScene();
         });
     }
 
-    public void update(ChooseWorker event){
+    public void update(ChooseWorker event) {
         Platform.runLater(() -> {
-            this.state = new ChooseWorkerWindow(this,event);
+            this.state = new ChooseWorkerWindow(this, event);
             state.setScene();
         });
     }
