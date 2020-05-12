@@ -9,8 +9,10 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.view.Gui;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -19,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -30,18 +33,533 @@ public class GameWindow implements GuiScreen {
     private Gui gui;
     private UpdateEvent event;
     private Hyperlink[][] buttons;
-    private StackPane [][] stacks;
+    private StackPane[][] stacks;
     private GridPane[][] gridButtons;
 
     public GameWindow(Gui gui, UpdateEvent event) {
-        this.gui=gui;
-        this.event=event;
+        this.gui = gui;
+        this.event = event;
     }
 
     @Override
     public void setScene() {
+        SquareToJson[][] squares = event.getSquares();
+        int i;
+        int j;
+        BorderPane pane = new BorderPane();
+        pane.setStyle("-fx-alignment:center");
+        Scene scene = new Scene(pane, gui.getWidthScreen(), gui.getHeightScreen());
 
-        GridPane arena = new GridPane();
+        Text testo = new Text("GAME WINDOW");
+        testo.setFill(javafx.scene.paint.Color.BLACK);
+        testo.setFont(Font.font("Helvetica", FontWeight.BOLD, 25));
+        TextFlow title = new TextFlow(testo);
+        title.setMaxHeight(60);
+        title.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        title.setTextAlignment(TextAlignment.CENTER);
+        pane.setTop(title);
+
+        StackPane center = new StackPane();
+        GridPane grid = new GridPane();
+        grid.setStyle("-fx-alignment: center;-fx-border-color: black; -fx-border-width:10px;");
+
+
+        RowConstraints r1 = new RowConstraints();
+        RowConstraints r2 = new RowConstraints();
+        RowConstraints r3 = new RowConstraints();
+        RowConstraints r4 = new RowConstraints();
+        RowConstraints r5 = new RowConstraints();
+
+        ColumnConstraints c1 = new ColumnConstraints();
+        ColumnConstraints c2 = new ColumnConstraints();
+        ColumnConstraints c3 = new ColumnConstraints();
+        ColumnConstraints c4 = new ColumnConstraints();
+        ColumnConstraints c5 = new ColumnConstraints();
+
+        grid.setGridLinesVisible(true);
+        grid.getRowConstraints().addAll(r1, r2, r3, r4, r5);
+        grid.getColumnConstraints().addAll(c1, c2, c3, c4, c5);
+
+        Hyperlink button00 = new Hyperlink();
+        button00.setVisible(false);
+        grid.add(button00, 0, 0);
+
+        Hyperlink button10 = new Hyperlink();
+        button10.setVisible(false);
+        grid.add(button10, 1, 0);
+
+        Hyperlink button20 = new Hyperlink();
+        button20.setVisible(false);
+        grid.add(button20, 2, 0);
+
+        Hyperlink button30 = new Hyperlink();
+        button30.setVisible(false);
+        grid.add(button30, 3, 0);
+
+        Hyperlink button40 = new Hyperlink();
+        button40.setVisible(false);
+        grid.add(button40, 4, 0);
+
+        Hyperlink button01 = new Hyperlink();
+        button01.setVisible(false);
+        grid.add(button01, 0, 1);
+
+        Hyperlink button11 = new Hyperlink();
+        button11.setVisible(false);
+        grid.add(button11, 1, 1);
+
+        Hyperlink button21 = new Hyperlink();
+        button21.setVisible(false);
+        grid.add(button21, 2, 1);
+
+        Hyperlink button31 = new Hyperlink();
+        button31.setVisible(false);
+        grid.add(button31, 3, 1);
+
+        Hyperlink button41 = new Hyperlink();
+        button41.setVisible(false);
+        grid.add(button41, 4, 1);
+
+        Hyperlink button02 = new Hyperlink();
+        button02.setVisible(false);
+        grid.add(button02, 0, 2);
+
+        Hyperlink button12 = new Hyperlink();
+        button12.setVisible(false);
+        grid.add(button12, 1, 2);
+
+        Hyperlink button22 = new Hyperlink();
+        button22.setVisible(false);
+        grid.add(button22, 2, 2);
+
+        Hyperlink button32 = new Hyperlink();
+        button32.setVisible(false);
+        grid.add(button32, 3, 2);
+
+        Hyperlink button42 = new Hyperlink();
+        button42.setVisible(false);
+        grid.add(button42, 4, 2);
+
+        Hyperlink button03 = new Hyperlink();
+        button03.setVisible(false);
+        grid.add(button03, 0, 3);
+
+        Hyperlink button13 = new Hyperlink();
+        button13.setVisible(false);
+        grid.add(button13, 1, 3);
+
+        Hyperlink button23 = new Hyperlink();
+        button23.setVisible(false);
+        grid.add(button23, 2, 3);
+
+        Hyperlink button33 = new Hyperlink();
+        button33.setVisible(false);
+        grid.add(button33, 3, 3);
+
+        Hyperlink button43 = new Hyperlink();
+        button43.setVisible(false);
+        grid.add(button43, 4, 3);
+
+        Hyperlink button04 = new Hyperlink();
+        button04.setVisible(false);
+        grid.add(button04, 0, 4);
+
+        Hyperlink button14 = new Hyperlink();
+        button14.setVisible(false);
+        grid.add(button14, 1, 4);
+
+        Hyperlink button24 = new Hyperlink();
+        button24.setVisible(false);
+        grid.add(button24, 2, 4);
+
+        Hyperlink button34 = new Hyperlink();
+        button34.setVisible(false);
+        grid.add(button34, 3, 4);
+
+        Hyperlink button44 = new Hyperlink();
+        button44.setVisible(false);
+        grid.add(button44, 4, 4);
+
+
+        Image sfondo = new Image("SantoriniBoard.png", gui.getWidthScreen(), gui.getHeightScreen(), true, true); //modificare percorso.
+        ImageView imageView = new ImageView();
+        imageView.setImage(sfondo);
+        Background image = new Background(new BackgroundImage(sfondo, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        pane.setBackground(image);
+
+
+        center.getChildren().add(grid);
+        center.setAlignment(grid, Pos.CENTER);
+        pane.setCenter(center);
+
+
+        StackPane bottom = new StackPane();
+        Button showGods = new Button("Show player Gods");
+        String style = "-fx-alignment: center; -fx-text-fill: #ffffff;" + "-fx-background-color: #000000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
+        showGods.setStyle(style);
+        bottom.getChildren().add(showGods);
+        bottom.setAlignment(showGods, Pos.CENTER);
+        pane.setBottom(bottom);
+
+        showGods.setOnAction(f -> {
+            display();
+        });
+
+        button00.setOnAction(f -> {
+            System.out.println("ciao");
+            Event event;
+            //event = new askUser();
+            //event.send(gui);
+        });
+        button10.setOnAction(f -> {
+            System.out.println("ciao");
+            Event event;
+            String string = "peppe";
+            event = new DeathPlayer(string);
+            event.send(gui);
+        });
+        button20.setOnAction(f -> {
+            System.out.println("ciao");
+            Event event;
+            String string = "salvo";
+            event = new EndGame(string);
+            event.send(gui);
+        });
+        button30.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button40.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button01.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button11.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button21.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button31.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button41.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button02.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button12.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button22.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button32.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button42.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button03.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button13.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button23.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button33.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button43.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button04.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button14.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button24.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button34.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+        button44.setOnAction(f -> {
+            System.out.println("ciao");
+        });
+
+        button00.setMaxSize(210, 210);
+        button00.setMinSize(210, 210);
+        button10.setMaxSize(210, 210);
+        button10.setMinSize(210, 210);
+        button20.setMaxSize(210, 210);
+        button20.setMinSize(210, 210);
+        button30.setMaxSize(210, 210);
+        button30.setMinSize(210, 210);
+        button40.setMaxSize(210, 210);
+        button40.setMinSize(210, 210);
+        button01.setMaxSize(210, 210);
+        button01.setMinSize(210, 210);
+        button11.setMaxSize(210, 210);
+        button11.setMinSize(210, 210);
+        button21.setMaxSize(210, 210);
+        button21.setMinSize(210, 210);
+        button31.setMaxSize(210, 210);
+        button31.setMinSize(210, 210);
+        button41.setMaxSize(210, 210);
+        button41.setMinSize(210, 210);
+        button02.setMaxSize(210, 210);
+        button02.setMinSize(210, 210);
+        button12.setMaxSize(210, 210);
+        button12.setMinSize(210, 210);
+        button22.setMaxSize(210, 210);
+        button22.setMinSize(210, 210);
+        button32.setMaxSize(210, 210);
+        button32.setMinSize(210, 210);
+        button42.setMaxSize(210, 210);
+        button42.setMinSize(210, 210);
+        button03.setMaxSize(210, 210);
+        button03.setMinSize(210, 210);
+        button13.setMaxSize(210, 210);
+        button13.setMinSize(210, 210);
+        button23.setMaxSize(210, 210);
+        button23.setMinSize(210, 210);
+        button33.setMaxSize(210, 210);
+        button33.setMinSize(210, 210);
+        button43.setMaxSize(210, 210);
+        button43.setMinSize(210, 210);
+        button04.setMaxSize(210, 210);
+        button04.setMinSize(210, 210);
+        button14.setMaxSize(210, 210);
+        button14.setMinSize(210, 210);
+        button24.setMaxSize(220, 210);
+        button24.setMinSize(210, 210);
+        button34.setMaxSize(210, 210);
+        button34.setMinSize(210, 210);
+        button44.setMaxSize(210, 210);
+        button44.setMinSize(210, 210);
+
+        for (j = 0; j < 5; j++)
+            for (i = 0; i < 5; i++) {
+                GridPane s= new GridPane();
+                ColumnConstraints g1 = new ColumnConstraints();
+                ColumnConstraints g2 = new ColumnConstraints();
+                g1.setHalignment(HPos.CENTER);
+                g2.setHalignment(HPos.CENTER);
+                s.getColumnConstraints().addAll(g1,g2);
+                s.setMaxSize(200,200);
+                s.setMaxSize(200,200);
+                s.setStyle("-fx-alignment: center;");
+                if (squares[i][j].getColor() != null) {
+                    System.out.println(squares[i][j].getColor());
+                    // settare il colore giusto del player
+                    //Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg" commento "Apollo.jpg");
+
+                    Image imageColorWorker = new Image(checkColor(squares[i][j].getColor().toString()));
+                    ImageView imageViewColorWorker = new ImageView(imageColorWorker);
+                    imageViewColorWorker.setFitHeight(100.0);
+                    imageViewColorWorker.setFitWidth(60.0);
+                    s.add(imageViewColorWorker,1,0);
+
+                }
+                if (squares[i][j].getLevels() == 0) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("0.png");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(100.0);
+                    imageViewLevelSquare.setFitWidth(40.0);
+                    s.add(imageViewLevelSquare,0,0);
+                    //grid.add(imageViewLevelSquare, i, j);
+                } else if (squares[i][j].getLevels() == 1) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("1.png");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(100);
+                    imageViewLevelSquare.setFitWidth(40);
+                    s.add(imageViewLevelSquare,0,0);
+                    //grid.add(imageViewLevelSquare, i, j);
+                } else if (squares[i][j].getLevels() == 2) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("2.jpg");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(100);
+                    imageViewLevelSquare.setFitWidth(40);
+                    s.add(imageViewLevelSquare,0,0);
+                    //grid.add(imageViewLevelSquare, i, j);
+                } else if (squares[i][j].getLevels() == 3) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("3.png");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(100.0);
+                    imageViewLevelSquare.setFitWidth(40);
+                    s.add(imageViewLevelSquare,0,0);
+                    //grid.add(imageViewLevelSquare, i, j);
+                } else if (squares[i][j].getLevels() == 4) {
+                    // aggiunge immagine livello ad ogni cella
+                    Image imageLevelSquare = new Image("4.png");
+                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+                    imageViewLevelSquare.setFitHeight(100);
+                    imageViewLevelSquare.setFitWidth(40);
+                    s.add(imageViewLevelSquare,0,0);
+                    //grid.add(imageViewLevelSquare, i, j);
+                }
+                grid.add(s, i, j);
+            }
+
+
+        gui.getPrimaryStage().setScene(scene);
+        gui.getPrimaryStage().setTitle("GameWindow");
+    }
+
+
+
+    private String checkColor(String c) {
+        String path = "";
+        if (c.equals("BLACK")) {
+            path = "pedinanera.png";
+        } else if (c.equals("BROWN")) {
+            path = "pedinamarrone.png";
+        } else if (c.equals("WHITE")) {
+            path = "pedinabianca.png";
+        }
+        return path;
+    }
+
+    private void display() {
+        BorderPane pane = new BorderPane();
+        pane.setStyle("-fx-alignment: center");
+        Stage stage;
+        stage = new Stage(StageStyle.UTILITY);
+        Scene scene;
+        Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
+
+        Text testo = new Text("These are the gods selected");
+        testo.setFill(javafx.scene.paint.Color.BLACK);
+        testo.setFont(Font.font("Helvetica", FontWeight.BOLD, 18));
+        TextFlow title = new TextFlow(testo);
+        title.setMaxHeight(60);
+        title.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        title.setTextAlignment(TextAlignment.CENTER);
+        pane.setTop(title);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setStyle("-fx-alignment: center");
+        RowConstraints r1 = new RowConstraints();
+        RowConstraints r2 = new RowConstraints();
+        ColumnConstraints c1 = new ColumnConstraints();
+        ColumnConstraints c2 = new ColumnConstraints();
+        ColumnConstraints c3 = new ColumnConstraints();
+        r1.setValignment(VPos.CENTER);
+        r2.setValignment(VPos.CENTER);
+        c1.setHalignment(HPos.CENTER);
+        c2.setHalignment(HPos.CENTER);
+        c3.setHalignment(HPos.CENTER);
+        gridPane.getRowConstraints().addAll(r1, r2);
+        gridPane.getColumnConstraints().addAll(c1, c2, c3);
+        pane.setCenter(gridPane);
+
+        int i = 0;
+        int k = 0;
+
+        for (String string : gui.getGods()) {
+            Image image = new Image(string + ".jpg");
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(240.0);
+            imageView.setFitWidth(180.0);
+            Label nick = new Label(gui.getNicknames().get(k));
+            nick.setStyle("-fx-font-weight: bold; -fx-font-size: 12pt; -fx-alignment: center;");
+            gridPane.add(imageView, i, 0);
+            gridPane.add(nick, i, 1);
+            i++;
+            k++;
+        }
+
+        Hyperlink button1 = new Hyperlink();
+        button1.setMaxSize(180.0, 240.0);
+        button1.setId(gui.getGods().get(0));
+
+        button1.setOnAction(f -> {
+            System.out.println(button1.getId());
+            showEffect(button1.getId());
+        });
+        gridPane.add(button1, 0, 0);
+
+        Hyperlink button2 = new Hyperlink();
+        button2.setMaxSize(180.0, 240.0);
+        button2.setId(gui.getGods().get(1));
+
+        button2.setOnAction(f -> {
+            System.out.println(button2.getId());
+            showEffect(button2.getId());
+        });
+        gridPane.add(button2, 1, 0);
+
+        if (gui.getGods().size() == 3) {
+            Hyperlink button3 = new Hyperlink();
+            button3.setMaxSize(180.0, 240.0);
+            button3.setId(gui.getGods().get(2));
+
+            button3.setOnAction(f -> {
+                System.out.println(button3.getId());
+                showEffect(button3.getId());
+            });
+            gridPane.add(button3, 2, 0);
+        }
+
+        scene = new Scene(pane, 800, 400, Color.BLACK);
+        scene.setFill(Color.BROWN);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(gui.getPrimaryStage());
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+
+
+    private void showEffect(String str) {
+        Stage stage;
+        stage = new Stage(StageStyle.UTILITY);
+        Scene scene;
+        Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
+        Label confirmMessage = new Label();
+        confirmMessage.setText(" this is " + str + "'s effect: ");
+        confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 12pt; -fx-alignment: center;");
+
+        GridPane gridPane = new GridPane();
+        RowConstraints r1 = new RowConstraints();
+        RowConstraints r2 = new RowConstraints();
+        r1.setValignment(VPos.CENTER);
+        r2.setValignment(VPos.CENTER);
+        gridPane.getRowConstraints().addAll(r1, r2);
+
+        gridPane.add(confirmMessage, 0, 0);
+
+        Label effect = new Label();
+        effect.setText("ciaoooooo"); // andare a prendere l'effetto
+        effect.setTextFill(Color.RED);
+        effect.setStyle("-fx-font-weight: bold; -fx-font-size: 12pt; -fx-alignment: center; -fx-text-fill: red;");
+
+        gridPane.add(effect, 0, 1);
+
+
+        scene = new Scene(gridPane, 800, 400, Color.BLACK);
+        scene.setFill(Color.BROWN);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(gui.getPrimaryStage());
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+}
+
+
+/*
+GridPane arena = new GridPane();
         arena.setAlignment(Pos.CENTER);
 
         Scene scene=new Scene(arena,gui.getWidthScreen(),gui.getHeightScreen());
@@ -491,57 +1009,58 @@ public class GameWindow implements GuiScreen {
                 if (squares[i][j].getColor() != null) {
                     System.out.println(squares[i][j].getColor());
                     // settare il colore giusto del player
-                    //Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg"*/"Apollo.jpg");
-                    Image imageColorWorker = new Image(checkColor(squares[i][j].getColor().toString()));
-                    ImageView imageViewColorWorker = new ImageView(imageColorWorker);
-                    imageViewColorWorker.setFitHeight(100.0);
-                    imageViewColorWorker.setFitWidth(60.0);
-                    gridButtons[i][j].add(imageViewColorWorker,1,0);
+                    //Image imageColorWorker = new Image(/*sq.getWorker().getC() + ".jpg" commento "Apollo.jpg");
 
-                }
-                if (squares[i][j].getLevels() == 0) {
- // aggiunge immagine livello ad ogni cella
-                    Image imageLevelSquare = new Image("0.png");
-                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
-                    imageViewLevelSquare.setFitHeight(100.0);
-                    imageViewLevelSquare.setFitWidth(40.0);
-                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
-                }
-                else if (squares[i][j].getLevels() == 1) {
-                    // aggiunge immagine livello ad ogni cella
-                    Image imageLevelSquare = new Image("1.png");
-                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
-                    imageViewLevelSquare.setFitHeight(40.0);
-                    imageViewLevelSquare.setFitWidth(20.0);
-                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
-                }
-                else if (squares[i][j].getLevels() == 2) {
-                    // aggiunge immagine livello ad ogni cella
-                    Image imageLevelSquare = new Image("2.jpg");
-                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
-                    imageViewLevelSquare.setFitHeight(40.0);
-                    imageViewLevelSquare.setFitWidth(20.0);
-                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
-                }
-                else if (squares[i][j].getLevels() == 3) {
-                    // aggiunge immagine livello ad ogni cella
-                    Image imageLevelSquare = new Image("3.png");
-                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
-                    imageViewLevelSquare.setFitHeight(40.0);
-                    imageViewLevelSquare.setFitWidth(20.0);
-                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
-                }
-                else if (squares[i][j].getLevels() == 4) {
-                    // aggiunge immagine livello ad ogni cella
-                    Image imageLevelSquare = new Image("4.png");
-                    ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
-                    imageViewLevelSquare.setFitHeight(40.0);
-                    imageViewLevelSquare.setFitWidth(20.0);
-                    gridButtons[i][j].add(imageViewLevelSquare,0,0);
-                }
+        Image imageColorWorker = new Image(checkColor(squares[i][j].getColor().toString()));
+        ImageView imageViewColorWorker = new ImageView(imageColorWorker);
+        imageViewColorWorker.setFitHeight(100.0);
+        imageViewColorWorker.setFitWidth(60.0);
+        gridButtons[i][j].add(imageViewColorWorker,1,0);
 
-                field.add(gridButtons[i][j], i, j, 1, 1);
-            }
+        }
+        if (squares[i][j].getLevels() == 0) {
+        // aggiunge immagine livello ad ogni cella
+        Image imageLevelSquare = new Image("0.png");
+        ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+        imageViewLevelSquare.setFitHeight(100.0);
+        imageViewLevelSquare.setFitWidth(40.0);
+        gridButtons[i][j].add(imageViewLevelSquare,0,0);
+        }
+        else if (squares[i][j].getLevels() == 1) {
+        // aggiunge immagine livello ad ogni cella
+        Image imageLevelSquare = new Image("1.png");
+        ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+        imageViewLevelSquare.setFitHeight(40.0);
+        imageViewLevelSquare.setFitWidth(20.0);
+        gridButtons[i][j].add(imageViewLevelSquare,0,0);
+        }
+        else if (squares[i][j].getLevels() == 2) {
+        // aggiunge immagine livello ad ogni cella
+        Image imageLevelSquare = new Image("2.jpg");
+        ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+        imageViewLevelSquare.setFitHeight(40.0);
+        imageViewLevelSquare.setFitWidth(20.0);
+        gridButtons[i][j].add(imageViewLevelSquare,0,0);
+        }
+        else if (squares[i][j].getLevels() == 3) {
+        // aggiunge immagine livello ad ogni cella
+        Image imageLevelSquare = new Image("3.png");
+        ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+        imageViewLevelSquare.setFitHeight(40.0);
+        imageViewLevelSquare.setFitWidth(20.0);
+        gridButtons[i][j].add(imageViewLevelSquare,0,0);
+        }
+        else if (squares[i][j].getLevels() == 4) {
+        // aggiunge immagine livello ad ogni cella
+        Image imageLevelSquare = new Image("4.png");
+        ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
+        imageViewLevelSquare.setFitHeight(40.0);
+        imageViewLevelSquare.setFitWidth(20.0);
+        gridButtons[i][j].add(imageViewLevelSquare,0,0);
+        }
+
+        field.add(gridButtons[i][j], i, j, 1, 1);
+        }
 
         arena.add(board,2,1);
 
@@ -552,50 +1071,32 @@ public class GameWindow implements GuiScreen {
         Button showGods = new Button("show player gods");
         arena.add(showGods, 2,0);
         showGods.setOnAction(f -> {
-            display();
+        display();
         });
 
 
 
         gui.getPrimaryStage().setScene(scene);
         gui.getPrimaryStage().setTitle("GameWindow");
+ */
 
+/*
+     Label confirmMessage = new Label();
+        confirmMessage.setText("These are the gods selected");
 
-    }
+        GridPane gridPane = new GridPane();
+        RowConstraints r1 = new RowConstraints();
+        RowConstraints r2 = new RowConstraints();
+        RowConstraints r3 = new RowConstraints();
+        RowConstraints r4 = new RowConstraints();
 
-    private String checkColor(String c){
-        String path="";
-        if(c.equals("BLACK")){
-            path="pedinanera.png";
-        }else if(c.equals("BROWN")){
-            path="pedinamarrone.png";
-        }else if(c.equals("WHITE")){
-            path="pedinabianca.png";
-        }
-        return path;
-    }
-
-    private void display() {
-        Stage stage;
-        stage = new Stage(StageStyle.UTILITY);
-        Scene scene;
-        Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
-        Label confirmMessage = new Label();
-        confirmMessage.setText("these are the gods selected");
-
-        GridPane gridPane=new GridPane();
-        RowConstraints r1=new RowConstraints();
-        RowConstraints r2=new RowConstraints();
-        RowConstraints r3=new RowConstraints();
-        RowConstraints r4=new RowConstraints();
-
-        ColumnConstraints c1=new ColumnConstraints();
-        ColumnConstraints c2=new ColumnConstraints();
-        ColumnConstraints c3=new ColumnConstraints();
-        ColumnConstraints c4=new ColumnConstraints();
-        ColumnConstraints c5=new ColumnConstraints();
-        ColumnConstraints c6=new ColumnConstraints();
-        ColumnConstraints c7=new ColumnConstraints();
+        ColumnConstraints c1 = new ColumnConstraints();
+        ColumnConstraints c2 = new ColumnConstraints();
+        ColumnConstraints c3 = new ColumnConstraints();
+        ColumnConstraints c4 = new ColumnConstraints();
+        ColumnConstraints c5 = new ColumnConstraints();
+        ColumnConstraints c6 = new ColumnConstraints();
+        ColumnConstraints c7 = new ColumnConstraints();
 
 
         r1.setPercentHeight(20);
@@ -613,7 +1114,7 @@ public class GameWindow implements GuiScreen {
 
         gridPane.getRowConstraints().addAll(r1, r2, r4);
         gridPane.getColumnConstraints().addAll(c1, c2, c3, c4, c5, c6, c7);
-        gridPane.add(confirmMessage, 3,0);
+        gridPane.add(confirmMessage, 3, 0);
 
 
         int i = 1;
@@ -627,34 +1128,34 @@ public class GameWindow implements GuiScreen {
             imageView.setFitWidth(180.0);
             Label nick = new Label(gui.getNicknames().get(k));
             gridPane.add(imageView, i, j, 1, 1);
-            gridPane.add(nick, i,2,1,1);
+            gridPane.add(nick, i, 2, 1, 1);
             i = i + 2;
             k++;
 
         }
 
-        Hyperlink button1=new Hyperlink();
-        button1.setMaxSize(180.0,240.0);
+        Hyperlink button1 = new Hyperlink();
+        button1.setMaxSize(180.0, 240.0);
         button1.setId(gui.getGods().get(0));
 
-        button1.setOnAction(f->{
+        button1.setOnAction(f -> {
             System.out.println(button1.getId());
             showEffect(button1.getId());
         });
-        gridPane.add(button1,1,1);
+        gridPane.add(button1, 1, 1);
 
-        Hyperlink button2=new Hyperlink();
-        button2.setMaxSize(180.0,240.0);
+        Hyperlink button2 = new Hyperlink();
+        button2.setMaxSize(180.0, 240.0);
         button2.setId(gui.getGods().get(1));
 
-        button2.setOnAction(f->{
+        button2.setOnAction(f -> {
             System.out.println("sonnnnnnnn");
             System.out.println(button2.getId());
             showEffect(button2.getId());
         });
-        gridPane.add(button2,3,1);
+        gridPane.add(button2, 3, 1);
 
-        if (gui.getGods().size() == 3  ) {
+        if (gui.getGods().size() == 3) {
 
             Hyperlink button3 = new Hyperlink();
             button3.setMaxSize(180.0, 240.0);
@@ -667,67 +1168,8 @@ public class GameWindow implements GuiScreen {
             gridPane.add(button3, 5, 1);
         }
 
-        Label effect=new Label ();
+        Label effect = new Label();
         effect.setTextFill(Color.RED);
 
-        gridPane.add(effect,1,1);
-
-
-
-
-        scene=new Scene(gridPane,800,400,Color.BLACK);
-        scene.setFill(Color.BROWN);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(gui.getPrimaryStage());
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
-
-    private void showEffect(String str) {
-        Stage stage;
-        stage = new Stage(StageStyle.UTILITY);
-        Scene scene;
-        Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
-        Label confirmMessage = new Label();
-        confirmMessage.setText("Do you want to use this god?" +
-                "\n \n                 this is " + str + "'s effect: ");
-
-        GridPane gridPane=new GridPane();
-        RowConstraints r1=new RowConstraints();
-        RowConstraints r2=new RowConstraints();
-        RowConstraints r3=new RowConstraints();
-
-        ColumnConstraints c1=new ColumnConstraints();
-        ColumnConstraints c2=new ColumnConstraints();
-        ColumnConstraints c3=new ColumnConstraints();
-
-        r1.setPercentHeight(20);
-        r2.setPercentHeight(60);
-        r3.setPercentHeight(20);
-
-        c1.setPercentWidth(20);
-        c2.setPercentWidth(60);
-        c3.setPercentWidth(20);
-
-        gridPane.getRowConstraints().addAll(r1, r2, r3);
-        gridPane.getColumnConstraints().addAll(c1, c2, c3);
-        gridPane.add(confirmMessage, 1,0);
-
-        Label effect=new Label ();
-        effect.setText("ciaoooooo"); // andare a prendere l'effetto
-        effect.setTextFill(Color.RED);
-
-        gridPane.add(effect,1,1);
-
-
-
-        scene=new Scene(gridPane,800,400,Color.BLACK);
-        scene.setFill(Color.BROWN);
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(gui.getPrimaryStage());
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
-}
+        gridPane.add(effect, 1, 1);
+     */
