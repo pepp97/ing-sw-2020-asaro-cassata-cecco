@@ -63,7 +63,7 @@ public class ExecuteRoutineState implements TurnState {
                     else controller.setGoOn(false);
                 }
             } else if (!controller.getGame().getCurrentPlayer().isHasBuilt() && i >= controller.getGame().getCurrentPlayer().getGod().getRoutine().size()) {
-//                controller.getGame().getCurrentPlayer().setDefeat(true);
+                controller.getGame().getCurrentPlayer().setDefeat(true);
                 TurnState state = new DefeatState();
                 controller.setState(state);
                 state.executeState(controller);
