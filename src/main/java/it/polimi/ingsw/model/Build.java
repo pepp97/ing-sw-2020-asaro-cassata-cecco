@@ -121,9 +121,11 @@ public class Build implements SubAction {
             else game.notifyCurrent(new ExceptionEvent("you can't use the effect!"));
         }
 
-        if (availableSquare.size() == 0)
+        if (availableSquare.size() == 0) {
             result = false;
-
+            game.getCurrentPlayer().setInQue(false);
+            result=game.getController().tryToEscape();
+        }
 
 
         worker.setCanBuild(result);

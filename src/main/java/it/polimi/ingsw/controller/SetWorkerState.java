@@ -54,6 +54,11 @@ public class SetWorkerState implements TurnState {
 
     }
 
+    @Override
+    public Boolean tryToEscape() {
+        return null;
+    }
+
 
     //}
 

@@ -55,13 +55,14 @@ public class ExecuteRoutineState implements TurnState {
 
                         result = controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
                         i--;
+
                     } else if (result) {
                         controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
                         result = true;
                     }
                     else controller.setGoOn(false);
                 }
-            } else if (!controller.getGame().getCurrentPlayer().isHasBuilt() && i< controller.getGame().getCurrentPlayer().getGod().getRoutine().size()) {
+            } else if (!controller.getGame().getCurrentPlayer().isHasBuilt() && i >= controller.getGame().getCurrentPlayer().getGod().getRoutine().size()) {
                 controller.getGame().getCurrentPlayer().setDefeat(true);
                 TurnState state = new DefeatState();
                 controller.setState(state);
@@ -95,5 +96,12 @@ public class ExecuteRoutineState implements TurnState {
         //  Worker thisWorker= (Worker) controller.getGame().getTargetSelected();
         //thisWorker.getHistoryPos().remove(thisWorker.getHistoryPos().size()-1);
         i--;
+    }
+
+    @Override
+    public Boolean tryToEscape() {
+       boolean result= controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable();
+        if (result) i++;
+        return result;
     }
 }
