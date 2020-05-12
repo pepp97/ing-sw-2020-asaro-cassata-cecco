@@ -35,4 +35,9 @@ public class ChooseWorkerState implements TurnState {
     public void goBack() {
 
     }
+
+    @Override
+    public Boolean tryToEscape() {
+        return null;
+    }
 }

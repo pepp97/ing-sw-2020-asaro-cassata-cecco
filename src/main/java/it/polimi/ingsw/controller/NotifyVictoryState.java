@@ -19,4 +19,9 @@ public class NotifyVictoryState implements TurnState {
 
     }
 
+    @Override
+    public Boolean tryToEscape() {
+        return null;
+    }
+
 }

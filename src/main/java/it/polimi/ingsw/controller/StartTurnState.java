@@ -13,6 +13,10 @@ public class StartTurnState implements TurnState {
     @Override
     public void executeState(Controller controller) {
         controller.setGoOn(true);
+
+        for(Worker w: controller.getGame().getCurrentPlayer().getWorkers())
+            w.setCanMoveUp(true);
+
         controller.getGame().setCurrentPlayer(controller.getNextPlayer(controller.getGame().getCurrentPlayer()));
         controller.setCanSkip(false);
         controller.getGame().getCurrentPlayer().setHasBeenMoved(false);
@@ -44,6 +48,11 @@ public class StartTurnState implements TurnState {
     @Override
     public void goBack() {
 
+    }
+
+    @Override
+    public Boolean tryToEscape() {
+        return null;
     }
 
 

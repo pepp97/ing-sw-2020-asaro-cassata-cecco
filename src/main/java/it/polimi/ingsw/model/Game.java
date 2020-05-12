@@ -36,7 +36,7 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries=30;
+    private int maxRetries=60;
     private boolean stop=false;
 
 

@@ -21,10 +21,10 @@ import java.util.List;
 public class Controller {
 
     private Game game;
-    private boolean canSkip=false;
-    private List<Player> turnManager=new ArrayList<>();
+    private boolean canSkip = false;
+    private List<Player> turnManager = new ArrayList<>();
     private TurnState state;
-    private boolean goOn=false;
+    private boolean goOn = false;
 
 
     public Controller() {
@@ -52,55 +52,52 @@ public class Controller {
     }
 
     public synchronized void apply(LoginCommand command, VirtualView view) {
-        game.login(command.getNickname(), command.getColor(),view);
+        game.login(command.getNickname(), command.getColor(), view);
     }
 
-    public void apply(ChooseSettings command, VirtualView view){
+    public void apply(ChooseSettings command, VirtualView view) {
         game.resetTimer();
-        game.selectNplayer(command.getNplayer(),view);
+        game.selectNplayer(command.getNplayer(), view);
     }
 
 
-    public void apply(ChooseGods command){
+    public void apply(ChooseGods command) {
         game.resetTimer();
         game.setUsableGod(command.getNamesGod());
     }
 
     public void apply(ChooseYourGod command, VirtualView view) {
         game.resetTimer();
-        game.setPlayerGod(command.getName(),view);
+        game.setPlayerGod(command.getName(), view);
         System.out.println("THREAD NUMERO 1,2");
         System.out.println(view.toString());
     }
 
     public void apply(ChooseInitialPosition command, VirtualView view) {
         game.resetTimer();
-        game.setInitialPosition(command.getCoordinateX(),command.getCoordinateY(),view);
+        game.setInitialPosition(command.getCoordinateX(), command.getCoordinateY(), view);
 // entro appena tutti hanno selezionato la posizione iniziale
-        if(turnManager.get(turnManager.size()-1).getWorkers().size()==2) {
-            SquareToJson[][]map=new SquareToJson[5][5];
-            Square[][]mappa=game.getField().getSquares();
+        if (turnManager.get(turnManager.size() - 1).getWorkers().size() == 2) {
+            SquareToJson[][] map = new SquareToJson[5][5];
+            Square[][] mappa = game.getField().getSquares();
 
-            for(int i=0;i<5;i++)
-                for(int j=0; j<5;j++)
-                    if(mappa[i][j].getWorker()!=null)
-                        map[i][j]=new SquareToJson(mappa[i][j].getLevel(),mappa[i][j].getWorker().getC().toString(),i,j);
-                    else map[i][j]=new SquareToJson(mappa[i][j].getLevel(),"",i,j);
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
+                    if (mappa[i][j].getWorker() != null)
+                        map[i][j] = new SquareToJson(mappa[i][j].getLevel(), mappa[i][j].getWorker().getC().toString(), i, j);
+                    else map[i][j] = new SquareToJson(mappa[i][j].getLevel(), "", i, j);
 
-            Event e=new UpdateEvent(map);
+            Event e = new UpdateEvent(map);
             game.notifyObservers(e);
-            state=new StartTurnState();
+            state = new StartTurnState();
             state.executeState(this);
-            state=new ExecuteRoutineState();
+            state = new ExecuteRoutineState();
             state.executeState(this);
-        }else if(game.getCurrentPlayer().getWorkers().size()==2)
+        } else if (game.getCurrentPlayer().getWorkers().size() == 2)
             game.setCurrentPlayer(getNextPlayer(game.getCurrentPlayer()));
 
         state.executeState(this);
     }
-
-
-
 
 
     //arriva l'esito del worker da utilizzare per fare le azioni
@@ -124,7 +121,7 @@ public class Controller {
 
     public void apply(UseEffect command) {
         game.resetTimer();
-        canSkip=!command.getReply();
+        canSkip = !command.getReply();
         game.getCurrentPlayer().setInQue(false);
         //this.setGoOn(false);
         state.executeState(this);
@@ -141,48 +138,47 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (view.getOwner() != null){
-            ExceptionEvent e= new ExceptionEvent("Player: " + view.getOwner().getUsername() + " is disconnected, the match is finished");
+        if (view.getOwner() != null) {
+            ExceptionEvent e = new ExceptionEvent("Player: " + view.getOwner().getUsername() + " is disconnected, the match is finished");
             game.notifyObservers(e);
             game.endGame();
         }
 
     }
 
-    public synchronized void apply(Connection connection,VirtualView view) {
+    public synchronized void apply(Connection connection, VirtualView view) {
         System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO2");
-        ConnectionSuccessful event=new ConnectionSuccessful();
+        ConnectionSuccessful event = new ConnectionSuccessful();
         event.send(view);
     }
 
     public void apply(StarterCommand starterCommand, VirtualView view) {
         game.resetTimer();
-        int i=0;
+        int i = 0;
 
 
-
-        for(Player player: game.getPlayerList()) {
-            if (player.getUsername().equals(starterCommand.getNick())){
+        for (Player player : game.getPlayerList()) {
+            if (player.getUsername().equals(starterCommand.getNick())) {
                 turnManager.add(player);
                 break;
             }
             i++;
         }
 
-        for (int j=i+1; j<game.getPlayerList().size();j++)
+        for (int j = i + 1; j < game.getPlayerList().size(); j++)
             turnManager.add(game.getPlayerList().get(j));
 
-        for(int k=0; k<i;k++)
+        for (int k = 0; k < i; k++)
             turnManager.add(game.getPlayerList().get(k));
 
-        for(Player p:turnManager)
+        for (Player p : turnManager)
             System.out.println(p.getUsername());
 
         game.setCurrentPlayer(turnManager.get(0));
-        for(View v: game.getViews())
-            if(v.getOwner().equals(game.getCurrentPlayer()))
+        for (View v : game.getViews())
+            if (v.getOwner().equals(game.getCurrentPlayer()))
                 game.setCurrentView(v);
-        state=new SetWorkerState();
+        state = new SetWorkerState();
         state.executeState(this);
     }
 
@@ -193,28 +189,37 @@ public class Controller {
 
     public Player getNextPlayer(Player player) {
 
-        int i=0;
-        for (Player p: turnManager){
+        int i = 0;
+        for (Player p : turnManager) {
             if (player.equals(p))
                 break;
             i++;
         }
 
-        if(i==turnManager.size()-1)
-            i=-1;
+        if (i == turnManager.size() - 1)
+            i = -1;
 
-        return  turnManager.get(i+1);
+        return turnManager.get(i + 1);
     }
 
     public void deletePlayer(Player currentPlayer) {
-        turnManager.remove( currentPlayer);
+        turnManager.remove(currentPlayer);
     }
 
     public void setGoOn(boolean b) {
-        this.goOn=b;
+        this.goOn = b;
     }
 
     public boolean isGoOn() {
-        return  this.goOn;
+        return this.goOn;
+    }
+
+    public Boolean tryToEscape() {
+        boolean result = state.tryToEscape();
+        if (result) {
+            goBack();
+            game.getCurrentPlayer().setInQue(false);
+        }
+        return result;
     }
 }
