@@ -25,6 +25,7 @@ public class ErrorWindow{
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label();
         confirmMessage.setText(exceptionEvent.getException());
+        confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 12pt;");
         scene = new Scene(confirmMessage, 400, 200, Color.BLACK);
         scene.setFill(Color.BROWN);
     }
