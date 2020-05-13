@@ -38,6 +38,7 @@ public class Game implements Observable {
     private Controller controller;
     private int maxRetries=60;
     private boolean stop=false;
+    private static final int length=5;
 
 
     public Player getWinner() {
@@ -362,9 +363,10 @@ public class Game implements Observable {
 
     public SquareToJson[][] squareToJsonArrayGenerator(){
         Square[][] mappa = field.getSquares();
-        SquareToJson[][] map = new SquareToJson[5][5];
-        for (int x = 0; x < 5; x++)
-            for (int y = 0; y < 5; y++)
+
+        SquareToJson[][] map = new SquareToJson[length][length];
+        for (int x = 0; x < length; x++)
+            for (int y = 0; y < length; y++)
                 if (mappa[x][y].getWorker() != null)
                     map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
                 else
