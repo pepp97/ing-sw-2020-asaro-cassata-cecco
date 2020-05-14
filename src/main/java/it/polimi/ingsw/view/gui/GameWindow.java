@@ -61,7 +61,7 @@ public class GameWindow implements GuiScreen {
 
         StackPane center = new StackPane();
         GridPane grid = new GridPane();
-        grid.setStyle("-fx-alignment: center;-fx-border-color: black; -fx-border-width:10px;");
+        grid.setStyle("-fx-alignment: center;");
 
 
         RowConstraints r1 = new RowConstraints();
@@ -76,7 +76,13 @@ public class GameWindow implements GuiScreen {
         ColumnConstraints c4 = new ColumnConstraints();
         ColumnConstraints c5 = new ColumnConstraints();
 
-        grid.setGridLinesVisible(true);
+        //grid.setGridLinesVisible(true);
+        int x=635;
+        int y=635;
+        int gridX=scalingX(x);
+        int gridY=scalingY(y);
+        grid.setMinSize(gridX,gridY);
+        grid.setMaxSize(gridX,gridY);
         grid.getRowConstraints().addAll(r1, r2, r3, r4, r5);
         grid.getColumnConstraints().addAll(c1, c2, c3, c4, c5);
 
@@ -185,6 +191,7 @@ public class GameWindow implements GuiScreen {
         ImageView imageView = new ImageView();
         imageView.setImage(sfondo);
         Background image = new Background(new BackgroundImage(sfondo, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
+        grid.setBackground(image);
         pane.setBackground(image);
 
 
@@ -292,56 +299,40 @@ public class GameWindow implements GuiScreen {
             System.out.println("ciao");
         });
 
-        button00.setMaxSize(210, 210);
-        button00.setMinSize(210, 210);
-        button10.setMaxSize(210, 210);
-        button10.setMinSize(210, 210);
-        button20.setMaxSize(210, 210);
-        button20.setMinSize(210, 210);
-        button30.setMaxSize(210, 210);
-        button30.setMinSize(210, 210);
-        button40.setMaxSize(210, 210);
-        button40.setMinSize(210, 210);
-        button01.setMaxSize(210, 210);
-        button01.setMinSize(210, 210);
-        button11.setMaxSize(210, 210);
-        button11.setMinSize(210, 210);
-        button21.setMaxSize(210, 210);
-        button21.setMinSize(210, 210);
-        button31.setMaxSize(210, 210);
-        button31.setMinSize(210, 210);
-        button41.setMaxSize(210, 210);
-        button41.setMinSize(210, 210);
-        button02.setMaxSize(210, 210);
-        button02.setMinSize(210, 210);
-        button12.setMaxSize(210, 210);
-        button12.setMinSize(210, 210);
-        button22.setMaxSize(210, 210);
-        button22.setMinSize(210, 210);
-        button32.setMaxSize(210, 210);
-        button32.setMinSize(210, 210);
-        button42.setMaxSize(210, 210);
-        button42.setMinSize(210, 210);
-        button03.setMaxSize(210, 210);
-        button03.setMinSize(210, 210);
-        button13.setMaxSize(210, 210);
-        button13.setMinSize(210, 210);
-        button23.setMaxSize(210, 210);
-        button23.setMinSize(210, 210);
-        button33.setMaxSize(210, 210);
-        button33.setMinSize(210, 210);
-        button43.setMaxSize(210, 210);
-        button43.setMinSize(210, 210);
-        button04.setMaxSize(210, 210);
-        button04.setMinSize(210, 210);
-        button14.setMaxSize(210, 210);
-        button14.setMinSize(210, 210);
-        button24.setMaxSize(220, 210);
-        button24.setMinSize(210, 210);
-        button34.setMaxSize(210, 210);
-        button34.setMinSize(210, 210);
-        button44.setMaxSize(210, 210);
-        button44.setMinSize(210, 210);
+
+        int xButton=120;
+        int yButton=120;
+        int v1=scalingX(xButton);
+        int y2=scalingY(yButton);
+        button00.setMinSize(v1, y2);
+        button10.setMinSize(v1, y2);
+        button20.setMinSize(v1, y2);
+        button30.setMinSize(v1, y2);
+        button40.setMinSize(v1, y2);
+
+        button01.setMinSize(v1, y2);
+        button11.setMinSize(v1, y2);
+        button21.setMinSize(v1, y2);
+        button31.setMinSize(v1, y2);
+        button41.setMinSize(v1, y2);
+
+        button02.setMinSize(v1, y2);
+        button12.setMinSize(v1, y2);
+        button22.setMinSize(v1, y2);
+        button32.setMinSize(v1, y2);
+        button42.setMinSize(v1, y2);
+
+        button03.setMinSize(v1, y2);
+        button13.setMinSize(v1, y2);
+        button23.setMinSize(v1, y2);
+        button33.setMinSize(v1, y2);
+        button43.setMinSize(v1, y2);
+
+        button04.setMinSize(v1, y2);
+        button14.setMinSize(v1, y2);
+        button24.setMinSize(v1, y2);
+        button34.setMinSize(v1, y2);
+        button44.setMinSize(v1, y2);
 
         for (j = 0; j < 5; j++)
             for (i = 0; i < 5; i++) {
@@ -415,6 +406,22 @@ public class GameWindow implements GuiScreen {
         gui.getPrimaryStage().setTitle("GameWindow");
     }
 
+
+    private int scalingX(int x){
+        int a=0;
+        double width=gui.getWidthScreen();
+        double first=1536.0;
+        a= (int) ((int)(x*width)/first);
+        return a;
+    }
+
+    private int scalingY(int x){
+        int a=0;
+        double first=824.0;
+        double high=gui.getHeightScreen();
+        a= (int) ((int)(x*high)/first);
+        return a;
+    }
 
 
     private String checkColor(String c) {
