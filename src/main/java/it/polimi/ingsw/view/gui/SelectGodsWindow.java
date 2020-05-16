@@ -2,9 +2,6 @@ package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.commands.ChooseGods;
 import it.polimi.ingsw.commands.Command;
-import it.polimi.ingsw.events.ChooseYourGodEvent;
-import it.polimi.ingsw.events.Event;
-import it.polimi.ingsw.events.SettingsEvent;
 import it.polimi.ingsw.events.StartGameEvent;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.Insets;
@@ -24,12 +21,13 @@ import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SelectGodsWindow implements GuiScreen {
     private Gui gui;
     private StartGameEvent startGameEvent;
     private List<String> selected;
-    static int k = 1;
+    private static int k = 1;
 
     public SelectGodsWindow(Gui gui, StartGameEvent startGameEvent) {
         this.gui = gui;
@@ -41,7 +39,7 @@ public class SelectGodsWindow implements GuiScreen {
         pane.setStyle("-fx-alignment: center;");
         Scene scene = new Scene(pane, gui.getWidthScreen(), gui.getHeightScreen());
 
-        Text testo = new Text("Select " +startGameEvent.getNumPlayers() + " Gods!");
+        Text testo = new Text("Select " + startGameEvent.getNumPlayers() + " Gods!");
         testo.setFill(javafx.scene.paint.Color.BLACK);
         testo.setFont(Font.font("Helvetica", FontWeight.BOLD, 25));
         TextFlow title = new TextFlow(testo);
@@ -84,7 +82,7 @@ public class SelectGodsWindow implements GuiScreen {
             imageView.setFitHeight(240.0);
             imageView.setFitWidth(180.0);
             stack.getChildren().add(imageView);
-            stack.setAlignment(imageView,Pos.CENTER);
+            stack.setAlignment(imageView, Pos.CENTER);
             gods.add(stack, i, j);
             if (i == 4) {
                 i = -1;
@@ -93,116 +91,131 @@ public class SelectGodsWindow implements GuiScreen {
             i++;
         }
 
-        structure.add(gods,0,0);
+        structure.add(gods, 0, 0);
 
-        List<String> list=startGameEvent.getGods();
-        selected=new ArrayList<>();
+        List<String> list = startGameEvent.getGods();
+        selected = new ArrayList<>();
 
-        Hyperlink button1=new Hyperlink();
-        button1.setMaxSize(180.0,240.0);
+        Hyperlink button1 = new Hyperlink();
+        button1.setMaxSize(180.0, 240.0);
         button1.setId(list.get(0));
 
-        button1.setOnAction(f->{
+        button1.setOnAction(f -> {
             System.out.println(button1.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button1.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button1.getId()))
                 selected.add(button1.getId());
         });
-        gods.add(button1,0,0);
+        gods.add(button1, 0, 0);
 
-        Hyperlink button2=new Hyperlink();
-        button2.setMaxSize(180.0,240.0);
+        Hyperlink button2 = new Hyperlink();
+        button2.setMaxSize(180.0, 240.0);
         button2.setId(list.get(1));
-        gods.add(button2,1,0);
-        button2.setOnAction(f->{
+        gods.add(button2, 1, 0);
+        button2.setOnAction(f -> {
             System.out.println(button2.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button2.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button2.getId()))
                 selected.add(button2.getId());
         });
 
-        Hyperlink button3=new Hyperlink();
-        button3.setMaxSize(180.0,240.0);
+        Hyperlink button3 = new Hyperlink();
+        button3.setMaxSize(180.0, 240.0);
         button3.setId(list.get(2));
-        gods.add(button3,2,0);
-        button3.setOnAction(f->{
+        gods.add(button3, 2, 0);
+        button3.setOnAction(f -> {
             System.out.println(button3.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button3.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button3.getId()))
                 selected.add(button3.getId());
 
         });
 
-        Hyperlink button4=new Hyperlink();
-        button4.setMaxSize(180.0,240.0);
+        Hyperlink button4 = new Hyperlink();
+        button4.setMaxSize(180.0, 240.0);
         button4.setId(list.get(3));
-        gods.add(button4,3,0);
-        button4.setOnAction(f->{
+        gods.add(button4, 3, 0);
+        button4.setOnAction(f -> {
             System.out.println(button4.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button4.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button4.getId()))
                 selected.add(button4.getId());
         });
-        Hyperlink button5=new Hyperlink();
-        button5.setMaxSize(180.0,240.0);
+        Hyperlink button5 = new Hyperlink();
+        button5.setMaxSize(180.0, 240.0);
         button5.setId(list.get(4));
-        gods.add(button5,4,0);
-        button5.setOnAction(f->{
+        gods.add(button5, 4, 0);
+        button5.setOnAction(f -> {
             System.out.println(button5.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button5.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button5.getId()))
                 selected.add(button5.getId());
         });
-        Hyperlink button6=new Hyperlink();
-        button6.setMaxSize(180.0,240.0);
+        Hyperlink button6 = new Hyperlink();
+        button6.setMaxSize(180.0, 240.0);
         button6.setId(list.get(5));
-        gods.add(button6,0,1);
-        button6.setOnAction(f->{
+        gods.add(button6, 0, 1);
+        button6.setOnAction(f -> {
             System.out.println(button6.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button6.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button6.getId()))
                 selected.add(button6.getId());
         });
-        Hyperlink button7=new Hyperlink();
-        button7.setMaxSize(180.0,240.0);
+        Hyperlink button7 = new Hyperlink();
+        button7.setMaxSize(180.0, 240.0);
         button7.setId(list.get(6));
-        gods.add(button7,1,1);
-        button7.setOnAction(f->{
+        gods.add(button7, 1, 1);
+        button7.setOnAction(f -> {
             System.out.println(button7.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button7.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button7.getId()))
                 selected.add(button7.getId());
         });
-        Hyperlink button8=new Hyperlink();
-        button8.setMaxSize(180.0,240.0);
+        Hyperlink button8 = new Hyperlink();
+        button8.setMaxSize(180.0, 240.0);
         button8.setId(list.get(7));
-        gods.add(button8,2,1);
-        button8.setOnAction(f->{
+        gods.add(button8, 2, 1);
+        button8.setOnAction(f -> {
             System.out.println(button8.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button8.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button8.getId()))
                 selected.add(button8.getId());
         });
-        Hyperlink button9=new Hyperlink();
-        button9.setMaxSize(180.0,240.0);
+        Hyperlink button9 = new Hyperlink();
+        button9.setMaxSize(180.0, 240.0);
         button9.setId(list.get(8));
-        gods.add(button9,3,1);
-        button9.setOnAction(f->{
+        gods.add(button9, 3, 1);
+        button9.setOnAction(f -> {
             System.out.println(button9.getId());
-            if(selected.size()<startGameEvent.getNumPlayers() && !selected.contains(button9.getId()))
+            if (selected.size() < startGameEvent.getNumPlayers() && !selected.contains(button9.getId()))
                 selected.add(button9.getId());
         });
 
         StackPane stack = new StackPane();
         stack.setAlignment(Pos.CENTER);
-        Button view=new Button("View selected Gods");
-        String style="-fx-alignment: center; -fx-text-fill: #ffffff;" +"-fx-background-color: #000000;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        Button view = new Button("View selected Gods");
+        String style = "-fx-alignment: center; -fx-text-fill: #ffffff;" + "-fx-background-color: #000000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         view.setStyle(style);
         stack.getChildren().add(view);
-        stack.setAlignment(view,Pos.CENTER);
-        structure.add(stack, 0,1);
-        view.setOnAction(f->{
+        stack.setAlignment(view, Pos.CENTER);
+        structure.add(stack, 0, 1);
+        AtomicBoolean b= new AtomicBoolean(false);
+        view.setOnAction(f -> {
             System.out.println(selected.size());
-            displaySelected(selected);});
+            b.set(displaySelected(selected));
+            if(b.get()){
+                button1.setVisible(false);
+                button2.setVisible(false);
+                button3.setVisible(false);
+                button4.setVisible(false);
+                button5.setVisible(false);
+                button6.setVisible(false);
+                button7.setVisible(false);
+                button8.setVisible(false);
+                button9.setVisible(false);
+                view.setVisible(false);
+            }
+        });
 
         gui.getPrimaryStage().setScene(scene);
         gui.getPrimaryStage().setTitle("choose gods");
 
     }
 
-    private void displaySelected(List<String> selected) {
+    private boolean displaySelected(List<String> selected) {
+
         k = 1;
         Stage stage;
         stage = new Stage(StageStyle.UTILITY);
@@ -210,7 +223,7 @@ public class SelectGodsWindow implements GuiScreen {
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label("Do you want to use these gods?");
         confirmMessage.setMinWidth(300);
-        String style="-fx-text-alignment:left; -fx-font-size: 14pt;" + "-fx-font-family: \"Segoe UI Semibold\";" + "-fx-text-fill: black;"+"-fx-opacity: 1;";
+        String style = "-fx-text-alignment:left; -fx-font-size: 14pt;" + "-fx-font-family: \"Segoe UI Semibold\";" + "-fx-text-fill: black;" + "-fx-opacity: 1;";
         confirmMessage.setStyle(style);
         GridPane gridPane = new GridPane();
         RowConstraints r1 = new RowConstraints();
@@ -236,18 +249,23 @@ public class SelectGodsWindow implements GuiScreen {
         gridPane.add(confirmMessage, 1, 0);
         int i = 1;
         int j = 1;
+        int num = 0;
+        Label[] l = new Label[selected.size()];
         for (String s : selected) {
-            Label l = new Label(s);
+            l[num] = new Label(s);
             String styleLabel = "-fx-font-size: 14pt;" + "-fx-font-family: \"Segoe UI Semibold\";" + "-fx-text-fill: black;" + "-fx-opacity: 1;";
-            l.setStyle(styleLabel);
-            gridPane.add(l, i, j);
+            l[num].setStyle(styleLabel);
+            gridPane.add(l[num], i, j);
             j++;
+            num++;
         }
 
 
         String styleDelete = "-fx-text-fill: #000000;" + "-fx-background-color: #ff0000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
+        Button confirm = new Button("Confirm");
 
         if (selected.size() >= 1) {
+            int pos = 0;
             Button button1 = new Button("Delete");
             button1.setStyle(styleDelete);
             gridPane.add(button1, 2, 1);
@@ -255,42 +273,55 @@ public class SelectGodsWindow implements GuiScreen {
                 selected.remove(0);
                 k = 0;
                 button1.setVisible(false);
+                l[pos].setVisible(false);
+                confirm.setVisible(false);
             });
         }
 
         if (selected.size() >= 2) {
+            int pos = 1;
             Button button2 = new Button("Delete");
             button2.setStyle(styleDelete);
             gridPane.add(button2, 2, 2);
             button2.setOnAction(f -> {
                 selected.remove(k);
                 button2.setVisible(false);
+                l[pos].setVisible(false);
+                confirm.setVisible(false);
             });
         }
 
         if (selected.size() == 3) {
+            int pos = 1;
             Button button3 = new Button("Delete");
             button3.setStyle(styleDelete);
             gridPane.add(button3, 2, 3);
             button3.setOnAction(f -> {
                 selected.remove(selected.size() - 1);
                 button3.setVisible(false);
+                l[pos].setVisible(false);
+                confirm.setVisible(false);
             });
         }
 
-        Button confirm = new Button("Confirm");
+
+        if (selected.size() != startGameEvent.getNumPlayers()) {
+            confirm.setVisible(false);
+        } else {
+            confirm.setVisible(true);
+        }
         String styleconfirm = "-fx-text-fill: #000000;" + "-fx-background-color: #00ff00;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         confirm.setStyle(styleconfirm);
         gridPane.add(confirm, 3, 4);
+        AtomicBoolean b= new AtomicBoolean(false);
         confirm.setOnAction(f -> {
-
+            b.set(true);
             Command command;
             if (selected.size() == startGameEvent.getNumPlayers()) {
                 command = new ChooseGods(selected);
-                gui.getClient().send(command);
-
-                stage.close();
                 confirm.setVisible(false);
+                gui.getClient().send(command);
+                stage.close();
 
             }
         });
@@ -301,7 +332,7 @@ public class SelectGodsWindow implements GuiScreen {
         stage.initOwner(gui.getPrimaryStage());
         stage.setScene(scene);
         stage.showAndWait();
-
+        return b.get();
     }
 
 }
