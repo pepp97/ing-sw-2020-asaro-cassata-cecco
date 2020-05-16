@@ -136,10 +136,10 @@ public class ChangePosition implements SubAction {
 
         if (availableSquare.size() == 0) {
             game.getCurrentPlayer().setDefeat(true);
-            TurnState state = new DefeatState();
-            game.getController().setState(state);
-            state.executeState(game.getController());
             result = false;
+            game.getCurrentPlayer().setInQue(false);
+            game.getController().setGoOn(false);
+            return result;
         }
         worker.setCanBeMoved(result);
         game.getCurrentPlayer().setInQue(true);
