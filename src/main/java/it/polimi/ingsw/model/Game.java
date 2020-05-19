@@ -102,11 +102,18 @@ public class Game implements Observable {
                     if (field.getSquares()[i][j].getWorker().equals(w1) || field.getSquares()[i][j].getWorker().equals(w2))
                         field.getSquares()[i][j].removeWorker();
 
-        for(VirtualView v: views)
-            if(v.getOwner().equals(player)){
+        for (VirtualView v : views) {
+            if (v.getOwner().equals(player)) {
                 unregister(v);
                 views.remove(v);
+                try {
+                    v.closeAll();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
             }
+        }
 
 
         this.playerList.remove(player);
@@ -347,13 +354,13 @@ public class Game implements Observable {
 
     private List<String> createList(List<String> passGod) {
         List<String> passEffect = new ArrayList<>(effects);
-       for(Player p: playerList)
-           if(p.getGod()!=null){
-               passGod.remove(p.getGod().getName());
-               passEffect.remove(p.getGod().getTextEffect());
-           }
+        for (Player p : playerList)
+            if (p.getGod() != null) {
+                passGod.remove(p.getGod().getName());
+                passEffect.remove(p.getGod().getTextEffect());
+            }
 
-       return passEffect;
+        return passEffect;
 
     }
 
