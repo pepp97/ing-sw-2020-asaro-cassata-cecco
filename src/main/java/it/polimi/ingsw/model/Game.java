@@ -297,6 +297,9 @@ public class Game implements Observable {
 
     public synchronized void setPlayerGod(String godname, VirtualView view) {
         System.out.println("il nome è " + godname);
+        List<String> passGod = new ArrayList<>(names);
+        List<String> passEffect = createList(passGod);
+        notifyObservers(new WaitYourGodEvent(passGod, passEffect));
         for (God g : startGods) {
             System.out.println(g.getName());
             if (g.getName().equals(godname)) {
@@ -310,8 +313,8 @@ public class Game implements Observable {
                     if (turnIndex == numplayer)
                         turnIndex = 0;
                     if (turnIndex != 1) {
-                        List<String> passGod = new ArrayList<>(names);
-                        List<String> passEffect = createList(passGod);
+                         passGod = new ArrayList<>(names);
+                         passEffect = createList(passGod);
                         notifyCurrent(new WaitYourGodEvent(passGod, passEffect));
                     }
                     currentView = (View) observers.get(turnIndex);
@@ -339,10 +342,9 @@ public class Game implements Observable {
                         currentView = tmp;
 
                     } else {
-                        List<String> passGod = new ArrayList<>(names);
-                        List<String> passEffect = createList(passGod);
+                        passGod = new ArrayList<>(names);
+                        passEffect = createList(passGod);
                         e = new ChooseYourGodEvent(passGod, passEffect);
-                        //e = new ChooseYourGodEvent(names, effects);
                         notifyCurrent(e);
                         break;
                     }
