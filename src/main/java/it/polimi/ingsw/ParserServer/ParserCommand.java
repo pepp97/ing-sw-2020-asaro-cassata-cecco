@@ -88,6 +88,9 @@ public class ParserCommand {
                 JsonNode reply = a.path("reply");
                 commandReturn = new UseEffect(reply.asBoolean());
                 break;
+            case "\"Ping\"":
+                commandReturn = new Ping();
+                break;
         }
     }
 

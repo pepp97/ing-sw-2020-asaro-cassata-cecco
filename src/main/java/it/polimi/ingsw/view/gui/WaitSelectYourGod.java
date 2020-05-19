@@ -3,15 +3,9 @@ package it.polimi.ingsw.view.gui;
 import it.polimi.ingsw.commands.ChooseYourGod;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.ChooseYourGodEvent;
-import it.polimi.ingsw.events.Event;
-import it.polimi.ingsw.events.UpdateEvent;
-import it.polimi.ingsw.model.Field;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Square;
-import it.polimi.ingsw.model.Worker;
+import it.polimi.ingsw.events.WaitYourGodEvent;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -27,12 +21,12 @@ import javafx.stage.StageStyle;
 
 import java.util.List;
 
-public class SelectYourGod implements GuiScreen {
+public class WaitSelectYourGod implements GuiScreen {
     private Gui gui;
-    private ChooseYourGodEvent event;
+    private WaitYourGodEvent event;
 
 
-    public SelectYourGod(Gui gui, ChooseYourGodEvent event) {
+    public WaitSelectYourGod(Gui gui, WaitYourGodEvent event) {
         this.gui = gui;
         this.event = event;
     }
@@ -43,7 +37,7 @@ public class SelectYourGod implements GuiScreen {
         pane.setStyle("-fx-alignment: top-center");
         Scene scene = new Scene(pane, gui.getWidthScreen(), gui.getHeightScreen());
 
-        Text testo = new Text("Select your god");
+        Text testo = new Text("Wait! It's your opponent turn!");
         testo.setFill(javafx.scene.paint.Color.BLACK);
         testo.setFont(Font.font("Helvetica", FontWeight.BOLD, 25));
         TextFlow title = new TextFlow(testo);
@@ -89,10 +83,8 @@ public class SelectYourGod implements GuiScreen {
 
         Hyperlink button2 = new Hyperlink();
         button2.setMaxSize(180.0, 240.0);
-        if (list.size() > 1) {
-            button2.setId(list.get(1));
-            center.add(button2, 1, 0);
-        }
+        button2.setId(list.get(1));
+        center.add(button2, 1, 0);
 
 
         Hyperlink button3 = new Hyperlink();
@@ -150,18 +142,6 @@ public class SelectYourGod implements GuiScreen {
         grid.add(effect, 0, 0);
         grid.add(description, 0, 1);
 
-        Button confirm = new Button("Confirm");
-        String styleYes = "-fx-alignment: center; -fx-text-fill: #000000;" + "-fx-background-color: #ff0000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
-        confirm.setMaxSize(150, 40);
-        confirm.setStyle(styleYes);
-        grid.add(confirm, 0, 2);
-
-        confirm.setOnAction(f -> {
-            Command command;
-            command = new ChooseYourGod(s1);
-            gui.getClient().send(command);
-            stage.close();
-        });
 
         str.setCenter(grid);
         scene = new Scene(str, 800, 400, Color.BLACK);

@@ -8,6 +8,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
+import it.polimi.ingsw.view.gui.WaitSelectYourGod;
 
 import java.io.IOException;
 import java.util.*;
@@ -36,9 +37,9 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries=60;
-    private boolean stop=false;
-    private static final int length=5;
+    private int maxRetries = 60;
+    private boolean stop = false;
+    private static final int length = 5;
 
 
     public Player getWinner() {
@@ -96,7 +97,7 @@ public class Game implements Observable {
         Worker w1 = player.getWorkers().get(0);
         Worker w2 = player.getWorkers().get(1);
         for (int j = 0; j < 5; j++)
-            for (int i = 0; i <5; i++)
+            for (int i = 0; i < 5; i++)
                 if (field.getSquares()[i][j].getWorker() != null)
                     if (field.getSquares()[i][j].getWorker().equals(w1) || field.getSquares()[i][j].getWorker().equals(w2))
                         field.getSquares()[i][j].removeWorker();
@@ -202,35 +203,35 @@ public class Game implements Observable {
 
     private void startMytimer() {
 
-        TimeoutCheckerInterface timeoutChecker= (l) -> {
+        TimeoutCheckerInterface timeoutChecker = (l) -> {
             System.out.println(l);
-            Boolean timeoutReached= l > maxRetries;
-            if(timeoutReached){
+            Boolean timeoutReached = l > maxRetries;
+            if (timeoutReached) {
                 System.out.println("reached limit");
-                ExceptionEvent exceptionEvent=new ExceptionEvent("Timeout error, the match is interrupted...");
+                ExceptionEvent exceptionEvent = new ExceptionEvent("Timeout error, the match is interrupted...");
                 notifyObservers(exceptionEvent);
                 endGame();
 
                 return true;
             }
-            if(stop){
-                stop=false;
+            if (stop) {
+                stop = false;
                 return true;
             }
             System.out.println("timer: " + l);
             return false;
         };
 
-        Timer timer=new Timer();
-        TimerTask task=new TimeoutCounter(timeoutChecker);
+        Timer timer = new Timer();
+        TimerTask task = new TimeoutCounter(timeoutChecker);
         int initialDelay = 50;
-        int delta= 1000;
-        timer.schedule(task, initialDelay,delta);
+        int delta = 1000;
+        timer.schedule(task, initialDelay, delta);
 
     }
 
-    public void resetTimer(){
-        stop=true;
+    public void resetTimer() {
+        stop = true;
         startMytimer();
     }
 
@@ -274,12 +275,14 @@ public class Game implements Observable {
             }
         }
         currentView = (View) observers.get(turnIndex);
-        Event e = new ChooseYourGodEvent(names, effects);
+        List<String> passGod = new ArrayList<>(names);
+        List<String> passEffect = createList(passGod);
+        Event e = new ChooseYourGodEvent(passGod, passEffect);
+        notifyObservers(new WaitYourGodEvent(passGod, passEffect));
         notifyCurrent(e);
     }
 
     public synchronized void setPlayerGod(String godname, VirtualView view) {
-
         System.out.println("il nome è " + godname);
         for (God g : startGods) {
             System.out.println(g.getName());
@@ -293,6 +296,11 @@ public class Game implements Observable {
                     turnIndex++;
                     if (turnIndex == numplayer)
                         turnIndex = 0;
+                    if (turnIndex != 1) {
+                        List<String> passGod = new ArrayList<>(names);
+                        List<String> passEffect = createList(passGod);
+                        notifyCurrent(new WaitYourGodEvent(passGod, passEffect));
+                    }
                     currentView = (View) observers.get(turnIndex);
                     Event e;
                     if (turnIndex == 1) {
@@ -318,7 +326,10 @@ public class Game implements Observable {
                         currentView = tmp;
 
                     } else {
-                        e = new ChooseYourGodEvent(names, effects);
+                        List<String> passGod = new ArrayList<>(names);
+                        List<String> passEffect = createList(passGod);
+                        e = new ChooseYourGodEvent(passGod, passEffect);
+                        //e = new ChooseYourGodEvent(names, effects);
                         notifyCurrent(e);
                         break;
                     }
@@ -326,6 +337,36 @@ public class Game implements Observable {
             }
         }
     }
+
+
+    private List<String> createList(List<String> passGod) {
+        List<String> passEffect = new ArrayList<>(effects);
+       for(Player p: playerList)
+           if(p.getGod()!=null){
+               passGod.remove(p.getGod().getName());
+               passEffect.remove(p.getGod().getTextEffect());
+           }
+
+       return passEffect;
+
+    }
+
+    /*
+    List<String> passEffect = new ArrayList<>(effects);
+        for (int i = 0; i < passGod.size(); i++) {
+            String s = passGod.get(i);
+            String e = passEffect.get(i);
+            if (selected.size() != 0) {
+                for (String sel : selected) {
+                    if (sel.equals(s)) {
+                        passGod.remove(s);
+                        passEffect.remove(e);
+                    }
+                }
+            }
+        }
+        return passEffect;
+     */
 
 
     public Controller getController() {
@@ -355,13 +396,12 @@ public class Game implements Observable {
     }
 
 
-
     @Override
     public void unregister(Observer observer) {
         observers.remove(observer);
     }
 
-    public SquareToJson[][] squareToJsonArrayGenerator(){
+    public SquareToJson[][] squareToJsonArrayGenerator() {
         Square[][] mappa = field.getSquares();
 
         SquareToJson[][] map = new SquareToJson[length][length];
@@ -371,15 +411,15 @@ public class Game implements Observable {
                     map[x][y] = new SquareToJson(mappa[x][y].getLevel(), mappa[x][y].getWorker().getC().toString(), mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
                 else
                     map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
-                return map;
+        return map;
     }
 
 
     public void endGame() {
 
-        while (views.size()>0) {
-            currentView=views.get(0);
-            LogoutSuccessful logoutSuccessful= new LogoutSuccessful();
+        while (views.size() > 0) {
+            currentView = views.get(0);
+            LogoutSuccessful logoutSuccessful = new LogoutSuccessful();
             notifyCurrent(logoutSuccessful);
             try {
                 currentView.closeAll();

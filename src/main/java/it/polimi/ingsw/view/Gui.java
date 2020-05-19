@@ -464,5 +464,12 @@ public class Gui extends Application implements View {
         }
     }
 
+    public void update(WaitYourGodEvent event){
+        Platform.runLater(() -> {
+            this.state = new WaitSelectYourGod(this, event);
+            state.setScene();
+        });
+    }
+
 
 }

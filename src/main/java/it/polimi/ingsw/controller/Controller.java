@@ -222,4 +222,7 @@ public class Controller {
         }
         return result;
     }
+
+    public void apply(Ping ping) {
+    }
 }

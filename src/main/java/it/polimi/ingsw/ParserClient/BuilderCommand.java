@@ -14,7 +14,7 @@ public class BuilderCommand {
         String type = selectType(command);
         String json;
         try {
-            if (!type.equals("Connection") && !type.equals("Disconnection"))
+            if (!type.equals("Connection") && !type.equals("Disconnection") && !type.equals("Ping"))
                 attributes = mapper.writeValueAsString(command);
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,6 +47,8 @@ public class BuilderCommand {
             s = "StarterCommand";
         } else if (command instanceof UseEffect) {
             s = "UseEffect";
+        }else if(command instanceof Ping){
+            s = "Ping";
         }
         return s;
     }

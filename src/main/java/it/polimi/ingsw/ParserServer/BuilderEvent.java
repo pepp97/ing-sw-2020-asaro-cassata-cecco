@@ -27,7 +27,7 @@ public class BuilderEvent {
                 attributes = typeStartMatch(event);
             } else if (type.equals("SetWorkerEvent")) {
                 attributes = typeSetWorker(event);
-            } else if (!type.equals("askUser") && !type.equals("ConnectionSuccessful") && !type.equals("LogoutSuccessful") && !type.equals("SettingsEvent"))
+            } else if (!type.equals("askUser") && !type.equals("ConnectionSuccessful") && !type.equals("LogoutSuccessful") && !type.equals("SettingsEvent") && !type.equals("Pong"))
                 attributes = mapper.writeValueAsString(event);
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,6 +68,10 @@ public class BuilderEvent {
             s = "UpdateEvent";
         } else if (event instanceof StartMatchEvent) {
             s = "StartMatchEvent";
+        }else if (event instanceof WaitYourGodEvent) {
+            s = "WaitYourGodEvent";
+        }else if (event instanceof Pong) {
+            s = "Pong";
         }
         return s;
     }
