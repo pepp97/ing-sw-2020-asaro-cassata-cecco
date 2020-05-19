@@ -275,6 +275,9 @@ public class SelectGodsWindow implements GuiScreen {
                 button1.setVisible(false);
                 l[pos].setVisible(false);
                 confirm.setVisible(false);
+                if(selected.size()==0){
+                    stage.close();
+                }
             });
         }
 
@@ -288,11 +291,14 @@ public class SelectGodsWindow implements GuiScreen {
                 button2.setVisible(false);
                 l[pos].setVisible(false);
                 confirm.setVisible(false);
+                if(selected.size()==0){
+                    stage.close();
+                }
             });
         }
 
         if (selected.size() == 3) {
-            int pos = 1;
+            int pos = 2;
             Button button3 = new Button("Delete");
             button3.setStyle(styleDelete);
             gridPane.add(button3, 2, 3);
@@ -301,6 +307,9 @@ public class SelectGodsWindow implements GuiScreen {
                 button3.setVisible(false);
                 l[pos].setVisible(false);
                 confirm.setVisible(false);
+                if(selected.size()==0){
+                    stage.close();
+                }
             });
         }
 
