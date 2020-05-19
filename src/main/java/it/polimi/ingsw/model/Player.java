@@ -105,4 +105,10 @@ public class Player {
 
     public God getGod() { return god; }
 
+
+    @Override
+    public boolean equals(Object p) {
+       Player tmp=(Player)p;
+        return this.getUsername().equals(tmp.getUsername()) && this.getColor().equals(tmp.getColor());
+    }
 }

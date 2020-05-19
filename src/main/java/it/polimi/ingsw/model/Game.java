@@ -100,7 +100,13 @@ public class Game implements Observable {
                 if (field.getSquares()[i][j].getWorker() != null)
                     if (field.getSquares()[i][j].getWorker().equals(w1) || field.getSquares()[i][j].getWorker().equals(w2))
                         field.getSquares()[i][j].removeWorker();
-        //pulire virtualview e observers?
+
+        for(VirtualView v: views)
+            if(v.getOwner().equals(player)){
+                unregister(v);
+                views.remove(v);
+            }
+
 
         this.playerList.remove(player);
     }
