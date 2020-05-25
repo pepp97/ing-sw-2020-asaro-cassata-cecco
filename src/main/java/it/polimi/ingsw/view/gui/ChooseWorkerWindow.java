@@ -236,7 +236,7 @@ public class ChooseWorkerWindow implements GuiScreen {
         });
 
         undo.setOnAction(f -> {
-            
+
         });
 
         button00.setOnAction(f ->{

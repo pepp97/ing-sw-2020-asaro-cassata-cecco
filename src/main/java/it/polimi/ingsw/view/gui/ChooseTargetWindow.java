@@ -59,14 +59,17 @@ public class ChooseTargetWindow implements GuiScreen {
         pane.setTop(title);*/
 
         StackPane topPane=new StackPane();
+
         GridPane tPane=new GridPane();
         tPane.setStyle("-fx-alignment: center;");
         ColumnConstraints ct1 = new ColumnConstraints();
         ColumnConstraints ct2 = new ColumnConstraints();
         tPane.getColumnConstraints().addAll(ct1, ct2);
+        Image move= new Image("move.png",100,100,true,true);
+        Image moveRed=new Image("moveRed.png",100,100,true,true);
+        Image costruction= new Image("construction.png",100,100,true,true);
+        Image costructionRed=new Image("constructionRed.png",100,100,true,true);
 
-        Image move= new Image("move");
-        Image costruction= new Image("costruction");
         StackPane movePane=new StackPane();
         StackPane costrPane=new StackPane();
 
@@ -74,6 +77,8 @@ public class ChooseTargetWindow implements GuiScreen {
         ImageView costrView = new ImageView();
         moveView.setImage(move);
         costrView.setImage(costruction);
+        moveView.setImage(moveRed);
+        costrView.setImage(costructionRed);
 
         movePane.getChildren().add(moveView);
         movePane.setAlignment(movePane,Pos.CENTER);
