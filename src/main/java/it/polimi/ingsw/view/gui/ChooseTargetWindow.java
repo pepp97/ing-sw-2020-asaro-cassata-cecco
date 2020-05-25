@@ -65,20 +65,26 @@ public class ChooseTargetWindow implements GuiScreen {
         ColumnConstraints ct1 = new ColumnConstraints();
         ColumnConstraints ct2 = new ColumnConstraints();
         tPane.getColumnConstraints().addAll(ct1, ct2);
-        Image move= new Image("move.png",100,100,true,true);
-        Image moveRed=new Image("moveRed.png",100,100,true,true);
-        Image costruction= new Image("construction.png",100,100,true,true);
-        Image costructionRed=new Image("constructionRed.png",100,100,true,true);
-
         StackPane movePane=new StackPane();
         StackPane costrPane=new StackPane();
 
         ImageView moveView = new ImageView();
         ImageView costrView = new ImageView();
-        moveView.setImage(move);
-        costrView.setImage(costruction);
-        moveView.setImage(moveRed);
-        costrView.setImage(costructionRed);
+
+        if(event.getMessage().equals("Where do you want to move?")){
+            Image moveRed=new Image("moveRed.png",100,100,true,true);
+            Image costruction= new Image("construction.png",100,100,true,true);
+            costrView.setImage(costruction);
+            moveView.setImage(moveRed);
+            costrPane.setStyle("-fx-background-color: rgba(71, 74, 81, 0.5); -fx-background-radius: 10;");
+        }
+        if(event.getMessage().equals("Select your square to upgrade")){
+            Image move= new Image("move.png",100,100,true,true);
+            Image costructionRed=new Image("constructionRed.png",100,100,true,true);
+            moveView.setImage(move);
+            costrView.setImage(costructionRed);
+            movePane.setStyle("-fx-background-color: rgba(71, 74, 81, 0.5); -fx-background-radius: 10;");
+        }
 
         movePane.getChildren().add(moveView);
         movePane.setAlignment(movePane,Pos.CENTER);
