@@ -47,14 +47,48 @@ public class ChooseWorkerWindow implements GuiScreen {
         pane.setStyle("-fx-alignment:center");
         Scene scene = new Scene(pane, gui.getWidthScreen(), gui.getHeightScreen());
 
-        Text testo = new Text("GAME WINDOW");
+        /*Text testo = new Text("GAME WINDOW");
         testo.setFill(javafx.scene.paint.Color.BLACK);
         testo.setFont(Font.font("Helvetica", FontWeight.BOLD, 25));
         TextFlow title = new TextFlow(testo);
         title.setMaxHeight(60);
         title.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         title.setTextAlignment(TextAlignment.CENTER);
-        pane.setTop(title);
+        pane.setTop(title);*/
+
+        StackPane topPane=new StackPane();
+
+        GridPane tPane=new GridPane();
+        tPane.setStyle("-fx-alignment: center;");
+        ColumnConstraints ct1 = new ColumnConstraints();
+        ColumnConstraints ct2 = new ColumnConstraints();
+        tPane.getColumnConstraints().addAll(ct1, ct2);
+        Image move= new Image("move.png",100,100,true,true);
+        Image moveRed=new Image("moveRed.png",100,100,true,true);
+        Image costruction= new Image("construction.png",100,100,true,true);
+        Image costructionRed=new Image("constructionRed.png",100,100,true,true);
+
+        StackPane movePane=new StackPane();
+        StackPane costrPane=new StackPane();
+
+        ImageView moveView = new ImageView();
+        ImageView costrView = new ImageView();
+        moveView.setImage(move);
+        costrView.setImage(costruction);
+        moveView.setImage(moveRed);
+        costrView.setImage(costructionRed);
+
+        movePane.getChildren().add(moveView);
+        movePane.setAlignment(movePane,Pos.CENTER);
+        costrPane.getChildren().add(costrView);
+        costrPane.setAlignment(costrView,Pos.CENTER);
+
+        tPane.add(movePane,0,0);
+        tPane.add(costrPane,1,0);
+        topPane.getChildren().add(tPane);
+        topPane.setAlignment(tPane,Pos.CENTER);
+
+        pane.setTop(topPane);
 
         StackPane center = new StackPane();
         GridPane grid = new GridPane();
@@ -171,15 +205,38 @@ public class ChooseWorkerWindow implements GuiScreen {
 
 
         StackPane bottom = new StackPane();
+        GridPane bPane= new GridPane();
+
+        ColumnConstraints cb1 = new ColumnConstraints();
+        ColumnConstraints cb2 = new ColumnConstraints();
+        cb1.setHalignment(HPos.CENTER);
+        cb2.setHalignment(HPos.CENTER);
+        bPane.getColumnConstraints().addAll(cb1,cb2);
+        bPane.setStyle("-fx-alignment: center;");
+
         Button showGods = new Button("Show player Gods");
         String style = "-fx-alignment: center; -fx-text-fill: #ffffff;" + "-fx-background-color: #000000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         showGods.setStyle(style);
-        bottom.getChildren().add(showGods);
-        bottom.setAlignment(showGods, Pos.CENTER);
+        bPane.add(showGods,0,0);
+
+
+        Button undo=new Button();
+        undo.setGraphic(new ImageView(new Image("undo.png", 40,40,true,true)));
+        bPane.add(undo,1,0);
+        bottom.getChildren().add(bPane);
+        bottom.setAlignment(bPane,Pos.CENTER);
+
+
         pane.setBottom(bottom);
+        pane.getBottom().setLayoutY(80);
+        pane.getBottom().setLayoutX(300);
 
         showGods.setOnAction(f -> {
             display();
+        });
+
+        undo.setOnAction(f -> {
+            
         });
 
         button00.setOnAction(f ->{

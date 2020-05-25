@@ -201,15 +201,38 @@ public class GameWindow implements GuiScreen {
 
 
         StackPane bottom = new StackPane();
+        GridPane bPane= new GridPane();
+
+        ColumnConstraints cb1 = new ColumnConstraints();
+        ColumnConstraints cb2 = new ColumnConstraints();
+        cb1.setHalignment(HPos.CENTER);
+        cb2.setHalignment(HPos.CENTER);
+        bPane.getColumnConstraints().addAll(cb1,cb2);
+        bPane.setStyle("-fx-alignment: center;");
+
         Button showGods = new Button("Show player Gods");
         String style = "-fx-alignment: center; -fx-text-fill: #ffffff;" + "-fx-background-color: #000000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         showGods.setStyle(style);
-        bottom.getChildren().add(showGods);
-        bottom.setAlignment(showGods, Pos.CENTER);
+        bPane.add(showGods,0,0);
+
+
+        Button undo=new Button();
+        undo.setGraphic(new ImageView(new Image("undo.png", 40,40,true,true)));
+        bPane.add(undo,1,0);
+        bottom.getChildren().add(bPane);
+        bottom.setAlignment(bPane,Pos.CENTER);
+
+
         pane.setBottom(bottom);
+        pane.getBottom().setLayoutY(80);
+        pane.getBottom().setLayoutX(300);
 
         showGods.setOnAction(f -> {
             display();
+        });
+
+        undo.setOnAction(f -> {
+
         });
 
         button00.setOnAction(f -> {

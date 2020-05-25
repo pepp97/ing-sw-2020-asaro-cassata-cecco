@@ -78,12 +78,12 @@ public class WaitSelectYourGod implements GuiScreen {
 
         Hyperlink button1 = new Hyperlink();
         button1.setMaxSize(180.0, 240.0);
-        button1.setId(list.get(0));
+
         center.add(button1, 0, 0);
 
         Hyperlink button2 = new Hyperlink();
         button2.setMaxSize(180.0, 240.0);
-        button2.setId(list.get(1));
+
         center.add(button2, 1, 0);
 
 
