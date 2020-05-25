@@ -404,7 +404,7 @@ public class ChooseWorkerWindow implements GuiScreen {
                     s.add(imageViewColorWorker,1,0);
 
                 }
-                if (squares[i][j].getLevels() == 0) {
+                /*if (squares[i][j].getLevels() == 0) {
                     // aggiunge immagine livello ad ogni cella
                     Image imageLevelSquare = new Image("0.png");
                     ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
@@ -412,20 +412,21 @@ public class ChooseWorkerWindow implements GuiScreen {
                     imageViewLevelSquare.setFitWidth(40.0);
                     s.add(imageViewLevelSquare,0,0);
                     //grid.add(imageViewLevelSquare, i, j);
-                } else if (squares[i][j].getLevels() == 1) {
+                } */
+                if (squares[i][j].getLevels() == 1) {
                     // aggiunge immagine livello ad ogni cella
                     Image imageLevelSquare = new Image("1.png");
                     ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
-                    imageViewLevelSquare.setFitHeight(100);
-                    imageViewLevelSquare.setFitWidth(40);
+                    imageViewLevelSquare.setFitHeight(50);
+                    imageViewLevelSquare.setFitWidth(50);
                     s.add(imageViewLevelSquare,0,0);
                     //grid.add(imageViewLevelSquare, i, j);
                 } else if (squares[i][j].getLevels() == 2) {
                     // aggiunge immagine livello ad ogni cella
-                    Image imageLevelSquare = new Image("2.jpg");
+                    Image imageLevelSquare = new Image("2.png");
                     ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
-                    imageViewLevelSquare.setFitHeight(100);
-                    imageViewLevelSquare.setFitWidth(40);
+                    imageViewLevelSquare.setFitHeight(80);
+                    imageViewLevelSquare.setFitWidth(50);
                     s.add(imageViewLevelSquare,0,0);
                     //grid.add(imageViewLevelSquare, i, j);
                 } else if (squares[i][j].getLevels() == 3) {
@@ -433,15 +434,15 @@ public class ChooseWorkerWindow implements GuiScreen {
                     Image imageLevelSquare = new Image("3.png");
                     ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
                     imageViewLevelSquare.setFitHeight(100.0);
-                    imageViewLevelSquare.setFitWidth(40);
+                    imageViewLevelSquare.setFitWidth(50);
                     s.add(imageViewLevelSquare,0,0);
                     //grid.add(imageViewLevelSquare, i, j);
                 } else if (squares[i][j].getLevels() == 4) {
                     // aggiunge immagine livello ad ogni cella
                     Image imageLevelSquare = new Image("4.png");
                     ImageView imageViewLevelSquare = new ImageView(imageLevelSquare);
-                    imageViewLevelSquare.setFitHeight(100);
-                    imageViewLevelSquare.setFitWidth(40);
+                    imageViewLevelSquare.setFitHeight(120);
+                    imageViewLevelSquare.setFitWidth(50);
                     s.add(imageViewLevelSquare,0,0);
                     //grid.add(imageViewLevelSquare, i, j);
                 }

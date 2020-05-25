@@ -142,7 +142,7 @@ public class ChooseStarterWindow implements GuiScreen {
                 StarterCommand starterCommand = new StarterCommand(b2.getId());
                 gui.getClient().send(starterCommand);
             });
-            form.add(b2, 5, 3);
+            form.add(b2, 2, 2);
         }
 
         center.getChildren().add(form);
