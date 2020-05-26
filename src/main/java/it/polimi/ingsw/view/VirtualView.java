@@ -83,7 +83,7 @@ public class VirtualView extends Thread implements View {
     @Override
     public void run() {
 
-        while (isConnected) {
+        while (true) {
             String s = null;
             if ((in.hasNext())) {
                 s = in.nextLine();

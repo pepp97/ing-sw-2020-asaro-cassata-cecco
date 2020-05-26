@@ -37,9 +37,11 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries = 60;
+    private int maxRetries = 5;
     private boolean stop = false;
     private static final int length = 5;
+    private boolean undo = true;
+
 
 
     public Player getWinner() {
@@ -48,6 +50,14 @@ public class Game implements Observable {
 
     public void setWinner(Player winner) {
         this.winner = winner;
+    }
+
+    public boolean isUndo() {
+        return undo;
+    }
+
+    public void setUndo(boolean undo) {
+        this.undo = undo;
     }
 
     public Game(Controller controller) {
@@ -220,10 +230,11 @@ public class Game implements Observable {
             System.out.println(l);
             Boolean timeoutReached = l > maxRetries;
             if (timeoutReached) {
-                System.out.println("reached limit");
+               /* System.out.println("reached limit");
                 ExceptionEvent exceptionEvent = new ExceptionEvent("Timeout error, the match is interrupted...");
                 notifyObservers(exceptionEvent);
-                endGame();
+                endGame();*/
+               undo = false;
 
                 return true;
             }
@@ -446,5 +457,20 @@ public class Game implements Observable {
         }
     }
 
+    public void setNumplayer(int numplayer) {
+        this.numplayer = numplayer;
+    }
+
+    public int getNumplayer() {
+        return numplayer;
+    }
+
+    public List<God> getStartGods() {
+        return startGods;
+    }
+
+    public List<Observer> getObservers() {
+        return observers;
+    }
 
 }

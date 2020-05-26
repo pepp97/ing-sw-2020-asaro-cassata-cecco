@@ -99,6 +99,7 @@ public class Client extends Thread {
                 receive(s);
             }
         }
+        System.out.println("client correctly closed");
         // System.out.println("Event: "+ s);
     }
 

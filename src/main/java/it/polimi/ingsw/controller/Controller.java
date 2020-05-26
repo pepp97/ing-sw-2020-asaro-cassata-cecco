@@ -26,6 +26,9 @@ public class Controller {
     private TurnState state;
     private boolean goOn = false;
 
+    private Game tmpGame;
+    private int tmpIndex;
+
 
     public Controller() {
         this.game = new Game(this);
@@ -111,6 +114,8 @@ public class Controller {
 
     //spostare in game?
     public void apply(ChooseTarget command) {
+        saveAll();//
+        game.setUndo(true);
         game.resetTimer();
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
         game.getCurrentPlayer().setInQue(false);
@@ -118,6 +123,7 @@ public class Controller {
 
         state.executeState(this);
     }
+
 
     public void apply(UseEffect command) {
         game.resetTimer();
@@ -183,6 +189,7 @@ public class Controller {
     }
 
 
+
     public void goBack() {
         state.goBack();
     }
@@ -223,6 +230,41 @@ public class Controller {
         return result;
     }
 
-    public void apply(Ping ping) {
+    public TurnState getState() {
+        return state;
     }
+
+    public List<Player> getTurnManager() {
+        return List.copyOf(turnManager);
+    }
+
+    public void  apply(Ping ping){
+
+    }
+
+    public void apply(UndoCommand command, VirtualView view){
+        if(view.getOwner().equals(game.getCurrentPlayer())&& state instanceof ExecuteRoutineState && game.isUndo()){
+            game = tmpGame;
+            ((ExecuteRoutineState) state).setI(tmpIndex);
+            goOn = false;
+            game.getCurrentPlayer().setInQue(false);
+            UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
+            game.notifyObservers(event);
+            state.executeState(this);
+        }
+        else {
+            ExceptionEvent e = new ExceptionEvent("Sorry, you can't use Undo, timeout reached");
+            game.notifyObservers(e);
+        }
+    }
+
+    private void saveAll() {
+
+        tmpGame = this.game;
+        ExecuteRoutineState tmpState = (ExecuteRoutineState) state;
+        tmpIndex =  tmpState.getI() - 1;
+
+    }
+
+
 }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.ChooseYourWorker;
 import it.polimi.ingsw.commands.Command;
+import it.polimi.ingsw.commands.UndoCommand;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.view.Gui;
@@ -246,6 +247,9 @@ public class ChooseTargetWindow implements GuiScreen {
         });
 
         undo.setOnAction(f -> {
+
+            UndoCommand command = new UndoCommand();
+            gui.getClient().send(command);
 
         });
 

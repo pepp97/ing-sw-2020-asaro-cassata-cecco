@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.ChooseYourGod;
 import it.polimi.ingsw.commands.Command;
+import it.polimi.ingsw.commands.UndoCommand;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.model.Field;
 import it.polimi.ingsw.model.Player;
@@ -216,9 +217,6 @@ public class GameWindow implements GuiScreen {
         bPane.add(showGods,0,0);
 
 
-        Button undo=new Button();
-        undo.setGraphic(new ImageView(new Image("undo.png", 40,40,true,true)));
-        bPane.add(undo,1,0);
         bottom.getChildren().add(bPane);
         bottom.setAlignment(bPane,Pos.CENTER);
 
@@ -231,95 +229,80 @@ public class GameWindow implements GuiScreen {
             display();
         });
 
-        undo.setOnAction(f -> {
-
-        });
 
         button00.setOnAction(f -> {
-            System.out.println("ciao");
-            Event event;
-            //event = new askUser();
-            //event.send(gui);
         });
         button10.setOnAction(f -> {
-            System.out.println("ciao");
-            Event event;
-            String string = "peppe";
-            event = new DeathPlayer(string);
-            event.send(gui);
+
         });
         button20.setOnAction(f -> {
-            System.out.println("ciao");
-            Event event;
-            String string = "salvo";
-            event = new EndGame(string);
-            event.send(gui);
+
         });
         button30.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button40.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button01.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button11.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button21.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button31.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button41.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button02.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button12.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button22.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button32.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button42.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button03.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button13.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button23.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button33.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button43.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button04.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button14.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button24.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button34.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
         button44.setOnAction(f -> {
-            System.out.println("ciao");
+
         });
 
 
