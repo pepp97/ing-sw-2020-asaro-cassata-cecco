@@ -91,6 +91,9 @@ public class ParserCommand {
             case "\"Ping\"":
                 commandReturn = new Ping();
                 break;
+            case "\"UndoCommand\"":
+                commandReturn = new UndoCommand();
+                break;
         }
     }
 

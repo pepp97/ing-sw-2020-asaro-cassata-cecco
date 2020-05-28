@@ -220,9 +220,7 @@ public class ChooseWorkerWindow implements GuiScreen {
         bPane.add(showGods,0,0);
 
 
-        Button undo=new Button();
-        undo.setGraphic(new ImageView(new Image("undo.png", 40,40,true,true)));
-        bPane.add(undo,1,0);
+
         bottom.getChildren().add(bPane);
         bottom.setAlignment(bPane,Pos.CENTER);
 
@@ -233,10 +231,6 @@ public class ChooseWorkerWindow implements GuiScreen {
 
         showGods.setOnAction(f -> {
             display();
-        });
-
-        undo.setOnAction(f -> {
-
         });
 
         button00.setOnAction(f ->{

@@ -6,11 +6,8 @@ import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.events.UpdateEvent;
-import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.*;
 
-import it.polimi.ingsw.model.ParserJson;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -26,8 +23,12 @@ public class Controller {
     private TurnState state;
     private boolean goOn = false;
 
-    private Game tmpGame;
+
     private int tmpIndex;
+    private final static int size=5;
+    private Square [][] map= new Square[size][size];
+    private boolean saveBuild=false;
+
 
 
     public Controller() {
@@ -114,7 +115,7 @@ public class Controller {
 
     //spostare in game?
     public void apply(ChooseTarget command) {
-        saveAll();//
+        saveAll();
         game.setUndo(true);
         game.resetTimer();
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
@@ -244,7 +245,14 @@ public class Controller {
 
     public void apply(UndoCommand command, VirtualView view){
         if(view.getOwner().equals(game.getCurrentPlayer())&& state instanceof ExecuteRoutineState && game.isUndo()){
-            game = tmpGame;
+            for(int i=0; i<size;i++){
+                for(int j=0; j<size;j++){
+                    game.getField().getSquares()[i][j].setLevel(map[i][j].getLevel());
+                    if(map[i][j].getWorker()!=null)
+                        game.getField().getSquares()[i][j].setWorker(map[i][j].getWorker());
+                }
+            }
+            game.getCurrentPlayer().setHasBuilt(saveBuild);
             ((ExecuteRoutineState) state).setI(tmpIndex);
             goOn = false;
             game.getCurrentPlayer().setInQue(false);
@@ -259,11 +267,21 @@ public class Controller {
     }
 
     private void saveAll() {
+        /*
 
-        tmpGame = this.game;
+        for(int i=0; i<size;i++){
+            for(int j=0; j<size;j++){
+                map[i][j]= new Square(i,j);
+                map[i][j].setLevel(game.getField().getSquares()[i][j].getLevel());
+                if(game.getField().getSquares()[i][j].getWorker()!=null)
+                    map[i][j].setWorker(game.getField().getSquares()[i][j].getWorker());
+            }
+        }
+        saveBuild=game.getCurrentPlayer().isHasBuilt();
+
         ExecuteRoutineState tmpState = (ExecuteRoutineState) state;
         tmpIndex =  tmpState.getI() - 1;
-
+            */
     }
 
 
