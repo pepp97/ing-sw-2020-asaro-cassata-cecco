@@ -88,7 +88,7 @@ public class Build implements SubAction {
     @Override
     public boolean isUsable(Game game) {
 
-
+        availableSquare.clear();
         Boolean result = false;
         List<Integer> cantDo = game.getCurrentPlayer().getGod().getCantDo();
         Worker worker = (Worker) game.getTargetInUse();

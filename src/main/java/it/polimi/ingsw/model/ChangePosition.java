@@ -101,6 +101,7 @@ public class ChangePosition implements SubAction {
     @Override
     public boolean isUsable(Game game) {
 //        game.getCurrentPlayer().setInQue(true);
+        availableSquare.clear();
         Boolean result = false;
         Worker worker = (Worker) game.getTargetInUse();
         if (game.getTargetSelected() != null) {

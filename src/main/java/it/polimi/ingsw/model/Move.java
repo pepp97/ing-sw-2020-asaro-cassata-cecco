@@ -36,6 +36,7 @@ public class Move implements SubAction {
 
         //ChooseTarget chooseTarget=new ChooseTarget("Select where do you want to move",List.copyOf(availableSquare));
         //game.notifyCurrent(chooseTarget);
+
         game.getController().setGoOn(false);
         int i = 0;
 
@@ -105,18 +106,21 @@ public class Move implements SubAction {
                 availableSquares.add(new SquareToJson(s1.getLevel(), "", s1.getCoordinateX(), s1.getCoordinateY()));
 
             SquareToJson[][] map = game.squareToJsonArrayGenerator();
-             ChooseTarget chooseTarget = new ChooseTarget("Where do you want to move?", availableSquares, map);
+            ChooseTarget chooseTarget = new ChooseTarget("Where do you want to move?", availableSquares, map);
             UpdateEvent event = new UpdateEvent(map);
             game.notifyObservers(event);
             game.notifyCurrent(chooseTarget);
-        }
-
-        else if (availableSquare.size() == 0) {
+        } else if (availableSquare.size() == 0 && !game.getCurrentPlayer().isHasBeenMoved() ) {
             game.getCurrentPlayer().setDefeat(true);
             result = false;
             game.getCurrentPlayer().setInQue(false);
             game.getController().setGoOn(false);
             return result;
+        } else if (availableSquare.size() == 0) {
+            result = false;
+            game.notifyCurrent(new ExceptionEvent("you can't Use your Effect"));
+            game.getCurrentPlayer().setInQue(false);
+            ((Worker) game.getTargetInUse()).setSquareNotAvailable(null);
         }
         worker.setCanBeMoved(result);
 

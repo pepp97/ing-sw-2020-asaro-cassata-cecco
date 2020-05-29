@@ -221,19 +221,16 @@ public class Game implements Observable {
         notifyObservers(new LoginSuccessful(list));
         currentView = (View) observers.get(0);
         notifyCurrent(new StartGameEvent(godlist, numplayer));
-        startMytimer();
+      //  startMytimer();
     }
 
-    private void startMytimer() {
+   /* private void startMytimer() {
 
         TimeoutCheckerInterface timeoutChecker = (l) -> {
             System.out.println(l);
             Boolean timeoutReached = l > maxRetries;
             if (timeoutReached) {
-               /* System.out.println("reached limit");
-                ExceptionEvent exceptionEvent = new ExceptionEvent("Timeout error, the match is interrupted...");
-                notifyObservers(exceptionEvent);
-                endGame();*/
+
                undo = false;
 
                 return true;
@@ -252,12 +249,12 @@ public class Game implements Observable {
         int delta = 1000;
         timer.schedule(task, initialDelay, delta);
 
-    }
+    }*/
 
-    public void resetTimer() {
+  /*  public void resetTimer() {
         stop = true;
         startMytimer();
-    }
+    }*/
 
     public boolean nicknameAvailable(String nick) {
         for (Player p : playerList)

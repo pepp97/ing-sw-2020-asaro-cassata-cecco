@@ -60,25 +60,25 @@ public class Controller {
     }
 
     public void apply(ChooseSettings command, VirtualView view) {
-        game.resetTimer();
+        //game.resetTimer();
         game.selectNplayer(command.getNplayer(), view);
     }
 
 
     public void apply(ChooseGods command) {
-        game.resetTimer();
+        //game.resetTimer();
         game.setUsableGod(command.getNamesGod());
     }
 
     public void apply(ChooseYourGod command, VirtualView view) {
-        game.resetTimer();
+        //game.resetTimer();
         game.setPlayerGod(command.getName(), view);
         System.out.println("THREAD NUMERO 1,2");
         System.out.println(view.toString());
     }
 
     public void apply(ChooseInitialPosition command, VirtualView view) {
-        game.resetTimer();
+        //game.resetTimer();
         game.setInitialPosition(command.getCoordinateX(), command.getCoordinateY(), view);
 // entro appena tutti hanno selezionato la posizione iniziale
         if (turnManager.get(turnManager.size() - 1).getWorkers().size() == 2) {
@@ -106,7 +106,7 @@ public class Controller {
 
     //arriva l'esito del worker da utilizzare per fare le azioni
     public void apply(ChooseYourWorker command) {
-        game.resetTimer();
+        //game.resetTimer();
         game.setTargetInUse(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
         game.getCurrentPlayer().setInQue(false);
 
@@ -117,7 +117,7 @@ public class Controller {
     public void apply(ChooseTarget command) {
         saveAll();
         game.setUndo(true);
-        game.resetTimer();
+       // game.resetTimer();
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
         game.getCurrentPlayer().setInQue(false);
         this.setGoOn(true);
@@ -127,7 +127,7 @@ public class Controller {
 
 
     public void apply(UseEffect command) {
-        game.resetTimer();
+     //   game.resetTimer();
         canSkip = !command.getReply();
         game.getCurrentPlayer().setInQue(false);
         //this.setGoOn(false);
@@ -160,7 +160,7 @@ public class Controller {
     }
 
     public void apply(StarterCommand starterCommand, VirtualView view) {
-        game.resetTimer();
+       // game.resetTimer();
         int i = 0;
 
 
@@ -244,16 +244,19 @@ public class Controller {
     }
 
     public void apply(UndoCommand command, VirtualView view){
-        if(view.getOwner().equals(game.getCurrentPlayer())&& state instanceof ExecuteRoutineState && game.isUndo()){
+        if(game.isUndo()){
             for(int i=0; i<size;i++){
                 for(int j=0; j<size;j++){
                     game.getField().getSquares()[i][j].setLevel(map[i][j].getLevel());
                     if(map[i][j].getWorker()!=null)
                         game.getField().getSquares()[i][j].setWorker(map[i][j].getWorker());
+                    else if(game.getField().getSquares()[i][j].getWorker()!=null)
+                        game.getField().getSquares()[i][j].removeWorker();
                 }
             }
             game.getCurrentPlayer().setHasBuilt(saveBuild);
             ((ExecuteRoutineState) state).setI(tmpIndex);
+            game.setTargetSelected(null);
             goOn = false;
             game.getCurrentPlayer().setInQue(false);
             UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
@@ -267,21 +270,23 @@ public class Controller {
     }
 
     private void saveAll() {
-        /*
+
 
         for(int i=0; i<size;i++){
             for(int j=0; j<size;j++){
                 map[i][j]= new Square(i,j);
                 map[i][j].setLevel(game.getField().getSquares()[i][j].getLevel());
-                if(game.getField().getSquares()[i][j].getWorker()!=null)
+                if(game.getField().getSquares()[i][j].getWorker()!=null) {
                     map[i][j].setWorker(game.getField().getSquares()[i][j].getWorker());
+                    game.getField().getSquares()[i][j].getWorker().setActualPos(game.getField().getSquares()[i][j]);
+                }
             }
         }
         saveBuild=game.getCurrentPlayer().isHasBuilt();
 
         ExecuteRoutineState tmpState = (ExecuteRoutineState) state;
         tmpIndex =  tmpState.getI() - 1;
-            */
+
     }
 
 

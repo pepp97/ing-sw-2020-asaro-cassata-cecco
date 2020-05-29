@@ -60,8 +60,8 @@ public class MoveInSameDirection implements SubAction {
         } else {
             game.notifyCurrent(new ExceptionEvent("Minothaur cannot use its effect, let's go back."));
             game.getController().setGoOn(false);
-            Square old=worker.getHistoryPos().get(0);
-            Square newSquare=worker.getHistoryPos().get(1);
+            Square old=worker.getHistoryPos().get(worker.getHistoryPos().size()-2);
+            Square newSquare=worker.getHistoryPos().get(worker.getHistoryPos().size()-1);
             worker.getHistoryPos().remove(1);
             worker.getSquare().removeWorker();
             old.setWorker(worker);
