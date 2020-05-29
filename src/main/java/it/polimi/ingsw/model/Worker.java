@@ -135,9 +135,7 @@ public class Worker implements Target {
         return List.copyOf(historyPos);
     }
 
-    public List<Square> getTargetNotValid() {
-        return List.copyOf(targetNotValid);
-    }
+
 
     public Square getSquareNotAvailable() {
         return squareNotAvailable;
@@ -155,4 +153,7 @@ public class Worker implements Target {
                 actualPos.equals(worker.actualPos);
     }
 
+    public void removeSquare(int i) {
+        historyPos.remove(i);
+    }
 }
