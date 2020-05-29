@@ -133,6 +133,10 @@ public class Build implements SubAction {
             result = false;
             game.getCurrentPlayer().setInQue(false);
             result=game.getController().tryToEscape();
+            if (result){
+                game.notifyCurrent( new UpdateEvent(game.squareToJsonArrayGenerator()));
+                game.notifyCurrent(new ExceptionEvent("you can't use your effect!"));
+            }
         }
 
 
