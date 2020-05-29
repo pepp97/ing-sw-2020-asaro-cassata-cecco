@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model;
-//DEVE AVERE ISTANZA CONTROLLER CHE HA ATTRIBUTO SKIP.
+
 
 import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
@@ -24,7 +24,6 @@ public class Game implements Observable {
     private Player currentPlayer;
     private View currentView;
     private Target targetSelected;
-    private Board board;
     private Target targetInUse;
     private Field field;
     private int numplayer = 0;
@@ -63,7 +62,6 @@ public class Game implements Observable {
     public Game(Controller controller) {
         this.controller = controller;
         field = new Field();
-        board = new Board();
         startGods = new ArrayList<>();
     }
 
@@ -148,13 +146,9 @@ public class Game implements Observable {
         this.targetSelected = targetSelected;
     }
 
-    protected Board getBoard() {
-        return board;
-    }
 
-    //public void setBoard(Board board) {
-    //  this.board = board;
-    //}
+
+
 
 
     //IMPLEMENTARE

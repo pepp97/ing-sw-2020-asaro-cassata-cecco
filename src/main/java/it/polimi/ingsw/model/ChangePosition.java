@@ -22,6 +22,11 @@ public class ChangePosition implements SubAction {
     private boolean interationNeeded = true;
 
 
+
+    public List<Square> getAvailableSquare() {
+        return List.copyOf(availableSquare);
+    }
+
     public boolean isInterationNeeded() {
         return interationNeeded;
     }
@@ -88,10 +93,11 @@ public class ChangePosition implements SubAction {
         //game.getCurrentPlayer().setInQue(false);
     }
 
-    //only for a test purpose
-    public List<Square> getAvailableSquare() {
-        return availableSquare;
+    @Override
+    public void clearList() {
+        availableSquare.clear();
     }
+
 
     /**
      * @param game

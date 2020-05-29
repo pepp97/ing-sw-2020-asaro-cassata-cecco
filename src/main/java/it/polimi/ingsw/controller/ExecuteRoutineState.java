@@ -3,9 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.ChooseYourWorker;
 import it.polimi.ingsw.events.ChooseWorker;
-import it.polimi.ingsw.model.Move;
-import it.polimi.ingsw.model.Square;
-import it.polimi.ingsw.model.Worker;
+import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,8 @@ public class ExecuteRoutineState implements TurnState {
     @Override
     public void executeState(Controller controller) {
         this.controller = controller;
-
+        Player currentPlayer = controller.getGame().getCurrentPlayer();
+        God currentGod = currentPlayer.getGod();
         System.out.println("round: " + i);
         if (controller.getGame().getWinner() != null)
             return;
@@ -30,24 +29,23 @@ public class ExecuteRoutineState implements TurnState {
 
         } else {
 
-            if (controller.getGame().getCurrentPlayer().isInQue())
+            if (currentPlayer.isInQue())
                 return;
 
-            if (!controller.getGame().getCurrentPlayer().isDefeat()&&i < controller.getGame().getCurrentPlayer().getGod().getRoutine().size()) {
-                if (((!controller.isCanSkip()) || (!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable()))) {
+            if (!currentPlayer.isDefeat() && i < currentGod.getRoutine().size()) {
+                if (((!controller.isCanSkip()) || (!currentGod.getRoutine().get(i).isSkippable()))) {
                     if (!controller.isGoOn()) {
 
-                        result = controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isUsable(controller.getGame());
+                        result = currentGod.getRoutine().get(i).getEffect().isUsable(controller.getGame());
                         i--;
 
                     } else if (result) {
-                        controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().use(controller.getGame());
+                        currentGod.getRoutine().get(i).getEffect().use(controller.getGame());
                         result = true;
-                    }
-                    else controller.setGoOn(false);
+                    } else controller.setGoOn(false);
                 }
-            } else if ((!controller.getGame().getCurrentPlayer().isHasBuilt() && i <= controller.getGame().getCurrentPlayer().getGod().getRoutine().size()) || controller.getGame().getCurrentPlayer().isDefeat() ){
-                controller.getGame().getCurrentPlayer().setDefeat(true);
+            } else if ((!currentPlayer.isHasBuilt() && i <= currentGod.getRoutine().size()) || currentPlayer.isDefeat()) {
+                currentPlayer.setDefeat(true);
                 TurnState state = new DefeatState();
                 controller.setState(state);
                 state.executeState(controller);
@@ -73,12 +71,7 @@ public class ExecuteRoutineState implements TurnState {
 
 
         Worker w = (Worker) controller.getGame().getTargetInUse();
-        if (controller.getGame().getCurrentPlayer().getGod().getRoutine().size() == i)
-            executeState(controller);
-        else if ((!controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded()) || (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded() && w.getMandatorySquare() != null))
-            executeState(controller);
-        else if (controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).getEffect().isInterationNeeded())
-            executeState(controller);
+        executeState(controller);
 
     }
 
@@ -107,14 +100,12 @@ public class ExecuteRoutineState implements TurnState {
 
     @Override
     public void goBack() {
-        //  Worker thisWorker= (Worker) controller.getGame().getTargetSelected();
-        //thisWorker.getHistoryPos().remove(thisWorker.getHistoryPos().size()-1);
         i--;
     }
 
     @Override
     public Boolean tryToEscape() {
-       boolean result= controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable();
+        boolean result = controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable();
         if (result) i++;
         return result;
     }

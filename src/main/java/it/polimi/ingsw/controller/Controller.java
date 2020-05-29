@@ -22,12 +22,10 @@ public class Controller {
     private List<Player> turnManager = new ArrayList<>();
     private TurnState state;
     private boolean goOn = false;
-
-
-    private int tmpIndex;
-    private final static int size=5;
-    private Square [][] map= new Square[size][size];
-    private boolean saveBuild=false;
+    //private int tmpIndex;
+   // private final static int size=5;
+    //private Square [][] map= new Square[size][size];
+    //private boolean saveBuild=false;
 
 
 
@@ -51,9 +49,7 @@ public class Controller {
         return game;
     }
 
-    public void setTurnManager(List<Player> turnManager) {
-        this.turnManager = turnManager;
-    }
+
 
     public synchronized void apply(LoginCommand command, VirtualView view) {
         game.login(command.getNickname(), command.getColor(), view);
@@ -232,13 +228,7 @@ public class Controller {
         return result;
     }
 
-    public TurnState getState() {
-        return state;
-    }
 
-    public List<Player> getTurnManager() {
-        return List.copyOf(turnManager);
-    }
 
     public void  apply(Ping ping){
 

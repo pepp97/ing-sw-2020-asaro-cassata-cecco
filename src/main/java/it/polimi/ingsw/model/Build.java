@@ -16,8 +16,11 @@ import java.util.List;
 
 public class Build implements SubAction {
 
+    private List<Square> availableSquare = new ArrayList<>();
+
+
     public List<Square> getAvailableSquare() {
-        return availableSquare;
+        return List.copyOf(availableSquare);
     }
 
     private boolean interationNeeded = true;
@@ -28,7 +31,7 @@ public class Build implements SubAction {
     }
 
 
-    private List<Square> availableSquare = new ArrayList<>();
+
 
 
     /**
@@ -48,7 +51,7 @@ public class Build implements SubAction {
                 if (availableSquare.contains(game.getTargetSelected())) {
                     game.getTargetSelected().getSquare().upgrade();
                     game.getCurrentPlayer().setHasBuilt(true);
-                    game.getCurrentPlayer().getGod().getCantDo().clear();
+                    game.getCurrentPlayer().getGod().clearFilter();
                     availableSquare.clear();
                     if(game.getCurrentPlayer().getGod().getName().equals("Atlas") && !game.getController().isCanSkip())
                         game.getTargetSelected().getSquare().setLevel(4);
@@ -76,6 +79,11 @@ public class Build implements SubAction {
         game.setTargetSelected(null);
         worker.setSquareNotAvailable(null);
 
+    }
+
+    @Override
+    public void clearList() {
+        availableSquare.clear();
     }
 
     /**

@@ -29,6 +29,11 @@ public class MoveInSameDirection implements SubAction {
         game.getController().setGoOn(false);
     }
 
+    @Override
+    public void clearList() {
+
+    }
+
     /**
      * @param game
      * @return

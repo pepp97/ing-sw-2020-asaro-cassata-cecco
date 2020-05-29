@@ -75,9 +75,14 @@ public class Move implements SubAction {
         worker.setSquareNotAvailable(null);
     }
 
-    //only for testing purpose
+    @Override
+    public void clearList() {
+        availableSquare.clear();
+    }
+
+
     public List<Square> getAvailableSquare() {
-        return availableSquare;
+        return List.copyOf(availableSquare);
     }
 
     /**

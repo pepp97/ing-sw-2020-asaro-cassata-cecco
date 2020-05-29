@@ -33,6 +33,11 @@ public class FilterNotSame implements SubAction {
 
     }
 
+    @Override
+    public void clearList() {
+
+    }
+
 
     /**
      * @param game instance

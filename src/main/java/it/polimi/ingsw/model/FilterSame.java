@@ -28,6 +28,11 @@ public class FilterSame implements SubAction {
         game.getController().setGoOn(false);
     }
 
+    @Override
+    public void clearList() {
+
+    }
+
     /**
      * @param game instance
      * @return a boolean to determine if the effect is usable

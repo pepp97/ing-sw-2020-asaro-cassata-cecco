@@ -29,6 +29,11 @@ public class AskUser implements SubAction {
 
     }
 
+    @Override
+    public void clearList() {
+
+    }
+
     /*
      * this method is always true because it don't need to control nothing
      */

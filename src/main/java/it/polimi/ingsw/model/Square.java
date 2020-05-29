@@ -82,8 +82,10 @@ public class Square implements Target {
     }
 
     public void setWorker(Worker worker) {
-        this.worker = worker;
-        worker.setActualPos(this);
+        if(worker!=null && this.worker==null){
+            this.worker = worker;
+            worker.setActualPos(this);
+        }
     }
 
     /**

@@ -65,7 +65,7 @@ public class ChangePositionTest {
     @AfterEach
     public void tearDown()
     {
-        changePosition.getAvailableSquare().clear();
+        changePosition.clearList();
         w1.setCanBeMoved(true);
         w2.setCanBeMoved(true);
     }

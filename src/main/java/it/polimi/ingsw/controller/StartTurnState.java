@@ -1,9 +1,6 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.EffectRoutine;
-import it.polimi.ingsw.model.Square;
-import it.polimi.ingsw.model.SubAction;
-import it.polimi.ingsw.model.Worker;
+import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
 
@@ -14,15 +11,17 @@ public class StartTurnState implements TurnState {
     public void executeState(Controller controller) {
         controller.setGoOn(true);
 
+
         for(Worker w: controller.getGame().getCurrentPlayer().getWorkers())
             w.setCanMoveUp(true);
 
         controller.getGame().setCurrentPlayer(controller.getNextPlayer(controller.getGame().getCurrentPlayer()));
         controller.setCanSkip(false);
-        controller.getGame().getCurrentPlayer().setHasBeenMoved(false);
-        controller.getGame().getCurrentPlayer().setHasBuilt(false);
-        controller.getGame().getCurrentPlayer().setDefeat(false);
-        controller.getGame().getCurrentPlayer().setInQue(false);
+        Player currentPlayer= controller.getGame().getCurrentPlayer();
+        currentPlayer.setHasBeenMoved(false);
+        currentPlayer.setHasBuilt(false);
+        currentPlayer.setDefeat(false);
+        currentPlayer.setInQue(false);
 
         Square square [][]=controller.getGame().getField().getSquares();
 
@@ -31,7 +30,7 @@ public class StartTurnState implements TurnState {
                 square[x][y].setStart_level(square[x][y].getLevel());
 
 
-       for(Worker w: controller.getGame().getCurrentPlayer().getWorkers()){
+       for(Worker w: currentPlayer.getWorkers()){
            w.setSquareNotAvailable(null);
            w.setMandatorySquare(null);
            w.resetHystoricPos();
@@ -39,7 +38,7 @@ public class StartTurnState implements TurnState {
            w.setCanBuild(true);
        }
 
-       controller.getGame().getCurrentPlayer().getGod().setCantDo(new ArrayList<>());
+       currentPlayer.getGod().setCantDo(new ArrayList<>());
 
 
 

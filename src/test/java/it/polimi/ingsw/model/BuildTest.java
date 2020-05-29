@@ -69,7 +69,7 @@ public class BuildTest {
         squares[3][1].removeWorker();
         squares[3][2].removeWorker();
         squares[3][3].removeWorker();
-        build.getAvailableSquare().clear();
+        build.clearList();
         w1.setCanBuild(true);
         w2.setCanBuild(true);
         w3.setCanBuild(true);

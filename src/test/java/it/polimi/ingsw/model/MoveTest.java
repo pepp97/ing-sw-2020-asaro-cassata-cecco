@@ -59,7 +59,7 @@ public class MoveTest {
     @AfterEach
     public void tearDown()
     {
-        move.getAvailableSquare().clear();
+        move.clearList();
         w1.setCanBeMoved(true);
         w2.setCanBeMoved(true);
     }
@@ -116,7 +116,7 @@ public class MoveTest {
         assertFalse(move.isUsable(game));
         w1.setCanMoveUp(true);
         assertTrue(move.isUsable(game));
-        move.getAvailableSquare().clear();
+        move.clearList();
         w1.setSquareNotAvailable(squares[1][1]);
         assertFalse(move.isUsable(game));
        // move.isUsable(game);

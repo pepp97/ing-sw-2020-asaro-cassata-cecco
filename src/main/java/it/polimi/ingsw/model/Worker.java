@@ -29,8 +29,6 @@ public class Worker implements Target {
         this.canBeMoved = true;
         this.canMoveUp = true;
         this.canBuild = true;
-        //this.actualPos = null;
-        //this.historyPos=null;
         this.targetNotValid = new ArrayList<>();
     }
 
@@ -134,7 +132,7 @@ public class Worker implements Target {
     }
 
     public List<Square> getHistoryPos() {
-        return historyPos;
+        return List.copyOf(historyPos);
     }
 
     public List<Square> getTargetNotValid() {

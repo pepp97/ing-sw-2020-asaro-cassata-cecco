@@ -16,11 +16,7 @@ public class Field {
      */
     private Square[][] squares = new Square[5][5];
 
-    /**
-     * this list contains the available square used for the management of the main action (build & move)
-     * it is given from "availableUpgrade" and "availableMovement" methods
-     */
-    private List<Square> availableSquares = new ArrayList<>();
+
 
     /**
      * through the default constructor is called the initSquare method.
@@ -33,9 +29,7 @@ public class Field {
         return squares;
     }
 
-    public List<Square> getAvailableSquares() {
-        return List.copyOf(availableSquares);
-    }
+
 
     /**
      * this private method is used to init the square's matrix and fill the list of adjacent squares for each square

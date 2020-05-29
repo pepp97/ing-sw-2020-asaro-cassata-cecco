@@ -19,6 +19,11 @@ public class SwapTarget implements SubAction {
         game.getCurrentPlayer().setInQue(false);
     }
 
+    @Override
+    public void clearList() {
+
+    }
+
     /**
      * @param game instance
      * @return a boolean to determine if the effect is usable

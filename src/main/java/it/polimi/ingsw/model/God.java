@@ -26,7 +26,7 @@ public class God {
     }
 
     public List<Integer> getCantDo() {
-        return cantDo;
+       return List.copyOf(cantDo);
     }
 
     public God(String name, String textEffect, String surname, List<EffectRoutine> routine) {
@@ -53,33 +53,19 @@ public class God {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getTextEffect() {
         return textEffect;
-    }
-
-    public void setTextEffect(String textEffect) {
-        this.textEffect = textEffect;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public List<EffectRoutine> getRoutine() {
-        return Routine;
+        return List.copyOf(Routine);
     }
 
-    public void setRoutine(List<EffectRoutine> routine) {
-        Routine = routine;
+    public void clearFilter() {
+        cantDo.clear();
     }
-
-
 }

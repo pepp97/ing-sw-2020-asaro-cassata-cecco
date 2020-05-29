@@ -25,6 +25,11 @@ public class YouDontMoveUp implements SubAction {
             w.setCanMoveUp(false);
     }
 
+    @Override
+    public void clearList() {
+
+    }
+
     /**
      * @param game instance
      * @return a boolean to determine if the effect is usable
