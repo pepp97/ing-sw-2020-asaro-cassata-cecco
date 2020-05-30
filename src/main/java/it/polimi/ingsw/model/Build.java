@@ -31,9 +31,6 @@ public class Build implements SubAction {
     }
 
 
-
-
-
     /**
      * This method is called when a player say to build
      *
@@ -51,11 +48,11 @@ public class Build implements SubAction {
                 if (availableSquare.contains(game.getTargetSelected())) {
                     game.getTargetSelected().getSquare().upgrade();
                     game.getCurrentPlayer().setHasBuilt(true);
+                    if (game.getCurrentPlayer().getGod().getCantDo().size()>0)
+                        if (game.getCurrentPlayer().getGod().getCantDo().get(0) == 0 && !game.getController().isCanSkip())
+                            game.getTargetSelected().getSquare().setLevel(4);
                     game.getCurrentPlayer().getGod().clearFilter();
                     availableSquare.clear();
-                    if(game.getCurrentPlayer().getGod().getName().equals("Atlas") && !game.getController().isCanSkip())
-                        game.getTargetSelected().getSquare().setLevel(4);
-
                     UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
                     game.notifyObservers(event);
                 } else
@@ -64,14 +61,13 @@ public class Build implements SubAction {
             //generazione pacchetto->creazione evento
 
         } else {
-            if(worker.getMandatorySquare().getLevel() < 4) {
+            if (worker.getMandatorySquare().getLevel() < 4) {
                 worker.getMandatorySquare().upgrade();
                 UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
                 game.notifyObservers(event);
                 worker.setMandatorySquare(null);
-            }
-            else{
-               game.notifyCurrent(new ExceptionEvent("you can't build another time in this square"));
+            } else {
+                game.notifyCurrent(new ExceptionEvent("you can't build another time in this square"));
             }
 
 
@@ -119,22 +115,19 @@ public class Build implements SubAction {
             game.notifyCurrent(chooseTarget);
 
 
-
-        }
-        else {
-            if(worker.getSquare().getAdjacentSquares().contains(worker.getMandatorySquare())&&worker.getMandatorySquare().getLevel()!=4 && !(cantDo.contains(worker.getMandatorySquare().getLevel() + 1))){
-                result=true;
+        } else {
+            if (worker.getSquare().getAdjacentSquares().contains(worker.getMandatorySquare()) && worker.getMandatorySquare().getLevel() != 4 && !(cantDo.contains(worker.getMandatorySquare().getLevel() + 1))) {
+                result = true;
                 availableSquare.add(worker.getMandatorySquare());
-            }
-            else game.notifyCurrent(new ExceptionEvent("you can't use the effect!"));
+            } else game.notifyCurrent(new ExceptionEvent("you can't use the effect!"));
         }
 
         if (availableSquare.size() == 0) {
             result = false;
             game.getCurrentPlayer().setInQue(false);
-            result=game.getController().tryToEscape();
-            if (result){
-                game.notifyCurrent( new UpdateEvent(game.squareToJsonArrayGenerator()));
+            result = game.getController().tryToEscape();
+            if (result) {
+                game.notifyCurrent(new UpdateEvent(game.squareToJsonArrayGenerator()));
                 game.notifyCurrent(new ExceptionEvent("you can't use your effect!"));
             }
         }

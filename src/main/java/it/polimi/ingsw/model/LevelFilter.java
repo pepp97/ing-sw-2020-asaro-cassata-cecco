@@ -22,15 +22,6 @@ public class LevelFilter implements SubAction {
         this.cantDo = cantDo;
     }
 
-    public List<Integer> getCantDo() {
-        return cantDo;
-    }
-
-
-    public void setCantDo(List<Integer> cantDo) {
-        this.cantDo = cantDo;
-    }
-
     /**
      * @param game instance
      */

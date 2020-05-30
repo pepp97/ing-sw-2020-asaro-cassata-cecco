@@ -49,7 +49,7 @@ public class EffectRoutine {
                 effect=new FilterSame();
                 break;
             case "checkVictory":
-                effect=new CheckVictory();
+                effect=new CheckVictory(this.levels);
 
 
             default:

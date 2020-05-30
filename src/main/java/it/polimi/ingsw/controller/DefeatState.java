@@ -12,10 +12,22 @@ public class DefeatState implements TurnState {
 
     @Override
     public void executeState(Controller controller) {
-        Player p=controller.getGame().getCurrentPlayer();
-        ExceptionEvent e=new ExceptionEvent("Player " + controller.getGame().getCurrentPlayer().getUsername() + " has lost...");
+
+        Player p = controller.getGame().getCurrentPlayer();
+
+        if (controller.getGame().getPlayerList().size() == 2)
+            for (Player winner : controller.getGame().getPlayerList()) {
+                if (!winner.equals(controller.getGame().getCurrentPlayer())) {
+                    ExceptionEvent event = new ExceptionEvent("Player " + p.getUsername() + " has lost, the winner is " + winner.getUsername());
+                    controller.getGame().notifyObservers(event);
+                    controller.getGame().setWinner(winner);
+                    return;
+                }
+            }
+        ExceptionEvent e = new ExceptionEvent("Player " + controller.getGame().getCurrentPlayer().getUsername() + " has lost...");
         controller.getGame().notifyObservers(e);
-        for(int i=controller.getGame().getPlayerList().size();i>1;i--)
+
+        for (int i = controller.getGame().getPlayerList().size(); i > 1; i--)
             controller.getGame().setCurrentPlayer(controller.getNextPlayer(controller.getGame().getCurrentPlayer()));
         controller.getGame().removePlayerInList(p);
         controller.deletePlayer(p);
@@ -31,10 +43,8 @@ public class DefeatState implements TurnState {
                 else map[i][j] = new SquareToJson(mappa[i][j].getLevel(), "", i, j);
 
 
-
         UpdateEvent event = new UpdateEvent(map);
         controller.getGame().notifyObservers(event);
-
 
 
     }

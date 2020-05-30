@@ -3,6 +3,8 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.controller.NotifyVictoryState;
 import it.polimi.ingsw.controller.TurnState;
 
+import java.util.List;
+
 /**
  * It is the micro-effect that have the role to check if the player have win if he is go down by levelToWin level
  *
@@ -20,25 +22,15 @@ public class CheckVictory implements SubAction {
         return interationNeeded;
     }
 
-    public int getLevelToWin() {
-        return levelToWin;
+    public CheckVictory(List<Integer> levelToWin) {
+        this.levelToWin = levelToWin.get(0);
     }
-
-    public void setLevelToWin(int levelToWin) {
-        this.levelToWin = levelToWin;
-    }
-
-    // public CheckVictory(int levelToWin) {
-    //   this.levelToWin = levelToWin;
-    //}
 
     /**
      * @param game instance
      */
     @Override
     public void use(Game game) {
-
-        //se è salito da livello 3 a livello 4
         if (isUsable(game))
             for (Player p : game.getPlayerList()) {
                 if (p.getWorkers().contains((Worker) game.getTargetInUse())) {
@@ -65,12 +57,7 @@ public class CheckVictory implements SubAction {
     public boolean isUsable(Game game) {
         Worker worker = (Worker) game.getTargetInUse();
         game.getController().setGoOn(true);
-        // vedere come fare per Pan
-        if (worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() - worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() >= 2) {
-            return true;
-            // player have win
-        }
 
-        return false;
+        return worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() - worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() >= levelToWin;
     }
 }
