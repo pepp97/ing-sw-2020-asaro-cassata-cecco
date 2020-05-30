@@ -1,9 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
-import it.polimi.ingsw.events.ChooseTarget;
-import it.polimi.ingsw.events.ExceptionEvent;
-import it.polimi.ingsw.events.UpdateEvent;
+import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.model.Worker;
@@ -15,20 +13,30 @@ public class DefeatState implements TurnState {
 
         Player p = controller.getGame().getCurrentPlayer();
 
-        if (controller.getGame().getPlayerList().size() == 2)
+        if (controller.getGame().getPlayerList().size() == 2) {
             for (Player winner : controller.getGame().getPlayerList()) {
-                if (!winner.equals(controller.getGame().getCurrentPlayer())) {
-                    ExceptionEvent event = new ExceptionEvent("Player " + p.getUsername() + " has lost...");
-                    controller.getGame().notifyObservers(event);
+                if (!winner.equals(p)) {
+                    DeathPlayer event = new DeathPlayer(p.getUsername());
+                    controller.getGame().notifyCurrent(event);
                     controller.getGame().setWinner(winner);
-                    TurnState state = new NotifyVictoryState();
+                    ExceptionEvent e = new ExceptionEvent("Player " + controller.getGame().getWinner().getUsername() + " has win...");
+                    controller.getGame().notifyCurrent(e);
+                    controller.getGame().removePlayerInList(p);
+                    notifyVictory(controller);
+                    /*TurnState state = new NotifyVictoryState();
                     controller.getGame().getController().setState(state);
                     state.executeState(controller.getGame().getController());
+                    */
                     return;
                 }
             }
+        }
+        DeathPlayer death = new DeathPlayer(p.getUsername());
+        controller.getGame().notifyCurrent(death);
+
         ExceptionEvent e = new ExceptionEvent("Player " + controller.getGame().getCurrentPlayer().getUsername() + " has lost...");
         controller.getGame().notifyObservers(e);
+
 
         for (int i = controller.getGame().getPlayerList().size(); i > 1; i--)
             controller.getGame().setCurrentPlayer(controller.getNextPlayer(controller.getGame().getCurrentPlayer()));
@@ -50,6 +58,14 @@ public class DefeatState implements TurnState {
         controller.getGame().notifyObservers(event);
 
 
+    }
+
+    private void notifyVictory(Controller controller){
+        EndGame endGame= new EndGame(controller.getGame().getWinner().getUsername());
+        controller.getGame().notifyObservers(endGame);
+        ExceptionEvent e = new ExceptionEvent("Player " + controller.getGame().getCurrentPlayer().getUsername() + " has lost...");
+        controller.getGame().notifyObservers(e);
+        return;
     }
 
     @Override

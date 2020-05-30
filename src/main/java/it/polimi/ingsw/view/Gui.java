@@ -419,8 +419,11 @@ public class Gui extends Application implements View {
     }
 
     public void update(DeathPlayer deathPlayer) {
-        death = new DeathPlayerWindow(this, deathPlayer);
-        death.displayMessage(primaryStage);
+        Platform.runLater(() -> {
+            this.state = new DeathPlayerWindow(this, deathPlayer);
+            state.setScene();
+        });
+
 
     }
 

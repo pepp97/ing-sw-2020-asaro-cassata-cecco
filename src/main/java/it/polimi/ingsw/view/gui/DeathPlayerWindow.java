@@ -13,36 +13,37 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class DeathPlayerWindow {
+public class DeathPlayerWindow implements GuiScreen{
     private Stage stage;
     private Gui gui;
-    private Scene scene;
+    private DeathPlayer event;
 
 
-    public DeathPlayerWindow(Gui gui, DeathPlayer death) {
+    public DeathPlayerWindow(Gui gui, DeathPlayer event) {
         this.gui = gui;
+        this.event = event;
+    }
+
+    @Override
+    public void setScene() {
+        VBox layoutMessage = new VBox(20);
+        Scene scene = new Scene(layoutMessage, 400, 200);
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label();
-        confirmMessage.setText(death.getNickname() + " has lose all Worker");
+        confirmMessage.setText("You have lost");
+        confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 20pt;");
 
-
-        VBox layoutMessage = new VBox(20);
         HBox buttonLine = new HBox(20);
         buttonLine.setAlignment(Pos.CENTER);
         buttonLine.backgroundProperty().setValue(confirmBackground);
         layoutMessage.getChildren().addAll(confirmMessage, buttonLine);
         layoutMessage.setAlignment(Pos.CENTER);
         layoutMessage.backgroundProperty().setValue(confirmBackground);
-        scene = new Scene(layoutMessage, 400, 200, Color.BLACK);
+
         scene.setFill(Color.BROWN);
 
+        gui.getPrimaryStage().setScene(scene);
+        gui.getPrimaryStage().setTitle("DeathPlayer");
     }
 
-    public void displayMessage(Stage owner) {
-        stage = new Stage(StageStyle.UTILITY);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(owner);
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
 }

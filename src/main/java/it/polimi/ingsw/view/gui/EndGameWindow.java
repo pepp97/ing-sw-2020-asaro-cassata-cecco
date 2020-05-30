@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.events.EndGame;
 import it.polimi.ingsw.view.Gui;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class EndGameWindow implements GuiScreen {
@@ -24,28 +26,26 @@ public class EndGameWindow implements GuiScreen {
 
     @Override
     public void setScene() {
+        VBox layoutMessage = new VBox(20);
+        Scene scene = new Scene(layoutMessage, 400, 200);
+        Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
+        Label confirmMessage = new Label();
+        confirmMessage.setText("You have win");
+        confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 20pt;");
 
-        GridPane form = new GridPane();
-        form.setAlignment(Pos.CENTER);
+        HBox buttonLine = new HBox(20);
+        buttonLine.setAlignment(Pos.CENTER);
+        buttonLine.backgroundProperty().setValue(confirmBackground);
+        layoutMessage.getChildren().addAll(confirmMessage, buttonLine);
+        layoutMessage.setAlignment(Pos.CENTER);
+        layoutMessage.backgroundProperty().setValue(confirmBackground);
 
-        Scene scene=new Scene(form,gui.getWidthScreen(),gui.getHeightScreen());
-        Image intro = new Image("SantoriniIntro.jpg", gui.getWidthScreen(),gui.getHeightScreen(),true, true); //modificare percorso.
-
-        //Image intro = new Image("SantoriniIntro.jpg");
-        ImageView imageView = new ImageView();
-        imageView.setImage(intro);
-        imageView.setFitHeight(gui.getHeightScreen());
-        imageView.setFitWidth(gui.getWidthScreen());
-        BackgroundImage backgroundImage = new BackgroundImage(intro, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        form.setBackground(new Background(backgroundImage));
-        Label nameLabel=new Label("The winner of this match is: " + endGame.getResult());
-        nameLabel.setTextFill(javafx.scene.paint.Color.RED);
-        nameLabel.setFont(new Font(25.00));
-        form.addRow(1,nameLabel);
+        scene.setFill(Color.BROWN);
 
         gui.getPrimaryStage().setScene(scene);
-        gui.getPrimaryStage().setTitle("End Game");
+        gui.getPrimaryStage().setTitle("Winner");
 
 
     }
+
 }
