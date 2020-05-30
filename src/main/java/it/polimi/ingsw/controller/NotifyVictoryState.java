@@ -1,6 +1,9 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.events.DeathPlayer;
+import it.polimi.ingsw.events.EndGame;
 import it.polimi.ingsw.events.ExceptionEvent;
+import it.polimi.ingsw.model.Player;
 
 public class NotifyVictoryState implements TurnState {
 
@@ -9,8 +12,23 @@ public class NotifyVictoryState implements TurnState {
     public void executeState(Controller controller) {
         //evento
         System.out.println(controller.getGame().getCurrentPlayer().getUsername()+" ,COMPLIMENTI HAI VINTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        //ExceptionEvent e=new ExceptionEvent("The Winner is:     " + controller.getGame().getWinner().getUsername()+ "!!!");
-        //controller.getGame().notifyObservers(e);
+        Player p = controller.getGame().getCurrentPlayer();
+        EndGame endGame= new EndGame(controller.getGame().getWinner().getUsername());
+        for(int i=0; i<controller.getGame().getPlayerList().size();i++){
+            if(p== controller.getGame().getWinner()){
+                controller.getGame().notifyCurrent(endGame);
+                controller.getGame().setCurrentPlayer(controller.getNextPlayer(p));
+                p=controller.getGame().getCurrentPlayer();
+            }else{
+                DeathPlayer death = new DeathPlayer(p.getUsername());
+                controller.getGame().notifyCurrent(death);
+                ExceptionEvent e = new ExceptionEvent("Player " + controller.getGame().getWinner().getUsername() + " has win...");
+                controller.getGame().notifyCurrent(e);
+                controller.getGame().setCurrentPlayer(controller.getNextPlayer(p));
+                p=controller.getGame().getCurrentPlayer();
+            }
+        }
+
         return;
     }
 

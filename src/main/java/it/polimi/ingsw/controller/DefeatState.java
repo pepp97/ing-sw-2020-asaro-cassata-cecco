@@ -16,17 +16,17 @@ public class DefeatState implements TurnState {
         if (controller.getGame().getPlayerList().size() == 2) {
             for (Player winner : controller.getGame().getPlayerList()) {
                 if (!winner.equals(p)) {
-                    DeathPlayer event = new DeathPlayer(p.getUsername());
-                    controller.getGame().notifyCurrent(event);
+                    /*DeathPlayer event = new DeathPlayer(p.getUsername());
+                    controller.getGame().notifyCurrent(event);*/
                     controller.getGame().setWinner(winner);
-                    ExceptionEvent e = new ExceptionEvent("Player " + controller.getGame().getWinner().getUsername() + " has win...");
-                    controller.getGame().notifyCurrent(e);
-                    controller.getGame().removePlayerInList(p);
-                    notifyVictory(controller);
-                    /*TurnState state = new NotifyVictoryState();
+                    //ExceptionEvent e = new ExceptionEvent("Player " + controller.getGame().getWinner().getUsername() + " has win...");
+                    //controller.getGame().notifyCurrent(e);
+                    //controller.getGame().removePlayerInList(p);
+                    //notifyVictory(controller);
+                    TurnState state = new NotifyVictoryState();
                     controller.getGame().getController().setState(state);
                     state.executeState(controller.getGame().getController());
-                    */
+
                     return;
                 }
             }
