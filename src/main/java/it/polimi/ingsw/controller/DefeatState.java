@@ -56,7 +56,7 @@ public class DefeatState implements TurnState {
 
     @Override
     public Boolean tryToEscape() {
-        return null;
+        return false;
     }
 
 }

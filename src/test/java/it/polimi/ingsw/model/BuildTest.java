@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.DefeatState;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -23,13 +24,13 @@ public class BuildTest {
     Worker w2=new Worker();
     Worker w3=new Worker();
     Square [][] squares=field.getSquares();
+    Player p= new Player("john",Color.BLACK);
 
     @BeforeEach
     void setUp(){
         w1.setC(Color.BLACK);
         w2.setC(Color.WHITE);
         w3.setC(Color.BROWN);
-        Player p= new Player("john",Color.BLACK);
         game.setCurrentPlayer(p);
         VirtualView view = new VirtualView();
         view.setOwner(p);
@@ -56,6 +57,7 @@ public class BuildTest {
         squares[0][0].setWorker(w3);
         squares[1][0].setLevel(1);
         squares[0][1].setLevel(4);
+        game.getController().setState(new DefeatState());
     }
 
     @AfterEach
