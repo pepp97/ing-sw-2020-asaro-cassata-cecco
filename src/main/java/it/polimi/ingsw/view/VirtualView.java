@@ -99,4 +99,20 @@ public class VirtualView extends Thread implements View {
             }
         }
     }
+
+    public void setIn(Scanner in) {
+        this.in = in;
+    }
+
+    public void setOut(PrintWriter out) {
+        this.out = out;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public void setInput(InputStreamReader input) {
+        this.input = input;
+    }
 }

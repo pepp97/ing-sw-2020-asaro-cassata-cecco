@@ -75,6 +75,10 @@ public class Controller {
         return state;
     }
 
+    public List<Player> getTurnManager() {
+        return turnManager;
+    }
+
     public void apply(ChooseInitialPosition command, VirtualView view) {
         //game.resetTimer();
         game.setInitialPosition(command.getCoordinateX(), command.getCoordinateY(), view);
