@@ -4,6 +4,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.commands.Disconnection;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
@@ -40,6 +41,7 @@ public class Game implements Observable {
     private boolean stop = false;
     private static final int length = 5;
     private boolean undo = false;
+
 
     public Player getWinner() {
         return winner;
@@ -209,30 +211,51 @@ public class Game implements Observable {
         notifyObservers(new LoginSuccessful(list));
         currentView = (View) observers.get(0);
         notifyCurrent(new StartGameEvent(godlist, numplayer));
-        //  startMytimer();
+        startMytimer();
+        notifyObservers(new Pong());
     }
 
     private void startMytimer() {
+        Timer timer = new Timer();
 
         TimeoutCheckerInterface timeoutChecker = (l) -> {
-            System.out.println("timer: " + l);
+            System.out.println("TIMERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR: " + l);
+            //notifyObservers(new Pong());
             Boolean timeoutReached = l > maxRetries;
-            if (timeoutReached) {
+            int i = 0;
+            for (; i < numplayer; i++)
+                if (!views.get(i).isPing())
+                    break;
 
-                stop = true;
-                undo = false;
+            if(i==numplayer){
+                for(VirtualView v: views)
+                    v.setPing(false);
+                notifyObservers(new Pong());
+                startMytimer();
+                return true;
+            }
+
+            if (timeoutReached) {
+                System.out.println("timeout!!!!!!!!!!!!!!!!!!!!!!");
+                for (VirtualView v : views)
+                    if (!v.isPing()) {
+                        controller.apply(new Disconnection(), v);
+                    }
+
+
+                //resetTimer();
+
 
                 return true;
             }
-            if (stop) {
+           /* if (stop) {
                 stop = false;
                 return true;
-            }
+            }*/
 
             return false;
         };
 
-        Timer timer = new Timer();
         TimerTask task = new TimeoutCounter(timeoutChecker);
         int initialDelay = 50;
         int delta = 1000;
@@ -240,10 +263,11 @@ public class Game implements Observable {
 
     }
 
-    public void resetTimer() {
-        stop = false;
-        startMytimer();
-    }
+ //   public void resetTimer() {
+        //notifyObservers(new Pong());
+        //stop = true;
+   //     startMytimer();
+    //}
 
     public boolean nicknameAvailable(String nick) {
         for (Player p : playerList)

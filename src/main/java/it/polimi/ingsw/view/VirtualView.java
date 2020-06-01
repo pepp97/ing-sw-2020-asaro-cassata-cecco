@@ -21,7 +21,15 @@ public class VirtualView extends Thread implements View {
     private Controller controller;
     private InputStreamReader input;
     private boolean isConnected = true;
+    private boolean ping=true;
 
+    public boolean isPing() {
+        return ping;
+    }
+
+    public void setPing(boolean ping) {
+        this.ping = ping;
+    }
 
     public VirtualView(Socket socket, Controller controller) {
         this.socket = socket;
@@ -50,7 +58,6 @@ public class VirtualView extends Thread implements View {
     public void update(Event event) {
         BuilderEvent b = new BuilderEvent();
         String json = b.builder(event);
-
         this.out.println(json);
         System.out.println("Inviato Event: " + event.toString());
 
