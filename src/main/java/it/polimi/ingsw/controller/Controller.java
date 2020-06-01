@@ -240,7 +240,7 @@ public class Controller {
     }
 
     public void apply(UndoCommand command, VirtualView view){
-       if(game.isUndo()){
+      /* if(game.isUndo()){
             for(int i=0; i<size;i++){
                 for(int j=0; j<size;j++){
                     game.getField().getSquares()[i][j].setLevel(map[i][j].getLevel());
@@ -262,11 +262,11 @@ public class Controller {
         else {
             ExceptionEvent e = new ExceptionEvent("Sorry, you can't use Undo function.");
             game.notifyCurrent(e);
-        }
+        }*/
     }
 
     private void saveAll() {
-
+/*
 
         for(int i=0; i<size;i++){
             for(int j=0; j<size;j++){
@@ -281,8 +281,7 @@ public class Controller {
         saveBuild=game.getCurrentPlayer().isHasBuilt();
 
         ExecuteRoutineState tmpState = (ExecuteRoutineState) state;
-        tmpIndex =  tmpState.getI() - 1;
-
+        tmpIndex =  tmpState.getI() - 1;*/
     }
 
 
