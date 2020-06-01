@@ -23,10 +23,10 @@ public class Controller {
     private List<Player> turnManager = new ArrayList<>();
     private TurnState state;
     private boolean goOn = false;
-    //private int tmpIndex;
-   // private final static int size=5;
-    //private Square [][] map= new Square[size][size];
-    //private boolean saveBuild=false;
+    private int tmpIndex;
+    private final static int size=5;
+    private Square [][] map= new Square[size][size];
+    private boolean saveBuild=false;
 
 
 
@@ -74,6 +74,10 @@ public class Controller {
         System.out.println(view.toString());
     }
 
+    public TurnState getState() {
+        return state;
+    }
+
     public void apply(ChooseInitialPosition command, VirtualView view) {
         //game.resetTimer();
         game.setInitialPosition(command.getCoordinateX(), command.getCoordinateY(), view);
@@ -114,7 +118,7 @@ public class Controller {
     public void apply(ChooseTarget command) {
         saveAll();
         game.setUndo(true);
-       // game.resetTimer();
+        game.resetTimer();
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
         game.getCurrentPlayer().setInQue(false);
         this.setGoOn(true);
@@ -236,7 +240,7 @@ public class Controller {
     }
 
     public void apply(UndoCommand command, VirtualView view){
-     /*   if(game.isUndo()){
+       if(game.isUndo()){
             for(int i=0; i<size;i++){
                 for(int j=0; j<size;j++){
                     game.getField().getSquares()[i][j].setLevel(map[i][j].getLevel());
@@ -256,14 +260,14 @@ public class Controller {
             state.executeState(this);
         }
         else {
-            ExceptionEvent e = new ExceptionEvent("Sorry, you can't use Undo, timeout reached");
-            game.notifyObservers(e);
-        }*/
+            ExceptionEvent e = new ExceptionEvent("Sorry, you can't use Undo function.");
+            game.notifyCurrent(e);
+        }
     }
 
     private void saveAll() {
 
-/*
+
         for(int i=0; i<size;i++){
             for(int j=0; j<size;j++){
                 map[i][j]= new Square(i,j);
@@ -277,7 +281,7 @@ public class Controller {
         saveBuild=game.getCurrentPlayer().isHasBuilt();
 
         ExecuteRoutineState tmpState = (ExecuteRoutineState) state;
-        tmpIndex =  tmpState.getI() - 1;*/
+        tmpIndex =  tmpState.getI() - 1;
 
     }
 

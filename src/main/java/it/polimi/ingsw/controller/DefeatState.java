@@ -60,13 +60,13 @@ public class DefeatState implements TurnState {
 
     }
 
-    private void notifyVictory(Controller controller){
+/*    private void notifyVictory(Controller controller){
         EndGame endGame= new EndGame(controller.getGame().getWinner().getUsername());
         controller.getGame().notifyObservers(endGame);
         ExceptionEvent e = new ExceptionEvent("Player " + controller.getGame().getCurrentPlayer().getUsername() + " has lost...");
         controller.getGame().notifyObservers(e);
         return;
-    }
+    }*/
 
     @Override
     public void goBack() {

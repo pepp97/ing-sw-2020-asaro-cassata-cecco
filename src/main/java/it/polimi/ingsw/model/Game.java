@@ -39,9 +39,7 @@ public class Game implements Observable {
     private int maxRetries = 5;
     private boolean stop = false;
     private static final int length = 5;
-    private boolean undo = true;
-
-
+    private boolean undo = false;
 
     public Player getWinner() {
         return winner;
@@ -147,10 +145,6 @@ public class Game implements Observable {
     }
 
 
-
-
-
-
     //IMPLEMENTARE
     public synchronized void login(String nickname, Color color, VirtualView view) {
         //  aggiustare numero di giocatori che si possono loggare
@@ -215,17 +209,18 @@ public class Game implements Observable {
         notifyObservers(new LoginSuccessful(list));
         currentView = (View) observers.get(0);
         notifyCurrent(new StartGameEvent(godlist, numplayer));
-      //  startMytimer();
+        //  startMytimer();
     }
 
-   /* private void startMytimer() {
+    private void startMytimer() {
 
         TimeoutCheckerInterface timeoutChecker = (l) -> {
-            System.out.println(l);
+            System.out.println("timer: " + l);
             Boolean timeoutReached = l > maxRetries;
             if (timeoutReached) {
 
-               undo = false;
+                stop = true;
+                undo = false;
 
                 return true;
             }
@@ -233,7 +228,7 @@ public class Game implements Observable {
                 stop = false;
                 return true;
             }
-            System.out.println("timer: " + l);
+
             return false;
         };
 
@@ -243,12 +238,12 @@ public class Game implements Observable {
         int delta = 1000;
         timer.schedule(task, initialDelay, delta);
 
-    }*/
+    }
 
-  /*  public void resetTimer() {
-        stop = true;
+    public void resetTimer() {
+        stop = false;
         startMytimer();
-    }*/
+    }
 
     public boolean nicknameAvailable(String nick) {
         for (Player p : playerList)
@@ -315,8 +310,8 @@ public class Game implements Observable {
                     if (turnIndex == numplayer)
                         turnIndex = 0;
                     if (turnIndex != 1) {
-                         passGod = new ArrayList<>(names);
-                         passEffect = createList(passGod);
+                        passGod = new ArrayList<>(names);
+                        passEffect = createList(passGod);
                         notifyCurrent(new WaitYourGodEvent(passGod, passEffect));
                     }
                     currentView = (View) observers.get(turnIndex);
