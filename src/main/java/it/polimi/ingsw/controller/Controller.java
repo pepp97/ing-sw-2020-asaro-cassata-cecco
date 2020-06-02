@@ -24,7 +24,6 @@ public class Controller {
     private int tmpIndex;
     private final static int size = 5;
     private Square[][] map = new Square[size][size];
-    private Worker undoWorker = new Worker();
 
 
     public Controller() {
@@ -141,6 +140,7 @@ public class Controller {
 
 
     public synchronized void apply(Disconnection disconnection, VirtualView view) {
+        game.killtimer();
         game.unregister(view);
         game.getViews().remove(view);
         try {
@@ -284,4 +284,11 @@ public class Controller {
     }
 
 
+    public void restart() {
+        game=new Game(this);
+        canSkip = false;
+        turnManager = new ArrayList<>();
+        TurnState state;
+        goOn = false;
+    }
 }

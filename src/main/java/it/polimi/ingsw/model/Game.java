@@ -41,6 +41,7 @@ public class Game implements Observable {
     private boolean stop = false;
     private static final int length = 5;
     private boolean undo = false;
+    private boolean kill=false;
 
 
     public Player getWinner() {
@@ -220,6 +221,8 @@ public class Game implements Observable {
 
         TimeoutCheckerInterface timeoutChecker = (l) -> {
             System.out.println("TIMERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR: " + l);
+            if(kill)
+                return true;
             //notifyObservers(new Pong());
             Boolean timeoutReached = l > maxRetries;
             int i = 0;
@@ -240,6 +243,7 @@ public class Game implements Observable {
                 for (VirtualView v : views)
                     if (!v.isPing()) {
                         controller.apply(new Disconnection(), v);
+                        break;
                     }
 
 
@@ -465,6 +469,7 @@ public class Game implements Observable {
             views.remove(currentView);
             unregister(currentView);
         }
+        controller.restart();
     }
 
     public void setNumplayer(int numplayer) {
@@ -481,6 +486,10 @@ public class Game implements Observable {
 
     public List<Observer> getObservers() {
         return observers;
+    }
+
+    public void killtimer() {
+        kill=true;
     }
 
 }

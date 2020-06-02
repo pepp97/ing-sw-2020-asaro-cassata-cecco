@@ -20,8 +20,8 @@ public class VirtualView extends Thread implements View {
     private PrintWriter out;
     private Controller controller;
     private InputStreamReader input;
-    private boolean isConnected = true;
     private boolean ping=true;
+    private boolean stop=false;
 
     public boolean isPing() {
         return ping;
@@ -79,18 +79,19 @@ public class VirtualView extends Thread implements View {
     @Override
     public void closeAll() throws IOException {
 
-        isConnected = false;
+        stop=true;
         out.close();
         in.close();
         input.close();
         socket.close();
+
 
     }
 
     @Override
     public void run() {
 
-        while (true) {
+        while (!stop) {
             String s = null;
             if ((in.hasNext())) {
                 s = in.nextLine();
