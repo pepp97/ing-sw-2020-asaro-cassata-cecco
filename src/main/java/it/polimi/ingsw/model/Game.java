@@ -37,11 +37,12 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries = 5;
+    private int maxRetries = 1000;
     private boolean stop = false;
     private static final int length = 5;
     private boolean undo = false;
     private boolean kill=false;
+    private boolean end=false;
 
 
     public Player getWinner() {
@@ -226,9 +227,12 @@ public class Game implements Observable {
             //notifyObservers(new Pong());
             Boolean timeoutReached = l > maxRetries;
             int i = 0;
+
             for (; i < numplayer; i++)
-                if (!views.get(i).isPing())
+                if (!views.get(i).isPing()) {
                     break;
+                }
+
 
             if(i==numplayer){
                 for(VirtualView v: views)
@@ -469,7 +473,8 @@ public class Game implements Observable {
             views.remove(currentView);
             unregister(currentView);
         }
-        controller.restart();
+        end=true;
+        //controller.restart();
     }
 
     public void setNumplayer(int numplayer) {
@@ -492,4 +497,12 @@ public class Game implements Observable {
         kill=true;
     }
 
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean b) {
+        end=b;
+    }
 }

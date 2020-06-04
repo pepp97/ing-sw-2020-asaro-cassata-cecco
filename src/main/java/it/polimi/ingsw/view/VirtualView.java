@@ -99,6 +99,8 @@ public class VirtualView extends Thread implements View {
                 System.out.println("Ricevuto: " + s);
             }
         }
+        if(controller.getGame().isEnd())
+            controller.restart();
     }
 
     public void setIn(Scanner in) {

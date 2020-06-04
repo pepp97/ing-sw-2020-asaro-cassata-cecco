@@ -84,13 +84,23 @@ public class DefeateStateTest {
         view.setIn(new Scanner(input));
         view.setSocket(socket);
         view.setInput(input);
+        for(VirtualView v: game.getViews())
+            v.setPing(true);
         view.setOut(new PrintWriter(new BufferedWriter(new OutputStreamWriter(new OutputStream() {
             @Override
             public void write(int b) throws IOException {
 
             }
         }))));
+        view2.setIn(new Scanner(input));
+        view2.setSocket(socket);
+        view2.setInput(input);
+        view2.setOut(new PrintWriter(new BufferedWriter(new OutputStreamWriter(new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
 
+            }
+        }))));
     }
 
     @AfterEach
@@ -104,6 +114,8 @@ public class DefeateStateTest {
         squares[3][1].removeWorker();
         squares[3][2].removeWorker();
         squares[3][3].removeWorker();
+        for(VirtualView v: game.getViews())
+            v.setPing(false);
 
 
     }

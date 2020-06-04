@@ -49,7 +49,8 @@ public class Gui extends Application implements View {
     private double widthScreen = Screen.getPrimary().getBounds().getWidth();
     private double heightScreen = Screen.getPrimary().getBounds().getHeight() - 40.00;
     private boolean stop;
-    private int maxRetries=8;
+    private int maxRetries=1000;
+    private boolean kill=false;
 
 
     public static void main() {
@@ -464,6 +465,7 @@ public class Gui extends Application implements View {
 
     public void update(LogoutSuccessful event){
         try {
+            killtimer();
             client.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
@@ -491,6 +493,8 @@ public class Gui extends Application implements View {
     private void startMytimer() {
         Timer timer = new Timer();
         TimeoutCheckerInterface timeoutChecker = (l) -> {
+            if(kill)
+                return true;
             System.out.println("TIMERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR: " + l);
             if(signal){
                 signal = false;
@@ -515,6 +519,9 @@ public class Gui extends Application implements View {
 
     }
 
+    public void killtimer() {
+        kill=true;
+    }
 
 
 }

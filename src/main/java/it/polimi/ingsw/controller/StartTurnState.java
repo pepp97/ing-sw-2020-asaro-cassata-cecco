@@ -10,6 +10,7 @@ public class StartTurnState implements TurnState {
     @Override
     public void executeState(Controller controller) {
        // controller.getGame().setEndTurn(false);
+
         controller.saveAll();
         controller.setGoOn(true);
         controller.getGame().setTargetSelected(null);

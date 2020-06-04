@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.ChooseYourWorker;
+import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.events.ChooseWorker;
 import it.polimi.ingsw.model.*;
 
@@ -12,7 +13,6 @@ public class ExecuteRoutineState implements TurnState {
     int i = -1;
     boolean result;
     private Controller controller;
-
 
 
     @Override
@@ -58,13 +58,9 @@ public class ExecuteRoutineState implements TurnState {
                 controller.setState(state1);
                 state1.executeState(controller);
             } else {
-                TurnState state = new StartTurnState();
-                i = -1;
-                controller.setState(state);
-                state.executeState(controller);
-                ExecuteRoutineState state1 = new ExecuteRoutineState();
-                controller.setState(state1);
-                state1.executeState(controller);
+                controller.getGame().notifyCurrent(new ChooseTarget("", new ArrayList<>(), controller.getGame().squareToJsonArrayGenerator()));
+                controller.startTimer();
+                return;
             }
             if (controller.getGame().getCurrentPlayer().getGod().getRoutine().size() != i)
                 i++;

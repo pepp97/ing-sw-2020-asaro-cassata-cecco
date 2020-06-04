@@ -13,6 +13,8 @@ import it.polimi.ingsw.view.VirtualView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller {
 
@@ -24,6 +26,9 @@ public class Controller {
     private int tmpIndex;
     private final static int size = 5;
     private Square[][] map = new Square[size][size];
+    private static int maxRetries = 5;
+    private int h=0;
+    private boolean killTimer=false;
 
 
     public Controller() {
@@ -108,6 +113,7 @@ public class Controller {
     //arriva l'esito del worker da utilizzare per fare le azioni
     public void apply(ChooseYourWorker command) {
         //game.resetTimer();
+        killTimer=false;
         game.setTargetInUse(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
         game.getCurrentPlayer().setInQue(false);
 
@@ -140,18 +146,19 @@ public class Controller {
 
 
     public synchronized void apply(Disconnection disconnection, VirtualView view) {
+        game.setEnd(true);
         game.killtimer();
         game.unregister(view);
         game.getViews().remove(view);
-        try {
-            view.closeAll();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         if (view.getOwner() != null) {
             ExceptionEvent e = new ExceptionEvent("Player: " + view.getOwner().getUsername() + " is disconnected, the match is finished");
             game.notifyObservers(e);
             game.endGame();
+        }
+        try {
+            view.closeAll();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -237,11 +244,12 @@ public class Controller {
     public void apply(Ping ping, VirtualView v) {
         System.out.println("ping...");
         v.setPing(true);
-       // game.resetTimer();
+        // game.resetTimer();
     }
 
     public void apply(UndoCommand command, VirtualView view) {
         if (game.isUndo()) {
+            killTimer=true;
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     game.getField().getSquares()[i][j].setLevel(map[i][j].getLevel());
@@ -259,7 +267,7 @@ public class Controller {
                     game.setCurrentPlayer(game.getPlayerList().get(count - 1));
                     break;
                 }
-
+            game.notifyObservers(new UpdateEvent(game.squareToJsonArrayGenerator()));
             state = new StartTurnState();
             state.executeState(this);
             state = new ExecuteRoutineState();
@@ -285,10 +293,47 @@ public class Controller {
 
 
     public void restart() {
-        game=new Game(this);
+        game = new Game(this);
         canSkip = false;
         turnManager = new ArrayList<>();
-        TurnState state;
         goOn = false;
     }
+
+
+
+
+    public void startTimer() {
+        Timer timer = new Timer();
+
+        TimeoutCheckerInterface timeoutChecker = (l) -> {
+            System.out.println("UNDOOOOOOOOOOOOOOOOOOOO: " + h);
+      //notifyObservers(new Pong());
+            Boolean timeoutReached = h > maxRetries;
+            int i = 0;
+
+            if(killTimer)
+                return true;
+            if (timeoutReached) {
+                game.notifyObservers(new UpdateEvent(game.squareToJsonArrayGenerator()));
+                h=0;
+                TurnState state = new StartTurnState();
+                i = -1;
+                setState(state);
+                state.executeState(this);
+                ExecuteRoutineState state1 = new ExecuteRoutineState();
+                setState(state1);
+                state1.executeState(this);
+                //resetTimer();
+                return true;
+            }
+            h++;
+            return false;
+        };
+        TimerTask task = new TimeoutCounter(timeoutChecker);
+        int initialDelay = 50;
+        int delta = 1000;
+        timer.schedule(task, initialDelay, delta);
+    }
+
 }
+
