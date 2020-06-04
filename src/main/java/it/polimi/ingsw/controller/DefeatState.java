@@ -24,8 +24,8 @@ public class DefeatState implements TurnState {
                     //controller.getGame().removePlayerInList(p);
                     //notifyVictory(controller);
                     TurnState state = new NotifyVictoryState();
-                    controller.getGame().getController().setState(state);
-                    state.executeState(controller.getGame().getController());
+                    controller.setState(state);
+                    state.executeState(controller);
 
                     return;
                 }

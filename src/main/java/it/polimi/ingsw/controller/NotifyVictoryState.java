@@ -28,7 +28,8 @@ public class NotifyVictoryState implements TurnState {
                 p=controller.getGame().getCurrentPlayer();
             }
         }
-
+        controller.getGame().killtimer();
+        controller.getGame().endGame();
         return;
     }
 

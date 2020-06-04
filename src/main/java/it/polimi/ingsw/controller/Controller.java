@@ -3,10 +3,8 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.commands.*;
-import it.polimi.ingsw.events.ConnectionSuccessful;
-import it.polimi.ingsw.events.Event;
-import it.polimi.ingsw.events.ExceptionEvent;
-import it.polimi.ingsw.events.UpdateEvent;
+import it.polimi.ingsw.commands.ChooseTarget;
+import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.model.*;
 
 import it.polimi.ingsw.view.View;
@@ -15,6 +13,8 @@ import it.polimi.ingsw.view.VirtualView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller {
 
@@ -24,10 +24,11 @@ public class Controller {
     private TurnState state;
     private boolean goOn = false;
     private int tmpIndex;
-    private final static int size=5;
-    private Square [][] map= new Square[size][size];
-    private boolean saveBuild=false;
-
+    private final static int size = 5;
+    private Square[][] map = new Square[size][size];
+    private static int maxRetries = 5;
+    private int h=0;
+    private boolean killTimer=false;
 
 
     public Controller() {
@@ -51,7 +52,6 @@ public class Controller {
     }
 
 
-
     public synchronized void apply(LoginCommand command, VirtualView view) {
         game.login(command.getNickname(), command.getColor(), view);
     }
@@ -64,6 +64,7 @@ public class Controller {
 
     public void apply(ChooseGods command) {
         //game.resetTimer();
+
         game.setUsableGod(command.getNamesGod());
     }
 
@@ -76,6 +77,10 @@ public class Controller {
 
     public TurnState getState() {
         return state;
+    }
+
+    public List<Player> getTurnManager() {
+        return turnManager;
     }
 
     public void apply(ChooseInitialPosition command, VirtualView view) {
@@ -108,6 +113,7 @@ public class Controller {
     //arriva l'esito del worker da utilizzare per fare le azioni
     public void apply(ChooseYourWorker command) {
         //game.resetTimer();
+        killTimer=false;
         game.setTargetInUse(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
         game.getCurrentPlayer().setInQue(false);
 
@@ -116,9 +122,9 @@ public class Controller {
 
     //spostare in game?
     public void apply(ChooseTarget command) {
-        saveAll();
+        // saveAll();
         game.setUndo(true);
-        game.resetTimer();
+        //game.resetTimer();
         game.setTargetSelected(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getSquare());
         game.getCurrentPlayer().setInQue(false);
         this.setGoOn(true);
@@ -128,7 +134,7 @@ public class Controller {
 
 
     public void apply(UseEffect command) {
-     //   game.resetTimer();
+        //   game.resetTimer();
 
         canSkip = !command.getReply();
         game.getCurrentPlayer().setInQue(false);
@@ -140,17 +146,19 @@ public class Controller {
 
 
     public synchronized void apply(Disconnection disconnection, VirtualView view) {
+        game.setEnd(true);
+        game.killtimer();
         game.unregister(view);
         game.getViews().remove(view);
-        try {
-            view.closeAll();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         if (view.getOwner() != null) {
             ExceptionEvent e = new ExceptionEvent("Player: " + view.getOwner().getUsername() + " is disconnected, the match is finished");
             game.notifyObservers(e);
             game.endGame();
+        }
+        try {
+            view.closeAll();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -162,7 +170,7 @@ public class Controller {
     }
 
     public void apply(StarterCommand starterCommand, VirtualView view) {
-       // game.resetTimer();
+        // game.resetTimer();
         int i = 0;
 
 
@@ -190,7 +198,6 @@ public class Controller {
         state = new SetWorkerState();
         state.executeState(this);
     }
-
 
 
     public void goBack() {
@@ -234,55 +241,99 @@ public class Controller {
     }
 
 
-
-    public void  apply(Ping ping){
-
+    public void apply(Ping ping, VirtualView v) {
+        System.out.println("ping...");
+        v.setPing(true);
+        // game.resetTimer();
     }
 
-    public void apply(UndoCommand command, VirtualView view){
-      /* if(game.isUndo()){
-            for(int i=0; i<size;i++){
-                for(int j=0; j<size;j++){
+    public void apply(UndoCommand command, VirtualView view) {
+        if (game.isUndo()) {
+            killTimer=true;
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
                     game.getField().getSquares()[i][j].setLevel(map[i][j].getLevel());
-                    if(map[i][j].getWorker()!=null)
+                    if (map[i][j].getWorker() != null)
                         game.getField().getSquares()[i][j].setWorker(map[i][j].getWorker());
-                    else if(game.getField().getSquares()[i][j].getWorker()!=null)
+                    else if (game.getField().getSquares()[i][j].getWorker() != null)
                         game.getField().getSquares()[i][j].removeWorker();
                 }
             }
-            game.getCurrentPlayer().setHasBuilt(saveBuild);
-            ((ExecuteRoutineState) state).setI(tmpIndex);
-            game.setTargetSelected(null);
-            goOn = false;
-            game.getCurrentPlayer().setInQue(false);
-            UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
-            game.notifyObservers(event);
+
+            for (int count = 0; count < game.getPlayerList().size(); count++)
+                if (game.getPlayerList().get(count).equals(game.getCurrentPlayer())) {
+                    if (count == 0)
+                        count = game.getPlayerList().size();
+                    game.setCurrentPlayer(game.getPlayerList().get(count - 1));
+                    break;
+                }
+            game.notifyObservers(new UpdateEvent(game.squareToJsonArrayGenerator()));
+            state = new StartTurnState();
             state.executeState(this);
-        }
-        else {
+            state = new ExecuteRoutineState();
+            state.executeState(this);
+        } else {
             ExceptionEvent e = new ExceptionEvent("Sorry, you can't use Undo function.");
             game.notifyCurrent(e);
-        }*/
+        }
     }
 
-    private void saveAll() {
-/*
-
-        for(int i=0; i<size;i++){
-            for(int j=0; j<size;j++){
-                map[i][j]= new Square(i,j);
+    public void saveAll() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                map[i][j] = new Square(i, j);
                 map[i][j].setLevel(game.getField().getSquares()[i][j].getLevel());
-                if(game.getField().getSquares()[i][j].getWorker()!=null) {
+                if (game.getField().getSquares()[i][j].getWorker() != null) {
                     map[i][j].setWorker(game.getField().getSquares()[i][j].getWorker());
                     game.getField().getSquares()[i][j].getWorker().setActualPos(game.getField().getSquares()[i][j]);
                 }
             }
         }
-        saveBuild=game.getCurrentPlayer().isHasBuilt();
-
-        ExecuteRoutineState tmpState = (ExecuteRoutineState) state;
-        tmpIndex =  tmpState.getI() - 1;*/
     }
 
 
+    public void restart() {
+        game = new Game(this);
+        canSkip = false;
+        turnManager = new ArrayList<>();
+        goOn = false;
+    }
+
+
+
+
+    public void startTimer() {
+        Timer timer = new Timer();
+
+        TimeoutCheckerInterface timeoutChecker = (l) -> {
+            System.out.println("UNDOOOOOOOOOOOOOOOOOOOO: " + h);
+      //notifyObservers(new Pong());
+            Boolean timeoutReached = h > maxRetries;
+            int i = 0;
+
+            if(killTimer)
+                return true;
+            if (timeoutReached) {
+                game.notifyObservers(new UpdateEvent(game.squareToJsonArrayGenerator()));
+                h=0;
+                TurnState state = new StartTurnState();
+                i = -1;
+                setState(state);
+                state.executeState(this);
+                ExecuteRoutineState state1 = new ExecuteRoutineState();
+                setState(state1);
+                state1.executeState(this);
+                //resetTimer();
+                return true;
+            }
+            h++;
+            return false;
+        };
+        TimerTask task = new TimeoutCounter(timeoutChecker);
+        int initialDelay = 50;
+        int delta = 1000;
+        timer.schedule(task, initialDelay, delta);
+    }
+
 }
+

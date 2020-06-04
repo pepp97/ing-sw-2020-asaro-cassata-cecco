@@ -1,11 +1,12 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.Client;
-import it.polimi.ingsw.commands.ChooseYourGod;
-import it.polimi.ingsw.commands.Connection;
-import it.polimi.ingsw.commands.LoginCommand;
+import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.events.*;
+import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.TimeoutCheckerInterface;
+import it.polimi.ingsw.model.TimeoutCounter;
 import it.polimi.ingsw.view.gui.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -27,9 +28,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Gui extends Application implements View {
     private Stage primaryStage;
@@ -43,10 +42,15 @@ public class Gui extends Application implements View {
     private List<String> gods = new ArrayList<>();
     private List<String> nicknames = new ArrayList<>();
     private ErrorWindow error;
+    private  boolean firstPong=true;
+    private boolean signal = false;
 
 
     private double widthScreen = Screen.getPrimary().getBounds().getWidth();
     private double heightScreen = Screen.getPrimary().getBounds().getHeight() - 40.00;
+    private boolean stop;
+    private int maxRetries=1000;
+    private boolean kill=false;
 
 
     public static void main() {
@@ -461,6 +465,7 @@ public class Gui extends Application implements View {
 
     public void update(LogoutSuccessful event){
         try {
+            killtimer();
             client.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
@@ -472,6 +477,50 @@ public class Gui extends Application implements View {
             this.state = new WaitSelectYourGod(this, event);
             state.setScene();
         });
+    }
+
+
+    public void update(Pong pong){
+        System.out.println("pong...");
+        client.send(new Ping());
+        signal=true;
+        if(firstPong) {
+            startMytimer();
+            firstPong=false;
+        }
+    }
+
+    private void startMytimer() {
+        Timer timer = new Timer();
+        TimeoutCheckerInterface timeoutChecker = (l) -> {
+            if(kill)
+                return true;
+            System.out.println("TIMERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR: " + l);
+            if(signal){
+                signal = false;
+                startMytimer();
+                return true;
+            }
+            Boolean timeoutReached = l > maxRetries;
+            if (timeoutReached) {
+
+                update(new ExceptionEvent("The Server is crashed"));
+                update(new LogoutSuccessful());
+                return true;
+            }
+            return false;
+        };
+
+
+        TimerTask task = new TimeoutCounter(timeoutChecker);
+        int initialDelay = 50;
+        int delta = 1000;
+        timer.schedule(task, initialDelay, delta);
+
+    }
+
+    public void killtimer() {
+        kill=true;
     }
 
 

@@ -4,6 +4,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.commands.Disconnection;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
@@ -36,10 +37,13 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries = 5;
+    private int maxRetries = 1000;
     private boolean stop = false;
     private static final int length = 5;
     private boolean undo = false;
+    private boolean kill=false;
+    private boolean end=false;
+
 
     public Player getWinner() {
         return winner;
@@ -61,7 +65,6 @@ public class Game implements Observable {
         this.controller = controller;
         field = new Field();
         startGods = new ArrayList<>();
-        p = new ParserJson();
     }
 
     public void add(Player player) {
@@ -125,8 +128,6 @@ public class Game implements Observable {
 
         this.playerList.remove(player);
     }
-
-
 
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -201,7 +202,7 @@ public class Game implements Observable {
 
     private void checkIfFull() {
         List<String> godlist = new ArrayList<>();
-
+        p = new ParserJson();
         totalGods = p.getUsableGod();
         for (God g : totalGods) {
             godlist.add(g.getName());
@@ -212,30 +213,57 @@ public class Game implements Observable {
         notifyObservers(new LoginSuccessful(list));
         currentView = (View) observers.get(0);
         notifyCurrent(new StartGameEvent(godlist, numplayer));
-        //  startMytimer();
+        startMytimer();
+        notifyObservers(new Pong());
     }
 
     private void startMytimer() {
+        Timer timer = new Timer();
 
         TimeoutCheckerInterface timeoutChecker = (l) -> {
-            System.out.println("timer: " + l);
+            System.out.println("TIMERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR: " + l);
+            if(kill)
+                return true;
+            //notifyObservers(new Pong());
             Boolean timeoutReached = l > maxRetries;
-            if (timeoutReached) {
+            int i = 0;
 
-                stop = true;
-                undo = false;
+            for (; i < numplayer; i++)
+                if (!views.get(i).isPing()) {
+                    break;
+                }
+
+
+            if(i==numplayer){
+                for(VirtualView v: views)
+                    v.setPing(false);
+                notifyObservers(new Pong());
+                startMytimer();
+                return true;
+            }
+
+            if (timeoutReached) {
+                System.out.println("timeout!!!!!!!!!!!!!!!!!!!!!!");
+                for (VirtualView v : views)
+                    if (!v.isPing()) {
+                        controller.apply(new Disconnection(), v);
+                        break;
+                    }
+
+
+                //resetTimer();
+
 
                 return true;
             }
-            if (stop) {
+           /* if (stop) {
                 stop = false;
                 return true;
-            }
+            }*/
 
             return false;
         };
 
-        Timer timer = new Timer();
         TimerTask task = new TimeoutCounter(timeoutChecker);
         int initialDelay = 50;
         int delta = 1000;
@@ -243,10 +271,11 @@ public class Game implements Observable {
 
     }
 
-    public void resetTimer() {
-        stop = false;
-        startMytimer();
-    }
+ //   public void resetTimer() {
+        //notifyObservers(new Pong());
+        //stop = true;
+   //     startMytimer();
+    //}
 
     public boolean nicknameAvailable(String nick) {
         for (Player p : playerList)
@@ -444,6 +473,8 @@ public class Game implements Observable {
             views.remove(currentView);
             unregister(currentView);
         }
+        end=true;
+        //controller.restart();
     }
 
     public void setNumplayer(int numplayer) {
@@ -462,7 +493,16 @@ public class Game implements Observable {
         return observers;
     }
 
-    public List<String> getNames() {
-        return names;
+    public void killtimer() {
+        kill=true;
+    }
+
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void setEnd(boolean b) {
+        end=b;
     }
 }

@@ -20,8 +20,16 @@ public class VirtualView extends Thread implements View {
     private PrintWriter out;
     private Controller controller;
     private InputStreamReader input;
-    private boolean isConnected = true;
+    private boolean ping=true;
+    private boolean stop=false;
 
+    public boolean isPing() {
+        return ping;
+    }
+
+    public void setPing(boolean ping) {
+        this.ping = ping;
+    }
 
     public VirtualView(Socket socket, Controller controller) {
         this.socket = socket;
@@ -50,7 +58,6 @@ public class VirtualView extends Thread implements View {
     public void update(Event event) {
         BuilderEvent b = new BuilderEvent();
         String json = b.builder(event);
-
         this.out.println(json);
         System.out.println("Inviato Event: " + event.toString());
 
@@ -72,18 +79,19 @@ public class VirtualView extends Thread implements View {
     @Override
     public void closeAll() throws IOException {
 
-        isConnected = false;
+        stop=true;
         out.close();
         in.close();
         input.close();
         socket.close();
+
 
     }
 
     @Override
     public void run() {
 
-        while (true) {
+        while (!stop) {
             String s = null;
             if ((in.hasNext())) {
                 s = in.nextLine();
@@ -91,5 +99,23 @@ public class VirtualView extends Thread implements View {
                 System.out.println("Ricevuto: " + s);
             }
         }
+        if(controller.getGame().isEnd())
+            controller.restart();
+    }
+
+    public void setIn(Scanner in) {
+        this.in = in;
+    }
+
+    public void setOut(PrintWriter out) {
+        this.out = out;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public void setInput(InputStreamReader input) {
+        this.input = input;
     }
 }

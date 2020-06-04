@@ -9,6 +9,6 @@ public class Ping  implements Command {
 
     @Override
     public void execute(Controller controller, VirtualView view) {
-        controller.apply(this);
+        controller.apply(this,view);
     }
 }
