@@ -61,6 +61,7 @@ public class Game implements Observable {
         this.controller = controller;
         field = new Field();
         startGods = new ArrayList<>();
+        p = new ParserJson();
     }
 
     public void add(Player player) {
@@ -124,6 +125,8 @@ public class Game implements Observable {
 
         this.playerList.remove(player);
     }
+
+
 
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -198,7 +201,7 @@ public class Game implements Observable {
 
     private void checkIfFull() {
         List<String> godlist = new ArrayList<>();
-        p = new ParserJson();
+
         totalGods = p.getUsableGod();
         for (God g : totalGods) {
             godlist.add(g.getName());
@@ -459,4 +462,7 @@ public class Game implements Observable {
         return observers;
     }
 
+    public List<String> getNames() {
+        return names;
+    }
 }
