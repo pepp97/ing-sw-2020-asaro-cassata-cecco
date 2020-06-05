@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ControllerTest {
-
     private Controller controller = new Controller();
     private Game game = controller.getGame();
     private Field field = game.getField();
@@ -240,5 +240,22 @@ public class ControllerTest {
         assertTrue(controller.isCanSkip() == !command7.getReply());
     }
 
+   @Test
+    void undoTest(){
+        game.setUndo(true);
+        game.setCurrentPlayer(p);
+        //game.login("prova", Color.BROWN,new VirtualView());
+        Move move=new Move();
+        game.setTargetInUse(p.getWorkers().get(1));
+        game.setTargetSelected(squares[0][0]);
+        controller.saveAll();
+        move.isUsable(game);
+        move.use(game);
+        controller.getTurnManager().add(p);
+        assertFalse(squares[0][0].getWorker().equals(w1));
+        controller.apply(new UndoCommand(), view2);
+        assertTrue(squares[1][1].getWorker().equals(w1));
+       controller.startTimer();
+    }
 
 }

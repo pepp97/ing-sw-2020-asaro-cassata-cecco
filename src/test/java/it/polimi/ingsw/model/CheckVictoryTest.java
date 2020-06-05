@@ -99,6 +99,7 @@ public class CheckVictoryTest {
         game.setTargetSelected(game.getField().getSquares()[1][2]);
         move.isUsable(game);
         move.use(game);
+
         checkVictory.use(game);
         assertEquals(null, game.getWinner());
     }
