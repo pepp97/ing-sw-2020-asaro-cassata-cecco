@@ -49,7 +49,7 @@ public class Gui extends Application implements View {
     private double widthScreen = Screen.getPrimary().getBounds().getWidth();
     private double heightScreen = Screen.getPrimary().getBounds().getHeight() - 40.00;
     private boolean stop;
-    private int maxRetries=1000;
+    private int maxRetries=8;
     private boolean kill=false;
 
 
@@ -235,6 +235,7 @@ public class Gui extends Application implements View {
 
                     } else {
                         try {
+
                             client = new Client(ipInput.getText(), Integer.decode(portInput.getText()), this);
                             client.start();
                             Connection command = new Connection();

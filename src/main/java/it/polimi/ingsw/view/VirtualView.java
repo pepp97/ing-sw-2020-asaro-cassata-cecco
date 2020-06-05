@@ -20,8 +20,8 @@ public class VirtualView extends Thread implements View {
     private PrintWriter out;
     private Controller controller;
     private InputStreamReader input;
-    private boolean ping=true;
-    private boolean stop=false;
+    private boolean ping = true;
+    private boolean stop = false;
 
     public boolean isPing() {
         return ping;
@@ -78,8 +78,7 @@ public class VirtualView extends Thread implements View {
 
     @Override
     public void closeAll() throws IOException {
-
-        stop=true;
+        stop = true;
         out.close();
         in.close();
         input.close();
@@ -99,7 +98,7 @@ public class VirtualView extends Thread implements View {
                 System.out.println("Ricevuto: " + s);
             }
         }
-        if(controller.getGame().isEnd())
+        if (controller.getGame().isEnd())
             controller.restart();
     }
 

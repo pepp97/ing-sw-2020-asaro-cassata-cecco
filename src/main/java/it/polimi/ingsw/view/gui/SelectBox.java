@@ -31,6 +31,7 @@ public class SelectBox {
         String styleNo="-fx-text-fill: #000000;" +"-fx-background-color: #00ff00;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
         noButton.setStyle(styleNo);
         yesButton.setOnAction(e -> {
+            gui.killtimer();
             answer = true;
             Disconnection disconnection=new Disconnection();
             gui.getClient().send(disconnection);

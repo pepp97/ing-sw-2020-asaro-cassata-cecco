@@ -11,7 +11,7 @@ public class NotifyVictoryState implements TurnState {
     @Override
     public void executeState(Controller controller) {
         //evento
-        System.out.println(controller.getGame().getCurrentPlayer().getUsername()+" ,COMPLIMENTI HAI VINTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(controller.getGame().getWinner().getUsername()+" ,COMPLIMENTI HAI VINTO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         Player p = controller.getGame().getCurrentPlayer();
         EndGame endGame= new EndGame(controller.getGame().getWinner().getUsername());
         for(int i=0; i<controller.getGame().getPlayerList().size();i++){

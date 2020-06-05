@@ -29,7 +29,7 @@ public class Client extends Thread {
     private String ipAddress;
     private InputStreamReader input;
     private Scanner scanner;
-    private boolean isConnected=true;
+    private boolean isConnected = true;
 
 
     public Client(String text, int port, Gui gui) {
@@ -38,6 +38,11 @@ public class Client extends Thread {
         this.portNumber = port;
         try {
             socket = new Socket(ipAddress, portNumber);
+        } catch (IOException e) {
+            System.exit(1);
+        }
+        try {
+
             this.input = new InputStreamReader(socket.getInputStream());
             System.out.println(socket.getInputStream());
 
@@ -65,11 +70,13 @@ public class Client extends Thread {
     }
 
     public void send(Command cmd) {
-        BuilderCommand b = new BuilderCommand();
-        String json = b.builder(cmd);
-        this.out.println(json);
-        System.out.println(json);
-        System.out.println("Command: " + cmd.toString());
+        if (socket != null) {
+            BuilderCommand b = new BuilderCommand();
+            String json = b.builder(cmd);
+            this.out.println(json);
+            System.out.println(json);
+            System.out.println("Command: " + cmd.toString());
+        }
     }
 
     public void receive(String json) {
@@ -86,12 +93,6 @@ public class Client extends Thread {
     public void run() {
         while (isConnected) {
             String s = null;
-            try {
-                System.out.println(socket.getInputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println(scanner.getClass());
             if (scanner.hasNext()) {
                 s = scanner.nextLine();
                 System.out.println(s);
@@ -104,7 +105,7 @@ public class Client extends Thread {
     }
 
     public void disconnect() throws IOException {
-        isConnected=false;
+        isConnected = false;
         input.close();
         writer.close();
         out.close();

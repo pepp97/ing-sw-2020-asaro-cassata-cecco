@@ -37,12 +37,13 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries = 1000;
+    private int maxRetries = 8;
     private boolean stop = false;
     private static final int length = 5;
     private boolean undo = false;
-    private boolean kill=false;
-    private boolean end=false;
+    private boolean kill = false;
+    private boolean end = false;
+    private List<VirtualView> toPing = new ArrayList<>();
 
     public List<String> getNames() {
         return List.copyOf(names);
@@ -188,6 +189,8 @@ public class Game implements Observable {
         Player player = new Player(nickname, color);
         playerList.add(player);
         view.setOwner(player);
+        if(playerList.size()==2)
+            toPing = views;
         if (playerList.size() == 1) {
             notifyCurrent(new SettingsEvent());
         } else if (playerList.size() == numplayer) {
@@ -195,6 +198,10 @@ public class Game implements Observable {
         } else {
             lastOption(playerList);
         }
+    }
+
+    public List<VirtualView> getToPing() {
+        return toPing;
     }
 
     private void lastOption(List<Player> playerList) {
@@ -217,42 +224,52 @@ public class Game implements Observable {
         notifyObservers(new LoginSuccessful(list));
         currentView = (View) observers.get(0);
         notifyCurrent(new StartGameEvent(godlist, numplayer));
-        startMytimer();
         notifyObservers(new Pong());
     }
 
-    private void startMytimer() {
+    public void startMytimer() {
         Timer timer = new Timer();
 
         TimeoutCheckerInterface timeoutChecker = (l) -> {
             System.out.println("TIMERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR: " + l);
-            if(kill)
+            if (kill)
                 return true;
             //notifyObservers(new Pong());
             Boolean timeoutReached = l > maxRetries;
             int i = 0;
 
-            for (; i < numplayer; i++)
-                if (!views.get(i).isPing()) {
+            for (; i < toPing.size(); i++)
+                if (!toPing.get(i).isPing()) {
                     break;
                 }
 
 
-            if(i==numplayer){
-                for(VirtualView v: views)
+            if (i == toPing.size()) {
+                for (VirtualView v : toPing) {
                     v.setPing(false);
-                notifyObservers(new Pong());
+                    v.update(new Pong());
+                }
                 startMytimer();
                 return true;
             }
 
             if (timeoutReached) {
                 System.out.println("timeout!!!!!!!!!!!!!!!!!!!!!!");
-                for (VirtualView v : views)
-                    if (!v.isPing()) {
-                        controller.apply(new Disconnection(), v);
-                        break;
-                    }
+                if (views == toPing) {
+                    for (VirtualView v : views)
+                        if (!v.isPing()) {
+                            controller.apply(new Disconnection(), v);
+                            break;
+                        }
+                } else for (VirtualView v : toPing) {
+                        if(toPing.size()==1) {
+                            end = true;
+                        }
+                        if (!v.isPing()) {
+                            controller.apply(new PingDelete(), v);
+                            break;
+                        }
+                }
 
 
                 //resetTimer();
@@ -275,10 +292,10 @@ public class Game implements Observable {
 
     }
 
- //   public void resetTimer() {
-        //notifyObservers(new Pong());
-        //stop = true;
-   //     startMytimer();
+    //   public void resetTimer() {
+    //notifyObservers(new Pong());
+    //stop = true;
+    //     startMytimer();
     //}
 
     public boolean nicknameAvailable(String nick) {
@@ -477,7 +494,7 @@ public class Game implements Observable {
             views.remove(currentView);
             unregister(currentView);
         }
-        end=true;
+        end = true;
         //controller.restart();
     }
 
@@ -498,7 +515,7 @@ public class Game implements Observable {
     }
 
     public void killtimer() {
-        kill=true;
+        kill = true;
     }
 
 
@@ -507,6 +524,6 @@ public class Game implements Observable {
     }
 
     public void setEnd(boolean b) {
-        end=b;
+        end = b;
     }
 }

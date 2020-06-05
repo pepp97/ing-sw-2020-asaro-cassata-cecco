@@ -27,8 +27,8 @@ public class Controller {
     private final static int size = 5;
     private Square[][] map = new Square[size][size];
     private static int maxRetries = 5;
-    private int h=0;
-    private boolean killTimer=false;
+    private int limit = 0;
+    private boolean killTimer = false;
 
 
     public Controller() {
@@ -113,7 +113,7 @@ public class Controller {
     //arriva l'esito del worker da utilizzare per fare le azioni
     public void apply(ChooseYourWorker command) {
         //game.resetTimer();
-        killTimer=false;
+        killTimer = false;
         game.setTargetInUse(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
         game.getCurrentPlayer().setInQue(false);
 
@@ -146,6 +146,10 @@ public class Controller {
 
 
     public synchronized void apply(Disconnection disconnection, VirtualView view) {
+        if (!game.getViews().contains(view)) {
+            apply(new PingDelete(), view);
+            return;
+        }
         game.setEnd(true);
         game.killtimer();
         game.unregister(view);
@@ -165,6 +169,10 @@ public class Controller {
 
     public synchronized void apply(Connection connection, VirtualView view) {
         System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO2");
+        if (game.getToPing() != game.getViews()) {
+            game.getToPing().add(view);
+            game.startMytimer();
+        }
         ConnectionSuccessful event = new ConnectionSuccessful();
         event.send(view);
     }
@@ -249,7 +257,7 @@ public class Controller {
 
     public void apply(UndoCommand command, VirtualView view) {
         if (game.isUndo()) {
-            killTimer=true;
+            killTimer = true;
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     game.getField().getSquares()[i][j].setLevel(map[i][j].getLevel());
@@ -300,22 +308,20 @@ public class Controller {
     }
 
 
-
-
     public void startTimer() {
         Timer timer = new Timer();
 
         TimeoutCheckerInterface timeoutChecker = (l) -> {
-            System.out.println("UNDOOOOOOOOOOOOOOOOOOOO: " + h);
-      //notifyObservers(new Pong());
-            Boolean timeoutReached = h > maxRetries;
+            System.out.println("UNDOOOOOOOOOOOOOOOOOOOO: " + limit);
+            //notifyObservers(new Pong());
+            Boolean timeoutReached = limit > maxRetries;
             int i = 0;
 
-            if(killTimer)
+            if (killTimer)
                 return true;
             if (timeoutReached) {
                 game.notifyObservers(new UpdateEvent(game.squareToJsonArrayGenerator()));
-                h=0;
+                limit = 0;
                 TurnState state = new StartTurnState();
                 i = -1;
                 setState(state);
@@ -326,7 +332,7 @@ public class Controller {
                 //resetTimer();
                 return true;
             }
-            h++;
+            limit++;
             return false;
         };
         TimerTask task = new TimeoutCounter(timeoutChecker);
@@ -335,5 +341,15 @@ public class Controller {
         timer.schedule(task, initialDelay, delta);
     }
 
+    public void apply(PingDelete pingDelete, VirtualView view) {
+        game.getToPing().remove(view);
+        try {
+            view.closeAll();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (VirtualView v : game.getToPing())
+            v.update(new Pong());
+    }
 }
 
