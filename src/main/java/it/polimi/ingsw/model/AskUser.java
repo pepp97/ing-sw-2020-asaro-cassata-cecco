@@ -25,8 +25,6 @@ public class AskUser implements SubAction {
     @Override
     public void use(Game game) {
         game.getController().setGoOn(false);
-
-
     }
 
     @Override
