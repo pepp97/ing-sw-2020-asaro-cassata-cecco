@@ -44,6 +44,9 @@ public class Game implements Observable {
     private boolean kill=false;
     private boolean end=false;
 
+    public List<String> getNames() {
+        return List.copyOf(names);
+    }
 
     public Player getWinner() {
         return winner;
