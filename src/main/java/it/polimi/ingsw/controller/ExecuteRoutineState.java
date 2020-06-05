@@ -114,4 +114,8 @@ public class ExecuteRoutineState implements TurnState {
     public void setI(int i) {
         this.i = i;
     }
+
+    public boolean isResult() {
+        return result;
+    }
 }
