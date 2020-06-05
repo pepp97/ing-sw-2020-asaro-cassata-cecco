@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExecuteRoutineStateTest {
@@ -158,5 +159,16 @@ public class ExecuteRoutineStateTest {
         state.executeState(controller);
 
         assertTrue(controller.getGame().getWinner().getUsername().equals("giovi"));
+    }
+
+    @Test
+    void tryToEscapeTest(){
+        ExecuteRoutineState finalState = (ExecuteRoutineState) state;
+        finalState.setI(0);
+        controller.getGame().setTargetInUse(w1);
+        finalState.executeState(controller);
+        Boolean result = finalState.tryToEscape();
+        assertFalse(result);
+
     }
 }
