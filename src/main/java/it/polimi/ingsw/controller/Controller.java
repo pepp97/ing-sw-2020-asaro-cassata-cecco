@@ -23,12 +23,13 @@ public class Controller {
     private List<Player> turnManager = new ArrayList<>();
     private TurnState state;
     private boolean goOn = false;
-    private int tmpIndex;
+    private boolean undoCheckFlag=false;
     private final static int size = 5;
     private Square[][] map = new Square[size][size];
     private static int maxRetries = 5;
     private int limit = 0;
     private boolean killTimer = false;
+
 
 
     public Controller() {
@@ -56,23 +57,21 @@ public class Controller {
         game.login(command.getNickname(), command.getColor(), view);
     }
 
-    public void apply(ChooseSettings command, VirtualView view) {
+    public synchronized void apply(ChooseSettings command, VirtualView view) {
         //game.resetTimer();
         game.selectNplayer(command.getNplayer(), view);
     }
 
 
-    public void apply(ChooseGods command) {
+    public synchronized void apply(ChooseGods command) {
         //game.resetTimer();
 
         game.setUsableGod(command.getNamesGod());
     }
 
-    public void apply(ChooseYourGod command, VirtualView view) {
+    public synchronized void apply(ChooseYourGod command, VirtualView view) {
         //game.resetTimer();
         game.setPlayerGod(command.getName(), view);
-        System.out.println("THREAD NUMERO 1,2");
-        System.out.println(view.toString());
     }
 
     public TurnState getState() {
@@ -83,7 +82,7 @@ public class Controller {
         return turnManager;
     }
 
-    public void apply(ChooseInitialPosition command, VirtualView view) {
+    public synchronized void apply(ChooseInitialPosition command, VirtualView view) {
         //game.resetTimer();
         game.setInitialPosition(command.getCoordinateX(), command.getCoordinateY(), view);
 // entro appena tutti hanno selezionato la posizione iniziale
@@ -111,7 +110,7 @@ public class Controller {
 
 
     //arriva l'esito del worker da utilizzare per fare le azioni
-    public void apply(ChooseYourWorker command) {
+    public synchronized void apply(ChooseYourWorker command) {
         //game.resetTimer();
         killTimer = false;
         game.setTargetInUse(game.getField().getSquares()[command.getCoordinateX()][command.getCoordinateY()].getWorker());
@@ -121,7 +120,7 @@ public class Controller {
     }
 
     //spostare in game?
-    public void apply(ChooseTarget command) {
+    public synchronized void apply(ChooseTarget command) {
         // saveAll();
         game.setUndo(true);
         //game.resetTimer();
@@ -133,7 +132,7 @@ public class Controller {
     }
 
 
-    public void apply(UseEffect command) {
+    public synchronized void apply(UseEffect command) {
         //   game.resetTimer();
 
         canSkip = !command.getReply();
@@ -168,7 +167,7 @@ public class Controller {
     }
 
     public synchronized void apply(Connection connection, VirtualView view) {
-        System.out.println("CI SONOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO2");
+
         if (game.getToPing() != game.getViews()) {
             game.getToPing().add(view);
             game.startMytimer();
@@ -177,7 +176,7 @@ public class Controller {
         event.send(view);
     }
 
-    public void apply(StarterCommand starterCommand, VirtualView view) {
+    public synchronized void apply(StarterCommand starterCommand, VirtualView view) {
         // game.resetTimer();
         int i = 0;
 
@@ -255,7 +254,10 @@ public class Controller {
         // game.resetTimer();
     }
 
-    public void apply(UndoCommand command, VirtualView view) {
+    public synchronized void apply(UndoCommand command, VirtualView view) {
+        for(Worker w: game.getCurrentPlayer().getWorkers())
+            if(undoCheckFlag)
+                w.setCanMoveUp(undoCheckFlag);
         if (game.isUndo()) {
             killTimer = true;
             for (int i = 0; i < size; i++) {
@@ -287,6 +289,8 @@ public class Controller {
     }
 
     public void saveAll() {
+        if(game.getCurrentPlayer().getWorkers().get(0).getCanMoveUp()==true)
+            undoCheckFlag=true;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 map[i][j] = new Square(i, j);
@@ -320,6 +324,7 @@ public class Controller {
             if (killTimer)
                 return true;
             if (timeoutReached) {
+                undoCheckFlag=false;
                 game.notifyObservers(new UpdateEvent(game.squareToJsonArrayGenerator()));
                 limit = 0;
                 TurnState state = new StartTurnState();

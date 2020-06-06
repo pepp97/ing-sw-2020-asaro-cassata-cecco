@@ -23,7 +23,7 @@ public class ParserJson {
     }
 
     public ArrayList<God> getUsableGod() {
-        System.out.println(usableGod.size());
+
         return usableGod;
     }
 
@@ -41,7 +41,7 @@ public class ParserJson {
                 if (god.get(j) != null) {
                     JsonNode singleGod = god.get(j);
                     usableGod.add(importGod(singleGod));
-                    System.out.println(usableGod.size());
+                  //  System.out.println(usableGod.size());
                 }
             }
         } catch (IOException e) {
@@ -92,22 +92,19 @@ public class ParserJson {
 
     public void printGod(ArrayList<God> usableGod) {
         for (int i = 0; i < usableGod.size(); i++) {
-            System.out.println("Nuovo God");
-            System.out.println(usableGod.get(i).getName());
-            System.out.println(usableGod.get(i).getSurname());
-            System.out.println(usableGod.get(i).getTextEffect());
+           // System.out.println("Nuovo God");
+           // System.out.println(usableGod.get(i).getName());
+           // System.out.println(usableGod.get(i).getSurname());
+            //System.out.println(usableGod.get(i).getTextEffect());
             for (int j = 0; j < usableGod.get(i).getRoutine().size(); j++) {
                 System.out.println(usableGod.get(i).getRoutine().get(j).getEffect() + " " + usableGod.get(i).getRoutine().get(j).isSkippable());
                 if (usableGod.get(i).getRoutine().get(j).getLevels() != null) {
-                    System.out.print("levels :");
+              //      System.out.print("levels :");
                     for (int k = 0; k < usableGod.get(i).getRoutine().get(j).getLevels().size(); k++) {
                         System.out.println(usableGod.get(i).getRoutine().get(j).getLevels().get(k));
                     }
                 }
             }
-
-            System.out.println("");
-            System.out.println("");
         }
     }
 }

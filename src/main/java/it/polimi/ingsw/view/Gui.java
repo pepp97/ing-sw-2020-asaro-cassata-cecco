@@ -424,6 +424,7 @@ public class Gui extends Application implements View {
     }
 
     public void update(DeathPlayer deathPlayer) {
+        killtimer();
         Platform.runLater(() -> {
             this.state = new DeathPlayerWindow(this, deathPlayer);
             state.setScene();

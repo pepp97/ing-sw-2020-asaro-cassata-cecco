@@ -37,7 +37,7 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries = 8;
+    private int maxRetries = 5;
     private boolean stop = false;
     private static final int length = 5;
     private boolean undo = false;
@@ -346,7 +346,6 @@ public class Game implements Observable {
     }
 
     public synchronized void setPlayerGod(String godname, VirtualView view) {
-        System.out.println("il nome è " + godname);
         List<String> passGod = new ArrayList<>(names);
         List<String> passEffect = createList(passGod);
         notifyObservers(new WaitYourGodEvent(passGod, passEffect));

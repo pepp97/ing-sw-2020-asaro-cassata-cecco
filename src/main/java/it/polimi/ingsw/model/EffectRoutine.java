@@ -53,7 +53,7 @@ public class EffectRoutine {
 
 
             default:
-                System.out.println("Class not found");
+               System.out.println("\n");
         }
     }
 

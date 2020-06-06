@@ -11,15 +11,14 @@ public class StartTurnState implements TurnState {
     public void executeState(Controller controller) {
        // controller.getGame().setEndTurn(false);
 
-        controller.saveAll();
+
         controller.setGoOn(true);
         controller.getGame().setTargetSelected(null);
         controller.getGame().setTargetInUse(null);
 
-        for(Worker w: controller.getGame().getCurrentPlayer().getWorkers())
-            w.setCanMoveUp(true);
 
         controller.getGame().setCurrentPlayer(controller.getNextPlayer(controller.getGame().getCurrentPlayer()));
+        controller.saveAll();
         controller.setCanSkip(false);
         Player currentPlayer= controller.getGame().getCurrentPlayer();
         currentPlayer.setHasBeenMoved(false);
@@ -40,7 +39,6 @@ public class StartTurnState implements TurnState {
            w.resetHystoricPos();
            w.setCanBeMoved(true);
            w.setCanBuild(true);
-           w.setCanMoveUp(true);
        }
 
        currentPlayer.getGod().setCantDo(new ArrayList<>());

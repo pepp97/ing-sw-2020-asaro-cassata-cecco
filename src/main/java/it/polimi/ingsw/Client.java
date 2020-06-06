@@ -8,6 +8,7 @@ import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.commands.LoginCommand;
 import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.events.Event;
+import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.View;
 
