@@ -31,9 +31,6 @@ public class Server {
         do{
             System.out.println("Insert a port number, insert 1 for the default port.\n");
             String portNumber = initPort.readLine();
-            if(portNumber.isEmpty()){
-                break;
-            }
             try {
                 portSelected = Integer.parseInt(portNumber);
             }catch(NumberFormatException e){
