@@ -288,6 +288,10 @@ public class Controller {
         }
     }
 
+    public void setUndoCheckFlag(boolean undoCheckFlag) {
+        this.undoCheckFlag = undoCheckFlag;
+    }
+
     public void saveAll() {
         if(game.getCurrentPlayer().getWorkers().get(0).getCanMoveUp()==true)
             undoCheckFlag=true;
@@ -324,6 +328,8 @@ public class Controller {
             if (killTimer)
                 return true;
             if (timeoutReached) {
+                for(Worker w: game.getCurrentPlayer().getWorkers())
+                    w.setCanMoveUp(true);
                 undoCheckFlag=false;
                 game.notifyObservers(new UpdateEvent(game.squareToJsonArrayGenerator()));
                 limit = 0;

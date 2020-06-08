@@ -68,7 +68,7 @@ public class Move implements SubAction {
                 }
 
             } else new ExceptionEvent("target not available");
-        } else new ExceptionEvent("You can't move");
+        } else game.notifyCurrent(new ExceptionEvent("You can't move"));
 
         //creazione evento + sistemare minotauro
         game.setTargetSelected(null);

@@ -45,6 +45,7 @@ public class Game implements Observable {
     private boolean kill = false;
     private boolean end = false;
     private List<VirtualView> toPing = new ArrayList<>();
+    private VirtualView tmpView;
 
     public List<String> getNames() {
         return List.copyOf(names);
@@ -158,6 +159,8 @@ public class Game implements Observable {
     //IMPLEMENTARE
     public synchronized void login(String nickname, Color color, VirtualView view) {
         //  aggiustare numero di giocatori che si possono loggare
+        if(currentView!=null)
+            tmpView= (VirtualView) currentView;
         currentView = view;
         if (!nicknameAvailable(nickname)) {
             notifyCurrent(new ExceptionEvent("Username already in use!"));
@@ -167,8 +170,15 @@ public class Game implements Observable {
             /*currentView = view;
             views.add(view);*/
             if (gameAlreadyStarted()) {
-                notifyCurrent(new ExceptionEvent("game already started"));
-
+                notifyCurrent(new ExceptionEvent("game already started, you have been disconnected"));
+                notifyCurrent(new LogoutSuccessful());
+                toPing.remove(currentView);
+                try {
+                    currentView.closeAll();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                currentView=tmpView;
             } else if (playerList.size() == 1 && numplayer == 0) {
                 notifyCurrent(new ExceptionEvent("Another player is setting the number of opponents, please wait"));
             } else if (nicknameAvailable(nickname) && colorAvailable(color)) {

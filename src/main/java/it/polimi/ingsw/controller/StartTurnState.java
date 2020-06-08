@@ -11,7 +11,7 @@ public class StartTurnState implements TurnState {
     public void executeState(Controller controller) {
        // controller.getGame().setEndTurn(false);
 
-
+        controller.setUndoCheckFlag(false);
         controller.setGoOn(true);
         controller.getGame().setTargetSelected(null);
         controller.getGame().setTargetInUse(null);
@@ -25,6 +25,7 @@ public class StartTurnState implements TurnState {
         currentPlayer.setHasBuilt(false);
         currentPlayer.setDefeat(false);
         currentPlayer.setInQue(false);
+
 
         Square square [][]=controller.getGame().getField().getSquares();
 
