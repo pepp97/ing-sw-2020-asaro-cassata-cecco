@@ -17,8 +17,6 @@ public class FilterSame implements SubAction {
     @Override
     public void use(Game game) {
 
-        // controllare tutte per build o passare penultima posizione
-
         Worker worker = (Worker) game.getTargetInUse();
 
         for (Square s : worker.getSquare().getAdjacentSquares()) {

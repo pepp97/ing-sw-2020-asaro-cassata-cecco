@@ -5,6 +5,7 @@ import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.Disconnection;
+import it.polimi.ingsw.commands.PingDelete;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
