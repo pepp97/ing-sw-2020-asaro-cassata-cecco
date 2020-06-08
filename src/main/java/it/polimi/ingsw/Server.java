@@ -18,7 +18,7 @@ public class Server {
     public static int port=8080;
     static int portSelected;
 
-    public static void main(String[] args) throws IOException {
+    public static void main() throws IOException {
         Controller controller=new Controller();
 
       /*  try {
