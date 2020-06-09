@@ -28,12 +28,14 @@ public class Controller {
     private Square[][] map = new Square[size][size];
     private static int maxRetries = 5;
     private int limit = 0;
+    private ParserJson p;
     private boolean killTimer = false;
 
 
 
     public Controller() {
         this.game = new Game(this);
+        p=new ParserJson();
     }
 
     public void setCanSkip(boolean canSkip) {
@@ -361,6 +363,10 @@ public class Controller {
         }
         for (VirtualView v : game.getToPing())
             v.update(new Pong());
+    }
+
+    public ParserJson getP() {
+        return p;
     }
 }
 

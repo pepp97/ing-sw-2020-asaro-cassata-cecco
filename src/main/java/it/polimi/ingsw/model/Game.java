@@ -31,7 +31,6 @@ public class Game implements Observable {
     private int numplayer = 0;
     private List<God> startGods;
     private List<God> totalGods;
-    private ParserJson p;
     private List<String> effects = new ArrayList<>();
     private List<String> names = new ArrayList<>();
     private int turnIndex = 1;
@@ -71,7 +70,6 @@ public class Game implements Observable {
         this.controller = controller;
         field = new Field();
         startGods = new ArrayList<>();
-        p = new ParserJson();
     }
 
     public void add(Player player) {
@@ -225,7 +223,7 @@ public class Game implements Observable {
     private void checkIfFull() {
         List<String> godlist = new ArrayList<>();
 
-        totalGods = p.getUsableGod();
+        totalGods = controller.getP().getUsableGod();
         for (God g : totalGods) {
             godlist.add(g.getName());
         }
@@ -340,7 +338,7 @@ public class Game implements Observable {
 
     public void setUsableGod(List<String> god) {
         for (String s : god) {
-            for (God totalGod : p.getUsableGod()) {
+            for (God totalGod : controller.getP().getUsableGod()) {
                 if (s.equals(totalGod.getName())) {
                     startGods.add(totalGod);
                     effects.add(totalGod.getTextEffect());
