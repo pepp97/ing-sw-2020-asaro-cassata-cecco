@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.view.VirtualView;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.image.VolatileImage;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -42,10 +44,10 @@ public class ControllerTest {
         p.setWorkers(w4);
         view = new VirtualView();
         view.setOwner(p);
-        game.getViews().add(view);
+        game.register(view);
         game.setNumplayer(2);
         game.add(p);
-        game.getObservers().add(view);
+        game.register(view);
         List<EffectRoutine> list = new ArrayList<>();
         list.add(new EffectRoutine("move", false));
         God g = new God("prova", "prova", "prova", list);
@@ -55,8 +57,9 @@ public class ControllerTest {
         squares[0][0].setWorker(w4);
         view2 = new VirtualView();
         gods = new ArrayList<>();
-        for (VirtualView v : game.getViews())
-            v.setPing(true);
+        for (Observer o : game.getObservers()){
+            VirtualView v=(VirtualView)o;
+            v.setPing(true);}
         Socket socket = new Socket();
         InputStreamReader input = new InputStreamReader(new InputStream() {
             @Override
@@ -99,9 +102,11 @@ public class ControllerTest {
         w1.setCanBuild(true);
         w2.setCanBuild(true);
         w3.setCanBuild(true);
-        for (VirtualView v : game.getViews())
+        for (Observer o : game.getObservers()){
+            VirtualView v=(VirtualView)o;
             v.setPing(false);
-        game.getViews().remove(view2);
+        }
+        game.unregister(view2);
     }
 
     @Test

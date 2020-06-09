@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.commands.*;
@@ -23,7 +24,7 @@ public class Controller {
     private List<Player> turnManager = new ArrayList<>();
     private TurnState state;
     private boolean goOn = false;
-    private boolean undoCheckFlag=false;
+    private boolean undoCheckFlag = false;
     private final static int size = 5;
     private Square[][] map = new Square[size][size];
     private static int maxRetries = 5;
@@ -32,10 +33,9 @@ public class Controller {
     private boolean killTimer = false;
 
 
-
     public Controller() {
         this.game = new Game(this);
-        p=new ParserJson();
+        p = new ParserJson();
     }
 
     public void setCanSkip(boolean canSkip) {
@@ -147,14 +147,13 @@ public class Controller {
 
 
     public synchronized void apply(Disconnection disconnection, VirtualView view) {
-        if (!game.getViews().contains(view)) {
+        if (!game.getObservers().contains(view)) {
             apply(new PingDelete(), view);
             return;
         }
         game.setEnd(true);
         game.killtimer();
         game.unregister(view);
-        game.getViews().remove(view);
         if (view.getOwner() != null) {
             ExceptionEvent e = new ExceptionEvent("Player: " + view.getOwner().getUsername() + " is disconnected, the match is finished");
             game.notifyObservers(e);
@@ -170,7 +169,7 @@ public class Controller {
 
     public synchronized void apply(Connection connection, VirtualView view) {
 
-        if (game.getToPing() != game.getViews()) {
+        if (game.getToPing() != game.getObservers()) {
             game.getToPing().add(view);
             game.startMytimer();
         }
@@ -201,9 +200,11 @@ public class Controller {
             System.out.println(p.getUsername());
 
         game.setCurrentPlayer(turnManager.get(0));
-        for (View v : game.getViews())
+        for (Observer o : game.getObservers()) {
+            View v=(View)o;
             if (v.getOwner().equals(game.getCurrentPlayer()))
                 game.setCurrentView(v);
+        }
         state = new SetWorkerState();
         state.executeState(this);
     }
@@ -257,8 +258,8 @@ public class Controller {
     }
 
     public synchronized void apply(UndoCommand command, VirtualView view) {
-        for(Worker w: game.getCurrentPlayer().getWorkers())
-            if(undoCheckFlag)
+        for (Worker w : game.getCurrentPlayer().getWorkers())
+            if (undoCheckFlag)
                 w.setCanMoveUp(undoCheckFlag);
         if (game.isUndo()) {
             killTimer = true;
@@ -295,8 +296,8 @@ public class Controller {
     }
 
     public void saveAll() {
-        if(game.getCurrentPlayer().getWorkers().get(0).getCanMoveUp()==true)
-            undoCheckFlag=true;
+        if (game.getCurrentPlayer().getWorkers().get(0).getCanMoveUp() == true)
+            undoCheckFlag = true;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 map[i][j] = new Square(i, j);
@@ -330,9 +331,9 @@ public class Controller {
             if (killTimer)
                 return true;
             if (timeoutReached) {
-                for(Worker w: game.getCurrentPlayer().getWorkers())
+                for (Worker w : game.getCurrentPlayer().getWorkers())
                     w.setCanMoveUp(true);
-                undoCheckFlag=false;
+                undoCheckFlag = false;
                 game.notifyObservers(new UpdateEvent(game.squareToJsonArrayGenerator()));
                 limit = 0;
                 TurnState state = new StartTurnState();
@@ -361,8 +362,9 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (VirtualView v : game.getToPing())
-            v.update(new Pong());
+        for (Observer o : game.getToPing()){
+            o.update(new Pong());
+        }
     }
 
     public ParserJson getP() {
