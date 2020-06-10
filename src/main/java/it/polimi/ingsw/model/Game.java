@@ -158,24 +158,25 @@ public class Game implements Observable {
         if (currentView != null)
             tmpView = (VirtualView) currentView;
         currentView = view;
-        if (!nicknameAvailable(nickname)) {
+        if (gameAlreadyStarted()) {
+            notifyCurrent(new ExceptionEvent("game already started, you have been disconnected"));
+            notifyCurrent(new LogoutSuccessful());
+            toPing.remove(currentView);
+            try {
+                currentView.closeAll();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            currentView = tmpView;
+        }
+        else if (!nicknameAvailable(nickname)) {
             notifyCurrent(new ExceptionEvent("Username already in use!"));
         } else if (!colorAvailable(color)) {
             notifyCurrent(new ExceptionEvent("Color already in use!"));
         } else {
             /*currentView = view;
             views.add(view);*/
-            if (gameAlreadyStarted()) {
-                notifyCurrent(new ExceptionEvent("game already started, you have been disconnected"));
-                notifyCurrent(new LogoutSuccessful());
-                toPing.remove(currentView);
-                try {
-                    currentView.closeAll();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                currentView = tmpView;
-            } else if (playerList.size() == 1 && numplayer == 0) {
+             if (playerList.size() == 1 && numplayer == 0) {
                 notifyCurrent(new ExceptionEvent("Another player is setting the number of opponents, please wait"));
             } else if (nicknameAvailable(nickname) && colorAvailable(color)) {
                 playerLogin(nickname, color, view);
