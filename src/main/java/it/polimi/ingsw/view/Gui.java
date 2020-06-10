@@ -332,7 +332,7 @@ public class Gui extends Application implements View {
         if (exitGame.displayMessage(primaryStage)) {
             primaryStage.close();
             Platform.exit();
-            System.out.println("Sei uscito dal gioco con successo. \n Per fare l'upgrade mettere un do while nel launcher per riproporre la scelta");
+            System.out.println("Sei uscito dal gioco con successo. \n");
         }
     }
 
