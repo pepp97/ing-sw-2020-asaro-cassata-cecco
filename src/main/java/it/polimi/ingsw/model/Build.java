@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.commands.UndoCommand;
 import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.events.UpdateEvent;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +57,9 @@ public class Build implements SubAction {
                     availableSquare.clear();
                     UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
                     game.notifyObservers(event);
-                } else
-                    new ExceptionEvent("you can't build here!");
+                } else{ game.notifyCurrent(new ExceptionEvent("target not available"));
+                    game.getController().apply(new UndoCommand(), (VirtualView) game.getCurrentView());
+                }
             } else new ExceptionEvent("you can't build");
             //generazione pacchetto->creazione evento
 
