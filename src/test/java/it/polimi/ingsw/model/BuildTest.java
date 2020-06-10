@@ -18,7 +18,8 @@ import java.util.List;
 public class BuildTest {
 
     private Build build=new Build();
-    private Game game=new Game(new Controller());
+    private Controller controller=new Controller();
+    private Game game=controller.getGame();
     private Field field=game.getField();
     Worker w1=new Worker();
     Worker w2=new Worker();
@@ -121,6 +122,7 @@ public class BuildTest {
         game.setTargetSelected(squares[0][4]);
         build.isUsable(game);
         int level=game.getTargetSelected().getSquare().getLevel();
+        game.setCurrentPlayer(p);
         build.use(game);
         assertFalse(level+1==squares[0][4].getLevel());
     }

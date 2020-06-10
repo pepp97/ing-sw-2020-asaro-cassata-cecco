@@ -14,6 +14,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.BrokenBarrierException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -255,12 +256,15 @@ public class ControllerTest {
         game.setTargetSelected(squares[0][0]);
         controller.saveAll();
         move.isUsable(game);
+        controller.getTurnManager().add(p);
+       controller.getTurnManager().add(p);
         move.use(game);
         controller.getTurnManager().add(p);
         assertFalse(squares[0][0].getWorker().equals(w1));
         controller.apply(new UndoCommand(), view2);
         assertTrue(squares[1][1].getWorker().equals(w1));
-       controller.startTimer();
+        controller.startTimer();
+
     }
 
 }
