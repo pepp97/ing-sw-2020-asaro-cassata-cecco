@@ -147,10 +147,13 @@ public class Controller {
 
 
     public synchronized void apply(Disconnection disconnection, VirtualView view) {
-        if (!game.getObservers().contains(view)) {
-            apply(new PingDelete(), view);
-            return;
-        }
+        if(!game.getObservers().contains(view)){
+            try {
+                view.closeAll();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;}
         game.setEnd(true);
         game.killtimer();
         game.unregister(view);
@@ -168,11 +171,6 @@ public class Controller {
     }
 
     public synchronized void apply(Connection connection, VirtualView view) {
-
-        if (game.getToPing() != game.getObservers()) {
-            game.getToPing().add(view);
-            game.startMytimer();
-        }
         ConnectionSuccessful event = new ConnectionSuccessful();
         event.send(view);
     }
@@ -355,17 +353,6 @@ public class Controller {
         timer.schedule(task, initialDelay, delta);
     }
 
-    public void apply(PingDelete pingDelete, VirtualView view) {
-        game.getToPing().remove(view);
-        try {
-            view.closeAll();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        for (Observer o : game.getToPing()){
-            o.update(new Pong());
-        }
-    }
 
     public ParserJson getP() {
         return p;

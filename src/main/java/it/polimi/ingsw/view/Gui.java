@@ -492,7 +492,7 @@ public class Gui extends Application implements View {
         }
     }
 
-    private void startMytimer() {
+    public void startMytimer() {
         Timer timer = new Timer();
         TimeoutCheckerInterface timeoutChecker = (l) -> {
             if(kill)

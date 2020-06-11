@@ -5,7 +5,7 @@ import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.Disconnection;
-import it.polimi.ingsw.commands.PingDelete;
+//import it.polimi.ingsw.commands.PingDelete;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
@@ -41,7 +41,6 @@ public class Game implements Observable {
     private boolean undo = false;
     private boolean kill = false;
     private boolean end = false;
-    private List<Observer> toPing = new ArrayList<>();
     private VirtualView tmpView;
 
     public List<String> getNames() {
@@ -118,7 +117,7 @@ public class Game implements Observable {
         for (Observer o : observers) {
             if (o.getOwner().equals(player)) {
                 unregister(o);
-               VirtualView v=(VirtualView) o;
+                VirtualView v = (VirtualView) o;
                 try {
                     v.closeAll();
                 } catch (IOException e) {
@@ -161,22 +160,20 @@ public class Game implements Observable {
         if (gameAlreadyStarted()) {
             notifyCurrent(new ExceptionEvent("game already started, you have been disconnected"));
             notifyCurrent(new LogoutSuccessful());
-            toPing.remove(currentView);
             try {
                 currentView.closeAll();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             currentView = tmpView;
-        }
-        else if (!nicknameAvailable(nickname)) {
+        } else if (!nicknameAvailable(nickname)) {
             notifyCurrent(new ExceptionEvent("Username already in use!"));
         } else if (!colorAvailable(color)) {
             notifyCurrent(new ExceptionEvent("Color already in use!"));
         } else {
             /*currentView = view;
             views.add(view);*/
-             if (playerList.size() == 1 && numplayer == 0) {
+            if (playerList.size() == 1 && numplayer == 0) {
                 notifyCurrent(new ExceptionEvent("Another player is setting the number of opponents, please wait"));
             } else if (nicknameAvailable(nickname) && colorAvailable(color)) {
                 playerLogin(nickname, color, view);
@@ -193,11 +190,10 @@ public class Game implements Observable {
 
     private void playerLogin(String nickname, Color color, VirtualView view) {
         register(view);
+        startMytimer();
         Player player = new Player(nickname, color);
         playerList.add(player);
         view.setOwner(player);
-        if (playerList.size() == 2)
-            toPing = observers;
         if (playerList.size() == 1) {
             notifyCurrent(new SettingsEvent());
         } else if (playerList.size() == numplayer) {
@@ -207,9 +203,6 @@ public class Game implements Observable {
         }
     }
 
-    public List<Observer> getToPing() {
-        return toPing;
-    }
 
     private void lastOption(List<Player> playerList) {
         List<String> list = new ArrayList<>();
@@ -245,15 +238,15 @@ public class Game implements Observable {
             Boolean timeoutReached = l > maxRetries;
             int i = 0;
 
-            for (; i < toPing.size(); i++) {
-                VirtualView v = (VirtualView) toPing.get(i);
+            for (; i < observers.size(); i++) {
+                VirtualView v = (VirtualView) observers.get(i);
                 if (!v.isPing()) {
                     break;
                 }
             }
 
-            if (i == toPing.size()) {
-                for (Observer v : toPing) {
+            if (i == observers.size()) {
+                for (Observer v : observers) {
                     VirtualView v1 = (VirtualView) v;
                     v1.setPing(false);
                     v.update(new Pong());
@@ -264,28 +257,14 @@ public class Game implements Observable {
 
             if (timeoutReached) {
                 System.out.println("timeout!!!!!!!!!!!!!!!!!!!!!!");
-                if (observers == toPing) {
-                    for (Observer o : observers) {
-                        VirtualView v = (VirtualView) o;
-                        if (!v.isPing()) {
-                            controller.apply(new Disconnection(), v);
-                            break;
-                        }
-                    }
-                } else for (Observer o : toPing) {
+
+                for (Observer o : observers) {
                     VirtualView v = (VirtualView) o;
-                    if (toPing.size() == 1) {
-                        end = true;
-                    }
                     if (!v.isPing()) {
-                        controller.apply(new PingDelete(), v);
+                        controller.apply(new Disconnection(), v);
                         break;
                     }
                 }
-
-
-                //resetTimer();
-
 
                 return true;
             }
@@ -391,8 +370,8 @@ public class Game implements Observable {
                         currentView = (VirtualView) observers.get(0);
                         View tmp = currentView;
                         notifyObservers(e);
-                        for (Observer o: observers) {
-                            VirtualView v=(VirtualView)o;
+                        for (Observer o : observers) {
+                            VirtualView v = (VirtualView) o;
                             if (!v.getOwner().equals(currentView.getOwner())) {
                                 currentView = v;
                                 UpdateEvent event = new UpdateEvent(squareToJsonArrayGenerator());
