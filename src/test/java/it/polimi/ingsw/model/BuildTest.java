@@ -96,7 +96,7 @@ public class BuildTest {
         assertFalse(build.isUsable(game));
     }
 
-    @Test
+    @Test // case in which the worker is forbidden to build at a particular level
     void usabilityUnderConstraint(){
         game.setTargetInUse(w3);
         //build.isUsable(game);

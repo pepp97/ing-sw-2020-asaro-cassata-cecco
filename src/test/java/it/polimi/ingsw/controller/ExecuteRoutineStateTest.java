@@ -6,6 +6,7 @@ import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 import java.io.*;
 import java.net.Socket;
@@ -176,4 +177,24 @@ public class ExecuteRoutineStateTest {
         assertFalse(result);
 
     }
+
+    @Test
+    void integrtyTest(){
+        List<EffectRoutine> effects=new ArrayList<>();
+        effects.add(new EffectRoutine("changePosition",false));
+        effects.add(new EffectRoutine("changeTarget",true));
+        effects.add(new EffectRoutine("changePosition",true));
+        effects.add(new EffectRoutine("changeTarget",true));
+        God god2=new God("prova1","prova1","prova1",effects);
+        p1.setGod(god2);
+        controller.getGame().setTargetInUse(w4);
+        controller.getGame().setTargetSelected(w1);
+        w4.setMandatorySquare(w1.getSquare());
+        controller.setState(new ExecuteRoutineState());
+        ExecuteRoutineState executeRoutineState= (ExecuteRoutineState) controller.getState();
+        executeRoutineState.setI(0);
+        executeRoutineState.executeState(controller);
+        assertTrue(w4.getSquare().equals(squares[0][1]));
+    }
+
 }

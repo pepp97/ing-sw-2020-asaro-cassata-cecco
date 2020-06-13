@@ -75,7 +75,7 @@ public class ChangePosition implements SubAction {
                 UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
                 game.notifyObservers(event);
 
-                if (worker.getSquare().getLevel() == 3 && worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() < 3) {
+                if (worker.getSquare().getLevel() == 3 && worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() < 3) {
                     for (Worker w : game.getCurrentPlayer().getWorkers())
                         if (w.equals(worker)) {
                             game.setWinner(game.getCurrentPlayer());

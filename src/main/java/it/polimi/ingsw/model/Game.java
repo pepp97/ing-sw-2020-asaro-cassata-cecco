@@ -35,7 +35,7 @@ public class Game implements Observable {
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries = 5;
+    private int maxRetries = 10000;
     private boolean stop = false;
     private static final int length = 5;
     private boolean undo = false;
@@ -151,7 +151,7 @@ public class Game implements Observable {
     }
 
 
-    //IMPLEMENTARE
+
     public synchronized void login(String nickname, Color color, VirtualView view) {
         //  aggiustare numero di giocatori che si possono loggare
         if (currentView != null)

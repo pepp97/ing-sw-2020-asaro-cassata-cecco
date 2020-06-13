@@ -49,7 +49,7 @@ public class Gui extends Application implements View {
     private double widthScreen = Screen.getPrimary().getBounds().getWidth();
     private double heightScreen = Screen.getPrimary().getBounds().getHeight() - 40.00;
     private boolean stop;
-    private int maxRetries=8;
+    private int maxRetries=10000;
     private boolean kill=false;
 
 
