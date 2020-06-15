@@ -1,31 +1,18 @@
 package it.polimi.ingsw.view.gui;
 
-import it.polimi.ingsw.commands.ChooseSettings;
-import it.polimi.ingsw.commands.ChooseYourGod;
-import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.commands.StarterCommand;
-import it.polimi.ingsw.events.ChooseYourGodEvent;
 import it.polimi.ingsw.events.StartMatchEvent;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.util.List;
 
 public class ChooseStarterWindow implements GuiScreen {
     private Gui gui;

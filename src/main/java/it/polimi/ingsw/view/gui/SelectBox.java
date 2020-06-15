@@ -16,29 +16,32 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class SelectBox {
-    private  boolean answer;
+    private boolean answer;
     private Stage stage;
     private Scene boxMessage;
+
     public SelectBox(String message, Gui gui) {
         Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
         Label confirmMessage = new Label();
         confirmMessage.setText(message);
         confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 12pt;");
         Button yesButton = new Button("Yes");
-        String styleYes="-fx-text-fill: #000000;" +"-fx-background-color: #ff0000;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        String styleYes = "-fx-text-fill: #000000;" + "-fx-background-color: #ff0000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         yesButton.setStyle(styleYes);
         Button noButton = new Button("No");
-        String styleNo="-fx-text-fill: #000000;" +"-fx-background-color: #00ff00;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        String styleNo = "-fx-text-fill: #000000;" + "-fx-background-color: #00ff00;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         noButton.setStyle(styleNo);
         yesButton.setOnAction(e -> {
             gui.killtimer();
             answer = true;
-            Disconnection disconnection=new Disconnection();
-            gui.getClient().send(disconnection);
-            try {
-                gui.getClient().disconnect();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if(gui.getClient() != null){
+                Disconnection disconnection = new Disconnection();
+                gui.getClient().send(disconnection);
+                try {
+                    gui.getClient().disconnect();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
             stage.close();
         });

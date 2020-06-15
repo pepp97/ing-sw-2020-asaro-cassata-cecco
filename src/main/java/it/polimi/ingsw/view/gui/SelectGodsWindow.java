@@ -2,7 +2,6 @@ package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.commands.ChooseGods;
 import it.polimi.ingsw.commands.Command;
-import it.polimi.ingsw.commands.Ping;
 import it.polimi.ingsw.events.StartGameEvent;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.Insets;

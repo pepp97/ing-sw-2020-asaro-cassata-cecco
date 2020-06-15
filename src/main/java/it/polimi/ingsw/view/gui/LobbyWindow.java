@@ -1,17 +1,10 @@
 package it.polimi.ingsw.view.gui;
 
-import it.polimi.ingsw.commands.ChooseGods;
-import it.polimi.ingsw.commands.LoginCommand;
-import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.events.LoginSuccessful;
-import it.polimi.ingsw.events.SettingsEvent;
-import it.polimi.ingsw.events.StartGameEvent;
 import it.polimi.ingsw.view.Gui;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;

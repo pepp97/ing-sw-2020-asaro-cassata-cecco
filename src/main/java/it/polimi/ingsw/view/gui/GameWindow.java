@@ -1,14 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
-import it.polimi.ingsw.commands.ChooseYourGod;
-import it.polimi.ingsw.commands.Command;
-import it.polimi.ingsw.commands.UndoCommand;
 import it.polimi.ingsw.events.*;
-import it.polimi.ingsw.model.Field;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Square;
-import it.polimi.ingsw.model.Worker;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -26,9 +19,6 @@ import javafx.scene.text.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameWindow implements GuiScreen {
     private Gui gui;

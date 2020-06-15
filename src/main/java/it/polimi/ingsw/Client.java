@@ -2,19 +2,12 @@ package it.polimi.ingsw;
 
 import it.polimi.ingsw.ParserClient.BuilderCommand;
 import it.polimi.ingsw.ParserClient.ParserEvent;
-import it.polimi.ingsw.ParserServer.BuilderEvent;
-import it.polimi.ingsw.ParserServer.ParserCommand;
 import it.polimi.ingsw.commands.Command;
-import it.polimi.ingsw.commands.LoginCommand;
-import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.events.Event;
-import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.view.Gui;
-import it.polimi.ingsw.view.View;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
@@ -113,6 +106,7 @@ public class Client extends Thread {
         scanner.close();
         socket.close();
     }
+
 }
 
 

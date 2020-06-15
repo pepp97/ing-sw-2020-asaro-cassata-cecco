@@ -1,9 +1,6 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.commands.ChooseSettings;
-import it.polimi.ingsw.commands.Command;
-import it.polimi.ingsw.events.Event;
-import it.polimi.ingsw.events.LoginSuccessful;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,9 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SettingsWindow {
 

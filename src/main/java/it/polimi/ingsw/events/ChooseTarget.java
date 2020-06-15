@@ -1,9 +1,7 @@
 package it.polimi.ingsw.events;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
-import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.view.Gui;
-import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.List;

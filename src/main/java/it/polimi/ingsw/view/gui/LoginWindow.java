@@ -1,26 +1,18 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.commands.LoginCommand;
-import it.polimi.ingsw.events.Event;
-import it.polimi.ingsw.events.LoginSuccessful;
-import it.polimi.ingsw.events.SettingsEvent;
 import it.polimi.ingsw.view.Gui;
-import it.polimi.ingsw.view.View;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoginWindow implements GuiScreen {
     private Gui gui;

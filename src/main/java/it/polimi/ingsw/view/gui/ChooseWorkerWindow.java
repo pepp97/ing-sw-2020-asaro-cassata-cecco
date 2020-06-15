@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
-import it.polimi.ingsw.commands.ChooseInitialPosition;
 import it.polimi.ingsw.commands.ChooseYourWorker;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.*;
@@ -17,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;

@@ -7,6 +7,7 @@ import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TimeoutCheckerInterface;
 import it.polimi.ingsw.model.TimeoutCounter;
+import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.*;
 import javafx.application.Application;
 import javafx.application.Platform;

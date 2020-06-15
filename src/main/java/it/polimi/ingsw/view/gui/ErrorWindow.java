@@ -1,12 +1,9 @@
 package it.polimi.ingsw.view.gui;
 
-import it.polimi.ingsw.commands.ChooseSettings;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.view.Gui;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
