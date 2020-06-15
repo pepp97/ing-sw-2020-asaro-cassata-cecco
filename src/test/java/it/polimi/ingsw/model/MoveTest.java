@@ -20,7 +20,7 @@ public class MoveTest {
     Worker w3 = new Worker();
     Worker w4 = new Worker();
     Square [][] squares;
-
+    Player p;
 
 
     @BeforeEach
@@ -33,7 +33,7 @@ public class MoveTest {
         w2.setC(Color.WHITE);
         w3.setC(Color.BLACK);
         w4.setC(Color.WHITE);
-        Player p= new Player("john",Color.BLACK);
+        p= new Player("john",Color.BLACK);
         game.setCurrentPlayer(p);
         VirtualView view = new VirtualView();
         view.setOwner(p);
@@ -104,7 +104,7 @@ public class MoveTest {
         assertEquals(oldSquare,game.getTargetInUse().getSquare());
     }
 
-    @Test
+    @Test //in the specific: the constraints are that the worker cannot move up && the worker cannot move because of a square not available (line 120)
     void movementNotAvailableBecauseOfConstraint(){
         w1.setCanMoveUp(false);
         game.setTargetInUse(w1);
@@ -122,6 +122,18 @@ public class MoveTest {
        // move.isUsable(game);
         //System.out.println(squares[1][1]);
         //System.out.println(move.getAvailableSquare());
+    }
+
+    @Test
+    void VictoryAfterMovement(){
+        game.setTargetInUse(w1);
+        squares[1][1].setLevel(2);
+        squares[2][2].setLevel(3);
+        squares[2][2].removeWorker();
+        move.isUsable(game);
+        game.setTargetSelected(squares[2][2]);
+        move.use(game);
+        assertTrue(game.getWinner().equals(p));
     }
 
 

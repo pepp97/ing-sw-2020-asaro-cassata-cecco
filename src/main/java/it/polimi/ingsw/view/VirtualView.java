@@ -4,7 +4,6 @@ import it.polimi.ingsw.ParserServer.BuilderEvent;
 import it.polimi.ingsw.ParserServer.ParserCommand;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.controller.Controller;
-import it.polimi.ingsw.events.ConnectionSuccessful;
 import it.polimi.ingsw.events.Event;
 import it.polimi.ingsw.model.Player;
 
@@ -83,9 +82,10 @@ public class VirtualView extends Thread implements View {
         in.close();
         input.close();
         socket.close();
-
-
     }
+
+
+
 
     @Override
     public void run() {

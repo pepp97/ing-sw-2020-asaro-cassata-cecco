@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.commands.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.view.VirtualView;
@@ -7,11 +8,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.image.VolatileImage;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.BrokenBarrierException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,10 +45,10 @@ public class ControllerTest {
         p.setWorkers(w4);
         view = new VirtualView();
         view.setOwner(p);
-        game.getViews().add(view);
+        game.register(view);
         game.setNumplayer(2);
         game.add(p);
-        game.getObservers().add(view);
+        game.register(view);
         List<EffectRoutine> list = new ArrayList<>();
         list.add(new EffectRoutine("move", false));
         God g = new God("prova", "prova", "prova", list);
@@ -55,8 +58,9 @@ public class ControllerTest {
         squares[0][0].setWorker(w4);
         view2 = new VirtualView();
         gods = new ArrayList<>();
-        for (VirtualView v : game.getViews())
-            v.setPing(true);
+        for (Observer o : game.getObservers()){
+            VirtualView v=(VirtualView)o;
+            v.setPing(true);}
         Socket socket = new Socket();
         InputStreamReader input = new InputStreamReader(new InputStream() {
             @Override
@@ -99,9 +103,11 @@ public class ControllerTest {
         w1.setCanBuild(true);
         w2.setCanBuild(true);
         w3.setCanBuild(true);
-        for (VirtualView v : game.getViews())
+        for (Observer o : game.getObservers()){
+            VirtualView v=(VirtualView)o;
             v.setPing(false);
-        game.getViews().remove(view2);
+        }
+        game.unregister(view2);
     }
 
     @Test
@@ -250,12 +256,15 @@ public class ControllerTest {
         game.setTargetSelected(squares[0][0]);
         controller.saveAll();
         move.isUsable(game);
+        controller.getTurnManager().add(p);
+       controller.getTurnManager().add(p);
         move.use(game);
         controller.getTurnManager().add(p);
         assertFalse(squares[0][0].getWorker().equals(w1));
         controller.apply(new UndoCommand(), view2);
         assertTrue(squares[1][1].getWorker().equals(w1));
-       controller.startTimer();
+        controller.startTimer();
+
     }
 
 }

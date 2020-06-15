@@ -5,12 +5,11 @@ import it.polimi.ingsw.Observable;
 import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.ParserServer.SquareToJson;
 import it.polimi.ingsw.commands.Disconnection;
-import it.polimi.ingsw.commands.PingDelete;
+//import it.polimi.ingsw.commands.PingDelete;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.events.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
-import it.polimi.ingsw.view.gui.WaitSelectYourGod;
 
 import java.io.IOException;
 import java.util.*;
@@ -22,7 +21,6 @@ public class Game implements Observable {
 
     private List<Player> playerList = new ArrayList<>();
     private List<Observer> observers = new ArrayList<>();
-    private List<VirtualView> views = new ArrayList<>();
     private Player currentPlayer;
     private View currentView;
     private Target targetSelected;
@@ -31,20 +29,18 @@ public class Game implements Observable {
     private int numplayer = 0;
     private List<God> startGods;
     private List<God> totalGods;
-    private ParserJson p;
     private List<String> effects = new ArrayList<>();
     private List<String> names = new ArrayList<>();
     private int turnIndex = 1;
     private List<String> selected = new ArrayList<>();
     private Player winner;
     private Controller controller;
-    private int maxRetries = 5;
+    private int maxRetries = 10000;
     private boolean stop = false;
     private static final int length = 5;
     private boolean undo = false;
     private boolean kill = false;
     private boolean end = false;
-    private List<VirtualView> toPing = new ArrayList<>();
     private VirtualView tmpView;
 
     public List<String> getNames() {
@@ -71,7 +67,6 @@ public class Game implements Observable {
         this.controller = controller;
         field = new Field();
         startGods = new ArrayList<>();
-        p = new ParserJson();
     }
 
     public void add(Player player) {
@@ -119,10 +114,10 @@ public class Game implements Observable {
                     if (field.getSquares()[i][j].getWorker().equals(w1) || field.getSquares()[i][j].getWorker().equals(w2))
                         field.getSquares()[i][j].removeWorker();
 
-        for (VirtualView v : views) {
-            if (v.getOwner().equals(player)) {
-                unregister(v);
-                views.remove(v);
+        for (Observer o : observers) {
+            if (o.getOwner().equals(player)) {
+                unregister(o);
+                VirtualView v = (VirtualView) o;
                 try {
                     v.closeAll();
                 } catch (IOException e) {
@@ -142,9 +137,9 @@ public class Game implements Observable {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
-        for (VirtualView v : views)
+        for (Observer v : observers)
             if (v.getOwner().equals(currentPlayer))
-                currentView = v;
+                currentView = (View) v;
     }
 
     public Target getTargetSelected() {
@@ -156,30 +151,29 @@ public class Game implements Observable {
     }
 
 
-    //IMPLEMENTARE
+
     public synchronized void login(String nickname, Color color, VirtualView view) {
         //  aggiustare numero di giocatori che si possono loggare
-        if(currentView!=null)
-            tmpView= (VirtualView) currentView;
+        if (currentView != null)
+            tmpView = (VirtualView) currentView;
         currentView = view;
-        if (!nicknameAvailable(nickname)) {
+        if (gameAlreadyStarted()) {
+            notifyCurrent(new ExceptionEvent("game already started, you have been disconnected"));
+            notifyCurrent(new LogoutSuccessful());
+            try {
+                currentView.closeAll();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            currentView = tmpView;
+        } else if (!nicknameAvailable(nickname)) {
             notifyCurrent(new ExceptionEvent("Username already in use!"));
         } else if (!colorAvailable(color)) {
             notifyCurrent(new ExceptionEvent("Color already in use!"));
         } else {
             /*currentView = view;
             views.add(view);*/
-            if (gameAlreadyStarted()) {
-                notifyCurrent(new ExceptionEvent("game already started, you have been disconnected"));
-                notifyCurrent(new LogoutSuccessful());
-                toPing.remove(currentView);
-                try {
-                    currentView.closeAll();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                currentView=tmpView;
-            } else if (playerList.size() == 1 && numplayer == 0) {
+            if (playerList.size() == 1 && numplayer == 0) {
                 notifyCurrent(new ExceptionEvent("Another player is setting the number of opponents, please wait"));
             } else if (nicknameAvailable(nickname) && colorAvailable(color)) {
                 playerLogin(nickname, color, view);
@@ -195,13 +189,11 @@ public class Game implements Observable {
     }
 
     private void playerLogin(String nickname, Color color, VirtualView view) {
-        views.add(view);
-        observers.add(view);
+        register(view);
+        startMytimer();
         Player player = new Player(nickname, color);
         playerList.add(player);
         view.setOwner(player);
-        if(playerList.size()==2)
-            toPing = views;
         if (playerList.size() == 1) {
             notifyCurrent(new SettingsEvent());
         } else if (playerList.size() == numplayer) {
@@ -211,9 +203,6 @@ public class Game implements Observable {
         }
     }
 
-    public List<VirtualView> getToPing() {
-        return toPing;
-    }
 
     private void lastOption(List<Player> playerList) {
         List<String> list = new ArrayList<>();
@@ -225,7 +214,7 @@ public class Game implements Observable {
     private void checkIfFull() {
         List<String> godlist = new ArrayList<>();
 
-        totalGods = p.getUsableGod();
+        totalGods = controller.getP().getUsableGod();
         for (God g : totalGods) {
             godlist.add(g.getName());
         }
@@ -249,15 +238,17 @@ public class Game implements Observable {
             Boolean timeoutReached = l > maxRetries;
             int i = 0;
 
-            for (; i < toPing.size(); i++)
-                if (!toPing.get(i).isPing()) {
+            for (; i < observers.size(); i++) {
+                VirtualView v = (VirtualView) observers.get(i);
+                if (!v.isPing()) {
                     break;
                 }
+            }
 
-
-            if (i == toPing.size()) {
-                for (VirtualView v : toPing) {
-                    v.setPing(false);
+            if (i == observers.size()) {
+                for (Observer v : observers) {
+                    VirtualView v1 = (VirtualView) v;
+                    v1.setPing(false);
                     v.update(new Pong());
                 }
                 startMytimer();
@@ -266,25 +257,14 @@ public class Game implements Observable {
 
             if (timeoutReached) {
                 System.out.println("timeout!!!!!!!!!!!!!!!!!!!!!!");
-                if (views == toPing) {
-                    for (VirtualView v : views)
-                        if (!v.isPing()) {
-                            controller.apply(new Disconnection(), v);
-                            break;
-                        }
-                } else for (VirtualView v : toPing) {
-                        if(toPing.size()==1) {
-                            end = true;
-                        }
-                        if (!v.isPing()) {
-                            controller.apply(new PingDelete(), v);
-                            break;
-                        }
+
+                for (Observer o : observers) {
+                    VirtualView v = (VirtualView) o;
+                    if (!v.isPing()) {
+                        controller.apply(new Disconnection(), v);
+                        break;
+                    }
                 }
-
-
-                //resetTimer();
-
 
                 return true;
             }
@@ -334,13 +314,10 @@ public class Game implements Observable {
         notifyCurrent(e);
     }
 
-    public List<VirtualView> getViews() {
-        return views;
-    }
 
     public void setUsableGod(List<String> god) {
         for (String s : god) {
-            for (God totalGod : p.getUsableGod()) {
+            for (God totalGod : controller.getP().getUsableGod()) {
                 if (s.equals(totalGod.getName())) {
                     startGods.add(totalGod);
                     effects.add(totalGod.getTextEffect());
@@ -393,12 +370,14 @@ public class Game implements Observable {
                         currentView = (VirtualView) observers.get(0);
                         View tmp = currentView;
                         notifyObservers(e);
-                        for (VirtualView v : views)
+                        for (Observer o : observers) {
+                            VirtualView v = (VirtualView) o;
                             if (!v.getOwner().equals(currentView.getOwner())) {
                                 currentView = v;
                                 UpdateEvent event = new UpdateEvent(squareToJsonArrayGenerator());
                                 notifyCurrent(event);
                             }
+                        }
                         currentView = tmp;
 
                     } else {
@@ -463,7 +442,7 @@ public class Game implements Observable {
 
     @Override
     public void register(Observer observer) {
-
+        observers.add(observer);
     }
 
     public void notifyCurrent(Event event) {
@@ -492,8 +471,8 @@ public class Game implements Observable {
 
     public void endGame() {
 
-        while (views.size() > 0) {
-            currentView = views.get(0);
+        while (observers.size() > 0) {
+            currentView = (VirtualView) observers.get(0);
             LogoutSuccessful logoutSuccessful = new LogoutSuccessful();
             notifyCurrent(logoutSuccessful);
             try {
@@ -501,7 +480,6 @@ public class Game implements Observable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            views.remove(currentView);
             unregister(currentView);
         }
         end = true;

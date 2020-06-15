@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.NotifyVictoryState;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,4 +84,18 @@ public class SameDirectionTest {
        //assertFalse( moveInSameDirection.isUsable(game));
     }
 
+
+    @Test
+    void SameDirectionTestNotAvailable(){
+        game.getController().setState(new NotifyVictoryState());
+        squares[1][1].setWorker(w1);
+        squares[0][0].setWorker(w2);
+        game.setTargetInUse(w1);
+        changePosition.isUsable(game);
+        game.setTargetSelected(squares[0][0]);
+        changePosition.use(game);
+        assertFalse(moveInSameDirection.isUsable(game));
+        squares[1][1].removeWorker();
+        squares[0][0].removeWorker();
+    }
 }

@@ -50,7 +50,7 @@ public class Gui extends Application implements View {
     private double widthScreen = Screen.getPrimary().getBounds().getWidth();
     private double heightScreen = Screen.getPrimary().getBounds().getHeight() - 40.00;
     private boolean stop;
-    private int maxRetries=8;
+    private int maxRetries=10000;
     private boolean kill=false;
 
 
@@ -333,7 +333,7 @@ public class Gui extends Application implements View {
         if (exitGame.displayMessage(primaryStage)) {
             primaryStage.close();
             Platform.exit();
-            System.out.println("Sei uscito dal gioco con successo. \n Per fare l'upgrade mettere un do while nel launcher per riproporre la scelta");
+            System.out.println("Sei uscito dal gioco con successo. \n");
         }
     }
 
@@ -493,7 +493,7 @@ public class Gui extends Application implements View {
         }
     }
 
-    private void startMytimer() {
+    public void startMytimer() {
         Timer timer = new Timer();
         TimeoutCheckerInterface timeoutChecker = (l) -> {
             if(kill)

@@ -4,10 +4,17 @@ import it.polimi.ingsw.controller.Controller;
 
 import it.polimi.ingsw.view.VirtualView;
 
+/**
+ * Is the command that send to the model the request of connection to the server
+ */
 public class Connection implements Command{
 
 
-
+    /**
+     * this metod execute the command
+     * @param controller the reference controller
+     * @param view the personal VirtualView that identify the player that have sent this command
+     */
 
 
     @Override

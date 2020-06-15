@@ -1,10 +1,12 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 import java.io.*;
 import java.net.Socket;
@@ -40,10 +42,10 @@ public class ExecuteRoutineStateTest {
         p1.setWorkers(w4);
         view = new VirtualView();
         view.setOwner(p1);
-        game.getViews().add(view);
+        game.register(view);
         game.setNumplayer(2);
         game.add(p1);
-        game.getObservers().add(view);
+        game.register(view);
         field=game.getField();
         p2= new Player("giovi",Color.BLACK);
         p2.setWorkers(w2);
@@ -54,7 +56,7 @@ public class ExecuteRoutineStateTest {
         squares[1][1].setWorker(w3);
         view2 = new VirtualView();
         view2.setOwner(p2);
-        game.getViews().add(view2);
+        game.register(view2);
         gods = new ArrayList<>();
         List<EffectRoutine> list1=new ArrayList<>();
         list1.add(new EffectRoutine("move",false));
@@ -83,8 +85,10 @@ public class ExecuteRoutineStateTest {
         view.setIn(new Scanner(input));
         view.setSocket(socket);
         view.setInput(input);
-        for(VirtualView v: game.getViews())
+        for (Observer o : game.getObservers()) {
+            VirtualView v = (VirtualView) o;
             v.setPing(true);
+        }
         view.setOut(new PrintWriter(new BufferedWriter(new OutputStreamWriter(new OutputStream() {
             @Override
             public void write(int b) throws IOException {
@@ -114,8 +118,10 @@ public class ExecuteRoutineStateTest {
         squares[3][1].removeWorker();
         squares[3][2].removeWorker();
         squares[3][3].removeWorker();
-        for(VirtualView v: game.getViews())
+        for (Observer o : game.getObservers()) {
+            VirtualView v = (VirtualView) o;
             v.setPing(false);
+        }
 
 
     }
@@ -171,4 +177,24 @@ public class ExecuteRoutineStateTest {
         assertFalse(result);
 
     }
+
+    @Test
+    void integrtyTest(){
+        List<EffectRoutine> effects=new ArrayList<>();
+        effects.add(new EffectRoutine("changePosition",false));
+        effects.add(new EffectRoutine("changeTarget",true));
+        effects.add(new EffectRoutine("changePosition",true));
+        effects.add(new EffectRoutine("changeTarget",true));
+        God god2=new God("prova1","prova1","prova1",effects);
+        p1.setGod(god2);
+        controller.getGame().setTargetInUse(w4);
+        controller.getGame().setTargetSelected(w1);
+        w4.setMandatorySquare(w1.getSquare());
+        controller.setState(new ExecuteRoutineState());
+        ExecuteRoutineState executeRoutineState= (ExecuteRoutineState) controller.getState();
+        executeRoutineState.setI(0);
+        executeRoutineState.executeState(controller);
+        assertTrue(w4.getSquare().equals(squares[0][1]));
+    }
+
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.commands.ChooseGods;
 import it.polimi.ingsw.commands.ChooseYourGod;
 import it.polimi.ingsw.model.*;
@@ -41,10 +42,9 @@ public class DefeateStateTest {
         p1.setWorkers(w4);
         view = new VirtualView();
         view.setOwner(p1);
-        game.getViews().add(view);
+        game.register(view);
         game.setNumplayer(2);
         game.add(p1);
-        game.getObservers().add(view);
         field=game.getField();
         p2= new Player("giovi",Color.BLACK);
         p2.setWorkers(w2);
@@ -55,7 +55,7 @@ public class DefeateStateTest {
         squares[1][1].setWorker(w3);
         view2 = new VirtualView();
         view2.setOwner(p2);
-        game.getViews().add(view2);
+        game.register(view2);
         gods = new ArrayList<>();
         List<EffectRoutine> list1=new ArrayList<>();
         list1.add(new EffectRoutine("move",false));
@@ -84,8 +84,10 @@ public class DefeateStateTest {
         view.setIn(new Scanner(input));
         view.setSocket(socket);
         view.setInput(input);
-        for(VirtualView v: game.getViews())
+        for (Observer o : game.getObservers()) {
+            VirtualView v = (VirtualView) o;
             v.setPing(true);
+        }
         view.setOut(new PrintWriter(new BufferedWriter(new OutputStreamWriter(new OutputStream() {
             @Override
             public void write(int b) throws IOException {
@@ -114,8 +116,10 @@ public class DefeateStateTest {
         squares[3][1].removeWorker();
         squares[3][2].removeWorker();
         squares[3][3].removeWorker();
-        for(VirtualView v: game.getViews())
+        for (Observer o : game.getObservers()) {
+            VirtualView v = (VirtualView) o;
             v.setPing(false);
+        }
 
 
     }
@@ -131,12 +135,12 @@ public class DefeateStateTest {
         list.add(new EffectRoutine("prova",false));
         God god=new God("prova","prova","prova",list);
         controller.getGame().getStartGods().add(god);
-        controller.getGame().getViews().add(view3);
+        controller.getGame().register(view3);
         view3.setOwner(p3);
         controller.getTurnManager().add(p3);
         game.add(p3);
         state.executeState(controller);
-        assertTrue(controller.getGame().getViews().size() == 2);
+        assertTrue(controller.getGame().getObservers().size() == 2);
         assertTrue(controller.getGame().getPlayerList().size() == 2);
         assertTrue(controller.getGame().getField().getSquares()[0][0].getWorker() == null);
         assertTrue(controller.getGame().getField().getSquares()[0][1].getWorker() == null);

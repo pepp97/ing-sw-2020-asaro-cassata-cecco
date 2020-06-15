@@ -146,4 +146,26 @@ public class ChangePositionTest {
         assertTrue(squares[2][2].getWorker() == w1);
     }
 
+
+    @Test
+    void CPtestWithMandatorySquare(){
+        game.setTargetInUse(w1);
+        w1.setMandatorySquare(squares[2][2]);
+        game.setTargetSelected(squares[0][0]);
+        changePosition.isUsable(game);
+        changePosition.use(game);
+        w1.setMandatorySquare(null);
+        assertTrue(squares[2][2].equals(w1.getSquare()));
+    }
+
+    @Test
+    void VictoryAfterMovement(){
+        game.setTargetInUse(w1);
+        squares[1][1].setLevel(2);
+        squares[2][2].setLevel(3);
+        changePosition.isUsable(game);
+        game.setTargetSelected(squares[2][2]);
+        changePosition.use(game);
+        assertTrue(game.getWinner().equals(p1));
+    }
 }

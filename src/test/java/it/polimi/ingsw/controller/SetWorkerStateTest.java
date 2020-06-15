@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.Observer;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.view.VirtualView;
 import org.junit.jupiter.api.AfterEach;
@@ -40,10 +41,10 @@ public class SetWorkerStateTest {
         p.setWorkers(w4);
         view = new VirtualView();
         view.setOwner(p);
-        game.getViews().add(view);
+        game.register(view);
         game.setNumplayer(2);
         game.add(p);
-        game.getObservers().add(view);
+        game.register(view);
         List<EffectRoutine> list = new ArrayList<>();
         list.add(new EffectRoutine("move", false));
         God g = new God("prova", "prova", "prova", list);
@@ -53,8 +54,10 @@ public class SetWorkerStateTest {
         squares[0][0].setWorker(w4);
         view2 = new VirtualView();
         gods = new ArrayList<>();
-        for (VirtualView v : game.getViews())
+        for (Observer o : game.getObservers()) {
+            VirtualView v = (VirtualView) o;
             v.setPing(true);
+        }
         Socket socket = new Socket();
         InputStreamReader input = new InputStreamReader(new InputStream() {
             @Override
@@ -85,7 +88,7 @@ public class SetWorkerStateTest {
 
 
     @AfterEach
-    void reset(){
+    void reset() {
         squares[1][1].removeWorker();
         squares[1][2].removeWorker();
         squares[1][3].removeWorker();
@@ -95,14 +98,16 @@ public class SetWorkerStateTest {
         squares[3][1].removeWorker();
         squares[3][2].removeWorker();
         squares[3][3].removeWorker();
-        for(VirtualView v: game.getViews())
+        for (Observer o : game.getObservers()) {
+            VirtualView v = (VirtualView) o;
             v.setPing(false);
+        }
 
 
     }
 
     @Test
-    void setWorkerStatetTest(){
+    void setWorkerStatetTest() {
         controller.getGame().setCurrentView(view);
         controller.getGame().setCurrentPlayer(p);
         state.executeState(controller);

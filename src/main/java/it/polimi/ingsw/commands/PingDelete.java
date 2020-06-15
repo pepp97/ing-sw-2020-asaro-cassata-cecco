@@ -1,4 +1,4 @@
-package it.polimi.ingsw.commands;
+/*package it.polimi.ingsw.commands;
 
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.commands.LoginCommand;
@@ -10,4 +10,4 @@ public class PingDelete implements Command {
     public void execute(Controller controller, VirtualView view) {
         controller.apply(this, view);
     }
-}
+}*/

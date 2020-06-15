@@ -1,12 +1,14 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.commands.UndoCommand;
 import it.polimi.ingsw.controller.DefeatState;
 import it.polimi.ingsw.controller.NotifyVictoryState;
 import it.polimi.ingsw.controller.TurnState;
 import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.events.UpdateEvent;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +75,7 @@ public class ChangePosition implements SubAction {
                 UpdateEvent event = new UpdateEvent(game.squareToJsonArrayGenerator());
                 game.notifyObservers(event);
 
-                if (worker.getSquare().getLevel() == 3 && worker.getHistoryPos().get(worker.getHistoryPos().size() - 1).getLevel() < 3) {
+                if (worker.getSquare().getLevel() == 3 && worker.getHistoryPos().get(worker.getHistoryPos().size() - 2).getLevel() < 3) {
                     for (Worker w : game.getCurrentPlayer().getWorkers())
                         if (w.equals(worker)) {
                             game.setWinner(game.getCurrentPlayer());
@@ -84,7 +86,9 @@ public class ChangePosition implements SubAction {
                         }
                 }
                 // availableSquare.add((worker.getHistoryPos().get(0));
-            } else new ExceptionEvent("target not available");
+            } else { game.notifyCurrent(new ExceptionEvent("target not available"));
+                game.getController().apply(new UndoCommand(), (VirtualView) game.getCurrentView());
+            }
         } else new ExceptionEvent("you can't move");
         //worker.setActualPos(target.getSquare());
         // worker.getHistoryPos().add(target.getSquare());

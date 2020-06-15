@@ -6,10 +6,19 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.util.LinkedHashMap;
 
+/**
+ * is the event sends to players to start the match
+ */
+
 
 public class StartMatchEvent implements Event {
     private SquareToJson [][] mappa;
     private LinkedHashMap<String,String> godPlayer;
+
+    /**
+     *Default constructor
+     * @param listPlayer is the HashMap that link player with your god
+     */
 
     public StartMatchEvent(LinkedHashMap<String,String> listPlayer) {
         mappa=new SquareToJson[5][5];
@@ -24,9 +33,17 @@ public class StartMatchEvent implements Event {
         }*/
     }
 
+    /**
+     * @return the array bi-dimensional that contain the squares information
+     */
+
     public SquareToJson[][] getMappa() {
         return mappa;
     }
+
+    /**
+     * @return the HashMap that link player with your god
+     */
 
     public LinkedHashMap<String, String> getGodPlayer() {
         return godPlayer;
@@ -39,12 +56,18 @@ public class StartMatchEvent implements Event {
     public void setGodPlayer(LinkedHashMap<String, String> godPlayer) {
         this.godPlayer = godPlayer;
     }
-
+    /**
+     * this method is call to send the event
+     * @param view the view of the player that have to receive the event
+     */
     @Override
     public void send(Gui view) {
         view.update(this);
     }
-
+    /**
+     * this method is call to send the event
+     * @param view the view of the player that have to receive the event
+     */
     @Override
     public void send(VirtualView view) {
         view.update(this);

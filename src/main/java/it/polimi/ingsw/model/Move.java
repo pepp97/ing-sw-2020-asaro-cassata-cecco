@@ -1,12 +1,14 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.ParserServer.SquareToJson;
+import it.polimi.ingsw.commands.UndoCommand;
 import it.polimi.ingsw.controller.DefeatState;
 import it.polimi.ingsw.controller.NotifyVictoryState;
 import it.polimi.ingsw.controller.TurnState;
 import it.polimi.ingsw.events.ChooseTarget;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.events.UpdateEvent;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +69,9 @@ public class Move implements SubAction {
                         }
                 }
 
-            } else new ExceptionEvent("target not available");
+            } else{ game.notifyCurrent(new ExceptionEvent("target not available"));
+                    game.getController().apply(new UndoCommand(), (VirtualView) game.getCurrentView());
+            }
         } else game.notifyCurrent(new ExceptionEvent("You can't move"));
 
         //creazione evento + sistemare minotauro
