@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -23,19 +25,16 @@ public class DeathPlayerWindow implements GuiScreen{
 
     @Override
     public void setScene() {
-        VBox layoutMessage = new VBox(20);
-        Scene scene = new Scene(layoutMessage, 400, 200);
-        Background confirmBackground = new Background(new BackgroundFill(Color.web("#bbb"), CornerRadii.EMPTY, Insets.EMPTY));
-        Label confirmMessage = new Label();
-        confirmMessage.setText("You have lost");
-        confirmMessage.setStyle("-fx-font-weight: bold; -fx-font-size: 20pt;");
+        StackPane stackPane=new StackPane();
+        Scene scene = new Scene(stackPane, gui.getWidthScreen(), gui.getHeightScreen());
+        Image intro = new Image("lose.png", 500, 500, true, true);
+        ImageView imageView = new ImageView();
+        imageView.setImage(intro);
+        BackgroundImage backgroundImage = new BackgroundImage(intro, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        stackPane.setBackground(new Background(backgroundImage));
+        stackPane.setAlignment(Pos.CENTER);
+        scene.setFill(Color.BROWN);
 
-        HBox buttonLine = new HBox(20);
-        buttonLine.setAlignment(Pos.CENTER);
-        buttonLine.backgroundProperty().setValue(confirmBackground);
-        layoutMessage.getChildren().addAll(confirmMessage, buttonLine);
-        layoutMessage.setAlignment(Pos.CENTER);
-        layoutMessage.backgroundProperty().setValue(confirmBackground);
 
         scene.setFill(Color.BROWN);
 

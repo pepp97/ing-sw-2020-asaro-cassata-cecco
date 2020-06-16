@@ -137,8 +137,11 @@ public class Gui extends Application implements View {
         structure.add(top, 0, 0);
         structure.add(bottom, 0, 1);
 
-
-        Image intro = new Image("SantoriniIntro.jpg", widthScreen, heightScreen, true, true); //modificare percorso.
+        int y=900;
+        int x=900;
+        int w=scalingX(x);
+        int h=scalingY(y);
+        Image intro = new Image("SantoriniIntro.png", w, h, true, true);
         ImageView imageView = new ImageView();
         imageView.setImage(intro);
         stackPane.getChildren().add(structure);
@@ -254,78 +257,21 @@ public class Gui extends Application implements View {
 
     }
 
-    /*
-    GridPane menu = new GridPane();
-        menu.setPadding(new Insets(50, 50, 50, 50));
-        menu.setHgap(1);
-        menu.setVgap(1);
+    private int scalingX(int x){
+        int a=0;
+        double width=this.getWidthScreen();
+        double first=2560.0;
+        a= (int) ((int)(x*width)/first);
+        return a;
+    }
 
-        boolean continua;
-        StackPane stackPane = new StackPane();
-
-
-        startMenu = new Scene(stackPane,widthScreen,heightScreen );
-
-        Image intro = new Image("SantoriniIntro.jpg", widthScreen,heightScreen,true, true); //modificare percorso.
-
-
-        //Image intro = new Image("SantoriniIntro.jpg");
-        ImageView imageView = new ImageView();
-        imageView.setImage(intro);
-        //   ImageViewPane imageViewPane = new ImageViewPane(imageView);
-        // stackPane.getChildren().add(imageViewPane);
-        stackPane.getChildren().add(menu);
-        BackgroundImage backgroundImage = new BackgroundImage(intro, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        menu.setBackground(new Background(backgroundImage));
-        continua = false;
-
-
-
-        menu.setAlignment(Pos.CENTER);
-        primaryStage.setScene(startMenu);
-        Stage second = new Stage();
-        second.initOwner(primaryStage);
-        TextField ipInput = new TextField("localhost");
-        ipInput.setPromptText("ip default: localhost");
-
-        String style="-fx-border-color: black; -fx-background-color:white;";
-        GridPane.setStyle();
-        GridPane.setConstraints(ipInput, 150, 120);
-
-
-        TextField portInput = new TextField("8080");
-        portInput.setPromptText("Default port:8080");
-        GridPane.setConstraints(portInput, 150, 128);
-        Button connectionButton = new Button("Vai al Login");
-        GridPane.setConstraints(connectionButton, 150, 140);
-        primaryStage.show();
-        connectionButton.setOnAction(e -> {
-                    if (ipInput.getText().equals("") || portInput.getText().equals("")) {
-                        Label error = new Label("        Completa i campi errati");
-                        GridPane.setConstraints(error, 150, 80);
-                        menu.getChildren().add(0, error);
-                    } else {
-                        try {
-                            client = new Client(ipInput.getText(), Integer.decode(portInput.getText()),this);
-                            client.start();
-                            Connection command=new Connection();
-                            client.send(command);
-
-
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                }
-
-        );
-
-        Button close = new Button("exit");
-        GridPane.setConstraints(close, 151, 140);
-        menu.getChildren().addAll(connectionButton, close, ipInput, portInput);
-        // close.setOnAction(e -> closeApplication());
-
-     */
+    private int scalingY(int x){
+        int a=0;
+        double first=1400.0;
+        double high=this.getHeightScreen();
+        a= (int) ((int)(x*high)/first);
+        return a;
+    }
 
     private void closeApplication() {
 
@@ -382,7 +328,7 @@ public class Gui extends Application implements View {
             error = new ErrorWindow(this, exceptionEvent);
             error.displayMessage(primaryStage);
         });
-        
+
     }
 
     public void update(SettingsEvent settingsEvent) {
