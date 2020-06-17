@@ -3,7 +3,7 @@ package it.polimi.ingsw.commands;
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.view.VirtualView;
 /**
- * Is the command that send to the model the player starter
+ * This Class is the command that send to the model the player starter
  */
 public class StarterCommand implements Command {
     private String nick;

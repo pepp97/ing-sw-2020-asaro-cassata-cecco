@@ -9,12 +9,19 @@ import it.polimi.ingsw.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is the State called when a Player is executing his turn
+ */
+
 public class ExecuteRoutineState implements TurnState {
     int i = -1;
     boolean result;
     private Controller controller;
 
-
+    /**
+     * this method is used to execute the state
+     * @param controller is the main controller
+     */
     @Override
     public void executeState(Controller controller) {
         this.controller = controller;
@@ -72,6 +79,10 @@ public class ExecuteRoutineState implements TurnState {
 
     }
 
+    /**
+     * this private method is called to ask to the current player what worker he wants use
+     */
+
     private void chooseWorker() {
         List<Square> pos = new ArrayList<>();
         for (Worker s : controller.getGame().getCurrentPlayer().getWorkers())
@@ -94,12 +105,18 @@ public class ExecuteRoutineState implements TurnState {
         controller.setGoOn(false);
 
     }
+    /**
+     * this method is used to go back if a player do a lose don't expected
+     */
 
     @Override
     public void goBack() {
         i--;
     }
-
+    /**
+     * this method is used to check some lose condition
+     * @return true if there are some condition to lose, false otherwise
+     */
     @Override
     public Boolean tryToEscape() {
         boolean result = controller.getGame().getCurrentPlayer().getGod().getRoutine().get(i).isSkippable();

@@ -7,7 +7,7 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.LinkedHashMap;
 
 /**
- * is the event sends to players to start the match
+ * This Class is the event sends to players to start the match
  */
 
 

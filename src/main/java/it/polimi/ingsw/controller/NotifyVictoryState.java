@@ -5,8 +5,15 @@ import it.polimi.ingsw.events.EndGame;
 import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.model.Player;
 
-public class NotifyVictoryState implements TurnState {
+/**
+ * This class is the State called when a Player win
+ */
 
+public class NotifyVictoryState implements TurnState {
+    /**
+     * this method is used to execute the state
+     * @param controller is the main controller
+     */
 
     @Override
     public void executeState(Controller controller) {
@@ -32,12 +39,18 @@ public class NotifyVictoryState implements TurnState {
         controller.getGame().endGame();
         return;
     }
+    /**
+     * this method is used to go back if a player do a lose don't expected
+     */
 
     @Override
     public void goBack() {
 
     }
-
+    /**
+     * this method is used to check some lose condition
+     * @return true if there are some condition to lose, false otherwise
+     */
     @Override
     public Boolean tryToEscape() {
         return null;

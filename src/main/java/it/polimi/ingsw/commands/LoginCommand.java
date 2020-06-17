@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * Is the command that send to the model the request of login in the game
+ * This Class is the command that send to the model the request of login in the game
  */
 public class LoginCommand implements Command{
     private String nickname;

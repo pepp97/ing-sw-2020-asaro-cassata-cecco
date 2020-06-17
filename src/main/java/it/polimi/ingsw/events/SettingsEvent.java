@@ -4,7 +4,7 @@ import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * is the event sends to the first player logged to choose the number of player of the match
+ * This Class is the event sends to the first player logged to choose the number of player of the match
  */
 
 public class SettingsEvent implements Event {

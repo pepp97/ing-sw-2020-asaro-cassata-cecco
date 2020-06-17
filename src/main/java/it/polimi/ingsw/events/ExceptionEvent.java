@@ -4,7 +4,7 @@ import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * is the event sends to the player when is catch an exception
+ * This Class is the event sends to the player when is catch an exception
  */
 
 public class ExceptionEvent implements Event {

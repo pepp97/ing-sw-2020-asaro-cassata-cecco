@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * is the event sends to the current player to set the initial position of workers
+ * This Class is the event sends to the current player to set the initial position of workers
  */
 
 public class SetWorkerEvent implements Event {

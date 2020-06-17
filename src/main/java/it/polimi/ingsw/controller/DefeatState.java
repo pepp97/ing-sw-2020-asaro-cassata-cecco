@@ -6,7 +6,15 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Square;
 import it.polimi.ingsw.model.Worker;
 
+/**
+ * This class is the State called when a Player is defeated
+ */
+
 public class DefeatState implements TurnState {
+    /**
+     * this method is used to execute the state
+     * @param controller is the main controller
+     */
 
     @Override
     public void executeState(Controller controller) {
@@ -68,11 +76,18 @@ public class DefeatState implements TurnState {
         return;
     }*/
 
+    /**
+     * this method is used to go back if a player do a lose don't expected
+     */
+
     @Override
     public void goBack() {
 
     }
-
+    /**
+     * this method is used to check some lose condition
+     * @return true if there are some condition to lose, false otherwise
+     */
     @Override
     public Boolean tryToEscape() {
         return false;

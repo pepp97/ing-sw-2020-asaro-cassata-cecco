@@ -7,7 +7,7 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.List;
 
 /**
- * is the event sends to the current player for choose the target
+ * This Class is the event sends to the current player for choose the target
  */
 
 public class ChooseTarget implements Event  {

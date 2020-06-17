@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.List;
 
 /**
- * Is the command that send to the model the ping response
+ * This Class is the command that send to the model the ping response
  */
 
 public class Ping  implements Command {

@@ -4,7 +4,7 @@ import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * is the event send to the players when the match finishes
+ * This Class is the event send to the players when the match finishes
  */
 
 public class EndGame implements Event {

@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.List;
 
 /**
- * is the event sends to the players when there is a new player login successful
+ * This Class is the event sends to the players when there is a new player login successful
  */
 
 public class LoginSuccessful implements Event {

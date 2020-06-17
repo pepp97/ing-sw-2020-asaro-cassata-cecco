@@ -4,7 +4,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * Is the command that send to the model the request of undo
+ * This Class is the command that send to the model the request of undo
  */
 
 public class UndoCommand implements Command {

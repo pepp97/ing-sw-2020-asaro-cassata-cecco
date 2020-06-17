@@ -4,7 +4,7 @@ import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * is the event sends to the players when a player asks a disconnection
+ * This Class is the event sends to the players when a player asks a disconnection
  */
 
 public class LogoutSuccessful implements Event {

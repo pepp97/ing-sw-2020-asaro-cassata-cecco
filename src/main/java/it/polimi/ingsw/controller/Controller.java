@@ -17,20 +17,64 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Main Controller Class, implemented with State Pattern
+ */
+
+
 public class Controller {
 
     private Game game;
+    /**
+     * Keep track of the value of the use effect, is true if the player don't want use the effect, false otherwise
+     */
     private boolean canSkip = false;
+    /**
+     * it is the List of Players to manage the turn
+     */
     private List<Player> turnManager = new ArrayList<>();
+    /**
+     * Current controller State
+     */
     private TurnState state;
+    /**
+     *
+     */
     private boolean goOn = false;
+    /**
+     * It is true if Current Player choose to do Undo, false otherwise
+     */
     private boolean undoCheckFlag = false;
+    /**
+     * it is the number of raw and column in the field
+     */
     private final static int size = 5;
+    /**
+     * it is the representation of the field
+     */
     private Square[][] map = new Square[size][size];
+    /**
+     * it is the number of retries (second) to reach timeout
+     */
     private static int maxRetries = 5;
+
+    /**
+     * it is the counter of the second passed from the last move done from the player
+     */
+
     private int limit = 0;
+    /**
+     * it is the parser of json file
+     */
     private ParserJson p;
+    /**
+     * it is true when the time have to been kill, to restart, false otherwise
+     */
     private boolean killTimer = false;
+
+    /**
+     * Default constructor
+     */
 
 
     public Controller() {
@@ -38,13 +82,17 @@ public class Controller {
         p = new ParserJson();
     }
 
+
     public void setCanSkip(boolean canSkip) {
         this.canSkip = canSkip;
     }
 
+
+
     public boolean isCanSkip() {
         return canSkip;
     }
+
 
     public void setState(TurnState state) {
         this.state = state;
@@ -54,15 +102,32 @@ public class Controller {
         return game;
     }
 
+    /**
+     * This method is called to apply the loginCommand
+     * @param command Is the LoginCommand sent to try login to the match
+     * @param view the VirtualView of the player that sends the command
+     */
+
 
     public synchronized void apply(LoginCommand command, VirtualView view) {
         game.login(command.getNickname(), command.getColor(), view);
     }
 
+    /**
+     * This method is called to apply the ChooseSettingsCommand
+     * @param command Is the ChooseSettingsCommand that needs to set the number of Players of the match
+     * @param view the VirtualView of the player that sends the command
+     */
+
     public synchronized void apply(ChooseSettings command, VirtualView view) {
         //game.resetTimer();
         game.selectNplayer(command.getNplayer(), view);
     }
+
+    /**
+     * This method is called to apply the ChooseSettingsCommand
+     * @param command Is the ChooseGodsCommand that needs to set the Gods usable in the match
+     */
 
 
     public synchronized void apply(ChooseGods command) {
@@ -70,6 +135,11 @@ public class Controller {
 
         game.setUsableGod(command.getNamesGod());
     }
+    /**
+     * This method is called to apply the ChooseYourGodCommand
+     * @param command Is the ChooseYourGodCommand that needs to set the personal god of the Players
+     * @param view the VirtualView of the player that sends the command
+     */
 
     public synchronized void apply(ChooseYourGod command, VirtualView view) {
         //game.resetTimer();
@@ -83,6 +153,11 @@ public class Controller {
     public List<Player> getTurnManager() {
         return turnManager;
     }
+    /**
+     * This method is called to apply the ChooseInitialPositionCommand
+     * @param command Is the ChooseInitialPositionCommand that needs to set initial position of the worker
+     * @param view the VirtualView of the player that sends the command
+     */
 
     public synchronized void apply(ChooseInitialPosition command, VirtualView view) {
         //game.resetTimer();
@@ -110,6 +185,10 @@ public class Controller {
         state.executeState(this);
     }
 
+    /**
+     * This method is called to apply the ChooseYourWorkerCommand
+     * @param command Is the ChooseYourWorkerCommand that needs to set the worker to use by the current player during the turn
+     */
 
     //arriva l'esito del worker da utilizzare per fare le azioni
     public synchronized void apply(ChooseYourWorker command) {
@@ -120,6 +199,10 @@ public class Controller {
 
         state.executeState(this);
     }
+    /**
+     * This method is called to apply the ChooseTargetCommand
+     * @param command Is the ChooseTargetCommand that needs to set the Target to use
+     */
 
     //spostare in game?
     public synchronized void apply(ChooseTarget command) {
@@ -132,6 +215,10 @@ public class Controller {
 
         state.executeState(this);
     }
+    /**
+     * This method is called to apply the UseEffectCommand
+     * @param command Is the UseEffectCommand that needs to set if the player want use the effect of the God card
+     */
 
 
     public synchronized void apply(UseEffect command) {
@@ -144,6 +231,12 @@ public class Controller {
 
 
     }
+
+    /**
+     * This method is called to apply the DisconnectionCommand
+     * @param disconnection is the command sends when a player want disconnect from the match
+     * @param view is the VirtualView of the player that sends the command
+     */
 
 
     public synchronized void apply(Disconnection disconnection, VirtualView view) {
@@ -170,10 +263,21 @@ public class Controller {
 
     }
 
+    /**
+     * This method is called to apply the ConnectionCommand
+     * @param connection is the command sends when a player want connect in the match
+     * @param view is the VirtualView of the player that sends the command
+     */
+
     public synchronized void apply(Connection connection, VirtualView view) {
         ConnectionSuccessful event = new ConnectionSuccessful();
         event.send(view);
     }
+    /**
+     * This method is called to apply the StarterCommand
+     * @param starterCommand is the command sends when first player choose who start the match
+     * @param view is the VirtualView of the player that sends the command
+     */
 
     public synchronized void apply(StarterCommand starterCommand, VirtualView view) {
         // game.resetTimer();
@@ -207,10 +311,20 @@ public class Controller {
         state.executeState(this);
     }
 
+    /**
+     * this method is used to go back if a player do a lose don't expected
+     */
+
 
     public void goBack() {
         state.goBack();
     }
+
+    /**
+     * this method is called to get the next player
+     * @param player is the current player
+     * @return the next player that have to start the turn
+     */
 
     public Player getNextPlayer(Player player) {
 
@@ -227,6 +341,11 @@ public class Controller {
         return turnManager.get(i + 1);
     }
 
+    /**
+     * this method is called to delete a player from the turnManager List
+     * @param currentPlayer is the player that have to remove form the list
+     */
+
     public void deletePlayer(Player currentPlayer) {
         turnManager.remove(currentPlayer);
     }
@@ -239,6 +358,11 @@ public class Controller {
         return this.goOn;
     }
 
+    /**
+     * this method is used to check some lose condition
+     * @return true if there are some condition to lose, false otherwise
+     */
+
     public Boolean tryToEscape() {
         boolean result = state.tryToEscape();
         if (result) {
@@ -248,12 +372,23 @@ public class Controller {
         return result;
     }
 
+    /**
+     * This method is called to apply the PingCommand
+     * @param ping is the command sends when a player answer to a Pong
+     * @param v is the VirtualView of the player that sends the command
+     */
+
 
     public void apply(Ping ping, VirtualView v) {
         System.out.println("ping...");
         v.setPing(true);
         // game.resetTimer();
     }
+    /**
+     * This method is called to apply the UndoCommand
+     * @param command is the command sends when a player want apply the the Undo
+     * @param view is the VirtualView of the player that sends the command
+     */
 
     public synchronized void apply(UndoCommand command, VirtualView view) {
         for (Worker w : game.getCurrentPlayer().getWorkers())
@@ -293,6 +428,10 @@ public class Controller {
         this.undoCheckFlag = undoCheckFlag;
     }
 
+    /**
+     * this method is used to Save the state of the match when start the turn, it needs if player choose to apply undo command
+     */
+
     public void saveAll() {
         if (game.getCurrentPlayer().getWorkers().get(0).getCanMoveUp() == true)
             undoCheckFlag = true;
@@ -308,6 +447,10 @@ public class Controller {
         }
     }
 
+    /**
+     * this method is called to restart a match when one match finish
+     */
+
 
     public void restart() {
         game = new Game(this);
@@ -315,6 +458,10 @@ public class Controller {
         turnManager = new ArrayList<>();
         goOn = false;
     }
+
+    /**
+     * this method is called to Start the timer that manage the possibility to do undo
+     */
 
 
     public void startTimer() {

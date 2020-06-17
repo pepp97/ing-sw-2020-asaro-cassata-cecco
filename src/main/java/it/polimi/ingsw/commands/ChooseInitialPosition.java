@@ -5,7 +5,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * Is the command that send to the model the initial position of the worker
+ * This Class is the command that send to the model the initial position of the worker
  */
 
 public class ChooseInitialPosition implements Command {
