@@ -5,7 +5,7 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.util.List;
 /**
- * is the event sends to the current player for choose the god to use
+ * This Class is the event sends to the current player for choose the god to use
  */
 
 public class ChooseYourGodEvent implements Event {

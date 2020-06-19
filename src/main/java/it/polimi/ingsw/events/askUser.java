@@ -4,7 +4,7 @@ import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * is the event sends to the current player for choose if want use the effect
+ * This Class is the event sends to the current player for choose if want use the effect
  */
 
 public class askUser implements Event {

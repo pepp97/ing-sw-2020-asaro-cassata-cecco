@@ -10,11 +10,18 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is the State called when a Player have to set worker position
+ */
+
 public class SetWorkerState implements TurnState {
     private List <Square> availableSquare=new ArrayList<>();
     private Controller controller;
 
-
+    /**
+     * this method is used to execute the state
+     * @param controller is the main controller
+     */
 
 
     @Override
@@ -48,11 +55,18 @@ public class SetWorkerState implements TurnState {
         controller.getGame().notifyCurrent(event2);
 
     }
+    /**
+     * this method is used to go back if a player do a lose don't expected
+     */
 
     @Override
     public void goBack() {
 
     }
+    /**
+     * this method is used to check some lose condition
+     * @return true if there are some condition to lose, false otherwise
+     */
 
     @Override
     public Boolean tryToEscape() {
@@ -62,7 +76,9 @@ public class SetWorkerState implements TurnState {
 
     //}
 
-
+    /**
+     * this method is called to fill the square available where player can position his worker
+     */
     private void fillSquare() {
 
         Square [][]matrix=controller.getGame().getField().getSquares();

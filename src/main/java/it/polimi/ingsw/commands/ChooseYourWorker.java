@@ -6,7 +6,7 @@ import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * Is the command that send to the model the osition of worker to use during the turn
+ * This Class is the command that send to the model the osition of worker to use during the turn
  */
 
 public class ChooseYourWorker implements Command {

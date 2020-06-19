@@ -4,7 +4,7 @@ import it.polimi.ingsw.view.Gui;
 import it.polimi.ingsw.view.VirtualView;
 
 /**
- * is the event send to the players to verify if are connect
+ * This Class is the event send to the players to verify if are connect
  */
 
 public class Pong  implements Event{

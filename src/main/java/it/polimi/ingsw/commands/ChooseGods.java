@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Is the command that send to the model the gods selected by the first player
+ * This Class Is the command that send to the model the gods selected by the first player
  */
 
 public class ChooseGods implements Command {

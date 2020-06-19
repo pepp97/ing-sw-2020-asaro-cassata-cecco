@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.List;
 
 /**
- * is the event sends to the players to start the game
+ * This Class is the event sends to the players to start the game
  */
 
 public class StartGameEvent implements Event {

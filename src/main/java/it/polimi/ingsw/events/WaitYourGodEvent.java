@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.List;
 
 /**
- * is the event sends to the player that have choose your god
+ * This Class is the event sends to the player that have choose your god
  */
 
 public class WaitYourGodEvent implements Event {

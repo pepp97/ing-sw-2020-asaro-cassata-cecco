@@ -11,15 +11,42 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class VirtualView extends Thread implements View {
+/**
+ * this Class manage the connection from server to client
+ */
 
+public class VirtualView extends Thread implements View {
+    /**
+     * it is the player owner of the VirtualView
+     */
     private Player owner;
+    /**
+     * it is the communication channel between client and server
+     */
     private Socket socket;
+    /**
+     * it is the buffer where virtual view read message from server
+     */
     private Scanner in;
+    /**
+     * it is the buffer where virtual view write message to server
+     */
     private PrintWriter out;
+    /**
+     * it is the main controller
+     */
     private Controller controller;
+    /**
+     * it is the reader of the input
+     */
     private InputStreamReader input;
+    /**
+     * it is true if server is connect, false otherwise
+     */
     private boolean ping = true;
+    /**
+     * it is true if connection have to end, false otherwise
+     */
     private boolean stop = false;
 
     public boolean isPing() {
@@ -29,6 +56,12 @@ public class VirtualView extends Thread implements View {
     public void setPing(boolean ping) {
         this.ping = ping;
     }
+
+    /**
+     * Default constructor
+     * @param socket the channel of cummunication between client and server
+     * @param controller the main controller that manage the game
+     */
 
     public VirtualView(Socket socket, Controller controller) {
         this.socket = socket;
@@ -53,6 +86,11 @@ public class VirtualView extends Thread implements View {
         this.owner = owner;
     }
 
+    /**
+     * this method is used to receive the event from the server
+     * @param event is the event received
+     */
+
 
     public void update(Event event) {
         BuilderEvent b = new BuilderEvent();
@@ -62,6 +100,11 @@ public class VirtualView extends Thread implements View {
 
 
     }
+
+    /**
+     * this method is used to receive the json string from the server
+     * @param json is the json string that must be converted in the corresponding command
+     */
 
     public void receive(String json) {
         System.out.println(json);
@@ -75,6 +118,11 @@ public class VirtualView extends Thread implements View {
         return owner;
     }
 
+    /**
+     * this method is called when the communication channel have to be closed
+     * @throws IOException
+     */
+
     @Override
     public void closeAll() throws IOException {
         stop = true;
@@ -84,7 +132,9 @@ public class VirtualView extends Thread implements View {
         socket.close();
     }
 
-
+    /**
+     * this method is called to run the thread
+     */
 
 
     @Override
