@@ -50,6 +50,7 @@ public class TheyDontMoveUpTest {
         p2.setWorkers(w2);
         squares[1][1].setLevel(1);
         squares[0][0].setWorker(w1);
+        game.startMytimer();
     }
 
     @AfterEach

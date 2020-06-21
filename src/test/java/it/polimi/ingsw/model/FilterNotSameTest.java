@@ -48,6 +48,7 @@ public class FilterNotSameTest {
         squares[1][1].setLevel(1);
         squares[0][0].setWorker(w1);
         squares[0][1].setWorker(w2);
+        game.startMytimer();
     }
 
     @AfterEach

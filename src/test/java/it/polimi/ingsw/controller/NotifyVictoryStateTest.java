@@ -110,7 +110,7 @@ public class NotifyVictoryStateTest {
 
             }
         }))));
-
+        game.startMytimer();
     }
 
     @AfterEach

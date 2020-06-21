@@ -20,6 +20,7 @@ public class SwapTargetTest {
         view.setOwner(p);
         game.setCurrentView(view);
         Player p2 = new Player("provaa", Color.WHITE);
+        game.startMytimer();
     }
 
     @Test
