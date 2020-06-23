@@ -13,10 +13,24 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * it is the class that handle the server settings
+ */
 
 public class Server {
+    /**
+     * it is the port where server is listening
+     */
     public static int port=8080;
+    /**
+     * it is the port selected where server will listen clients
+     */
     static int portSelected;
+
+    /**
+     * it is the main method to start the server
+     * @throws IOException
+     */
 
     public static void main() throws IOException {
         Controller controller=new Controller();

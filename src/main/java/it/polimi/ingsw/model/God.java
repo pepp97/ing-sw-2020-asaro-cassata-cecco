@@ -4,20 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * It is the micro-effect that have the role to check if the player have win
+ * it is the class of the god card
  *
  * @author Salvatore Cassata
  */
 
 public class God {
+    /**
+     * it is the name of the god
+     */
 
     private String name;
 
+    /**
+     * it is the text of the effect of the card
+     */
+
     private String textEffect;
+    /**
+     * it is the nickname of the God
+     */
 
     private String surname;
 
+    /**
+     * it is the list of the sub action
+     */
+
     private List<EffectRoutine> Routine = new ArrayList<>();
+
+    /**
+     * it is the list of level that needs to some sub action that are not accept
+     */
 
     private List<Integer> cantDo = new ArrayList<>();
 
@@ -28,6 +46,14 @@ public class God {
     public List<Integer> getCantDo() {
        return List.copyOf(cantDo);
     }
+
+    /**
+     * default constructor
+     * @param name is the name of the god
+     * @param textEffect is the text of the effect of the god card
+     * @param surname is the nickname of the card
+     * @param routine is the List of sub action of the god
+     */
 
     public God(String name, String textEffect, String surname, List<EffectRoutine> routine) {
         this.name = name;

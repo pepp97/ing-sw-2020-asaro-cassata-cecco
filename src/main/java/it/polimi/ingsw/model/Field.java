@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * represents the entire game's field
+ * this class represents the entire game's field
  *
  * @author Giuseppe Asaro
  */

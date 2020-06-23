@@ -4,20 +4,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * rapresent the players
+ * this class is the class of the player
  *
  * @author Riccardo Cecco
  */
 
 public class Player {
+    /**
+     * it is the username choosed by the player
+     */
 
     private String username;
+    /**
+     * it is the list of workers of the player
+     */
     private List<Worker> workers = new ArrayList<>();
+    /**
+     * it is the god of the player
+     */
     private God god;
+    /**
+     * it is the color of the player
+     */
     private Color color;
+    /**
+     * it is true if the player has built during is turn, false otherwise
+     */
     private boolean hasBuilt;
+    /**
+     * it is true if the player has moove during is turn, false otherwise
+     */
     private boolean hasBeenMoved;
+    /**
+     * it is true if the player has loose false otherwise
+     */
     private boolean defeat;
+    /**
+     * it is true if player is in que during the execute routine, false otherwise
+     */
     private boolean inQue;
 
 
@@ -75,7 +99,7 @@ public class Player {
     /**
      * this method is used to assign a worker to the respective player
      *
-     * @param worker worker to assing
+     * @param worker worker to assign
      */
 
     //questo metodo serve per assegnare un worker ad un player
@@ -92,7 +116,6 @@ public class Player {
             this.god = god;
     }
 
-    //Metodi Getter
     public String getUsername() {
         return username;
     }

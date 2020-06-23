@@ -8,6 +8,9 @@ import it.polimi.ingsw.events.askUser;
  * @author Salvatore Cassata
  */
 public class AskUser implements SubAction {
+    /**
+     * it is true if the subaction need interation of the player, false otherwise
+     */
 
     private boolean interationNeeded=true;
 
@@ -20,7 +23,8 @@ public class AskUser implements SubAction {
 
 
     /**
-     * @param game instance
+     * this method is called to execute the effect
+     * @param game instance of the game
      */
     @Override
     public void use(Game game) {
@@ -32,12 +36,11 @@ public class AskUser implements SubAction {
 
     }
 
-    /*
-     * this method is always true because it don't need to control nothing
-     */
+
 
     /**
-     * @param game instance
+     * this method is called to check if the effect is usable
+     * @param game instance of the game
      * @return a boolean to determine if the effect is usable
      */
     @Override

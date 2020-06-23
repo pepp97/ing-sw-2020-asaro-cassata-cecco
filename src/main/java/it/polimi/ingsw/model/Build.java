@@ -18,12 +18,20 @@ import java.util.List;
 
 public class Build implements SubAction {
 
+    /**
+     * it is the List of Square usable by the player to use the effect
+     */
+
     private List<Square> availableSquare = new ArrayList<>();
 
 
     public List<Square> getAvailableSquare() {
         return List.copyOf(availableSquare);
     }
+
+    /**
+     * it is true if the subaction need interation of the player, false otherwise
+     */
 
     private boolean interationNeeded = true;
 
@@ -34,9 +42,8 @@ public class Build implements SubAction {
 
 
     /**
-     * This method is called when a player say to build
-     *
-     * @param game
+     * this method is called to execute the effect
+     * @param game instance of the game
      */
     @Override
     public void use(Game game) {
@@ -86,10 +93,9 @@ public class Build implements SubAction {
     }
 
     /**
-     * this method control if the workers choosed can build
-     *
-     * @param game
-     * @return if true the worker can build
+     * this method is called to check if the effect is usable
+     * @param game instance of the game
+     * @return a boolean to determine if the effect is usable
      */
 
     @Override

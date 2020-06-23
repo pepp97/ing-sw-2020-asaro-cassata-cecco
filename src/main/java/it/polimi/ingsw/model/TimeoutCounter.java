@@ -2,6 +2,10 @@ package it.polimi.ingsw.model;
 
 import java.util.TimerTask;
 
+/**
+ * this class have the role to run the timer
+ */
+
 public class TimeoutCounter extends TimerTask {
     TimeoutCheckerInterface timeoutChecker;
 

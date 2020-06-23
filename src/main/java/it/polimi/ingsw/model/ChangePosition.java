@@ -20,7 +20,15 @@ import java.util.List;
  */
 public class ChangePosition implements SubAction {
 
+    /**
+     * it is the List of Square usable by the player to use the effect
+     */
+
     private List<Square> availableSquare = new ArrayList<>();
+
+    /**
+     * it is true if the subaction need interation of the player, false otherwise
+     */
     private boolean interationNeeded = true;
 
 
@@ -34,9 +42,8 @@ public class ChangePosition implements SubAction {
     }
 
     /**
-     * this use change the position of the player and save the new position in the HistoryPos of the worker
-     *
-     * @param game
+     * this method is called to execute the effect
+     * @param game instance of the game
      */
     @Override
     public void use(Game game) {
@@ -104,8 +111,9 @@ public class ChangePosition implements SubAction {
 
 
     /**
-     * @param game
-     * @return if true the worker can change position
+     * this method is called to check if the effect is usable
+     * @param game instance of the game
+     * @return a boolean to determine if the effect is usable
      */
 
     @Override

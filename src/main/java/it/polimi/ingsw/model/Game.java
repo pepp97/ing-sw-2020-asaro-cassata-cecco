@@ -19,28 +19,95 @@ import java.util.*;
  */
 public class Game implements Observable {
 
+    /**
+     * it is the list of Player that play this game
+     */
+
     private List<Player> playerList = new ArrayList<>();
+    /**
+     * it is the list of observers that need to communicate change in the model
+     */
     private List<Observer> observers = new ArrayList<>();
+    /**
+     * it is the current player
+     */
     private Player currentPlayer;
+    /**
+     * it is the view of the current player
+     */
     private View currentView;
+    /**
+     * it is the target choose by the current player
+     */
     private Target targetSelected;
+    /**
+     * it is the target choose to use during the current turn by the current player
+     */
     private Target targetInUse;
+    /**
+     * it is the entity of the field
+     */
     private Field field;
+    /**
+     * it is the number of player setted by the first player logged
+     */
     private int numplayer = 0;
+    /**
+     * it is the list of the God that player can choose when is his turn
+     */
     private List<God> startGods;
+    /**
+     * it is the list of all the god can choose
+     */
     private List<God> totalGods;
+    /**
+     * it is the list of effects of the God card
+     */
     private List<String> effects = new ArrayList<>();
     private List<String> names = new ArrayList<>();
+    /**
+     * it is the index of the position in the list of the current player
+     */
     private int turnIndex = 1;
+    /**
+     * it is the list of the God used during the match
+     */
     private List<String> selected = new ArrayList<>();
+    /**
+     * it is the winner of the match
+     */
     private Player winner;
+    /**
+     * it is the controller entity
+     */
     private Controller controller;
+    /**
+     * it is the number of retries to reach the timeout
+     */
     private int maxRetries = 10000;
+    /**
+     * it is true if the match have to finish, false otherwise
+     */
     private boolean stop = false;
+    /**
+     * it is the length of raw and columns of the field
+     */
     private static final int length = 5;
+    /**
+     * it is true if the player want use the undo command, false otherwise
+     */
     private boolean undo = false;
+    /**
+     * it is true if the player have to killed, false otherwise
+     */
     private boolean kill = false;
+    /**
+     * it is true if the match have to finish, false otherwise
+     */
     private boolean end = false;
+    /**
+     * it is a temporary virtual view
+     */
     private VirtualView tmpView;
 
     public List<String> getNames() {
@@ -63,11 +130,21 @@ public class Game implements Observable {
         this.undo = undo;
     }
 
+    /**
+     * default constructor
+     * @param controller is the controller of the match
+     */
+
     public Game(Controller controller) {
         this.controller = controller;
         field = new Field();
         startGods = new ArrayList<>();
     }
+
+    /**
+     * this method is used to add a player in the list
+     * @param player it is the player to add
+     */
 
     public void add(Player player) {
         if (playerList.size() < numplayer)
@@ -103,6 +180,11 @@ public class Game implements Observable {
         if (playerList.size() < 3)
             this.playerList.add(player);
     }
+
+    /**
+     * this method is called when a player lose, to remove it from the list of the player
+     * @param player it is the player to remove
+     */
 
     public void removePlayerInList(Player player) {
         numplayer--;
@@ -150,6 +232,13 @@ public class Game implements Observable {
         this.targetSelected = targetSelected;
     }
 
+    /**
+     * it is the method called to logged a player
+     * @param nickname it is the nickname choose by the player
+     * @param color it is the color choose by the player
+     * @param view it is the current view of the player
+     */
+
 
 
     public synchronized void login(String nickname, Color color, VirtualView view) {
@@ -181,12 +270,24 @@ public class Game implements Observable {
         }
     }
 
+    /**
+     * it is a check if the game is started
+     * @return true if the game is started false otherwise
+     */
+
     public boolean gameAlreadyStarted() {
         if (playerList.size() == numplayer && numplayer != 0) {
             return true;
         }
         return false;
     }
+
+    /**
+     * this method handle the player login
+     * @param nickname it is the nickname choose by the player
+     * @param color it is the color choose by the player
+     * @param view it is the current view of the player
+     */
 
     private void playerLogin(String nickname, Color color, VirtualView view) {
         register(view);
@@ -203,6 +304,10 @@ public class Game implements Observable {
         }
     }
 
+    /**
+     * this method is used to complete the login of the player
+     * @param playerList it's the player to add to the game
+     */
 
     private void lastOption(List<Player> playerList) {
         List<String> list = new ArrayList<>();
@@ -210,6 +315,10 @@ public class Game implements Observable {
             list.add(p.getUsername());
         notifyObservers(new LoginSuccessful(list));
     }
+
+    /**
+     * this method is called when complete the login the last player
+     */
 
     private void checkIfFull() {
         List<String> godlist = new ArrayList<>();
@@ -226,6 +335,10 @@ public class Game implements Observable {
         notifyCurrent(new StartGameEvent(godlist, numplayer));
         notifyObservers(new Pong());
     }
+
+    /**
+     * this method is called to start the timer that handle the ping
+     */
 
     public void startMytimer() {
         Timer timer = new Timer();
@@ -289,12 +402,23 @@ public class Game implements Observable {
     //     startMytimer();
     //}
 
+    /**
+     * it checks if the nickname is available
+     * @param nick is the nickname choose by the player
+     * @return true if yhe nickname is available, false otherwise
+     */
+
     public boolean nicknameAvailable(String nick) {
         for (Player p : playerList)
             if (nick.equals(p.getUsername()))
                 return false;
         return true;
     }
+    /**
+     * it checks if the color is available
+     * @param color is the color choose by the player
+     * @return true if yhe color is available, false otherwise
+     */
 
     public boolean colorAvailable(Color color) {
         for (Player p : playerList)
@@ -302,6 +426,12 @@ public class Game implements Observable {
                 return false;
         return true;
     }
+
+    /**
+     * this method is called when the first player choose the number of player of the game
+     * @param nplayer it is the number of player of the game
+     * @param view is the virtual view of the player that has choose
+     */
 
 
     public void selectNplayer(int nplayer, VirtualView view) {
@@ -313,6 +443,11 @@ public class Game implements Observable {
         Event e = new LoginSuccessful(list);
         notifyCurrent(e);
     }
+
+    /**
+     * this method is called to set the gods that players can choose
+     * @param god is the list of gods
+     */
 
 
     public void setUsableGod(List<String> god) {
@@ -332,6 +467,12 @@ public class Game implements Observable {
         notifyObservers(new WaitYourGodEvent(passGod, passEffect));
         notifyCurrent(e);
     }
+
+    /**
+     * this method is called to set the god corresponding at the current player
+     * @param godname is the name of the god choose
+     * @param view is the virtual view of the player that have choose
+     */
 
     public synchronized void setPlayerGod(String godname, VirtualView view) {
         List<String> passGod = new ArrayList<>(names);
@@ -427,6 +568,13 @@ public class Game implements Observable {
         return controller;
     }
 
+    /**
+     * this method is called to set the initial position of the worker
+     * @param coordinateX is the coordinate x of position choose
+     * @param coordinateY is the coordinate y of position choose
+     * @param view is the virtual view of the current player
+     */
+
     public void setInitialPosition(int coordinateX, int coordinateY, VirtualView view) {
         Worker w = new Worker();
         view.getOwner().setWorkers(w);
@@ -455,6 +603,11 @@ public class Game implements Observable {
         observers.remove(observer);
     }
 
+    /**
+     * this method is called to generate an array used to communicate with the views of the players
+     * @return the array that represents the field
+     */
+
     public SquareToJson[][] squareToJsonArrayGenerator() {
         Square[][] mappa = field.getSquares();
 
@@ -467,6 +620,10 @@ public class Game implements Observable {
                     map[x][y] = new SquareToJson(mappa[x][y].getLevel(), "", mappa[x][y].getCoordinateX(), mappa[x][y].getCoordinateY());
         return map;
     }
+
+    /**
+     * this method is called to end the game
+     */
 
 
     public void endGame() {

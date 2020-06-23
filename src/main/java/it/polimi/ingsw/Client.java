@@ -11,21 +11,43 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+/**
+ * it is the class that handle the client side
+ */
+
 public class Client extends Thread {
 
-
+    /**
+     * it is the view of the player
+     */
     private Gui view;
-
+    /**
+     * it is the socket whwere communicate with server
+     */
     private Socket socket = null;
     private BufferedWriter writer = null;
     private PrintWriter out = null;
+    /**
+     * it is the port number
+     */
     private int portNumber;
+    /**
+     * it is the ip address of the server
+     */
     private String ipAddress;
     private InputStreamReader input;
     private Scanner scanner;
+    /**
+     * it is true if is connect, false otherwise
+     */
     private boolean isConnected = true;
 
-
+    /**
+     * default constructor
+     * @param text it is the ip address
+     * @param port it is the port where communicate
+     * @param gui it is the corresponding gui of the player
+     */
     public Client(String text, int port, Gui gui) {
         this.view = gui;
         this.ipAddress = text;
@@ -63,6 +85,11 @@ public class Client extends Thread {
         // socket.close();
     }
 
+    /**
+     * this method is called to send a command to the virtual view
+     * @param cmd is the command to send
+     */
+
     public void send(Command cmd) {
         if (socket != null) {
             BuilderCommand b = new BuilderCommand();
@@ -72,6 +99,11 @@ public class Client extends Thread {
             System.out.println("Command: " + cmd.toString());
         }
     }
+
+    /**
+     * this method is called when Client receive an event from the model
+     * @param json is the string json that contains the event
+     */
 
     public void receive(String json) {
         System.out.println(json);
@@ -97,6 +129,11 @@ public class Client extends Thread {
         System.out.println("client correctly closed");
         // System.out.println("Event: "+ s);
     }
+
+    /**
+     * this method is called when player disconnects
+     * @throws IOException
+     */
 
     public void disconnect() throws IOException {
         isConnected = false;

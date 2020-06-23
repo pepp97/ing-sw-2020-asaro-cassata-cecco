@@ -5,21 +5,45 @@ import java.util.List;
 
 
 /**
- * rapresent the pawns of the Player
+ * this class represent the worke assigned to a Player
  *
  * @author Riccardo Cecco
  */
 
 public class Worker implements Target {
 
+    /**
+     * it is the color of the worker
+     */
     private Color c;
+    /**
+     * it is true if worker can be moved, false otherwise
+     */
     private boolean canBeMoved;
+    /**
+     * it is true if worker can go up, false otherwise
+     */
     private boolean canMoveUp;
+    /**
+     * it is true if worker can build, false otherwise
+     */
     private boolean canBuild;
+    /**
+     * it is the actual square of the worker
+     */
     private Square actualPos;
+    /**
+     * it is the list of the history pos of the turn of the worker
+     */
     private List<Square> historyPos = new ArrayList<>();
     private List<Square> targetNotValid;
+    /**
+     * it is a square that isn't available for the worke
+     */
     private Square squareNotAvailable;
+    /**
+     * it is a mandatory square of the worker
+     */
     private Square mandatorySquare;
 
     /**

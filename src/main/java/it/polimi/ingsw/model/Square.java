@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * represents a cell of square's matrix contained in feld
+ * this class represents a cell of square's matrix contained in field
  *
  * @author Giuseppe Asaro
  */

@@ -11,7 +11,15 @@ import java.util.List;
 
 public class LevelFilter implements SubAction {
 
+    /**
+     * it is the list of level to filter
+     */
+
     private List<Integer> cantDo = new ArrayList<>();
+
+    /**
+     * it is true if the subaction need interation of the player, false otherwise
+     */
 
     private boolean interationNeeded=false;
 
@@ -23,7 +31,8 @@ public class LevelFilter implements SubAction {
     }
 
     /**
-     * @param game instance
+     * this method is called to execute the effect
+     * @param game instance of the game
      */
     @Override
     public void use(Game game) {
@@ -40,7 +49,8 @@ public class LevelFilter implements SubAction {
     }
 
     /**
-     * @param game instance
+     * this method is called to check if the effect is usable
+     * @param game instance of the game
      * @return a boolean to determine if the effect is usable
      */
     // faccio il controllo se può costruire così setto il livello altrimenti non lo setto, chiedersi se serve fare ciò

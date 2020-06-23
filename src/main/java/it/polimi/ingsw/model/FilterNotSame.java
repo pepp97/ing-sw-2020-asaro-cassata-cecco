@@ -8,13 +8,18 @@ package it.polimi.ingsw.model;
 
 public class FilterNotSame implements SubAction {
 
+    /**
+     * it is true if the subaction need interation of the player, false otherwise
+     */
+
     private boolean interationNeeded=false;
 
     public boolean isInterationNeeded() {
         return interationNeeded;
     }
     /**
-     * @param game instance
+     * this method is called to execute the effect
+     * @param game instance of the game
      */
     @Override
     public void use(Game game) {
@@ -40,7 +45,8 @@ public class FilterNotSame implements SubAction {
 
 
     /**
-     * @param game instance
+     * this method is called to check if the effect is usable
+     * @param game instance of the game
      * @return a boolean to determine if the effect is usable
      */
     @Override

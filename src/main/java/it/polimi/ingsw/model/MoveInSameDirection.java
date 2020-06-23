@@ -5,8 +5,14 @@ import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.events.UpdateEvent;
 
 public class MoveInSameDirection implements SubAction {
-
+    /**
+     * it is the square where the player will go at the end of the effect
+     */
     private Square positionToGo;
+
+    /**
+     * it is true if the subaction need interation of the player, false otherwise
+     */
     private boolean interationNeeded = false;
 
     public boolean isInterationNeeded() {
@@ -15,7 +21,8 @@ public class MoveInSameDirection implements SubAction {
 
 
     /**
-     * @param game
+     * this method is called to execute the effect
+     * @param game instance of the game
      */
     @Override
     public void use(Game game) {
@@ -35,8 +42,9 @@ public class MoveInSameDirection implements SubAction {
     }
 
     /**
-     * @param game
-     * @return
+     * this method is called to check if the effect is usable
+     * @param game instance of the game
+     * @return a boolean to determine if the effect is usable
      */
 
     // aumenta aumenta, diminuisce diminuisce per le diagonali,
