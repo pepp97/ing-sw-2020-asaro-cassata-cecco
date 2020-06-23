@@ -60,6 +60,7 @@ public class ChangePositionTest {
         squares[0][3].setWorker(w3);
         squares[4][4].setLevel(0);
         squares[4][4].setWorker(w4);
+        game.startMytimer();
     }
 
     @AfterEach

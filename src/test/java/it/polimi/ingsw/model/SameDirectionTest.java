@@ -49,6 +49,7 @@ public class SameDirectionTest {
         squares[2][3].setLevel(4);
         squares[3][2].setLevel(4);
         squares[3][3].setLevel(4);
+        game.startMytimer();
     }
 
 

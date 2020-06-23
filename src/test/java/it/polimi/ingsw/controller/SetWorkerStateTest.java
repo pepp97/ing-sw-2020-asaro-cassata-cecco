@@ -84,6 +84,7 @@ public class SetWorkerStateTest {
             }
         }))));
         state = new SetWorkerState();
+        game.startMytimer();
     }
 
 

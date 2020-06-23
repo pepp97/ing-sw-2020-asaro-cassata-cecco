@@ -73,6 +73,7 @@ public class CheckVictoryTest {
         game.getField().getSquares()[0][0].setWorker(w1);
         game.getField().getSquares()[1][1].setLevel(0);
         game.getField().getSquares()[0][0].setLevel(2);
+        game.startMytimer();
     }
 
     @AfterEach

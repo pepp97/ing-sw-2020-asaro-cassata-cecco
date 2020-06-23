@@ -105,6 +105,7 @@ public class ExecuteRoutineStateTest {
             }
         }))));
         state = new ExecuteRoutineState();
+        game.startMytimer();
     }
 
     @AfterEach

@@ -54,6 +54,7 @@ public class MoveTest {
         squares[3][2].setLevel(4);
         squares[3][3].setLevel(4);
         squares[2][2].setWorker(w2);
+        game.startMytimer();
     }
 
     @AfterEach

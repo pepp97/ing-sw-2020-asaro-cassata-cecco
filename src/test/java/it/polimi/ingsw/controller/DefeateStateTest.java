@@ -103,6 +103,7 @@ public class DefeateStateTest {
 
             }
         }))));
+        game.startMytimer();
     }
 
     @AfterEach
