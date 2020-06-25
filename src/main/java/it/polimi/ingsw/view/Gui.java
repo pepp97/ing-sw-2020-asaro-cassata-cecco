@@ -453,7 +453,7 @@ public class Gui extends Application implements View {
             Boolean timeoutReached = l > maxRetries;
             if (timeoutReached) {
 
-                update(new ExceptionEvent("The Server is crashed"));
+                update(new ExceptionEvent("Something went wrong, connection lost..."));
                 update(new LogoutSuccessful());
                 return true;
             }

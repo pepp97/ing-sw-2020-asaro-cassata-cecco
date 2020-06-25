@@ -4,6 +4,7 @@ import it.polimi.ingsw.ParserClient.BuilderCommand;
 import it.polimi.ingsw.ParserClient.ParserEvent;
 import it.polimi.ingsw.commands.Command;
 import it.polimi.ingsw.events.Event;
+import it.polimi.ingsw.events.ExceptionEvent;
 import it.polimi.ingsw.view.Gui;
 
 import java.io.*;
@@ -37,6 +38,7 @@ public class Client extends Thread {
     private String ipAddress;
     private InputStreamReader input;
     private Scanner scanner;
+    private boolean started=false;
     /**
      * it is true if is connect, false otherwise
      */
@@ -54,8 +56,10 @@ public class Client extends Thread {
         this.portNumber = port;
         try {
             socket = new Socket(ipAddress, portNumber);
+            started=true;
         } catch (IOException e) {
-            System.exit(1);
+            gui.update(new ExceptionEvent("No Server available, please try again"));
+            return;
         }
         try {
 
@@ -119,6 +123,8 @@ public class Client extends Thread {
     public void run() {
         while (isConnected) {
             String s = null;
+            if(!started)
+                break;
             if (scanner.hasNext()) {
                 s = scanner.nextLine();
                 System.out.println(s);
@@ -126,7 +132,7 @@ public class Client extends Thread {
                 receive(s);
             }
         }
-        System.out.println("client correctly closed");
+        //System.out.println("client correctly closed");
         // System.out.println("Event: "+ s);
     }
 
