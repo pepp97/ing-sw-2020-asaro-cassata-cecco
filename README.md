@@ -36,6 +36,6 @@
 
 
 
--###  double click on the icon to start the GUI (default- no args)
--###  java -jar "path" --Server to start the Server
--###  java -jar "path" --Client to start the GUI
+- ###  double click on the icon to start the GUI (default- no args)
+- ###  java -jar "path" --Server to start the Server
+- ###  java -jar "path" --Client to start the GUI
