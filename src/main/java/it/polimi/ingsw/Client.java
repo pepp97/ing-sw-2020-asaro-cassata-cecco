@@ -143,11 +143,16 @@ public class Client extends Thread {
 
     public void disconnect() throws IOException {
         isConnected = false;
-        input.close();
-        writer.close();
-        out.close();
-        scanner.close();
-        socket.close();
+        if(input!=null)
+            input.close();
+        if(out!=null)
+            writer.close();
+        if(out!=null)
+            out.close();
+        if(scanner!=null)
+            scanner.close();
+        if(socket!=null)
+            socket.close();
     }
 
 }
