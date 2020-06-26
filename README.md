@@ -29,7 +29,12 @@
 -->
 
 
+
+
+
 ## INSTRUCTIONS FOR STARTING THE JAR, PLEASE FOLLOW ONE OF THESE:
+
+
 
 ## double click on the icon to start the GUI (default- no args)
 ## java -jar "path" --Server to start the Server
