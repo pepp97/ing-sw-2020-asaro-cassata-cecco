@@ -33,6 +33,7 @@ public class LevelFilterTest {
         game.setTargetInUse(w2);
         levelFilter.use(game);
         assertEquals(list, g.getCantDo());
+        levelFilter.isInterationNeeded();
 
     }
 

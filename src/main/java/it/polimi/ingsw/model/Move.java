@@ -49,8 +49,7 @@ public class Move implements SubAction {
         game.getController().setGoOn(false);
         int i = 0;
 
-        while (game.getTargetSelected() == null)
-            i++;
+
 
         Worker worker = (Worker) game.getTargetInUse();
         if (worker.getCanBeMoved()) {

@@ -85,6 +85,7 @@ public class BuildTest {
         game.setTargetInUse(w1);
         assertTrue(build.isUsable(game));
         //System.out.println(build.getAvailableSquare());
+        build.isInterationNeeded();
     }
 
     @Test

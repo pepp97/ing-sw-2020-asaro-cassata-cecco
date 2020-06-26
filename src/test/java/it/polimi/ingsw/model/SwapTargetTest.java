@@ -34,5 +34,6 @@ public class SwapTargetTest {
         swapTarget.use(game);
         assertEquals(b, game.getTargetInUse());
         assertEquals(a, game.getTargetSelected());
+        swapTarget.isInterationNeeded();
     }
 }

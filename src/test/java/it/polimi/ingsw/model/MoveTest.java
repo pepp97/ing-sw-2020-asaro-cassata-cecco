@@ -91,6 +91,7 @@ public class MoveTest {
         assertEquals(prova + 1, w1.getHistoryPos().size());
         assertFalse(squares[1][1].getWorker() == w1);
         assertTrue(squares[0][0].getWorker() == w1);
+        move.isInterationNeeded();
     }
 
 

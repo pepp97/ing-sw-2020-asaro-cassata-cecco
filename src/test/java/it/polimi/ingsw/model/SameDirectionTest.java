@@ -67,6 +67,7 @@ public class SameDirectionTest {
         moveInSameDirection.isUsable(game);
         moveInSameDirection.use(game);
         assertTrue(squares[4][0].getWorker()==w2);
+        moveInSameDirection.isInterationNeeded();
     }
 
     @Test

@@ -76,6 +76,7 @@ public class ChangePositionTest {
     void usabilityCPTest_correct(){
         game.setTargetInUse(w1);
         assertTrue(changePosition.isUsable(game));
+        changePosition.isInterationNeeded();
         //System.out.println(move.getAvailableSquare());
     }
 
