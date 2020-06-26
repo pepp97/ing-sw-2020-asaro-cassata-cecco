@@ -27,3 +27,10 @@
 [![YELLOW](https://placehold.it/15/ffdd00/ffdd00)](#)
 [![GREEN](https://placehold.it/15/44bb44/44bb44)](#)
 -->
+
+
+## INSTRUCTIONS FOR STARTING THE JAR, PLEASE FOLLOW ONE OF THESE:
+
+## double click on the icon to start the GUI (default- no args)
+## java -jar "path" --Server to start the Server
+## java -jar "path" --Client to start the GUI
