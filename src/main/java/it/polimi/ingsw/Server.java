@@ -14,7 +14,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 /**
- * it is the class that handle the server settings
+ * it is the class that handles the server settings
  */
 
 public class Server {
