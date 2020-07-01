@@ -69,6 +69,7 @@ public class TheyDontMoveUpTest {
         theyDontMoveUp.isUsable(game);
         theyDontMoveUp.use(game);
         assertFalse(w2.getCanMoveUp());
+        theyDontMoveUp.isInterationNeeded();
     }
 
     @Test

@@ -89,6 +89,7 @@ public class CheckVictoryTest {
         move.use(game);
         checkVictory.use(game);
         assertEquals(p1, game.getWinner());
+        checkVictory.isInterationNeeded();
     }
 
     @Test

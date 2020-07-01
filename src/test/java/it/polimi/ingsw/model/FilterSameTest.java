@@ -71,6 +71,7 @@ public class FilterSameTest {
         build.isUsable(game);
         build.use(game);
         assertTrue(level+2==squares[1][1].getLevel());
+        filterSame.isInterationNeeded();
     }
 
 

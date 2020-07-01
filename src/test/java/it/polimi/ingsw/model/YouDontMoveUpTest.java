@@ -63,6 +63,7 @@ public class YouDontMoveUpTest {
         youDontMoveUp.isUsable(game);
         youDontMoveUp.use(game);
         assertFalse(w1.getCanMoveUp());
+        youDontMoveUp.isInterationNeeded();
     }
 
 }
