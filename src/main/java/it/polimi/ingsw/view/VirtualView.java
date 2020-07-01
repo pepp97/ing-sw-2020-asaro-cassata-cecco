@@ -161,7 +161,6 @@ public class VirtualView extends Thread implements View {
             if ((in.hasNext())) {
                 s = in.nextLine();
                 receive(s);
-                System.out.println("Ricevuto: " + s);
             }
         }
         if (controller.getGame().isEnd())
