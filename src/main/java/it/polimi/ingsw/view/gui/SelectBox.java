@@ -14,7 +14,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-
+/**
+ * This window allows users to select own answer
+ *
+ */
 public class SelectBox {
     private boolean answer;
     private Stage stage;

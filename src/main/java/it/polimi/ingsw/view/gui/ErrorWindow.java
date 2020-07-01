@@ -10,7 +10,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+/**
+ * this window notifies players of an error in the game
+ */
 public class ErrorWindow{
 
     private Stage stage;

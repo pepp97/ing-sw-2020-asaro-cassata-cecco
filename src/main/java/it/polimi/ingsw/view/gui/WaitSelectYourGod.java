@@ -17,6 +17,9 @@ import javafx.stage.StageStyle;
 
 import java.util.List;
 
+/**
+ * this window is a waiting room for players who are not in the game while another one selects his god
+ */
 public class WaitSelectYourGod implements GuiScreen {
     private Gui gui;
     private WaitYourGodEvent event;
@@ -111,6 +114,11 @@ public class WaitSelectYourGod implements GuiScreen {
         gui.getPrimaryStage().setTitle("choose gods");
     }
 
+    /**
+     * this pop-up shows the effect of the selected god
+     * @param s name of the god
+     * @param s1 description of the effect
+     */
     private void display(String s, String s1) {
         Stage stage;
         Scene scene;

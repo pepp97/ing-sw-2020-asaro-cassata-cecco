@@ -22,7 +22,9 @@ import javafx.stage.StageStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
+/**
+ * This windows allows first user to select the starter gods
+ */
 public class SelectGodsWindow implements GuiScreen {
     private Gui gui;
     private StartGameEvent startGameEvent;
@@ -214,6 +216,11 @@ public class SelectGodsWindow implements GuiScreen {
 
     }
 
+    /**
+     * This pop-uup shows the selected gods
+     * @param selected gods
+     * @return boolean to determine if the command was sent
+     */
     private boolean displaySelected(List<String> selected) {
 
         k = 1;

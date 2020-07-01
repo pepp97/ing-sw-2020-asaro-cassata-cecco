@@ -22,13 +22,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * This windows allows the first logged user to decide which player can play as first one
+ */
 public class StartMatchWindow implements GuiScreen {
     private Gui gui;
     private SetWorkerEvent event;
     private Hyperlink[][] buttons;
     private StackPane[][] stacks;
     private Command command;
-    private final static int size=5;
+    private final static int size = 5;
 
     public StartMatchWindow(Gui gui, SetWorkerEvent event) {
         this.gui = gui;
@@ -38,8 +41,8 @@ public class StartMatchWindow implements GuiScreen {
     @Override
     public void setScene() {
         SquareToJson[][] squares = event.getMap();
-        stacks=new StackPane[size][size];
-        buttons=new Hyperlink[size][size];
+        stacks = new StackPane[size][size];
+        buttons = new Hyperlink[size][size];
         int i;
         int j;
         BorderPane pane = new BorderPane();
@@ -159,9 +162,7 @@ public class StartMatchWindow implements GuiScreen {
         buttons[4][4] = button44;
 
 
-
-
-        Image sfondo = new Image("SantoriniBoard.png", gui.getWidthScreen()+100, gui.getHeightScreen(), true, true); //modificare percorso.
+        Image sfondo = new Image("SantoriniBoard.png", gui.getWidthScreen() + 100, gui.getHeightScreen(), true, true); //modificare percorso.
         ImageView imageView = new ImageView();
         imageView.setImage(sfondo);
         Background image = new Background(new BackgroundImage(sfondo, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT));
@@ -169,26 +170,24 @@ public class StartMatchWindow implements GuiScreen {
         pane.setBackground(image);
 
 
-
         StackPane bottom = new StackPane();
-        GridPane bPane= new GridPane();
+        GridPane bPane = new GridPane();
 
         ColumnConstraints cb1 = new ColumnConstraints();
         ColumnConstraints cb2 = new ColumnConstraints();
         cb1.setHalignment(HPos.CENTER);
         cb2.setHalignment(HPos.CENTER);
-        bPane.getColumnConstraints().addAll(cb1,cb2);
+        bPane.getColumnConstraints().addAll(cb1, cb2);
         bPane.setStyle("-fx-alignment: center;");
 
         Button showGods = new Button("Show player Gods");
         String style = "-fx-alignment: center; -fx-text-fill: #ffffff;" + "-fx-background-color: #000000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         showGods.setStyle(style);
-        bPane.add(showGods,0,0);
-
+        bPane.add(showGods, 0, 0);
 
 
         bottom.getChildren().add(bPane);
-        bottom.setAlignment(bPane,Pos.CENTER);
+        bottom.setAlignment(bPane, Pos.CENTER);
 
 
         pane.setBottom(bottom);
@@ -419,7 +418,6 @@ public class StartMatchWindow implements GuiScreen {
             }
 
 
-
         for (SquareToJson square : event.getAvailableSquares()) {
             buttons[square.getCordinataX()][square.getCordinataY()].setVisible(true);
             // cambio il colore dei bottoni ok
@@ -436,25 +434,37 @@ public class StartMatchWindow implements GuiScreen {
         gui.getPrimaryStage().setTitle("StartMatchWindow");
     }
 
-
-
-
-    private int scalingX(int x){
-        int a=0;
-        double width=gui.getWidthScreen();
-        double first=2560.0+50;
-        a= (int) ((int)(x*width)/first);
+    /**
+     * this method is used to calculate the right proportions of the window's elements
+     * @param x width
+     * @return right width
+     */
+    private int scalingX(int x) {
+        int a = 0;
+        double width = gui.getWidthScreen();
+        double first = 2560.0 + 50;
+        a = (int) ((int) (x * width) / first);
         return a;
     }
 
-    private int scalingY(int x){
-        int a=0;
-        double first=1400.0;
-        double high=gui.getHeightScreen();
-        a= (int) ((int)(x*high)/first);
+    /**
+     * this method is used to calculate the right proportions of the window's elements
+     * @param y high
+     * @return right high
+     */
+    private int scalingY(int y) {
+        int a = 0;
+        double first = 1400.0;
+        double high = gui.getHeightScreen();
+        a = (int) ((int) (y * high) / first);
         return a;
     }
 
+    /**
+     * this method returns the image of the pawn corresponding to the color sought
+     * @param c name of the color
+     * @return path of the image
+     */
     private String checkColor(String c) {
         String path = "";
         if (c.equals("BLACK")) {
@@ -467,6 +477,9 @@ public class StartMatchWindow implements GuiScreen {
         return path;
     }
 
+    /**
+     * this pop-up shows the gods in the game
+     */
     private void display() {
         BorderPane pane = new BorderPane();
         pane.setStyle("-fx-alignment: center");
@@ -544,7 +557,5 @@ public class StartMatchWindow implements GuiScreen {
         stage.setScene(scene);
         stage.showAndWait();
     }
-
-
 
 }

@@ -13,6 +13,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * this scene is a popup asking the user if he wants to use his god's effect
+ */
 public class AskUserWindow {
     private Stage stage;
     private Gui gui;

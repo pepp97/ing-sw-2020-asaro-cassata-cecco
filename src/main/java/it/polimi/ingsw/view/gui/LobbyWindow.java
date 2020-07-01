@@ -13,6 +13,9 @@ import javafx.scene.text.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this window puts players already logged in waiting room for the start of the game
+ */
 public class LobbyWindow implements GuiScreen {
     private Gui gui;
     private LoginSuccessful event;
@@ -103,39 +106,3 @@ public class LobbyWindow implements GuiScreen {
     }
 
 }
-
-/*
-Platform.runLater(()->{
-            AnchorPane anchorPane=new AnchorPane();
-            createAnchor(anchorPane);
-
-        });
- */
-
-
-
-/*
-Scene scene=new Scene(anchorPane,gui.getWidthScreen(),gui.getHeightScreen());
-        Label welcome=new Label ("Benvenuto! \n Attendere l'inizio della partita, stanno giocando: ");
-        AnchorPane.setLeftAnchor(welcome, 600.0);
-        AnchorPane.setTopAnchor(welcome, 100.0);
-
-        anchorPane.getChildren().add(0, welcome);
-        HBox hbox=new HBox(50.0);
-        VBox vBox=new VBox(25.0);
-        hbox.getChildren().add(vBox);
-
-        for(String p: event.getNickname()){
-
-            Label newPlayer=new Label(p);
-            vBox.getChildren().add(newPlayer);
-
-
-        }
-
-        AnchorPane.setTopAnchor(hbox, 200.0);
-        AnchorPane.setLeftAnchor(hbox, 550.0);
-        anchorPane.getChildren().add(0, hbox);
-        gui.getPrimaryStage().setScene(scene);
-        gui.getPrimaryStage().setTitle("WaitRoom Window");
- */

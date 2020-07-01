@@ -12,7 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+/**
+ * This windows allows the first logged user to decide how many users can play this game
+ */
 public class SettingsWindow {
 
     private Stage stage;

@@ -14,11 +14,15 @@ import javafx.scene.text.*;
 
 import java.util.ArrayList;
 
+/**
+ * This window allows users to login into the game.
+ * Users must be registered to the game with an unique name and color.
+ */
 public class LoginWindow implements GuiScreen {
     private Gui gui;
 
     public LoginWindow(Gui gui) {
-        this.gui=gui;
+        this.gui = gui;
     }
 
     @Override
@@ -53,7 +57,7 @@ public class LoginWindow implements GuiScreen {
         l2.setMinHeight(120);
         RowConstraints l3 = new RowConstraints();
         RowConstraints l4 = new RowConstraints();
-        structure.getRowConstraints().addAll(l1, l2,l3,l4);
+        structure.getRowConstraints().addAll(l1, l2, l3, l4);
 
         l2.setValignment(VPos.CENTER);
 
@@ -86,14 +90,13 @@ public class LoginWindow implements GuiScreen {
         //bottom.setStyle("-fx-alignment: center");
         bottom.setStyle("-fx-border-color: black; -fx-border-width:3px;");
 
-        StackPane error=new StackPane();
+        StackPane error = new StackPane();
         error.setMaxHeight(40);
         error.setMinHeight(50);
         error.setMaxWidth(260);
         error.setMinWidth(260);
         //structure.setMaxHeight(370);
         //structure.setMaxWidth(100);
-
 
 
         GridPane topGrid = new GridPane();
@@ -128,7 +131,7 @@ public class LoginWindow implements GuiScreen {
 
 
         TextField nameInput = new TextField("");
-        Label istr1=new Label("Nickname:");
+        Label istr1 = new Label("Nickname:");
         istr1.setMinWidth(100);
         istr1.setMaxWidth(100);
         nameInput.setMaxWidth(100);
@@ -138,34 +141,32 @@ public class LoginWindow implements GuiScreen {
         //istr1.setStyle("-fx-alignment: left");
         //istr1.setStyle("-fx-border-color: black");
         istr1.setLabelFor(nameInput);
-        topGrid.add(istr1,0,0);
-        topGrid.add(nameInput,1,0);
+        topGrid.add(istr1, 0, 0);
+        topGrid.add(nameInput, 1, 0);
 
 
-        Label istr2=new Label("Color:");
+        Label istr2 = new Label("Color:");
         istr2.setTextFill(Color.BLACK);
         istr2.setFont(Font.font("Helvetica", FontWeight.BOLD, 18));
         //istr2.setStyle("-fx-alignment: left");
         //istr2.setStyle("-fx-border-color: black");
-        mediumGrid.add(istr2,0,0);
-
+        mediumGrid.add(istr2, 0, 0);
 
 
         ToggleGroup group = new ToggleGroup();
-        RadioButton black= new RadioButton("       ");
+        RadioButton black = new RadioButton("       ");
         black.setToggleGroup(group);
-        RadioButton brown= new RadioButton("       ");
+        RadioButton brown = new RadioButton("       ");
         brown.setToggleGroup(group);
-        RadioButton white= new RadioButton("       ");
+        RadioButton white = new RadioButton("       ");
         white.setToggleGroup(group);
-        ArrayList<RadioButton> Bottoni=new ArrayList<>();
+        ArrayList<RadioButton> Bottoni = new ArrayList<>();
         Bottoni.add(black);
         Bottoni.add(white);
         Bottoni.add(brown);
         black.setId("black");
         white.setId("white");
         brown.setId("brown");
-
 
 
         GridPane colorGrid = new GridPane();
@@ -181,9 +182,9 @@ public class LoginWindow implements GuiScreen {
         r11.setValignment(VPos.TOP);
         r22.setValignment(VPos.CENTER);
         r33.setValignment(VPos.BOTTOM);
-        colorGrid.add(black,0,0);
-        colorGrid.add(white,0,1);
-        colorGrid.add(brown,0,2);
+        colorGrid.add(black, 0, 0);
+        colorGrid.add(white, 0, 1);
+        colorGrid.add(brown, 0, 2);
         black.setStyle("-fx-background-color: Black");
         white.setStyle("-fx-background-color: White");
         brown.setStyle("-fx-background-color: Brown;");
@@ -191,24 +192,24 @@ public class LoginWindow implements GuiScreen {
         colorGrid.setStyle("-fx-alignment:center");
 
 
-        mediumGrid.add(colorGrid,1,0);
+        mediumGrid.add(colorGrid, 1, 0);
 
 
         Button connect = new Button("CONNECT");
         //bottomGrid.add(connect, 1, 0);
-        String style="-fx-text-fill: #ffffff;" +"-fx-background-color: #000000;"+"-fx-font-size: 12pt;"+"-fx-font-weight: bold;"+"-fx-border-radius: 20;"+"-fx-background-radius: 20;";
+        String style = "-fx-text-fill: #ffffff;" + "-fx-background-color: #000000;" + "-fx-font-size: 12pt;" + "-fx-font-weight: bold;" + "-fx-border-radius: 20;" + "-fx-background-radius: 20;";
         connect.setStyle(style);
 
 
         connect.setOnAction(f -> {
             String color = null;
-            if(!nameInput.getText().equals("")) {
+            if (!nameInput.getText().equals("")) {
                 for (RadioButton button : Bottoni)
                     if (button.isSelected()) {
                         color = button.getId();
 
                         try {
-                            LoginCommand command= new LoginCommand(nameInput.getText(), it.polimi.ingsw.model.Color.valueOf(color.toUpperCase()));
+                            LoginCommand command = new LoginCommand(nameInput.getText(), it.polimi.ingsw.model.Color.valueOf(color.toUpperCase()));
                             gui.getClient().send(command);
                             gui.startMytimer();
                         } catch (Exception e) {
@@ -217,10 +218,10 @@ public class LoginWindow implements GuiScreen {
                     }
                 if (color == null) {
                     Label tryAgain = new Label("Seleziona un colore!");
-                    String styleError="-fx-font-size: 14pt;" + "-fx-font-family: \"Segoe UI Semibold\";" + "-fx-text-fill: red;"+"-fx-opacity: 1;";
+                    String styleError = "-fx-font-size: 14pt;" + "-fx-font-family: \"Segoe UI Semibold\";" + "-fx-text-fill: red;" + "-fx-opacity: 1;";
                     tryAgain.setStyle(styleError);
                     error.getChildren().add(tryAgain);
-                    error.setAlignment(tryAgain,Pos.CENTER);
+                    error.setAlignment(tryAgain, Pos.CENTER);
                 }
             }
         });
@@ -243,17 +244,15 @@ public class LoginWindow implements GuiScreen {
         bottom.setAlignment(Pos.CENTER);
 
 
-
-        structure.add(top,0,0);
-        structure.add(medium,0,1);
-        structure.add(bottom,0,2);
-        structure.add(error,0,3);
+        structure.add(top, 0, 0);
+        structure.add(medium, 0, 1);
+        structure.add(bottom, 0, 2);
+        structure.add(error, 0, 3);
         structure.setStyle("-fx-alignment: center");
 
         center.getChildren().add(structure);
         center.setAlignment(structure, Pos.CENTER);
         center.setStyle("-fx-border-color: black; -fx-border-width:15px;");
-
 
 
         pane.setCenter(center);
@@ -264,82 +263,3 @@ public class LoginWindow implements GuiScreen {
         gui.getPrimaryStage().setTitle("Login Window");
     }
 }
-
-/*
-ArrayList<RadioButton> Bottoni=new ArrayList<>();
-
-        GridPane form = new GridPane();
-        form.setAlignment(Pos.CENTER);
-
-        Scene scene=new Scene(form,gui.getWidthScreen(),gui.getHeightScreen());
-        Image intro = new Image("SantoriniIntro.jpg", gui.getWidthScreen(),gui.getHeightScreen(),true, true); //modificare percorso.
-
-        //Image intro = new Image("SantoriniIntro.jpg");
-        ImageView imageView = new ImageView();
-        imageView.setImage(intro);
-        imageView.setFitHeight(gui.getHeightScreen());
-        imageView.setFitWidth(gui.getWidthScreen());
-        BackgroundImage backgroundImage = new BackgroundImage(intro, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        form.setBackground(new Background(backgroundImage));
-        TextField nameInput = new TextField("");
-        Label nameLabel=new Label("scegliere il nickname: ");
-        nameLabel.setTextFill(javafx.scene.paint.Color.RED);
-        nameLabel.setFont(new Font(25.00));
-        nameLabel.setLabelFor(nameInput);
-        form.addRow(1,nameLabel,nameInput);
-
-        Button connect = new Button("Connect");
-        //   WaitRoom room=new WaitRoom(stage);
-        ToggleGroup group = new ToggleGroup();
-        RadioButton black= new RadioButton("       ");
-        black.setToggleGroup(group);
-        RadioButton brown= new RadioButton("       ");
-        brown.setToggleGroup(group);
-        RadioButton white= new RadioButton("       ");
-        white.setToggleGroup(group);
-
-
-        Bottoni.add(black);
-
-        Bottoni.add(white);
-
-        Bottoni.add(brown);
-        black.setId("black");
-        white.setId("white");
-        brown.setId("brown");
-
-        form.add(black,6,10);
-        form.add(brown,2,10);
-        form.add(white,3,10);
-        black.setStyle("-fx-background-color: White");
-        white.setStyle("-fx-background-color: Black");
-        brown.setStyle("-fx-background-color: Brown");
-
-        connect.setOnAction(f -> {
-            String color = null;
-            if(!nameInput.getText().equals("")) {
-                for (RadioButton button : Bottoni)
-                    if (button.isSelected()) {
-                        color = button.getId();
-
-                        try {
-                            LoginCommand command= new LoginCommand(nameInput.getText(), Color.valueOf(color.toUpperCase()));
-                            gui.getClient().send(command);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                if (color == null) {
-                    Label tryAgain = new Label("Seleziona un colore!");
-                    form.add(tryAgain, 1, 0);
-                }
-            }
-        });
-
-        form.addRow(5,connect);
-        gui.getPrimaryStage().setScene(scene);
-        gui.getPrimaryStage().setTitle("Login Window");
-
-
-        //   return scene;
- */

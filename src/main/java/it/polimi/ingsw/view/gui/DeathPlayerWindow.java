@@ -12,6 +12,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * this window notifies the player who has lost
+ */
 public class DeathPlayerWindow implements GuiScreen{
     private Stage stage;
     private Gui gui;

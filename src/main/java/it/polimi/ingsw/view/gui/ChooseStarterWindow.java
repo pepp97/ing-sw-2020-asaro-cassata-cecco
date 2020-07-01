@@ -14,6 +14,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 
+/**
+ * this scene is a window where the first player is asked who should start playing
+ */
 public class ChooseStarterWindow implements GuiScreen {
     private Gui gui;
     private StartMatchEvent event;
@@ -144,84 +147,3 @@ public class ChooseStarterWindow implements GuiScreen {
 
 
 }
-
-/*
-        GridPane form = new GridPane();
-        //form.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(form, gui.getWidthScreen(), gui.getHeightScreen());
-        Text confirmMessage = new Text();
-        confirmMessage.setText("Who will start the match?");
-
-
-        RowConstraints r1 = new RowConstraints();
-        RowConstraints r2 = new RowConstraints();
-        RowConstraints r3 = new RowConstraints();
-        RowConstraints r4 = new RowConstraints();
-        RowConstraints r5 = new RowConstraints();
-
-        ColumnConstraints c1 = new ColumnConstraints();
-        ColumnConstraints c2 = new ColumnConstraints();
-        ColumnConstraints c3 = new ColumnConstraints();
-        ColumnConstraints c4 = new ColumnConstraints();
-        ColumnConstraints c5 = new ColumnConstraints();
-        ColumnConstraints c6 = new ColumnConstraints();
-        ColumnConstraints c7 = new ColumnConstraints();
-
-
-        r1.setPercentHeight(10);
-        r2.setPercentHeight(35);
-        r3.setPercentHeight(10);
-        r4.setPercentHeight(20);
-        r5.setPercentHeight(25);
-
-        c1.setPercentWidth(15);
-        c2.setPercentWidth(17.0);
-        c3.setPercentWidth(10);
-        c4.setPercentWidth(17.0);
-        c5.setPercentWidth(10);
-        c6.setPercentWidth(17.0);
-        c7.setPercentWidth(14);
-
-        form.getRowConstraints().addAll(r1, r2, r3, r4, r5);
-        form.getColumnConstraints().addAll(c1, c2, c3, c4, c5, c6, c7);
-
-
-        // form.setGridLinesVisible(true); questa no
-
-        // mettere il for
-        form.add(confirmMessage, 4, 0);
-
-
-        Button b0 = new Button(gui.getNicknames().get(0));
-        Button b1 = new Button(gui.getNicknames().get(1));
-
-
-        int i = 1;
-        int j = 1;
-
-        for (String s : gui.getGods()) {
-            Image image = new Image(s + ".jpg");
-            ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(240.0);
-            imageView.setFitWidth(180.0);
-            form.add(imageView, i, j, 1, 1);
-            i = i + 2;
-        }
-
-
-        b0.setOnAction(f -> {
-            StarterCommand starterCommand = new StarterCommand(b0.getId());
-            gui.getClient().send(starterCommand);
-        });
-        form.add(b0, 1, 3);
-
-        b1.setOnAction(f -> {
-            StarterCommand starterCommand = new StarterCommand(b1.getId());
-            gui.getClient().send(starterCommand);
-        });
-        form.add(b1, 3, 3);
-
-
-        gui.getPrimaryStage().setScene(scene);
-        gui.getPrimaryStage().setTitle("choose starter");
- */

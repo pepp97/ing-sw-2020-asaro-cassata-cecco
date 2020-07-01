@@ -19,7 +19,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.util.List;
-
+/**
+ * This window allows players to select the own god
+ */
 public class SelectYourGod implements GuiScreen {
     private Gui gui;
     private ChooseYourGodEvent event;
@@ -116,6 +118,11 @@ public class SelectYourGod implements GuiScreen {
         gui.getPrimaryStage().setTitle("choose gods");
     }
 
+    /**
+     * this pop-up displays the selected god
+     * @param s name of the god
+     * @param s1 description of the effect
+     */
     private void display(String s, String s1) {
         Stage stage;
         Scene scene;

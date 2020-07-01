@@ -12,6 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+/**
+ * this window notifies the player who has won
+ */
 public class EndGameWindow implements GuiScreen {
 
     private Gui gui;

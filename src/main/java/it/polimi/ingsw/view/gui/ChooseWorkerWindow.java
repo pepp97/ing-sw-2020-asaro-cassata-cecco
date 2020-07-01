@@ -20,6 +20,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * this window allows the player to choose which worker to play with
+ */
 public class ChooseWorkerWindow implements GuiScreen {
     private Gui gui;
     private ChooseWorker event;
@@ -501,6 +504,11 @@ public class ChooseWorkerWindow implements GuiScreen {
 
     }
 
+    /**
+     * this method is used to calculate the right proportions of the window's elements
+     * @param x width
+     * @return right width
+     */
     private int scalingX(int x){
         int a=0;
         double width=gui.getWidthScreen();
@@ -509,16 +517,26 @@ public class ChooseWorkerWindow implements GuiScreen {
         return a;
     }
 
-    private int scalingY(int x){
+
+    /**
+     * this method is used to calculate the right proportions of the window's elements
+     * @param y high
+     * @return right high
+     */
+    private int scalingY(int y){
         int a=0;
         double first=1400.0;
         double high=gui.getHeightScreen();
-        a= (int) ((int)(x*high)/first);
+        a= (int) ((int)(y*high)/first);
         return a;
     }
 
 
-
+    /**
+     * this method returns the image of the pawn corresponding to the color sought
+     * @param c name of the color
+     * @return path of the image
+     */
     private String checkColor(String c){
         String path="";
         if(c.equals("BLACK")){
@@ -531,6 +549,9 @@ public class ChooseWorkerWindow implements GuiScreen {
         return path;
     }
 
+    /**
+     * this pop-up display the gods in the game
+     */
     private void display() {
         Stage stage;
         stage = new Stage(StageStyle.UTILITY);
