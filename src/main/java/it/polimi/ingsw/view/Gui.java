@@ -310,6 +310,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(StartMatchEvent startMatchEvent) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
 
             for (Map.Entry iterator : startMatchEvent.getGodPlayer().entrySet()) {
@@ -324,6 +326,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(ExceptionEvent exceptionEvent) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             error = new ErrorWindow(this, exceptionEvent);
             error.displayMessage(primaryStage);
@@ -332,6 +336,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(SettingsEvent settingsEvent) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             settings = new SettingsWindow(this);
             settings.displayMessage(primaryStage);
@@ -340,6 +346,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(StartGameEvent startGameEvent) {
+        startMytimer();
+        signal=true;
         System.out.println("STARTGAME PROVA!");
         Platform.runLater(() -> {
             this.state = new SelectGodsWindow(this, startGameEvent);
@@ -349,6 +357,8 @@ public class Gui extends Application implements View {
 
 
     public void update(ChooseYourGodEvent event) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             this.state = new SelectYourGod(this, event);
             state.setScene();
@@ -356,6 +366,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(UpdateEvent event) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             this.state = new GameWindow(this, event);
             state.setScene();
@@ -363,6 +375,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(askUser ask) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             askUs = new AskUserWindow(this);
             askUs.displayMessage(primaryStage);
@@ -372,6 +386,7 @@ public class Gui extends Application implements View {
 
     public void update(DeathPlayer deathPlayer) {
         killtimer();
+        signal=true;
         Platform.runLater(() -> {
             this.state = new DeathPlayerWindow(this, deathPlayer);
             state.setScene();
@@ -392,6 +407,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(ChooseTarget event) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             this.state = new ChooseTargetWindow(this, event);
             state.setScene();
@@ -399,6 +416,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(SetWorkerEvent event) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             this.state = new StartMatchWindow(this, event);
             state.setScene();
@@ -406,6 +425,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(ChooseWorker event) {
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             this.state = new ChooseWorkerWindow(this, event);
             state.setScene();
@@ -422,6 +443,8 @@ public class Gui extends Application implements View {
     }
 
     public void update(WaitYourGodEvent event){
+        startMytimer();
+        signal=true;
         Platform.runLater(() -> {
             this.state = new WaitSelectYourGod(this, event);
             state.setScene();
