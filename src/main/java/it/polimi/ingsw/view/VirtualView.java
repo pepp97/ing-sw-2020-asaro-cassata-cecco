@@ -49,11 +49,6 @@ public class VirtualView extends Thread implements View {
      */
     private boolean stop = false;
 
-    /**
-     * defensive string
-     */
-    private String checkString = "defense";
-
 
     public boolean isPing() {
         return ping;
@@ -117,17 +112,13 @@ public class VirtualView extends Thread implements View {
 
     public void receive(String json) {
         System.out.println(json);
-        System.out.println(checkString);
-        if (!json.equals(checkString)) {
-            if(!json.equals("{\"commandName\":\"Ping\"}"))
-                checkString = json;
-            System.out.println(json);
-            ParserCommand b = new ParserCommand();
-            Command command = b.parser(json);
-            command.execute(controller, this);
-        }
-
+        System.out.println(json);
+        ParserCommand b = new ParserCommand();
+        Command command = b.parser(json);
+        command.execute(controller, this);
     }
+
+
 
     @Override
     public Player getOwner() {
