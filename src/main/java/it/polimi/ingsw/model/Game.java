@@ -132,6 +132,7 @@ public class Game implements Observable {
 
     /**
      * default constructor
+     *
      * @param controller is the controller of the match
      */
 
@@ -143,6 +144,7 @@ public class Game implements Observable {
 
     /**
      * this method is used to add a player in the list
+     *
      * @param player it is the player to add
      */
 
@@ -183,6 +185,7 @@ public class Game implements Observable {
 
     /**
      * this method is called when a player lose, to remove it from the list of the player
+     *
      * @param player it is the player to remove
      */
 
@@ -234,11 +237,11 @@ public class Game implements Observable {
 
     /**
      * it is the method called to logged a player
+     *
      * @param nickname it is the nickname choose by the player
-     * @param color it is the color choose by the player
-     * @param view it is the current view of the player
+     * @param color    it is the color choose by the player
+     * @param view     it is the current view of the player
      */
-
 
 
     public synchronized void login(String nickname, Color color, VirtualView view) {
@@ -272,6 +275,7 @@ public class Game implements Observable {
 
     /**
      * it is a check if the game is started
+     *
      * @return true if the game is started false otherwise
      */
 
@@ -284,9 +288,10 @@ public class Game implements Observable {
 
     /**
      * this method handle the player login
+     *
      * @param nickname it is the nickname choose by the player
-     * @param color it is the color choose by the player
-     * @param view it is the current view of the player
+     * @param color    it is the color choose by the player
+     * @param view     it is the current view of the player
      */
 
     private void playerLogin(String nickname, Color color, VirtualView view) {
@@ -306,6 +311,7 @@ public class Game implements Observable {
 
     /**
      * this method is used to complete the login of the player
+     *
      * @param playerList it's the player to add to the game
      */
 
@@ -404,6 +410,7 @@ public class Game implements Observable {
 
     /**
      * it checks if the nickname is available
+     *
      * @param nick is the nickname choose by the player
      * @return true if yhe nickname is available, false otherwise
      */
@@ -414,8 +421,10 @@ public class Game implements Observable {
                 return false;
         return true;
     }
+
     /**
      * it checks if the color is available
+     *
      * @param color is the color choose by the player
      * @return true if yhe color is available, false otherwise
      */
@@ -429,8 +438,9 @@ public class Game implements Observable {
 
     /**
      * this method is called when the first player choose the number of player of the game
+     *
      * @param nplayer it is the number of player of the game
-     * @param view is the virtual view of the player that has choose
+     * @param view    is the virtual view of the player that has choose
      */
 
 
@@ -446,6 +456,7 @@ public class Game implements Observable {
 
     /**
      * this method is called to set the gods that players can choose
+     *
      * @param god is the list of gods
      */
 
@@ -470,8 +481,9 @@ public class Game implements Observable {
 
     /**
      * this method is called to set the god corresponding at the current player
+     *
      * @param godname is the name of the god choose
-     * @param view is the virtual view of the player that have choose
+     * @param view    is the virtual view of the player that have choose
      */
 
     public synchronized void setPlayerGod(String godname, VirtualView view) {
@@ -570,9 +582,10 @@ public class Game implements Observable {
 
     /**
      * this method is called to set the initial position of the worker
+     *
      * @param coordinateX is the coordinate x of position choose
      * @param coordinateY is the coordinate y of position choose
-     * @param view is the virtual view of the current player
+     * @param view        is the virtual view of the current player
      */
 
     public void setInitialPosition(int coordinateX, int coordinateY, VirtualView view) {
@@ -605,6 +618,7 @@ public class Game implements Observable {
 
     /**
      * this method is called to generate an array used to communicate with the views of the players
+     *
      * @return the array that represents the field
      */
 
@@ -627,7 +641,6 @@ public class Game implements Observable {
 
 
     public void endGame() {
-
         while (observers.size() > 0) {
             currentView = (VirtualView) observers.get(0);
             LogoutSuccessful logoutSuccessful = new LogoutSuccessful();
