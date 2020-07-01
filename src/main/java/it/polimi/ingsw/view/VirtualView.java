@@ -49,6 +49,12 @@ public class VirtualView extends Thread implements View {
      */
     private boolean stop = false;
 
+    /**
+     * defensive string
+     */
+    private String checkString = "defense";
+
+
     public boolean isPing() {
         return ping;
     }
@@ -59,7 +65,8 @@ public class VirtualView extends Thread implements View {
 
     /**
      * Default constructor
-     * @param socket the channel of cummunication between client and server
+     *
+     * @param socket     the channel of cummunication between client and server
      * @param controller the main controller that manage the game
      */
 
@@ -88,6 +95,7 @@ public class VirtualView extends Thread implements View {
 
     /**
      * this method is used to receive the event from the server
+     *
      * @param event is the event received
      */
 
@@ -103,14 +111,22 @@ public class VirtualView extends Thread implements View {
 
     /**
      * this method is used to receive the json string from the server
+     *
      * @param json is the json string that must be converted in the corresponding command
      */
 
     public void receive(String json) {
         System.out.println(json);
-        ParserCommand b = new ParserCommand();
-        Command command = b.parser(json);
-        command.execute(controller, this);
+        System.out.println(checkString);
+        if (!json.equals(checkString)) {
+            if(!json.equals("{\"commandName\":\"Ping\"}"))
+                checkString = json;
+            System.out.println(json);
+            ParserCommand b = new ParserCommand();
+            Command command = b.parser(json);
+            command.execute(controller, this);
+        }
+
     }
 
     @Override
@@ -120,6 +136,7 @@ public class VirtualView extends Thread implements View {
 
     /**
      * this method is called when the communication channel have to be closed
+     *
      * @throws IOException
      */
 
@@ -139,7 +156,6 @@ public class VirtualView extends Thread implements View {
 
     @Override
     public void run() {
-
         while (!stop) {
             String s = null;
             if ((in.hasNext())) {
