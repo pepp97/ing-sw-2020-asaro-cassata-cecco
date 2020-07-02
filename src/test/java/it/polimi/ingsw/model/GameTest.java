@@ -24,6 +24,7 @@ public class GameTest {
     void setup() {
         c = new Controller();
         g = new Game(c);
+        g.setMaxRetries(1000);
         v = new VirtualView();
         p1 = new Player("Rick", Color.BLACK);
         p2 = new Player("Salvo", Color.WHITE);

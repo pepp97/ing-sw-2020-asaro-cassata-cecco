@@ -84,7 +84,7 @@ public class Game implements Observable {
     /**
      * it is the number of retries to reach the timeout
      */
-    private int maxRetries = 15;
+    private int maxRetries = 10;
     /**
      * it is true if the match have to finish, false otherwise
      */
@@ -558,23 +558,6 @@ public class Game implements Observable {
 
     }
 
-    /*
-    List<String> passEffect = new ArrayList<>(effects);
-        for (int i = 0; i < passGod.size(); i++) {
-            String s = passGod.get(i);
-            String e = passEffect.get(i);
-            if (selected.size() != 0) {
-                for (String sel : selected) {
-                    if (sel.equals(s)) {
-                        passGod.remove(s);
-                        passEffect.remove(e);
-                    }
-                }
-            }
-        }
-        return passEffect;
-     */
-
 
     public Controller getController() {
         return controller;
@@ -683,5 +666,9 @@ public class Game implements Observable {
 
     public void setEnd(boolean b) {
         end = b;
+    }
+
+    public void setMaxRetries(int maxRetries) {
+        this.maxRetries = maxRetries;
     }
 }

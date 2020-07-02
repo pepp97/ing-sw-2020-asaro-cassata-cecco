@@ -28,6 +28,7 @@ public class FilterSameTest {
     void setUp() {
         Controller controller = new Controller();
         game = controller.getGame();
+        game.setMaxRetries(1000);
         field = game.getField();
         squares = field.getSquares();
         List <EffectRoutine> list=new ArrayList<>();

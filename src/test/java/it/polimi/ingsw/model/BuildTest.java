@@ -58,6 +58,7 @@ public class BuildTest {
         squares[0][0].setWorker(w3);
         squares[1][0].setLevel(1);
         squares[0][1].setLevel(4);
+        game.setMaxRetries(1000);
         game.getController().setState(new DefeatState());
         game.startMytimer();
     }

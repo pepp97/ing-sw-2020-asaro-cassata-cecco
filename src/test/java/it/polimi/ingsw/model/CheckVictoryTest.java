@@ -29,6 +29,7 @@ public class CheckVictoryTest {
 
     @BeforeEach
     void setUp() {
+        game.setMaxRetries(1000);
         Socket socket = new Socket();
         InputStreamReader input = new InputStreamReader(new InputStream() {
             @Override
