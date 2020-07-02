@@ -31,6 +31,11 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ *
+ * 140/5000
+ * this class represents the client part of our application and implements packet management of communication with the server
+ */
 public class Gui extends Application implements View {
     private Stage primaryStage;
     private Client client;
@@ -58,10 +63,18 @@ public class Gui extends Application implements View {
         launch();
     }
 
+    /**
+     * this method is used for adjusting the GUI specifications (height, width)
+     * @return width of the screen
+     */
     public double getWidthScreen() {
         return widthScreen;
     }
 
+    /**
+     * this method is used for adjusting the GUI specifications (height, width)
+     * @return high of the screen
+     */
     public double getHeightScreen() {
         return heightScreen;
     }
@@ -96,6 +109,12 @@ public class Gui extends Application implements View {
         this.nicknames = nicknames;
     }
 
+
+    /**
+     * questo metodo serve per gestire e impostare l'interfaccia grafica iniziale
+     * @param primaryStage most important stage
+     * @throws Exception
+     */
     @Override
     public void start(final Stage primaryStage) throws Exception {
 
@@ -259,6 +278,12 @@ public class Gui extends Application implements View {
 
     }
 
+
+    /**
+     * this method is used to calculate the right proportions of the window's elements
+     * @param x width
+     * @return right width
+     */
     private int scalingX(int x){
         int a=0;
         double width=this.getWidthScreen();
@@ -267,14 +292,22 @@ public class Gui extends Application implements View {
         return a;
     }
 
-    private int scalingY(int x){
+    /**
+     * this method is used to calculate the right proportions of the window's elements
+     * @param y high
+     * @return right high
+     */
+    private int scalingY(int y){
         int a=0;
         double first=1400.0;
         double high=this.getHeightScreen();
-        a= (int) ((int)(x*high)/first);
+        a= (int) ((int)(y*high)/first);
         return a;
     }
 
+    /**
+     * This method is used to close the GUI
+     */
     private void closeApplication() {
 
 
@@ -289,7 +322,14 @@ public class Gui extends Application implements View {
         return primaryStage;
     }
 
-    //show login window
+    /**
+     * This method is used for handling events sent by the server. This method is implemented for each type of event present.
+     * @param event is the event verified
+     */
+    @Override
+    public void update(Event event) {
+
+    }
 
     public void update(ConnectionSuccessful e) {
         Platform.runLater(() -> {
@@ -306,10 +346,7 @@ public class Gui extends Application implements View {
         });
     }
 
-    @Override
-    public void update(Event event) {
 
-    }
 
     public void update(StartMatchEvent startMatchEvent) {
         Platform.runLater(() -> {
@@ -442,6 +479,9 @@ public class Gui extends Application implements View {
         }
     }
 
+    /**
+     * This method is used by the Ping-Pong protocol to understand when there are disconnections.
+     */
     public void startMytimer() {
         Timer timer = new Timer();
         TimeoutCheckerInterface timeoutChecker = (l) -> {
@@ -471,6 +511,9 @@ public class Gui extends Application implements View {
 
     }
 
+    /**
+     * Its function is to stop and reset the timer
+     */
     public void killtimer() {
         kill=true;
     }
