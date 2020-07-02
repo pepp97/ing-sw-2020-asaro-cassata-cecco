@@ -84,7 +84,7 @@ public class Game implements Observable {
     /**
      * it is the number of retries to reach the timeout
      */
-    private int maxRetries = 10;
+    private int maxRetries = 8;
     /**
      * it is true if the match have to finish, false otherwise
      */

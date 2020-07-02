@@ -211,7 +211,6 @@ public class LoginWindow implements GuiScreen {
                         try {
                             LoginCommand command = new LoginCommand(nameInput.getText(), it.polimi.ingsw.model.Color.valueOf(color.toUpperCase()));
                             gui.getClient().send(command);
-                            gui.startMytimer();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
