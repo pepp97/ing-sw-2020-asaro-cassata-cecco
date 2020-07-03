@@ -22,7 +22,7 @@ public class LevelFilterTest {
         list.add(1);
         list.add(2);
         game=new Game (new Controller());
-        game.setMaxRetries(1000);
+        game.setMaxRetries(10000);
         Player p= new Player("john",Color.BLACK);
         game.setCurrentPlayer(p);
         List<EffectRoutine> listt=new ArrayList<>();

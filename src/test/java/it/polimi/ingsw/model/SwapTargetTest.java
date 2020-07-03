@@ -14,7 +14,7 @@ public class SwapTargetTest {
     void setup() {
         Controller controller = new Controller();
         game = controller.getGame();
-        game.setMaxRetries(1000);
+        game.setMaxRetries(10000);
         Player p = new Player("john", Color.BLACK);
         game.setCurrentPlayer(p);
         VirtualView view = new VirtualView();

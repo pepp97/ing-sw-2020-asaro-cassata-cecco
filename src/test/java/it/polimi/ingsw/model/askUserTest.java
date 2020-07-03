@@ -15,7 +15,7 @@ public class askUserTest {
 
     @Test
     void test(){
-        game.setMaxRetries(1000);
+        game.setMaxRetries(10000);
         game.setCurrentPlayer(p1);
         game.setCurrentView(new VirtualView());
         assertFalse(controller.isGoOn());

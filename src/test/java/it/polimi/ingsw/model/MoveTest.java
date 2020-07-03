@@ -27,7 +27,7 @@ public class MoveTest {
     void setup(){
         Controller controller = new Controller();
         game = controller.getGame();
-        game.setMaxRetries(1000);
+        game.setMaxRetries(10000);
         field = game.getField();
         squares=field.getSquares();
         w1.setC(Color.BLACK);

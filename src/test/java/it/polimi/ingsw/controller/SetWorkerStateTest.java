@@ -84,7 +84,7 @@ public class SetWorkerStateTest {
             }
         }))));
         state = new SetWorkerState();
-        game.setMaxRetries(1000);
+        game.setMaxRetries(10000);
         game.startMytimer();
     }
 

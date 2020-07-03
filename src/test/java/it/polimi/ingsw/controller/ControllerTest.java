@@ -86,7 +86,7 @@ public class ControllerTest {
 
             }
         }))));
-        game.setMaxRetries(1000);
+        game.setMaxRetries(10000);
         game.startMytimer();
     }
 
