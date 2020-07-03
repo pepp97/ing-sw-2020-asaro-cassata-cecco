@@ -103,6 +103,7 @@ public class DefeateStateTest {
 
             }
         }))));
+        game.setMaxRetries(1000);
         game.startMytimer();
     }
 

@@ -110,6 +110,7 @@ public class NotifyVictoryStateTest {
 
             }
         }))));
+        game.setMaxRetries(1000);
         game.startMytimer();
     }
 

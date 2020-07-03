@@ -105,6 +105,7 @@ public class ExecuteRoutineStateTest {
             }
         }))));
         state = new ExecuteRoutineState();
+        game.setMaxRetries(1000);
         game.startMytimer();
     }
 
